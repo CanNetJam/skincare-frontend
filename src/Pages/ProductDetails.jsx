@@ -1,7 +1,6 @@
 import Footer from '../Components/Footer';
-import Product1 from '../Details/Product1';
-import Navbar from '../Components/Navbar';
 import ProductCategories from './ProductCategories';
+import Navbar from '../Components/NavBar'
 
 export default function ProductDetails() {
     return (
