@@ -1,0 +1,474 @@
+import React, {useEffect, useState} from 'react'
+import Navbar from '../Components/NavBar'
+import { PiNumberCircleOneFill, PiNumberCircleTwoFill, PiNumberCircleThreeFill } from "react-icons/pi";
+
+function Skin() {
+  const [opentab, setOpenTab] = useState("Normal")
+
+  return (
+    <div className='bg-fixed bg-[url("./src/assets/8.jpg")] bg-cover bg-no-repeat relative bg-center'>
+      <Navbar/>
+
+      <div className='h-full bg-white grid sm:pt-0 pt-16 justify-center py-4'>
+          <h1 className='font-bold lg:text-4xl text-3xl lg:py-4 py-2 text-center'>Understanding your skin</h1>
+        
+        <div className='min-h-[80vh] h-auto w-full bg-white'>
+        
+        <div className='container mx-auto grid sm:grid-cols-2'>
+          <div className='grid sm:max-h-[80vh] max-h-[50vh] h-full w-full p-8'>
+            <div className='h-full w-full overflow-hidden p-2'>
+              <img className='h-full w-full object-cover' src='https://images.pexels.com/photos/3762871/pexels-photo-3762871.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+            </div>
+          </div>
+
+          <div className='grid max-h-[50vh] h-full w-full p-4'>
+            <div className='h-full w-full p-0'>
+              <p className='text-justify text-lg'>
+                <span className='font-bold text-xl'>Skin</span> is the largest organ in the body and covers the body's entire external surface. It is made up of three layers which vary significantly in their anatomy and function. It serves as a barrier to water, invasion by microorganisms, mechanical and chemical trauma, and damage from UV light.
+              </p>
+            </div>
+            <h1 className='font-bold text-2xl my-2'>Layers of Skin</h1>
+            <div>
+              <div className="grid grid-cols-6 gap-4 py-0">
+                <div className="flex justify-center">
+                  <PiNumberCircleOneFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
+                </div>
+                <div className="col-span-5">
+                  <h1 className="capitalize font-bold text-black text-lg my-0">Epidermis</h1>
+                  <div className="grid grid-cols-4 items-center">
+                    <p className="col-span-4 tinyText inline-block">The word “epidermis” combines the Ancient Greek prefix epi-, which means “outer,” and the Ancient Greek word derma, which means “skin.” So the word translates to “outer skin.”</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div className="grid grid-cols-6 gap-4 py-2">
+                <div className="flex justify-center">
+                  <PiNumberCircleTwoFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
+                </div>
+                <div className="col-span-5">
+                  <h1 className="capitalize font-bold text-black text-lg my-1">Dermis</h1>
+                  <div className="grid grid-cols-4 items-center">
+                    <p className="col-span-4 tinyText inline-block">It houses the sweat glands, hair, hair follicles, muscles, sensory neurons, and blood vessels.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div className="grid grid-cols-6 gap-4 py-2">
+                <div className="flex justify-center">
+                  <PiNumberCircleThreeFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
+                </div>
+                <div className="col-span-5">
+                  <h1 className="capitalize font-bold text-black text-lg my-1">Hypodermis</h1>
+                  <div className="grid grid-cols-4 items-center">
+                    <p className="col-span-4 tinyText inline-block">It is the deepest layer of skin and contains some skin appendages like the hair follicles, sensory neurons, and blood vessels.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div className='min-h-screen h-auto w-full bg-white py-10'>
+        <h1 className='text-black font-bold subHeading py-4 bg-white text-center'>Different Skin Types</h1>
+          <div className='h-[10vh] sticky sm:top-0 top-16 bg-white z-30 w-full grid sm:grid-cols-4 grid-cols-2 sm:gap-2 gap-0 border-b border-black'>
+            <section className={`h-full items-center flex justify-center font-bold sm:text-xl text-md text-center ${opentab==="Normal" ? "bg-blue-400 text-white" : null}`}>
+              <span onClick={()=> setOpenTab("Normal")} className='cursor-pointer sm:hover:text-gray-600 sm:hover:text-2xl'>Normal</span>
+            </section>
+            <section className={`h-full items-center flex justify-center font-bold sm:text-xl text-md text-center ${opentab==="Dry" ? "bg-blue-400 text-white" : null}`}>
+              <span onClick={()=> setOpenTab("Dry")} className='cursor-pointer sm:hover:text-gray-600 sm:hover:text-2xl'>Dry</span>
+            </section>
+            <section className={`h-full items-center flex justify-center font-bold sm:text-xl text-md text-center ${opentab==="Oily" ? "bg-blue-400 text-white" : null}`}>
+              <span onClick={()=> setOpenTab("Oily")} className='cursor-pointer sm:hover:text-gray-600 sm:hover:text-2xl'>Oily</span>
+            </section>
+            <section className={`h-full items-center flex justify-center font-bold sm:text-xl text-md text-center ${opentab==="Combination" ? "bg-blue-400 text-white" : null}`}>
+              <span onClick={()=> setOpenTab("Combination")} className='cursor-pointer sm:hover:text-gray-600 sm:hover:text-2xl'>Combination</span>
+            </section>
+          </div>
+        <div className='container mx-auto h-full w-full sm:px-0 px-4'>
+
+          {opentab==="Normal" &&
+            <>
+              <div id='normal' className='h-full w-full grid sm:grid-cols-2 sm:px-10'>
+                <div className='sm:h-screen h-[30vh] w-full sm:sticky sm:top-0 items-center sm:py-[10vh] py-2 sm:px-10 px-2'>
+                  <img className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/1435823/pexels-photo-1435823.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                </div>
+                <div className='sm:min-h-[100vh] h-auto w-full sm:py-[10vh] py-2 sm:px-10 px-2'>
+                  <h3 className='font-bold sm:text-5xl text-4xl'>What is normal skin?</h3>
+                  <br/>
+                  <p className='smallText text-justify'>‘Normal’ is a term widely used to refer to well-balanced skin. The T-zone (forehead, chin and nose) may be a bit oily, but overall sebum and moisture is balanced and the skin is neither too oily nor too dry.</p>
+                  <br/>
+
+                  <div className='h-auto w-full bg-blue-300 rounded-xl py-2 px-4'>
+                    <h3 className='font-bold text-3xl my-2'>How to identify normal skin?</h3>
+                    <div className='smallText'>Normal skin has:
+                      <ul className='list-disc mx-8 font-semibold'>
+                        <li>Fine pores</li>
+                        <li>Good blood circulation</li>
+                        <li>A velvety, soft, and smooth texture</li>
+                        <li>A fresh, rosy color uniform transparency</li>
+                        <li>No blemishes and is not prone to sensitivity.</li>
+                      </ul>
+                      As a person with normal skin ages, their skin can become dryer.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          }
+
+          {opentab==="Dry" &&
+            <>
+              <div className='h-full w-full grid sm:grid-cols-2 sm:px-10'>
+                <div className='sm:h-screen h-[30vh] w-full sm:sticky sm:top-0 items-center sm:py-[10vh] py-2 sm:px-10 px-2'>
+                  <img className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/7480278/pexels-photo-7480278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                </div>
+                <div className='sm:min-h-[100vh] h-auto w-full sm:py-[10vh] py-2 sm:px-10 px-2'>
+                  <h1 className='font-bold sm:text-5xl text-4xl'>Dry skin</h1>
+                  <br/>
+                  <p className='smallText text-justify'>
+                    Dry skin is caused by a lack of sebum as well as a lack of water in the upper layers of the skin. Be aware of the difference between dry and dehydrated skin to target your specific needs. With dry skin, we want to focus on adding the moisture back in as well repairing the skin barrier which can become compromised meaning moisture is not retained. Skin moisture depends on supply of water in the deeper skin layers and on perspiration.
+                  </p>
+                  <br/>
+
+                  <div className='h-auto w-full bg-blue-300 rounded-xl py-2 px-4'>
+                    <h3 className='font-bold text-3xl my-2'>Dry skin is caused by a lack of:</h3>
+                    <ul className='list-disc mx-8 smallText text-justify'>
+                      <li><b>Natural moisturizing factors (NMFs)</b> - especially urea, amino acids, and lactic acid – that help to bind in water.</li>
+                      <li><b>Epidermal lipids</b> such as ceramides, fatty acids and cholesterol which are needed for a healthy skin barrier function.</li>
+                    </ul>
+                  </div>
+                  <br/>
+
+                  <h3 className='font-bold text-3xl my-4'>Skin is constantly losing water because of:</h3>
+                  <div className='grid sm:grid-cols-2 gap-4 sm:gap-0'>
+                    <div>
+                      <ul className='list-disc mx-8 smallText'>
+                        <li><span className='font-bold text-blue-500'>Perspiration</span>: active water loss from the glands caused by heat, stress, and activity.</li>
+                        <li><span className='font-bold text-blue-500'>Trans-epidermal water loss (TEWL)</span>: the natural, passive way in which skin diffuses about half a liter of water a day from the deeper skin layers.</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <img className='h-full w-full object-cover' src='https://images.pexels.com/photos/9165664/pexels-photo-9165664.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                    </div>
+                  </div>
+                  <br/>
+                
+                <h1 className='subHeading my-4 text-center'>2 dry skin types</h1>
+                <div className='h-auto w-full grid sm:grid-cols-2 gap-2'>
+
+                  <div className='h-auto w-full bg-white rounded-xl p-2'>
+                    <img className='object-cover max-h-[200px] w-full rounded-xl mb-4' src='https://images.pexels.com/photos/4046567/pexels-photo-4046567.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                    <h3 className='text-lg text-blue-500 font-bold'>Dry Skin</h3>
+                    <p className='my-2'>Often feels tight, brittle, and rough and look dull. Skin elasticity is also low.</p>
+                    <ul className='list-disc mx-4 font-semibold'>
+                      <li>Tightness and a rough skin</li>
+                      <li>Feeling often indicates</li>
+                      <li>A dry skin</li>
+                    </ul>
+                  </div>
+
+                  <div className='h-auto w-full bg-white rounded-xl p-2'>
+                    <img className='object-cover max-h-[200px] w-full rounded-xl mb-4' src='https://images.pexels.com/photos/4046564/pexels-photo-4046564.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                    <h3 className='font-bold text-lg text-blue-500'>Very Dry Skin</h3>
+                    <p className='my-2'>Atopic dermatitis, or eczema, is a chronic skin disease that mainly affects children</p>
+                    <ul className='list-disc mx-4 font-semibold'>
+                      <li>Mild scaling or flakiness in patches</li>
+                      <li>A rough and blotchy appearance (sometimes it appears to be prematurely aged)</li>
+                      <li>A feeling of tightness</li>
+                      <li>Possible itchiness</li>
+                      <li>It is also more sensitive to irritation, redness, and the risk of infection.</li>
+                    </ul>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </>
+          }
+
+          {opentab==="Oily" &&
+            <>
+              <div className='h-full w-full grid sm:grid-cols-2 sm:px-10'>
+                <div className='sm:h-screen h-[30vh] w-full sm:sticky sm:top-0 items-center sm:py-[10vh] py-2 sm:px-10 px-2'>
+                  <img className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/7479960/pexels-photo-7479960.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                </div>
+                <div className='sm:min-h-[100vh] h-auto w-full sm:py-[10vh] py-2 sm:px-10 px-2'>
+                  <h1 className='font-bold sm:text-5xl text-4xl'>Oily skin</h1>
+                  <br/>
+                  <p className='smallText text-justify'>Often caused by overproduction of sebum, this skin type can have visible excess oil on the skin and blocked pores which can cause increased breakouts, blemishes, and blackheads.</p>
+                  <br/>
+
+                  <div className='h-[50vh] w-full relative my-20'>
+                    <div className='overflow-hidden rounded-lg bg-cover bg-center bg-[url(https://images.pexels.com/photos/14862083/pexels-photo-14862083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] h-1/2 w-1/2 absolute top-0 -translate-y-1/3 left-0 translate-x-1/4 z-10'></div>
+                    <div className='overflow-hidden rounded-lg bg-cover bg-center bg-[url(https://images.pexels.com/photos/6338374/pexels-photo-6338374.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] h-1/2 w-1/2 absolute top-1/2 -translate-y-1/2 right-0 -translate-x-1/4 z-20'></div>
+                    <div className='overflow-hidden rounded-lg bg-cover bg-center bg-[url(https://images.pexels.com/photos/6476082/pexels-photo-6476082.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] h-1/2 w-1/2 absolute bottom-0 translate-y-1/3 left-0 translate-x-1/4 z-10'></div>
+
+                    <div className='overflow-hidden rounded-lg h-1/2 w-1/3 absolute top-0 -translate-y-1/3 right-0 z-0'>
+                      <div className='h-full w-full flex items-center'>
+                        <p className='italic text-sm font-semibold'>Oily skin can be characterized by enlarged and visible pores.</p>
+                      </div>
+                    </div>
+                    <div className='overflow-hidden rounded-lg h-1/2 w-1/3 absolute top-1/2 -translate-y-1/2 left-0 z-0'>
+                      <div className='h-full w-full flex items-center'>
+                        <p className='italic text-sm text-right font-semibold'>Acne concerns often appear in the T-zone, especially during puberty.</p>
+                      </div>
+                    </div>
+                    <div className='overflow-hidden rounded-lg h-1/2 w-1/3 absolute bottom-0 translate-y-1/3 right-0 z-0'>
+                      <div className='h-full w-full flex items-center'>
+                        <p className='italic text-sm font-semibold'>Oily skin tends to have blemishes.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='h-auto w-full bg-blue-300 rounded-xl py-2 px-4'>
+                    <h3 className='font-bold text-3xl my-2'>Several issues trigger the over production of sebum:</h3>
+                    <ul className='list-disc mx-8 smallText'>
+                      <li>Genetics</li>
+                      <li>Hormonal changes and imbalances</li>
+                      <li>Medication</li>
+                      <li>Stress</li>
+                      <li>Comedogenic cosmetics (make-up products that cause irritation)</li>
+                    </ul>
+                  </div>
+                  <br/>
+
+                  <p className='smallText text-justify'>
+                    Oily skin is prone to comedones (blackheads and whiteheads) and to the varying forms of acne.
+                    <br/><br/>With mild acne, a significant number of comedones appear on the face and frequently on the neck, shoulders, back and chest too. In moderate and severe cases, papules (small bumps with no visible white or black head) and pustules (medium sized bumps with a noticeable white or yellow dot at the center) appear and the skin becomes red and inflamed.
+                  </p>
+                  <br/>
+
+                  <div className='h-auto w-full bg-blue-300 rounded-xl py-2 px-4'>
+                    <h3 className='font-bold text-3xl my-4'>Characteristics of oily skin:</h3>
+                    <ul className='list-disc mx-8 smallText'>
+                      <li>Enlarged, clearly visible pores</li>
+                      <li>A glossy shine</li>
+                      <li>Thicker, pale skin: blood vessels may not be visible</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </>
+          }
+
+          {opentab==="Combination" &&
+            <>
+              <div className='h-full w-full grid sm:grid-cols-2 sm:px-10'>
+                <div className='sm:h-screen h-[30vh] w-full sm:sticky sm:top-0 items-center sm:py-[10vh] py-2 sm:px-10 px-2'>
+                  <img className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/609549/pexels-photo-609549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                </div>
+                <div className='sm:min-h-[100vh] h-auto w-full sm:py-[10vh] py-2 sm:px-10 px-2'>
+                  <h3 className='font-bold sm:text-5xl text-4xl'>Combination Skin</h3>
+                  <br/>
+                  <p className='smallText text-justify'>An oily T-Zone (forehead, nose, and chin) and dryer cheeks indicate the so-called combination skin.</p>
+                  <br/>
+
+                  <div className='h-auto w-full bg-blue-300 rounded-xl py-2 px-4'>
+                    <h3 className='font-bold text-3xl my-2'>Characteristics of combination skin:</h3>
+                    <ul className='list-disc mx-8 smallText'>
+                      <li>An oily T-zone (forehead, chin, and nose)</li>
+                      <li>Enlarged pores in this area perhaps with some impurities</li>
+                      <li>Normal to dry cheeks</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </>
+          }
+
+        </div>
+      </div>
+
+      <div className='min-h-screen h-auto w-full bg-white p-6'>
+        <div className='container mx-auto lg:px-20 px-0'>
+          <div className='lg:h-[50vh] h-[30vh] w-full p-16 rounded-[20px] overflow-hidden items-center bg-cover bg-fixed bg-[url(https://images.pexels.com/photos/3785806/pexels-photo-3785806.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)]'>
+            <p className='font-bold text-blue-400 lg:text-5xl text-4xl text-center drop-shadow-[0_5px_5px_rgba(0,0,0,1)]'>Why is good skin care important?</p>
+          </div>
+        </div>
+
+        <div className='sm:grid-cols-2 grid gap-2 container mx-auto lg:w-[75%] w-full lg:grid-cols-4 lg:-mt-[80px]'>
+          
+          <div className='group sm:h-[50vh] h-[40vh] [perspective:10000px]'>
+            <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white shadow-lg'>
+              <div className='flex justify-center'>
+                <img className='object-center' src='./src/assets/icons/icons8-ok-hand-96.png'></img>
+              </div>
+              <br/>
+              <p className='text-2xl text-center'><b>It helps your skin stay in good condition</b></p>
+              
+              <div className='bg-white absolute inset-0 h-full w-full rounded-xl [transform:rotateY(180deg)] [backface-visibility:hidden]'>
+                <div className='h-full w-full flex items-center justify-center p-8'>
+                  <p className='text-md font-semibold text-center'>You are shedding skin cells throughout the day, so it is important to keep your skin glowing and in good condition. An effective routine can help prevent acne, treat wrinkles, and help keep your skin looking its best.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='group sm:h-[50vh] h-[40vh] [perspective:10000px]'>
+            <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white border shadow-lg'>
+              <div className='flex justify-center'>
+                <img className='object-center' src='./src/assets/icons/icons8-sprout-96.png'></img>
+              </div>
+              <br/>
+              <p className='text-2xl text-center'><b>Your skin will look more youthful</b></p>
+              
+              <div className='bg-white absolute inset-0 h-full w-full rounded-xl [transform:rotateY(180deg)] [backface-visibility:hidden]'>
+                <div className='h-full w-full flex items-center justify-center p-8 '>
+                  <p className='text-md font-semibold text-center'>As you age, your skin’s cells turn over more slowly, make it look duller and less radiant. Using a quality skin care line can help remove dead skin cells so your body will replace them with newer, more youthful cells.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='group sm:h-[50vh] h-[40vh] [perspective:10000px]'>
+            <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white border shadow-lg'>
+              <div className='flex justify-center'>
+                <img className='object-center' src='./src/assets/icons/icons8-cure-96.png'></img>
+              </div>
+              <br/>
+              <p className='text-2xl text-center'><b>Prevention is easier than correction</b></p>
+              
+              <div className='bg-white absolute inset-0 h-full w-full rounded-xl [transform:rotateY(180deg)] [backface-visibility:hidden]'>
+                <div className='h-full w-full flex items-center justify-center p-8'>
+                  <p className='text-md font-semibold text-center'>Preventing skin problems is easier and less costly than trying to fix them in the future.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='group sm:h-[50vh] h-[40vh] [perspective:10000px]'>
+            <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white border shadow-lg'>
+              <div className='flex justify-center'>
+                <img className='object-center' src='./src/assets/icons/icons8-confident-96.png'></img>
+              </div>
+              <br/>
+              <p className='text-2xl text-center'><b>Your self-confidence will get a boost</b></p>
+              
+              <div className='bg-white absolute inset-0 h-full w-full rounded-xl [transform:rotateY(180deg)] [backface-visibility:hidden]'>
+                <div className='h-full w-full flex items-center justify-center p-8'>
+                  <p className='text-md font-semibold text-center'>When your skin looks better, you will feel better about yourself and have more self-confidence.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          </div>
+      </div>
+    </div>
+  )
+}
+
+export default Skin
+
+/*<br/>You are shedding skin cells throughout the day, so it is important to keep your skin glowing and in good condition. An effective routine can help prevent acne, treat wrinkles, and help keep your skin looking its best.
+<br/>As you age, your skin’s cells turn over more slowly, make it look duller and less radiant. Using a quality skin care line can help remove dead skin cells so your body will replace them with newer, more youthful cells.
+<br/>Preventing skin problems is easier -– and less costly – than trying to fix them in the future.
+<br/>When your skin looks better, you will feel better about yourself and have more self-confidence.
+
+        <div className='h-full bg-white grid sm:pt-0 pt-16 justify-center'>
+          <h1 className='font-bold lg:text-6xl text-3xl lg:py-10 py-6 text-center'>Understanding your skin</h1>
+          <div className='min-h-screen h-auto w-full bg-white'>
+        <div className='container mx-auto grid sm:grid-cols-2'>
+          <div className='grid sm:max-h-[100vh] max-h-[50vh] h-full w-full'>
+            <div className='h-full w-full overflow-hidden p-4'>
+              <img className='h-full w-full object-cover' src='https://images.pexels.com/photos/3762871/pexels-photo-3762871.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+            </div>
+            <div className='h-full w-full p-4'>
+              <p className='text-justify smallText'>
+                <span className='font-bold text-xl'>Skin</span> is the largest organ in the body and covers the body's entire external surface. It is made up of three layers, the epidermis, dermis, and the hypodermis, all three of which vary significantly in their anatomy and function. It serves as a barrier to water, invasion by microorganisms, mechanical and chemical trauma, and damage from UV light.
+              </p>
+            </div>
+          </div>
+
+          <div className='grid max-h-[50vh] h-full w-full p-4'>
+            <h1 className='font-bold text-blue-500 text-3xl text-center mb-4'>Layers of Skin</h1>
+            <div>
+              <div className="grid grid-cols-5 gap-4 py-2">
+                <div className="flex justify-center">
+                  <PiNumberCircleOneFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
+                </div>
+                <div className="col-span-4">
+                  <h1 className="capitalize font-bold text-black text-lg my-1">Epidermis</h1>
+                  <div className="grid grid-cols-4 items-center">
+                    <p className="col-span-4 tinyText inline-block">The word “epidermis” combines the Ancient Greek prefix epi-, which means “outer,” and the Ancient Greek word derma, which means “skin.” So the word translates to “outer skin.”</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div className="grid grid-cols-5 gap-4 py-2">
+                <div className="col-span-4">
+                  <h1 className="capitalize font-bold text-black text-lg my-1 text-right">Dermis</h1>
+                  <div className="grid grid-cols-4 items-center">
+                    <p className="col-span-4 tinyText inline-block text-right">The dermis is connected to the epidermis at the level of the basement membrane. It also houses the sweat glands, hair, hair follicles, muscles, sensory neurons, and blood vessels.</p>
+                  </div>
+                </div>
+                <div className="flex justify-center">
+                  <PiNumberCircleTwoFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div className="grid grid-cols-5 gap-4 py-2">
+                <div className="flex justify-center">
+                  <PiNumberCircleThreeFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
+                </div>
+                <div className="col-span-4">
+                  <h1 className="capitalize font-bold text-black text-lg my-1">Hypodermis</h1>
+                  <div className="grid grid-cols-4 items-center">
+                    <p className="col-span-4 tinyText inline-block">The hypodermis is deep to the dermis. It is the deepest layer of skin and contains some skin appendages like the hair follicles, sensory neurons, and blood vessels.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+
+              <div className='min-h-screen h-auto w-full bg-white'>
+        <div className='grid sm:grid-cols-2 lg:px-20 first-letter:px-4'>
+            <div className='skin-p1 lg:p-10 p-4'>
+              <h2 className='font-bold lg:text-4xl text-2xl'>What is Sebum?</h2>
+              <br/>
+              <p className='lg:text-xl text-lg'><b>Sebum</b> - the oil secreted by the sebaceous glands present in the skin. Why do these glands exist and is it possible to control their activity? 
+                <br/>
+                <br/>The sebaceous glands are attached to the hair follicles and release natural oils called sebum. It is composed of fats (cholesterol).</p>
+            </div>
+            <div className='skin_image1 p-10'>
+              <img className='h-full w-full' loading='lazy' src='https://s3-us-west-2.amazonaws.com/courses-images/wp-content/uploads/sites/1223/2017/02/08004822/501_Structure_of_the_skin-1024x803.jpg'></img>
+            </div>
+          </div>
+      </div>
+
+            <div className='sm:max-h-screen min-h-screen h-auto w-full lg:flex grid bg-gray-900 bg-opacity-60 p-10'>
+        <div className='lg:p-10 p-4 border-l-8'>
+          <h1 className='font-bold lg:text-8xl text-4xl text-blue-200'>Why Skincare Routine is important?</h1>
+        </div>
+        <div className='lg:p-10 p-4'>
+          <p className='text-white lg:text-3xl text-2xl'>Skin care routine can help your skin look better now as well as in the future. It will also help you help you avoid skin problems in the future.</p>
+          <div className='p-8 grid justify-center'>
+            <label className='text-white lg:text-4xl text-3xl font-semibold w-full text-center'>Common skin issues:</label>
+            <ul className='text-white text-2xl list-disc mt-4'>
+              <li className='mt-2'>Acne</li>
+              <li className='mt-2'>Ageing</li>
+              <li className='mt-2'>Dark spots</li>
+              <li className='mt-2'>Melasma</li>
+              <li className='mt-2'>Dry skin</li>
+              <li className='mt-2'>Sun burn</li>
+              <li className='mt-2'>Dull Skin etc.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+https://images.pexels.com/photos/7479528/pexels-photo-7479528.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+*/
