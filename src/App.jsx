@@ -1,6 +1,6 @@
 // App.jsx
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home';
 import AboutUs from './Pages/AboutUs';
 import Products from './Pages/Products';
@@ -28,7 +28,7 @@ import Product1 from './Details/Product1';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <HashRouter basename="/">
       <Routes>
 
         <Route path="/" element={<Home />} />
@@ -44,7 +44,6 @@ const App = () => {
         <Route path="/cartdetails" element={<CartDetails />} />
         <Route path="/product-details" element={<ProductDetails />} />
 
-
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/accounts/useraccounts" element={<Users />} />
         <Route path="/accounts/createaccount" element={<AdminCreate />} />
@@ -59,7 +58,7 @@ const App = () => {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
 
   );
 };
