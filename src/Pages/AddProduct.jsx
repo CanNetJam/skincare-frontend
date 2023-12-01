@@ -22,7 +22,7 @@ export default function AddProduct() {
         data.append("shopeelink", links.shopee)
         data.append("tiktoklink", links.tiktok)
         data.append("lazadalink", links.lazada)
-        const res = await axios.post("http://localhost:8000/create-product", data, { headers: { "Content-Type": "application/json" } })
+        const res = await axios.post("https://skincare-backend.onrender.com/create-product", data, { headers: { "Content-Type": "application/json" } })
     }
 
     return (
