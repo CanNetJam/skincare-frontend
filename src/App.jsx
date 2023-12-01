@@ -25,6 +25,7 @@ import Order from './User/Order';
 
 import ProductDetails from './Pages/ProductDetails';
 import Product1 from './Details/Product1';
+import AddProduct from './Pages/AddProduct';
 
 const App = () => {
   return (
@@ -55,6 +56,7 @@ const App = () => {
         <Route path="/user/order" element={<Order />} />
 
         <Route path="/details/multi-brightening-complex-serum" element={<Product1 />} />
+        <Route path="/add-product" element={<AddProduct />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
