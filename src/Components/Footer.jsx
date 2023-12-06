@@ -10,7 +10,6 @@ function Footer() {
           <div
             className="mt-8 grid grid-cols-2 gap-8 lg:mt-0 lg:grid-cols-5 lg:gap-y-16"
           >
-              <Link to="/add-product" className="inline-block px-12 py-3 mt-8 text-sm font-medium text-white transition bg-gray-800 border border-gray-800 rounded hover:shadow hover:bg-gray-900 focus:outline-none focus:ring">Add Product</Link>
             <div className="col-span-2">
               <div>
                 <h2 className="text-3xl font-bold text-gray-100">
@@ -223,6 +222,9 @@ function Footer() {
                 <li>
               </li>
             </ul>
+            <div className='w-full flex justify-center items-center'>
+              <Link to="/add-product" className="inline-block w-[250px] text-center px-12 py-3 mt-8 text-sm font-medium text-white transition bg-gray-800 border border-gray-800 rounded hover:shadow hover:bg-gray-900 focus:outline-none focus:ring">Add Product</Link>
+            </div>
           </div>
         </div>
       </div>

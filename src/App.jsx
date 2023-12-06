@@ -55,7 +55,7 @@ const App = () => {
         <Route path="/user/profile" element={<Profile />} />
         <Route path="/user/order" element={<Order />} />
 
-        <Route path="/details/multi-brightening-complex-serum" element={<Product1 />} />
+        <Route path="/details/product" element={<Product1 />} />
         <Route path="/add-product" element={<AddProduct />} />
 
         <Route path="*" element={<NotFound />} />

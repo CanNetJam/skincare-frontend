@@ -28,10 +28,6 @@ function Home() {
       </div>
 
       <div>
-        <ProductsView/>
-      </div>
-
-      <div>
         <Footer/>
       </div>
 
