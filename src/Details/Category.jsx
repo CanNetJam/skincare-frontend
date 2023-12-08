@@ -32,7 +32,7 @@ export default function Category() {
 
     return (
         <>
-            <div className="h-[50vh] w-full overflow-hidden sm:flex sm:flex-rows-3 sm:flex-row-reverse grid grid-rows-3 rounded-xl bg-cover bg-no-repeat bg-center bg-[url('https://images.pexels.com/photos/3762877/pexels-photo-3762877.jpeg?auto=compress&cs=tinysrgb&w=7360&h=4912&dpr=1')]">
+            <div className="h-[50vh] w-full overflow-hidden sm:flex sm:flex-rows-3 sm:flex-row-reverse grid grid-rows-3 rounded-xl bg-cover bg-no-repeat bg-center bg-[url('https://images.pexels.com/photos/3762877/pexels-photo-3762877.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&dpr=1')]">
                 <div className="h-full max-w-screen w-full sm:w-2/3 row-span-2">
                     <div className="w-full sm:w-2/3 row-span-2 relative">
                         <div className="sm:h-[50vh] h-[35vh] sm:w-[1000px] w-full absolute items-center inset-0">  
@@ -44,7 +44,7 @@ export default function Category() {
                                             return (
                                                 <Link to='/details/product' state={{productid: a._id}}
                                                     key={index} className="hover:bg-gray-700 flex-shrink-0 h-full sm:w-[200px] w-[150px] bg-gray-800 rounded-md overflow-hidden p-2 cursor-pointer">
-                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.displayimage}.jpg`}></img>
+                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.displayimage}.jpg`}></img>
                                                     <label className="text-sm text-white sm:line-clamp-none line-clamp-1">{a.name}</label>
                                                 </Link>
                                             )
@@ -73,7 +73,7 @@ export default function Category() {
                 </div>
             </div> 
 
-            <div className="h-[50vh] w-full overflow-hidden sm:flex sm:flex-rows-3 sm:flex-row-reverse grid grid-rows-3 rounded-xl bg-cover bg-no-repeat bg-center bg-[url('https://images.pexels.com/photos/6476081/pexels-photo-6476081.jpeg?auto=compress&cs=tinysrgb&w=4162&h=2775&dpr=1')]">
+            <div className="h-[50vh] w-full overflow-hidden sm:flex sm:flex-rows-3 sm:flex-row-reverse grid grid-rows-3 rounded-xl bg-cover bg-no-repeat bg-center bg-[url('https://images.pexels.com/photos/6476081/pexels-photo-6476081.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&dpr=1')]">
                 <div className="h-full max-w-screen w-full sm:w-2/3 row-span-2">
                     <div className="w-full sm:w-2/3 row-span-2 relative">
                         <div className="sm:h-[50vh] h-[35vh] sm:w-[1000px] w-full absolute items-center inset-0">  
@@ -85,7 +85,7 @@ export default function Category() {
                                             return (
                                                 <Link to='/details/product' state={{productid: a._id}}
                                                     key={index} className="hover:bg-gray-700 flex-shrink-0 h-full sm:w-[200px] w-[150px] bg-gray-800 rounded-md overflow-hidden p-2 cursor-pointer">
-                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.displayimage}.jpg`}></img>
+                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.displayimage}.jpg`}></img>
                                                     <label className="text-sm text-white sm:line-clamp-none line-clamp-1">{a.name}</label>
                                                 </Link>
                                             )
@@ -114,7 +114,7 @@ export default function Category() {
                 </div>
             </div>    
 
-            <div className="h-[50vh] w-full overflow-hidden sm:flex sm:flex-rows-3 sm:flex-row-reverse grid grid-rows-3 rounded-xl bg-cover bg-no-repeat bg-center bg-[url('https://images.pexels.com/photos/3436830/pexels-photo-3436830.jpeg?auto=compress&cs=tinysrgb&w=6000&h=4000&dpr=1')]">
+            <div className="h-[50vh] w-full overflow-hidden sm:flex sm:flex-rows-3 sm:flex-row-reverse grid grid-rows-3 rounded-xl bg-cover bg-no-repeat bg-center bg-[url('https://images.pexels.com/photos/3436830/pexels-photo-3436830.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&dpr=1')]">
                 <div className="h-full max-w-screen w-full sm:w-2/3 row-span-2">
                     <div className="w-full sm:w-2/3 row-span-2 relative">
                         <div className="sm:h-[50vh] h-[35vh] sm:w-[1000px] w-full absolute items-center inset-0">  
@@ -126,7 +126,7 @@ export default function Category() {
                                             return (
                                                 <Link to='/details/product' state={{productid: a._id}}
                                                     key={index} className="hover:bg-gray-700 flex-shrink-0 h-full sm:w-[200px] w-[150px] bg-gray-800 rounded-md overflow-hidden p-2 cursor-pointer">
-                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.displayimage}.jpg`}></img>
+                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.displayimage}.jpg`}></img>
                                                     <label className="text-sm text-white sm:line-clamp-none line-clamp-1">{a.name}</label>
                                                 </Link>
                                             )
