@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Navbar from '../Components/NavBar';
 import { PiNumberCircleOneFill, PiNumberCircleTwoFill, PiNumberCircleThreeFill } from "react-icons/pi";
-import icon1 from '../assets/icons/icons8-ok-hand-96.png'
-import icon2 from '../assets/icons/icons8-cure-96.png'
-import icon3 from '../assets/icons/icons8-confident-96.png'
-import icon4 from '../assets/icons/icons8-sprout-96.png'
+import icon1 from '../assets/icons8-ok-hand-96.png'
+import icon2 from '../assets/icons8-cure-96.png'
+import icon3 from '../assets/icons8-confident-96.png'
+import icon4 from '../assets/icons8-sprout-96.png'
 
 function Skin() {
   const [opentab, setOpenTab] = useState("Normal")
