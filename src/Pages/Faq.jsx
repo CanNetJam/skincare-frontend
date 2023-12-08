@@ -14,7 +14,7 @@ function Faq() {
           Klued FAQs
         </div>
 
-        <div className='mx-10'>
+        <div className='mx-10 '>
         <div tabIndex={0} className="collapse collapse-plus border border-base-300 bg-base-200">
           <div className="collapse-title text-xl font-medium">
           Q: Is this FDA Approved?
@@ -133,11 +133,6 @@ function Faq() {
         <div>
           <Footer/>
         </div>
-
-
-       
-
-
     </div>
   )
 }

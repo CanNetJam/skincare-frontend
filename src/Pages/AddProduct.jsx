@@ -160,10 +160,9 @@ export default function AddProduct() {
         data.append("tiktoklink", product.links.tiktok)
         data.append("lazadalink", product.links.lazada)
         data.append("ingredients", JSON.stringify(prodIngredients2))
+        data.append("routines",JSON.stringify(product.routines))
         data.append("do", JSON.stringify(product.do))
         data.append("dont", JSON.stringify(product.dont))
-        data.append("morroutine", JSON.stringify(product.morroutine))
-        data.append("nigroutine", JSON.stringify(product.nigroutine))
         
         const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/product/create-product`, data, { headers: { "Content-Type": "application/json" } })
         console.log(res.data)
@@ -257,7 +256,7 @@ export default function AddProduct() {
                             <div className="sm:col-span-3">
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Specific Precautions</label>
                                 <div className="mt-2">
-                                    <textarea onChange={handleChange} rows={3} value={product.extra} type="text" name="extra" id="product-extra" required className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                    <textarea onChange={handleChange} rows={3} value={product.extra} type="text" name="extra" id="product-extra" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                 </div>
                             </div>
 
@@ -281,12 +280,13 @@ export default function AddProduct() {
                                             setProdIngredients2(prev=>prev.concat(ingredient))
                                             setProduct({...product, ingredients: product.ingredients.concat([ingredient])})
                                             setIngredient({name: "", desc: "", photo: ""})
+                                            CreatePhotoField.current.value = ""
                                         }} type="button" disabled={ingredient.photo!== "" && ingredient.name!== "" && ingredient.desc!== "" ? false : true}  className={`rounded-md w-full bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${ingredient.photo!== "" && ingredient.name!== "" && ingredient.desc!== "" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add to List</button>
                                     </div>
                                 </div>
                                 
                                 <div className="sm:col-span-3">
-                                    <label className="block text-sm font-medium leading-6 text-gray-900">Ingredient List</label>
+                                    <label className="block text-sm font-medium leading-6 text-gray-900">Ingredients List</label>
                                     <div>
                                         <ImagePreview prodIngredients={prodIngredients} setProdIngredients={setProdIngredients}/>
                                     </div>
@@ -423,7 +423,7 @@ export default function AddProduct() {
                                             </div>
                                         </div>
                                         <div className="sm:col-span-2">
-                                            <label className="block text-sm font-medium leading-6 text-white">Placeholder label</label>
+                                            <label className="block text-sm font-medium leading-6 text-white">Placeholder</label>
                                             <div className="mt-2 w-full">
                                                 <button onClick={()=> {
                                                     setRoutine({...routine, morning: routine.morning.concat([morstep])})
@@ -467,7 +467,7 @@ export default function AddProduct() {
                                             </div>
                                         </div>
                                         <div className="sm:col-span-2">
-                                            <label className="block text-sm font-medium leading-6 text-white">Placeholder label</label>
+                                            <label className="block text-sm font-medium leading-6 text-white">Placeholder</label>
                                             <div className="mt-2 w-full">
                                                 <button onClick={()=> {
                                                     setRoutine({...routine, night: routine.night.concat([nigstep])})
@@ -526,19 +526,19 @@ export default function AddProduct() {
                             <div className="sm:col-span-2">
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Shopee link</label>
                                 <div className="mt-2 w-full">
-                                    <input onChange={e => setProduct({...product, links: {...product.links, shopee: e.target.value}})} value={product.links?.shopee} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                    <input required onChange={e => setProduct({...product, links: {...product.links, shopee: e.target.value}})} value={product.links?.shopee} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                 </div>
                             </div>
                             <div className="sm:col-span-2">
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Tiktok link</label>
                                 <div className="mt-2 w-full">
-                                    <input onChange={e => setProduct({...product, links: {...product.links, tiktok: e.target.value}})} value={product.links?.tiktok} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                    <input required onChange={e => setProduct({...product, links: {...product.links, tiktok: e.target.value}})} value={product.links?.tiktok} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                 </div>
                             </div>
                             <div className="sm:col-span-2">
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Lazada link</label>
                                 <div className="mt-2 w-full">
-                                    <input onChange={e => setProduct({...product, links: {...product.links, lazada: e.target.value}})} value={product.links?.lazada} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                    <input required onChange={e => setProduct({...product, links: {...product.links, lazada: e.target.value}})} value={product.links?.lazada} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                 </div>
                             </div>
                         </div>

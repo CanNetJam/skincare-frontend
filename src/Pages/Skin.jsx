@@ -1,6 +1,10 @@
-import React, {useEffect, useState} from 'react'
-import Navbar from '../Components/NavBar'
+import React, { useState } from 'react';
+import Navbar from '../Components/NavBar';
 import { PiNumberCircleOneFill, PiNumberCircleTwoFill, PiNumberCircleThreeFill } from "react-icons/pi";
+import icon1 from '../assets/icons/icons8-ok-hand-96.png'
+import icon2 from '../assets/icons/icons8-cure-96.png'
+import icon3 from '../assets/icons/icons8-confident-96.png'
+import icon4 from '../assets/icons/icons8-sprout-96.png'
 
 function Skin() {
   const [opentab, setOpenTab] = useState("Normal")
@@ -296,7 +300,7 @@ function Skin() {
           <div className='group sm:h-[50vh] h-[40vh] [perspective:10000px]'>
             <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white shadow-lg'>
               <div className='flex justify-center'>
-                <img className='object-center' src='./src/assets/icons/icons8-ok-hand-96.png'></img>
+                <img className='object-center' src={icon1}></img>
               </div>
               <br/>
               <p className='text-2xl text-center'><b>It helps your skin stay in good condition</b></p>
@@ -312,7 +316,7 @@ function Skin() {
           <div className='group sm:h-[50vh] h-[40vh] [perspective:10000px]'>
             <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white border shadow-lg'>
               <div className='flex justify-center'>
-                <img className='object-center' src='./src/assets/icons/icons8-sprout-96.png'></img>
+                <img className='object-center' src={icon4}></img>
               </div>
               <br/>
               <p className='text-2xl text-center'><b>Your skin will look more youthful</b></p>
@@ -328,7 +332,7 @@ function Skin() {
           <div className='group sm:h-[50vh] h-[40vh] [perspective:10000px]'>
             <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white border shadow-lg'>
               <div className='flex justify-center'>
-                <img className='object-center' src='./src/assets/icons/icons8-cure-96.png'></img>
+                <img className='object-center' src={icon2}></img>
               </div>
               <br/>
               <p className='text-2xl text-center'><b>Prevention is easier than correction</b></p>
@@ -344,7 +348,7 @@ function Skin() {
           <div className='group sm:h-[50vh] h-[40vh] [perspective:10000px]'>
             <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white border shadow-lg'>
               <div className='flex justify-center'>
-                <img className='object-center' src='./src/assets/icons/icons8-confident-96.png'></img>
+                <img className='object-center' src={icon3}></img>
               </div>
               <br/>
               <p className='text-2xl text-center'><b>Your self-confidence will get a boost</b></p>

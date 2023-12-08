@@ -14,11 +14,15 @@ const ImagePreview = React.memo((props) => {
                 <div className="grid grid-cols-6 gap-2 my-2">
                     {props?.prodIngredients.map((a, index)=> {
                         return (
-                            <div className="h-auto w-auto col-span-2 block justify-center p-4 rounded-lg bg-blue-400 relative" key={index}>
+                            <div className="h-auto w-auto col-span-6 justify-center p-3 rounded-lg bg-blue-400 relative gap-2 grid grid-cols-3" key={index}>
                                 <label onClick={()=>removeIngredient(index)}  className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
-                                <img className="h-[150px] w-[200px] rounded-lg" src={URL.createObjectURL(a.photo)}></img>
-                                <label>{a.name}</label>
-                                <label className="inline-block">{a.desc}</label>
+                                <div className="col-span-1">
+                                    <img className="h-[150px] w-[200px] rounded-lg" src={URL.createObjectURL(a.photo)}></img>
+                                </div>
+                                <div className="col-span-2">
+                                    <label className="font-semibold">{a.name}</label>
+                                    <p className="tinyText mt-2 text-white line-clamp-5">{a.desc}</p>
+                                </div>
                             </div>
                         )
                     })}
