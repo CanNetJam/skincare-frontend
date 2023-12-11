@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation} from 'react-router';
+import { useLocation, useParams} from 'react-router';
 import axios from "axios";
 import Routines from "../Components/Routines";
 import Precautions from "../Components/Precautions";
@@ -11,13 +11,14 @@ import OrderNow from '../Components/OrderNow';
 
 export default function Product1() {
     const location = useLocation()
+    const {id} = useParams()
     const [ productData, setProductData ] = useState({})
-
+    
     useEffect(()=> {
         const getProduct = async () => {
             try {
                 const product = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/product/get-product`, {params: {
-                    productid: location.state.productid
+                    productid: id ? id : location.state.productid
                 }})
                 setProductData(product.data)
             } catch (err) {
@@ -37,7 +38,7 @@ export default function Product1() {
                     <div className="pb-10">
                         <h1 className="subHeading">{productData.name}</h1>
                         <br/>
-                        <p className="tinyText whitespace-pre-wrap break-normal text-justify indent-10">{productData.maindesc}</p>
+                        <p className="tinyText whitespace-pre-wrap break-normal text-justify">{productData.maindesc}</p>
                     </div>
                     <br/>
                     <div className="flex justify-center"><h3 className="subHeading">Key Ingredients</h3></div>
@@ -46,11 +47,11 @@ export default function Product1() {
                         return (
                             <div key={index} className="w-full grid my-8 bg-gray-50 backdrop-blur-sm bg-opacity-60 rounded-xl p-4">
                                 <div className="max-h-[50vh]">
-                                    <img loading="lazy" className='h-full w-full rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.photo}.jpg`}></img>
+                                    <img loading="lazy" className='h-full w-full rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.photo}.jpg`}></img>
                                 </div>
                                 <br/>
                                 <h5 className="contentHeading text-blue-400 text-center">{a.name}</h5>
-                                <p className="smallText sm:text-center text-justify mt-4">{a.desc}</p>
+                                <p className="smallText sm:text-center text-justify mt-4 first-letter:uppercase">{a.desc}</p>
                             </div>
                         )   
                     })}
@@ -63,9 +64,9 @@ export default function Product1() {
                 </div>
             </div>
             <Usage usage={productData?.usage} extra={productData?.extra} moreimage={productData?.moreimage ? productData.moreimage : []}/>
-            <Routines />
+            <Routines routines={productData?.routines}/>
             <Precautions />
-            <DoDonts />
+            <DoDonts proddo={productData?.do} proddont={productData?.dont}/>
             <OrderNow productlinks={productData?.productlinks}/>
             <Footer/>
         </>

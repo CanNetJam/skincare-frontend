@@ -1,5 +1,5 @@
 // App.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home';
 import AboutUs from './Pages/AboutUs';
@@ -23,15 +23,16 @@ import CartDetails from './Pages/CartDetails';
 import Profile from './User/Profile';
 import Order from './User/Order';
 
+import Category from './Details/Category';
 import ProductDetails from './Pages/ProductDetails';
 import Product1 from './Details/Product1';
 import AddProduct from './Pages/AddProduct';
+import Email from './Pages/Email';
 
 const App = () => {
   return (
     <HashRouter basename="/">
       <Routes>
-
         <Route path="/" element={<Home />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/products" element={<Products />} />
@@ -55,13 +56,14 @@ const App = () => {
         <Route path="/user/profile" element={<Profile />} />
         <Route path="/user/order" element={<Order />} />
 
-        <Route path="/details/product" element={<Product1 />} />
+        <Route path="/category" element={<Category  />} />
+        <Route path="/details/product/:id" element={<Product1 />} />
         <Route path="/add-product" element={<AddProduct />} />
+        <Route path="/emails" element={<Email />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>
-
   );
 };
 

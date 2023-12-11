@@ -1,3 +1,4 @@
+import React, { useState } from "react"
 import { PiNumberCircleOneFill, PiNumberCircleTwoFill, PiNumberCircleThreeFill, PiNumberCircleFourFill, PiNumberCircleFiveFill } from "react-icons/pi";
 import { BsMoisture } from "react-icons/bs";
 import { FaArrowTrendDown } from "react-icons/fa6";
@@ -5,7 +6,8 @@ import { FiWatch } from "react-icons/fi";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { TbDropletOff } from "react-icons/tb";
 
-export default function DoDonts() {
+export default function DoDonts({proddo, proddont}) {
+    
     return (
         <>
             <div className="min-h-screen h-full w-full sm:py-10 grid bg-blue-300 sm:bg-cover sm:bg-[linear-gradient(to_right,rgba(147,197,253,1),rgba(255,255,255,0)),url('https://images.unsplash.com/photo-1521840233161-295ed621e056?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">

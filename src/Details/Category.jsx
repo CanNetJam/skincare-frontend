@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import image1 from "../assets/18.jpg";
-import image2 from "../assets/8.jpg";
-import image3 from "../assets/10.jpg";
 
 export default function Category() {
     const [ brightList, setBrightList ] = useState([])
@@ -42,9 +39,9 @@ export default function Category() {
                                     <div className="sm:p-8 px-4 py-8 h-full w-full flex gap-2 overflow-x-auto">
                                         {brightList.map((a, index)=> {
                                             return (
-                                                <Link to='/details/product' state={{productid: a._id}}
+                                                <Link to={`/details/product/${a._id}`} state={{productid: a._id}}
                                                     key={index} className="hover:bg-gray-700 flex-shrink-0 h-full sm:w-[200px] w-[150px] bg-gray-800 rounded-md overflow-hidden p-2 cursor-pointer">
-                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.displayimage}.jpg`}></img>
+                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.displayimage}.jpg`}></img>
                                                     <label className="text-sm text-white sm:line-clamp-none line-clamp-1">{a.name}</label>
                                                 </Link>
                                             )
@@ -83,9 +80,9 @@ export default function Category() {
                                     <div className="sm:p-8 px-4 py-8 h-full w-full flex gap-2 overflow-x-auto">
                                         {pimpleList.map((a, index)=> {
                                             return (
-                                                <Link to='/details/product' state={{productid: a._id}}
+                                                <Link to={`/details/product/${a._id}`} state={{productid: a._id}}
                                                     key={index} className="hover:bg-gray-700 flex-shrink-0 h-full sm:w-[200px] w-[150px] bg-gray-800 rounded-md overflow-hidden p-2 cursor-pointer">
-                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.displayimage}.jpg`}></img>
+                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.displayimage}.jpg`}></img>
                                                     <label className="text-sm text-white sm:line-clamp-none line-clamp-1">{a.name}</label>
                                                 </Link>
                                             )
@@ -124,9 +121,9 @@ export default function Category() {
                                     <div className="sm:p-8 px-4 py-8 h-full w-full flex gap-2 overflow-x-auto">
                                         {youngList.map((a, index)=> {
                                             return (
-                                                <Link to='/details/product' state={{productid: a._id}}
+                                                <Link to={`/details/product/${a._id}`} state={{productid: a._id}}
                                                     key={index} className="hover:bg-gray-700 flex-shrink-0 h-full sm:w-[200px] w-[150px] bg-gray-800 rounded-md overflow-hidden p-2 cursor-pointer">
-                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.displayimage}.jpg`}></img>
+                                                    <img className="h-3/4 w-full" src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.displayimage}.jpg`}></img>
                                                     <label className="text-sm text-white sm:line-clamp-none line-clamp-1">{a.name}</label>
                                                 </Link>
                                             )
