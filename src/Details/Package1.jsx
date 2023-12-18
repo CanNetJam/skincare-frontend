@@ -3,7 +3,7 @@ import { useLocation, useParams} from 'react-router';
 import axios from 'axios';
 import Approvals from '../Components/Approvals';
 import Hero from '../Components/Hero';
-import Navbar from '../Components/Navbar';
+import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import OrderNow from '../Components/OrderNow';
 import Features from '../Components/Features';
