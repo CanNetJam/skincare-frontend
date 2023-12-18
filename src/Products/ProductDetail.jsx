@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import Navbar from '../Components/NavBar';
+import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import photo1 from '../assets/routine.png';
 import photo2 from '../assets/do.png';

@@ -1,5 +1,5 @@
 import Footer from '../Components/Footer';
-import Navbar from '../Components/NavBar';
+import Navbar from '../Components/TopNav';
 import Packages from "../Details/Packages";
 
 export default function PackageDetails() {

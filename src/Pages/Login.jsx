@@ -1,8 +1,6 @@
 import React, { useState, useContext} from "react";
 import Axios from "axios";
 import { useLocation } from 'react-router-dom';
-import Footer from '../Components/Footer';
-import Navbar from '../Components/NavBar';
 
 function Login() {
     const location = useLocation()

@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Footer from '../Components/Footer';
-import Navbar from '../Components/NavBar';
+import Navbar from '../Components/TopNav';
 import photo1 from '../assets/1.jpg';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';

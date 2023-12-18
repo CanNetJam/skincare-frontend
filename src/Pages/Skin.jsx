@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../Components/NavBar';
+import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import { PiNumberCircleOneFill, PiNumberCircleTwoFill, PiNumberCircleThreeFill } from "react-icons/pi";
 import icon1 from '../assets/icons8-ok-hand-96.png';

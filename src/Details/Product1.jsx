@@ -4,7 +4,7 @@ import axios from "axios";
 import Routines from "../Components/Routines";
 import Precautions from "../Components/Precautions";
 import DoDonts from "../Components/DoDonts";
-import Navbar from '../Components/NavBar';
+import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import Usage from '../Components/Usage';
 import OrderNow from '../Components/OrderNow';

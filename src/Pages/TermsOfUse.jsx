@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Navbar from '../Components/NavBar';
+import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 
 export default function TermsOfUse() {

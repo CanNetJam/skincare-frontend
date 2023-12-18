@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AiOutlinePlus, AiOutlineLine } from "react-icons/ai";
-import Navbar from '../Components/NavBar';
+import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 
 function Faq() {
