@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import photo1 from '../assets/4.jpg';
 import photo2 from '../assets/5.jpg';
 import photo3 from '../assets/6.jpg';
@@ -19,7 +20,7 @@ function ProductsView() {
         Best Sellers
       </h2>
 
-      <p className="max-w-md mx-auto text-gray-500">
+      <p className="max-w-lg mx-auto text-gray-500">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
         praesentium cumque iure dicta incidunt est ipsam, officia dolor fugit
         natus?
@@ -28,7 +29,7 @@ function ProductsView() {
 
     <ul className="h-full grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4">
       <li>
-        <a href="#" className="group block">
+        <Link to={`/details/product/`} className="group block">
         <div className="h-[250px] sm:h-[350px] relative overflow-hidden">
           <div className="absolute left-0 top-0 h-16 w-16">
             <div className="absolute transform z-10 -rotate-45 bg-gray-900 text-center text-white text-lg font-semibold py-1 left-[-40px] top-[32px] w-[180px]">
@@ -59,46 +60,46 @@ function ProductsView() {
           AHA toner that is less irritating yet effectively brightens uneven skin tone and refines your skin texture. 
           </p>
         </div>
-        </a>
+        </Link>
       </li>
 
       <li>
-        <a href="#" className="group block">
-        <div className="relative h-[250px] sm:h-[350px] overflow-hidden">
-          <div className="absolute left-0 top-0 h-16 w-16">
-            <div className="absolute transform z-10 -rotate-45 bg-gray-900 text-center text-white text-lg font-semibold py-1 left-[-40px] top-[32px] w-[180px]">
-              Best Seller
+        <Link to={`/details/product/`} className="group block">
+          <div className="relative h-[250px] sm:h-[350px] overflow-hidden">
+            <div className="absolute left-0 top-0 h-16 w-16">
+              <div className="absolute transform z-10 -rotate-45 bg-gray-900 text-center text-white text-lg font-semibold py-1 left-[-40px] top-[32px] w-[180px]">
+                Best Seller
+              </div>
             </div>
+            <img
+              src={photo3}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover opacity-100 group-hover:opacity-0"
+            />
+
+            <img
+              src={photo4}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover opacity-0 group-hover:opacity-100"
+            />
           </div>
-          <img
-            src={photo3}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover opacity-100 group-hover:opacity-0"
-          />
 
-          <img
-            src={photo4}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover opacity-0 group-hover:opacity-100"
-          />
-        </div>
+          <div className="mt-3">
+            <h3
+              className="text-md text-gray-900 group-hover:underline group-hover:underline-offset-4"
+            >
+              Klued - 2% Salicylic Acid Gentle Cleanser
+            </h3>
 
-        <div className="mt-3">
-          <h3
-            className="text-md text-gray-900 group-hover:underline group-hover:underline-offset-4"
-          >
-            Klued - 2% Salicylic Acid Gentle Cleanser
-          </h3>
-
-          <p className="mt-1.5 max-w-[40ch] text-xs text-gray-800">
-          A Salicylic Acid Cleanser with pH level 5.5. This non-stripping, non-drying, unscented, lightly foaming cleanser is effectively cleansing and unclogging the skin.
-          </p>
-        </div>
-        </a>
+            <p className="mt-1.5 max-w-[40ch] text-xs text-gray-800">
+            A Salicylic Acid Cleanser with pH level 5.5. This non-stripping, non-drying, unscented, lightly foaming cleanser is effectively cleansing and unclogging the skin.
+            </p>
+          </div>
+        </Link>
       </li>
 
       <li>
-        <a href="#" className="group block">
+        <Link to={`/details/product/`} className="group block">
         <div className="relative h-[250px] sm:h-[350px] overflow-hidden">
           <div className="absolute left-0 top-0 h-16 w-16">
             <div className="absolute transform z-10 -rotate-45 bg-gray-900 text-center text-white text-lg font-semibold py-1 left-[-40px] top-[32px] w-[180px]">
@@ -129,11 +130,11 @@ function ProductsView() {
           A lightweight yet moisturizing moisturizer for all skin type, Klued Double Oat Moisturizer has skin loving ingredients supporting skin barrier.
           </p>
         </div>
-        </a>
+        </Link>
       </li>
 
       <li>
-        <a href="#" className="group block">
+        <Link to={`/details/product/`} className="group block">
         <div className="relative h-[250px] sm:h-[350px] overflow-hidden">
           <div className="absolute left-0 top-0 h-16 w-16">
             <div className="absolute transform z-10 -rotate-45 bg-gray-900 text-center text-white text-lg font-semibold py-1 left-[-40px] top-[32px] w-[180px]">
@@ -164,7 +165,7 @@ function ProductsView() {
           Brightening, Repairing, Clarifying, Hydrating. Klued 5% Niacinamide Serum your new bestie serum targeting skin redness and irritation rich in skin-loving and repairing ingredients to support your skin barrier to smoother skin.
           </p>
         </div>
-        </a>
+        </Link>
       </li>
     </ul>
   </div>

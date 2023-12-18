@@ -13,6 +13,16 @@ export default function Product1() {
     const location = useLocation()
     const {id} = useParams()
     const [ productData, setProductData ] = useState({})
+
+    useEffect(()=> {
+        const windowOpen = () => {   
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            })
+        }
+        windowOpen()
+    }, [])
     
     useEffect(()=> {
         const getProduct = async () => {
@@ -65,8 +75,8 @@ export default function Product1() {
             </div>
             <Usage usage={productData?.usage} extra={productData?.extra} moreimage={productData?.moreimage ? productData.moreimage : []}/>
             <Routines routines={productData?.routines}/>
-            <Precautions />
             <DoDonts proddo={productData?.do} proddont={productData?.dont}/>
+            <Precautions />
             <OrderNow productlinks={productData?.productlinks}/>
             <Footer/>
         </>

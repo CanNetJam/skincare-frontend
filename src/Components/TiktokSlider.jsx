@@ -98,6 +98,8 @@ export default function TiktokSlider() {
                         )
                     })}
                 </div>
+                {window.innerWidth >=639 ? 
+                    <>
 
                 {videoPlayer===false ?
                     <>
@@ -118,6 +120,8 @@ export default function TiktokSlider() {
                             </div>
                         :null}
                     </>
+                :null}
+                                    </>
                 :null}
                 
                 {videoPlayer===true ? 

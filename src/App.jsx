@@ -23,11 +23,15 @@ import CartDetails from './Pages/CartDetails';
 import Profile from './User/Profile';
 import Order from './User/Order';
 
-import Category from './Details/Category';
 import ProductDetails from './Pages/ProductDetails';
+import PackageDetails from './Pages/PackageDetails';
 import Product1 from './Details/Product1';
 import AddProduct from './Pages/AddProduct';
 import Email from './Pages/Email';
+import Package1 from './Details/Package1';
+import AddPackage from './Pages/AddPackage';
+import TermsOfUse from './Pages/TermsOfUse';
+import RefundPolicy from './Pages/RefundPolicy';
 
 const App = () => {
   return (
@@ -45,6 +49,7 @@ const App = () => {
         <Route path="/products/:productid" element={<ProductDetail />} />
         <Route path="/cartdetails" element={<CartDetails />} />
         <Route path="/product-details" element={<ProductDetails />} />
+        <Route path="/package-details" element={<PackageDetails />} />
 
         <Route path="/admin/orders" element={<Orders />} />
         <Route path="/accounts/useraccounts" element={<Users />} />
@@ -56,10 +61,14 @@ const App = () => {
         <Route path="/user/profile" element={<Profile />} />
         <Route path="/user/order" element={<Order />} />
 
-        <Route path="/category" element={<Category  />} />
         <Route path="/details/product/:id" element={<Product1 />} />
+        <Route path="/details/package/:id" element={<Package1 />} />
         <Route path="/add-product" element={<AddProduct />} />
         <Route path="/emails" element={<Email />} />
+        <Route path="/add-package" element={<AddPackage />} />
+
+        <Route path="/terms-of-use" element={<TermsOfUse />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

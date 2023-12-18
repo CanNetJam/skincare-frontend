@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import axios from "axios"
 import { Link } from 'react-router-dom';
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa6";
+import img1 from '../assets/Klued-logo.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Footer() {
   const [ email, setEmail ] = useState("")
@@ -8,16 +12,115 @@ export default function Footer() {
   async function submitHandler(e) {
     e.preventDefault()
     try {
-      const passEmail = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/emails/submit-email`, {email})
-      console.log(passEmail.data)
-      setEmail("")
+      const loadingNotif = async function myPromise() {
+        const passEmail = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/emails/submit-email`, {email})
+        console.log(passEmail.data)
+        setEmail("")
+      }
+      toast.promise(
+        loadingNotif,
+          {
+            pending: 'Processing subscription...',
+            success: 'Successfully subscribed!',
+            error: 'Subscription failed!'
+          }
+      )
     } catch (error) {
       console.log(error)
     }
   }
 
   return (
-    <div className="bg-slate-800 h-auto">
+    <div className="bg-slate-900 h-auto w-full sm:p-10 p-4">
+      <div className='grid sm:grid sm:grid-cols-3 border-b gap-y-6 border-slate-700 py-10 sm:px-2'>
+        <div className='col-span-1'>
+            <div className='h-[50px] w-[150px]'>
+              <img className='h-full w-full object-cover' src={img1}/>
+            </div>
+            <p className='text-slate-400 pl-4'>"Combining knowledge and passion to the skin"</p>
+        </div>
+        <div className='col-span-1'>
+
+        </div>
+        <div className='col-span-1 grid grid-cols-2 gap-10 px-4 sm:px-0'>
+          <div>
+            <div className='mb-2'>
+              <label className='font-semibold text-white'>Links</label>
+            </div>
+            <ul className='text-slate-400'>
+              <li><Link to="/product-details" className='hover:text-slate-200'>Our Products</Link></li>
+              <li><Link to="/understandingyourskin" className='hover:text-slate-200'>Understanding your Skin</Link></li>
+              <li><Link to="/aboutus" className='hover:text-slate-200'>About Us</Link></li>
+              <li><Link to="/faqs" className='hover:text-slate-200'>FAQs</Link></li>
+            </ul>
+          </div>
+          <div>
+            <div className='mb-2'>
+              <label className='font-semibold text-white'>Legal</label>
+            </div>
+            <ul className='text-slate-400'>
+              <li><Link to="/terms-of-use" className='hover:text-slate-200'>Terms of Use</Link></li>
+              <li><Link to="/refund-policy"  className='hover:text-slate-200'>Refund Policy</Link></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className=' grid sm:flex justify-between gap-4 sm:px-6 p-4 border-b border-slate-700'>
+        <div className='max-w-[400px]'>
+          <h1 className='text-white text-lg'>Subscribe to our Newsletter!</h1>
+          <label className='text-slate-400'>The latest news, articles, and special discounts, sent to your inbox weekly.</label>
+        </div>
+        <div className='flex justify-center items-center'>
+          <form onSubmit={submitHandler} className="w-full py-2">
+            <div className="sm:flex sm:items-center sm:gap-4">
+              <input
+                type="email"
+                id="UserEmail"
+                placeholder="johndoe@gmail.com"
+                onChange={e=>setEmail(e.target.value)}
+                value={email}
+                className="w-full p-3 text-sm rounded-md"
+              />
+
+              <button className="mt-1 w-full bg-blue-400 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-gray-700 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md">
+                Subscribe
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div className='grid justify-center gap-4 sm:flex sm:flex-row-reverse sm:justify-between p-6 items-center'>
+        <div className='flex justify-center items-center text-slate-400 gap-8'>
+          <nav ><FaFacebook size='28px'/></nav>
+          <nav><FaTiktok size='28px'/></nav>
+          <nav><FaInstagram size='28px'/></nav>
+        </div>
+        <div className='flex justify-center items-center'>
+          <h1 className='text-slate-400 text-sm'>© 2023 Klued. All rights reserved.</h1>
+        </div>
+      </div>
+
+
+      <div className='grid sm:flex justify-between p-6 items-center'>
+            <div className='w-full flex justify-center items-center'>
+              <Link to="/emails" className="inline-block w-[250px] text-center px-12 py-3 mt-8 text-sm font-medium text-white transition bg-gray-800 border border-gray-800 rounded hover:shadow hover:bg-gray-900 focus:outline-none focus:ring">Emails</Link>
+            </div>
+            <div className='w-full flex justify-center items-center'>
+              <Link to="/add-product" className="inline-block w-[250px] text-center px-12 py-3 mt-8 text-sm font-medium text-white transition bg-gray-800 border border-gray-800 rounded hover:shadow hover:bg-gray-900 focus:outline-none focus:ring">Add Product</Link>
+            </div>
+            <div className='w-full flex justify-center items-center'>
+              <Link to="/add-package" className="inline-block w-[250px] text-center px-12 py-3 mt-8 text-sm font-medium text-white transition bg-gray-800 border border-gray-800 rounded hover:shadow hover:bg-gray-900 focus:outline-none focus:ring">Add Package</Link>
+            </div>
+      </div>
+
+      <ToastContainer />
+    </div>
+  );
+}
+
+/*
       <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="lg:flex lg:items-start lg:gap-8">
           <div className="mt-8 grid grid-cols-2 gap-8 lg:mt-0 lg:grid-cols-5 lg:gap-y-16">
@@ -28,11 +131,8 @@ export default function Footer() {
             </div>
             <div className="col-span-2 lg:col-span-3 lg:flex lg:items-end">
               <form onSubmit={submitHandler} className="w-full">
-                <label htmlFor="UserEmail" className="sr-only">
-                  Email
-                </label>
 
-                <div className="p-2 focus-within:ring sm:flex sm:items-center sm:gap-4 border border-gray-300 rounded-md">
+                <div className="p-2 focus-within:ring sm:flex sm:items-center sm:gap-4">
                   <input
                     type="email"
                     id="UserEmail"
@@ -110,9 +210,9 @@ export default function Footer() {
             <div className='w-full flex justify-center items-center'>
               <Link to="/add-product" className="inline-block w-[250px] text-center px-12 py-3 mt-8 text-sm font-medium text-white transition bg-gray-800 border border-gray-800 rounded hover:shadow hover:bg-gray-900 focus:outline-none focus:ring">Add Product</Link>
             </div>
+            <div className='w-full flex justify-center items-center'>
+              <Link to="/add-package" className="inline-block w-[250px] text-center px-12 py-3 mt-8 text-sm font-medium text-white transition bg-gray-800 border border-gray-800 rounded hover:shadow hover:bg-gray-900 focus:outline-none focus:ring">Add Package</Link>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-}
+      </div>*/

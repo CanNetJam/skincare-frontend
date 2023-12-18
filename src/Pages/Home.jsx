@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../Components/NavBar';
 import ProductsView from '../Components/ProductsView';
 import Footer from '../Components/Footer';
@@ -6,9 +6,18 @@ import NewProducts from '../Components/NewProducts';
 import TiktokSlider from '../Components/TiktokSlider';
 
 function Home() {
+  useEffect(()=> {
+      const windowOpen = () => {   
+          window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+          })
+      }
+      windowOpen()
+  }, [])
+
   return (
     <div>
-
       <div>
         <Navbar/>
       </div>

@@ -49,3 +49,8 @@
 .animate-ping {
     animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
+
+body {
+    font-family: century-gothic, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}

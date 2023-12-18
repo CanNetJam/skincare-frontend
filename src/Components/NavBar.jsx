@@ -39,7 +39,7 @@ function Navbar() {
   return (
     <div>
       <header>
-        <div className="h-16 bg-white w-full md:z-0 z-20 md:static fixed inset-0">
+        <div className="h-16 bg-white w-full z-50 md:static fixed inset-0">
           <div className="h-full container mx-auto px-10 flex justify-between items-center sm:relative sm:grid-rows-2">
 
             <div className="md:flex md:items-center md:gap-12">
@@ -102,11 +102,7 @@ function Navbar() {
                   <Link to="/aboutus" className='h-0 sm:h-1 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex justify-center items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md m-5'>About Us</span></Link>
                   <Link to="/faqs" className='h-0 sm:h-1 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex justify-center items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md m-5'>FAQs</span></Link>
                   <label className='border-t-2'></label>
-                  <div className='h-0 sm:h-1 w-full flex items-center justify-around'>
-                    <Link to="/products" className='relative text-center py-2 h-10 sm:w-[150px] w-[100px] sm:h-10 sm:px-3 font-bold text-[16px] rounded-full before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-gray-700 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'>
-                      Shop Now
-                    </Link>
-                  </div>
+                  
                 </div>
               </div>
             :null}

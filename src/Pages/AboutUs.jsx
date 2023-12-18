@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../Components/NavBar'
 import Footer from '../Components/Footer';
 import photo1 from '../assets/1.jpg';
@@ -6,6 +6,16 @@ import photo2 from '../assets/2.jpg';
 import photo3 from '../assets/14.jpg';
 
 function AboutUs() {
+  useEffect(()=> {
+    const windowOpen = () => {   
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        })
+    }
+    windowOpen()
+  }, [])
+
   return (
     <div>
 

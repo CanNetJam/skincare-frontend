@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
-import moment from "moment"
-import { addDays } from 'date-fns'
+import moment from "moment";
+import { addDays } from 'date-fns';
 
 export default function Email() {
     const [ menu, setMenu ] = useState(false)
@@ -36,8 +36,6 @@ export default function Email() {
     function createElements(pages, page){
         var elements = [];
         for(let i =0; i < pages; i++){
-            console.log(`page ${page}`)
-            console.log(i)
             elements.push(
                 <li key={i}>
                     <button onClick={()=>setPage(i)} className={`${page===i ? 'text-blue-600 bg-blue-50' : 'text-gray-500 bg-white' } flex items-center justify-center px-3 h-8 leading-tight  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>

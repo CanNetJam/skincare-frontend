@@ -1,6 +1,8 @@
-import React, { useState, useRef } from "react"
-import axios from "axios"
-import ImagePreview from "../Components/ImagePreview"
+import React, { useState, useRef } from "react";
+import axios from "axios";
+import ImagePreview from "../Components/ImagePreview";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddProduct() {
     const [ product, setProduct ] = useState({
@@ -83,89 +85,152 @@ export default function AddProduct() {
 
     async function submitHandler(e) {
         e.preventDefault()
-        const data = new FormData()
-        let uploadedProductPhoto
-        if (productImage[0]!==undefined){
-            const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/get-signature` )
+        const loadingNotif = async function myPromise() {
+            const data = new FormData()
+            let uploadedProductPhoto
+            if (productImage[0]!==undefined){
+                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/get-signature` )
 
-            const image = new FormData()
-            image.append("file", productImage[0])
-            image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-            image.append("signature", signatureResponse.data.signature)
-            image.append("timestamp", signatureResponse.data.timestamp)
+                const image = new FormData()
+                image.append("file", productImage[0])
+                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
+                image.append("signature", signatureResponse.data.signature)
+                image.append("timestamp", signatureResponse.data.timestamp)
 
-            const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-            headers: { "Content-Type": "multipart/form-data" },
-            // onUploadProgress: function (e) {
-            //     console.log(e.loaded / e.total)
-            // }
+                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
+                headers: { "Content-Type": "multipart/form-data" },
+                // onUploadProgress: function (e) {
+                //     console.log(e.loaded / e.total)
+                // }
+                })
+                let cloud_image = cloudinaryResponse.data.public_id
+                uploadedProductPhoto = cloud_image
+            }
+
+            if (productMoreImage[0]!==undefined) {
+                for (let i=0; i<productMoreImage.length; i++) {
+                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/get-signature` )
+
+                    const image = new FormData()
+                    image.append("file", productMoreImage[i])
+                    image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
+                    image.append("signature", signatureResponse.data.signature)
+                    image.append("timestamp", signatureResponse.data.timestamp)
+
+                    const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
+                    headers: { "Content-Type": "multipart/form-data" },
+                    // onUploadProgress: function (e) {
+                    //     console.log(e.loaded / e.total)
+                    // }
+                    })
+                    let cloud_image = cloudinaryResponse.data.public_id
+                    data.append("moreimage[]", cloud_image)
+                }
+                setProduct({...product, moreimage: productMoreImage})
+            }
+
+            if (file[0]!==undefined) {
+                for (let i=0; i<file.length; i++) {
+                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/get-signature` )
+
+                    const image = new FormData()
+                    image.append("file", file[i])
+                    image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
+                    image.append("signature", signatureResponse.data.signature)
+                    image.append("timestamp", signatureResponse.data.timestamp)
+
+                    const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
+                    headers: { "Content-Type": "multipart/form-data" },
+                    // onUploadProgress: function (e) {
+                    //     console.log(e.loaded / e.total)
+                    // }
+                    })
+                    let cloud_image = cloudinaryResponse.data.public_id
+                    data.append("ingphoto[]", cloud_image)
+                }
+                setProduct({...product, ingredients: prodIngredients2})
+            }
+            
+            data.append("name", product.name)
+            data.append("maindesc", product.maindesc)
+            data.append("stock", product.stock)
+            data.append("displayimage", uploadedProductPhoto)
+            data.append("price", product.price)
+            data.append("usage", product.usage)
+            data.append("extra", product.extra)
+            data.append("category", product.category)
+            data.append("shopeelink", product.links.shopee)
+            data.append("tiktoklink", product.links.tiktok)
+            data.append("lazadalink", product.links.lazada)
+            data.append("ingredients", JSON.stringify(prodIngredients2))
+            data.append("routines",JSON.stringify(product.routines))
+            data.append("do", JSON.stringify(product.do))
+            data.append("dont", JSON.stringify(product.dont))
+            
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/product/create-product`, data, { headers: { "Content-Type": "application/json" } })
+            console.log(res.data)
+
+            setProduct({
+                name: "",
+                maindesc: "",
+                stock: "",
+                price: "",
+                category: "",
+                links: {
+                    shopee: "",
+                    tiktok: "",
+                    lazada: "",
+                },
+                ingredients: [],
+                do: [],
+                dont: [],
+                morroutine: [],
+                nigroutine: [],
+                routines: [], 
+                usage: "",
+                extra: "",
+                moreimage: []
             })
-            let cloud_image = cloudinaryResponse.data.public_id
-            uploadedProductPhoto = cloud_image
+            setProdIngredients([])
+            setProdIngredients2([])
+            setIngredient({
+                name: "",
+                desc: "",
+                photo: ""
+            })
+            setDos("")
+            setDonts("")
+            setSkinType("")
+            setMorrout({
+                skintype: "",
+                steps: []
+            })
+            setMorstep("")
+            setNigrout({
+                skintype: "",
+                steps: []
+            })
+            setRoutine({
+                skintype: "",
+                morning: [],
+                night: []
+            })
+            setNigstep("")
+            setFile([])
+            setProductImage([])
+            setProductMoreImage([])
+            CreatePhotoField.current.value = ""
+            CreateProductImageField.current.value = ""
+            CreateProductMoreImageField.current.value = ""
         }
-
-        if (productMoreImage[0]!==undefined) {
-            for (let i=0; i<productMoreImage.length; i++) {
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/get-signature` )
-
-                const image = new FormData()
-                image.append("file", productMoreImage[i])
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-
-                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" },
-                // onUploadProgress: function (e) {
-                //     console.log(e.loaded / e.total)
-                // }
-                })
-                let cloud_image = cloudinaryResponse.data.public_id
-                data.append("moreimage[]", cloud_image)
+        toast.promise(
+            loadingNotif,
+            {
+            pending: 'Uploading product data...',
+            success: 'Product data uploaded.',
+            error: 'Product upload failed!'
             }
-            setProduct({...product, moreimage: productMoreImage})
-        }
-
-        if (file[0]!==undefined) {
-            for (let i=0; i<file.length; i++) {
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/get-signature` )
-
-                const image = new FormData()
-                image.append("file", file[i])
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-
-                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" },
-                // onUploadProgress: function (e) {
-                //     console.log(e.loaded / e.total)
-                // }
-                })
-                let cloud_image = cloudinaryResponse.data.public_id
-                data.append("ingphoto[]", cloud_image)
-            }
-            setProduct({...product, ingredients: prodIngredients2})
-        }
-        
-        data.append("name", product.name)
-        data.append("maindesc", product.maindesc)
-        data.append("stock", product.stock)
-        data.append("displayimage", uploadedProductPhoto)
-        data.append("price", product.price)
-        data.append("usage", product.usage)
-        data.append("extra", product.extra)
-        data.append("category", product.category)
-        data.append("shopeelink", product.links.shopee)
-        data.append("tiktoklink", product.links.tiktok)
-        data.append("lazadalink", product.links.lazada)
-        data.append("ingredients", JSON.stringify(prodIngredients2))
-        data.append("routines",JSON.stringify(product.routines))
-        data.append("do", JSON.stringify(product.do))
-        data.append("dont", JSON.stringify(product.dont))
-        
-        const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/product/create-product`, data, { headers: { "Content-Type": "application/json" } })
-        console.log(res.data)
+        )
     }
 
     function removeDo(props) {
@@ -229,9 +294,11 @@ export default function AddProduct() {
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Category</label>
                                 <select required onChange={handleChange} name="category" value={product.category} className="block w-full mt-2 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                     <option value="" disabled>Select category</option>
-                                    <option>Brightening</option>
-                                    <option>Anti-Pimple</option>
-                                    <option>Anti-Aging</option>
+                                    <option>Cleanser</option>
+                                    <option>Toner</option>
+                                    <option>Serum</option>
+                                    <option>Moisturizer</option>
+                                    <option>Sunscreen</option>
                                 </select>
                             </div>
                             <div className="sm:col-span-4">
@@ -391,17 +458,18 @@ export default function AddProduct() {
                                         <div className="mt-2 w-full">
                                             <select onChange={skinTypeChange} value={skinType} className="block w-full mt-2 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                                 <option value="" disabled>Select skin type</option>
-                                                <option>Normal</option>
-                                                <option>Oily</option>
+                                                <option>Wrinkle</option>
+                                                <option>Pigmentation</option>
+                                                <option>Acne</option>
                                                 <option>Dry</option>
-                                                <option>Combination</option>
+                                                <option>Oily</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-span-2">
                                     {product.routines[0]!==undefined ? 
-                                        <div className="grid grid-cols-4 items-center gap-2">
+                                        <div className="grid grid-cols-5 items-center gap-2">
                                             {product.routines.map((a, index)=> {
                                                 return (
                                                     <div key={index} className="bg-blue-400 rounded-lg px-8 py-2 relative">
@@ -433,7 +501,7 @@ export default function AddProduct() {
                                             </div>
                                         </div>
                                         <div className="sm:col-span-6 border-t-2">
-                                            <label className="block text-base font-medium py-4 leading-6 text-gray-900">Morning Routine List ({morrout.skintype} skin)</label>
+                                            <label className="block text-base font-medium py-4 leading-6 text-gray-900">Morning Routine List {morrout.skintype ? `(${morrout.skintype} skin)` : null}</label>
                                             <div>
                                                 {morrout?.steps[0]!==undefined ? 
                                                     <div className="grid grid-cols-6 gap-2">
@@ -477,7 +545,7 @@ export default function AddProduct() {
                                             </div>
                                         </div>
                                         <div className="sm:col-span-6 border-t-2 ">
-                                            <label className="block text-base font-medium py-4 leading-6 text-gray-900">Night Routine List ({nigrout.skintype} skin)</label>
+                                            <label className="block text-base font-medium py-4 leading-6 text-gray-900">Night Routine List {nigrout.skintype ? `(${nigrout.skintype} skin)` : null}</label>
                                             <div>
                                                 {nigrout?.steps[0]!==undefined ? 
                                                     <div className="grid grid-cols-6 gap-2">
@@ -519,6 +587,7 @@ export default function AddProduct() {
                                             skintype: "",
                                             steps: []
                                         })
+                                        setSkinType("")
                                     }} disabled={morrout.steps[0]===undefined || nigrout.steps[0]===undefined || morrout.skintype==="" ? true : false} type="button" className={`rounded-md max-w-[col-span-1] bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${morrout.steps[0]===undefined || nigrout.steps[0]===undefined || morrout.skintype==="" ? null : 'hover:bg-indigo-500'} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add Routine</button>
                                 </div>
                             </div>
@@ -549,6 +618,7 @@ export default function AddProduct() {
                     <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register Product</button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     )
 }
