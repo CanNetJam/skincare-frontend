@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { Route, Routes, Navigate, BrowserRouter } from 'react-router-dom';
+import { Route, Routes, Navigate, BrowserRouter, HashRouter } from 'react-router-dom';
 import axios from "axios";
 import Home from './Pages/Home';
 import AboutUs from './Pages/AboutUs';
@@ -93,7 +93,7 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter basename="/">
+    <HashRouter basename="/">
       <UserContext.Provider value={{ userData, setUserData }}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -127,7 +127,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </UserContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 

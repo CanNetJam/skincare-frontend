@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbar from '../Components/TopNav';
+import Footer from '../Components/Footer';
 
 export default function AddPackage() {
     const [ packageSet, setPackageSet ] = useState({
@@ -189,7 +191,8 @@ export default function AddPackage() {
 
     return (
         <div className="h-screen w-full">
-            <form onSubmit={submitHandler} className="container mx-auto px-20 py-10">
+            <Navbar/>
+            <form onSubmit={submitHandler} className="container mx-auto px-20 py-20">
                 <div className="space-y-12">
                     <div className="border-b border-gray-900/10 pb-12">
                         <h2 className="text-xl font-semibold leading-7 text-gray-900">Package Information</h2>
@@ -402,6 +405,7 @@ export default function AddPackage() {
                     <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register Package</button>
                 </div>
             </form>
+            <Footer/>
             <ToastContainer />
         </div>
     )
