@@ -150,7 +150,6 @@ export default function Category() {
                                 </h3>
                                 <p className="mt-1 text-sm text-gray-500 line-clamp-2">{product.maindesc}</p>
                             </div>
-                            <p className="text-sm font-medium text-gray-900">{product.price}</p>
                             </div>
                         </Link>
                     ))}
@@ -158,7 +157,7 @@ export default function Category() {
             </div>
 
             <div className="mx-auto max-w-2xl px-4 py-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                <h2 className="text-2xl font-bold tracking-tight text-gray-900">Serum</h2>
+                <h2 className="text-2xl font-bold tracking-tight text-gray-900">Sunscreen</h2>
         
                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-5 xl:gap-x-8">
                     {screenList.map((product) => (
@@ -179,7 +178,6 @@ export default function Category() {
                                 </h3>
                                 <p className="mt-1 text-sm text-gray-500 line-clamp-2">{product.maindesc}</p>
                             </div>
-                            <p className="text-sm font-medium text-gray-900">{product.price}</p>
                             </div>
                         </Link>
                     ))}
