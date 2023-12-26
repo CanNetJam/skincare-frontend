@@ -17,9 +17,9 @@ export default function TermsOfUse() {
         <>
             <Navbar/>
         
-            <div className='container mx-auto py-10'>
-                <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Klued Skin Care Products Trading Terms of Use</h1>
-                <p className=''>
+            <div className='container mx-auto py-10 '>
+                <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-10 text-center'>Klued Skin Care Products Trading Terms of Use</h1>
+                <p className='px-4 text-justify'>
                     <b>Effective Date: May 20, 2023
                     <br/>
                     <br/>

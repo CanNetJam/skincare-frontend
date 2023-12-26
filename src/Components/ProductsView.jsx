@@ -21,9 +21,7 @@ function ProductsView() {
       </h2>
 
       <p className="max-w-lg mx-auto text-gray-500">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
-        praesentium cumque iure dicta incidunt est ipsam, officia dolor fugit
-        natus?
+        Not sure where to start? Then try our best sellers below! These are the people's choice, so its guaranteed to be effective. 
       </p>
     </header>
 

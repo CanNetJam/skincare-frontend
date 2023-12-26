@@ -7,13 +7,16 @@
         @apply min-h-screen h-auto w-full;
     }
     .pageTitle {
-        @apply font-bold lg:text-6xl text-3xl lg:py-10 py-6 text-center;
+        @apply font-bold lg:text-5xl text-3xl lg:py-10 py-4 text-center;
     }
     .subHeading {
         @apply font-bold lg:text-4xl text-2xl;
     }
     .contentHeading {
-        @apply font-bold lg:text-2xl text-lg;
+        @apply font-bold lg:text-3xl sm:text-2xl text-lg;
+    }
+    .contentSubHeading {
+        @apply font-bold lg:text-2xl sm:text-xl text-base;
     }
     .normalText {
         @apply lg:text-xl text-lg;

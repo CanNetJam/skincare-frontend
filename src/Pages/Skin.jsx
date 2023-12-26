@@ -22,7 +22,7 @@ function Skin() {
   }, [])
 
   return (
-    <div className='bg-fixed bg-[url("./src/assets/8.jpg")] bg-cover bg-no-repeat relative bg-center'>
+    <div className='sm:mt-16 mt-8 bg-fixed bg-[url("./src/assets/8.jpg")] bg-cover bg-no-repeat relative bg-center'>
       <Navbar/>
 
       <div className='h-full bg-white grid sm:pt-0 pt-16 justify-center py-4'>
@@ -317,7 +317,7 @@ function Skin() {
               
               <div className='bg-white absolute inset-0 h-full w-full rounded-xl [transform:rotateY(180deg)] [backface-visibility:hidden]'>
                 <div className='h-full w-full flex items-center justify-center sm:p-8 p-2'>
-                  <p className='sm:text-md text-xs font-semibold text-center'>You are shedding skin cells throughout the day, so it is important to keep your skin glowing and in good condition. An effective routine can help prevent acne, treat wrinkles, and help keep your skin looking its best.</p>
+                  <p className='sm:text-base text-xs font-semibold text-center'>You are shedding skin cells throughout the day, so it is important to keep your skin glowing and in good condition. An effective routine can help prevent acne, treat wrinkles, and help keep your skin looking its best.</p>
                 </div>
               </div>
             </div>
@@ -333,7 +333,7 @@ function Skin() {
               
               <div className='bg-white absolute inset-0 h-full w-full rounded-xl [transform:rotateY(180deg)] [backface-visibility:hidden]'>
                 <div className='h-full w-full flex items-center justify-center sm:p-8 p-2'>
-                  <p className='sm:text-md text-xs font-semibold text-center'>As you age, your skin’s cells turn over more slowly, make it look duller and less radiant. Using a quality skin care line can help remove dead skin cells so your body will replace them with newer, more youthful cells.</p>
+                  <p className='sm:text-base text-xs font-semibold text-center'>As you age, your skin’s cells turn over more slowly, make it look duller and less radiant. Using a quality skin care line can help remove dead skin cells so your body will replace them with newer, more youthful cells.</p>
                 </div>
               </div>
             </div>
@@ -349,7 +349,7 @@ function Skin() {
               
               <div className='bg-white absolute inset-0 h-full w-full rounded-xl [transform:rotateY(180deg)] [backface-visibility:hidden]'>
                 <div className='h-full w-full flex items-center justify-center sm:p-8 p-2'>
-                  <p className='sm:text-md text-xs font-semibold text-center'>Preventing skin problems is easier and less costly than trying to fix them in the future.</p>
+                  <p className='sm:text-base text-xs font-semibold text-center'>Preventing skin problems is easier and less costly than trying to fix them in the future.</p>
                 </div>
               </div>
             </div>
@@ -365,7 +365,7 @@ function Skin() {
               
               <div className='bg-white absolute inset-0 h-full w-full rounded-xl [transform:rotateY(180deg)] [backface-visibility:hidden]'>
                 <div className='h-full w-full flex items-center justify-center sm:p-8 p-2'>
-                  <p className='sm:text-md text-xs font-semibold text-center'>When your skin looks better, you will feel better about yourself and have more self-confidence.</p>
+                  <p className='sm:text-base text-xs font-semibold text-center'>When your skin looks better, you will feel better about yourself and have more self-confidence.</p>
                 </div>
               </div>
             </div>

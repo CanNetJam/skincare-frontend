@@ -7,7 +7,7 @@ import image3 from '../assets/20.jpg';
 export default function NewProducts() {
 
     return (
-        <div className="min-h-screen h-full bg-blue-300 sm:px-10 px-4">
+        <div className="min-h-screen h-full sm:mt-16 mt-8 bg-blue-300 sm:px-10 px-4">
             <div className="container mx-auto min-h-screen h-full w-full sm:pt-0 pt-16 md:grid-cols-2 md:grid items-center grid">
                 <div className="h-full flex sm:p-12 py-8 w-full items-center">
                     <div className="">
@@ -26,17 +26,17 @@ export default function NewProducts() {
 
                     <div className='overflow-hidden rounded-lg h-1/2 w-1/3 absolute top-0 -translate-y-2/3 right-0 z-0'>
                       <div className='h-full w-full flex items-center'>
-                        <p className='italic text-sm font-semibold'>Maintaining a resilient and radiant complexion.</p>
+                        <p className='italic text-base font-semibold'>Maintaining a resilient and radiant complexion.</p>
                       </div>
                     </div>
                     <div className='overflow-hidden rounded-lg h-1/2 w-1/3 absolute top-1/2 -translate-y-1/2 left-0 z-0'>
                       <div className='h-full w-full flex items-center'>
-                        <p className='italic text-sm text-right font-semibold'>Target hyperpigmentation, uneven skin tone, and stubborn dark spots.</p>
+                        <p className='italic text-base text-right font-semibold'>Target hyperpigmentation, uneven skin tone, and stubborn dark spots.</p>
                       </div>
                     </div>
                     <div className='overflow-hidden rounded-lg h-1/2 w-1/3 absolute bottom-0 translate-y-2/3 right-0 z-0'>
                       <div className='h-full w-full flex items-center'>
-                        <p className='italic text-sm font-semibold'>Deeply hydrates, plumps, and diminishes fine lines, ensuring healthy and vibrant skin.</p>
+                        <p className='italic text-base font-semibold'>Deeply hydrates, plumps, and diminishes fine lines, ensuring healthy and vibrant skin.</p>
                       </div>
                     </div>
                 </div>                

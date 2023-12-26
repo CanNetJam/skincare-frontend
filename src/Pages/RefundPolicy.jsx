@@ -18,8 +18,8 @@ export default function RefundPolicy() {
             <Navbar/>
         
             <div className='container mx-auto py-10'>
-                <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Klued Skin Care Products Trading Refund Policy</h1>
-                <p className=''>
+                <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-10 text-center'>Klued Skin Care Products Trading Refund Policy</h1>
+                <p className='px-4 text-justify'>
                     <b>Effective Date: May 20, 2023</b>
                     <br/>
                     <br/>

@@ -66,7 +66,6 @@ export default function Category() {
                                 </h3>
                                 <p className="mt-1 text-sm text-gray-500 line-clamp-2">{product.maindesc}</p>
                             </div>
-                            <p className="text-sm font-medium text-gray-900">{product.price}</p>
                             </div>
                         </Link>
                     ))}
@@ -95,7 +94,6 @@ export default function Category() {
                                 </h3>
                                 <p className="mt-1 text-sm text-gray-500 line-clamp-2">{product.maindesc}</p>
                             </div>
-                            <p className="text-sm font-medium text-gray-900">{product.price}</p>
                             </div>
                         </Link>
                     ))}
@@ -124,7 +122,6 @@ export default function Category() {
                                 </h3>
                                 <p className="mt-1 text-sm text-gray-500 line-clamp-2">{product.maindesc}</p>
                             </div>
-                            <p className="text-sm font-medium text-gray-900">{product.price}</p>
                             </div>
                         </Link>
                     ))}

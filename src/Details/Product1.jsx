@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams} from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import axios from "axios";
 import Routines from "../Components/Routines";
 import Precautions from "../Components/Precautions";
@@ -23,7 +23,8 @@ export default function Product1() {
         }
         windowOpen()
     }, [])
-    
+    console.log("product id: "+id)
+    console.log("location"+location?.state?.productid)
     useEffect(()=> {
         const getProduct = async () => {
             try {
@@ -57,7 +58,7 @@ export default function Product1() {
                         return (
                             <div key={index} className="w-full grid my-8 bg-gray-50 backdrop-blur-sm bg-opacity-60 rounded-xl p-4">
                                 <div className="max-h-[50vh]">
-                                    <img loading="lazy" className='h-full w-full rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.photo}.jpg`}></img>
+                                    <img className='h-full w-full rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.photo}.jpg`}></img>
                                 </div>
                                 <br/>
                                 <h5 className="contentHeading text-blue-400 text-center">{a.name}</h5>

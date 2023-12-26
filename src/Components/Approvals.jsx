@@ -13,7 +13,6 @@ export default function Approvals() {
         { src: img4, alt: 'Paraben Free' },
         { src: img5, alt: 'Sulfate Free' }
     ]
-
       
     return (
         <>

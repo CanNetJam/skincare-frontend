@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import Navbar from '../Components/TopNav'
+import React, { useEffect } from 'react';
+import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import photo1 from '../assets/1.jpg';
 import photo2 from '../assets/2.jpg';

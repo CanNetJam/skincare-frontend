@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Features({packageData, packageItems}) {
+    //console.log(packageItems)
     return (
         <div className="bg-white py-12">
             <div className="mx-auto max-w-8xl px-4 lg:px-8">
@@ -31,8 +32,15 @@ export default function Features({packageData, packageItems}) {
                                                 </div>
                                             </div>
                                             <div>
-                                                <dd className="mt-2 text-justify leading-7 text-gray-800 line-clamp-4">{item.maindesc}</dd>
-                                            </div>    
+                                                <dd className="mt-2 text-justify leading-7 text-gray-800 line-clamp-4 whitespace-pre-wrap break-normal">{item.maindesc}</dd>
+                                            </div>   
+                                            <br/> 
+                                            <div>
+                                                <label className='font-bold '>How to Use?</label>
+                                                <div className='mt-2 text-justify leading-7 text-gray-800 line-clamp-3'>
+                                                    {item.usage}
+                                                </div>
+                                            </div>
                                         </div>
                                     )
                                 })}

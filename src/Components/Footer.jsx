@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from "axios"
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa6";
 import img1 from '../assets/Klued-logo.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from "../App";
 
 export default function Footer() {
   const [ email, setEmail ] = useState("")
+  const { userData, setUserData } = useContext(UserContext)
 
   async function submitHandler(e) {
     e.preventDefault()
@@ -31,7 +33,7 @@ export default function Footer() {
   }
 
   return (
-    <div className="bg-slate-900 h-auto w-full sm:p-10 p-4">
+    <div className="bg-slate-900 sm:h-auto h-[120vh] w-full sm:px-10 p-4">
       <div className='grid sm:grid sm:grid-cols-3 border-b gap-y-6 border-slate-700 py-10 sm:px-2'>
         <div className='col-span-1'>
             <div className='h-[50px] w-[150px]'>
@@ -52,6 +54,7 @@ export default function Footer() {
               <li><Link to="/understandingyourskin" className='hover:text-slate-200'>Understanding your Skin</Link></li>
               <li><Link to="/aboutus" className='hover:text-slate-200'>About Us</Link></li>
               <li><Link to="/faqs" className='hover:text-slate-200'>FAQs</Link></li>
+              <li><Link to="/knowledge-base" className='hover:text-slate-200'>Employee Portal</Link></li>
             </ul>
           </div>
           <div>
@@ -91,19 +94,22 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className='grid justify-center gap-4 sm:flex sm:flex-row-reverse sm:justify-between p-6 items-center'>
+      <div className='grid justify-center gap-4 sm:flex sm:flex-row-reverse sm:justify-between px-6 py-2 items-center'>
         <div className='flex justify-center items-center text-slate-400 gap-8'>
-          <nav ><FaFacebook size='28px'/></nav>
-          <nav><FaTiktok size='28px'/></nav>
-          <nav><FaInstagram size='28px'/></nav>
+          <a href='https://www.facebook.com/Klued' target='_blank' className='cursor-pointer hover:text-slate-300'><FaFacebook size='28px'/></a>
+          <a href='https://www.tiktok.com/@klued_' target='_blank' className='cursor-pointer hover:text-slate-300'><FaTiktok size='28px'/></a>
+          <a href='https://www.instagram.com/klued_/' target='_blank' className='cursor-pointer hover:text-slate-300'><FaInstagram size='28px'/></a>
         </div>
         <div className='flex justify-center items-center'>
           <h1 className='text-slate-400 text-sm'>© 2023 Klued. All rights reserved.</h1>
         </div>
       </div>
+      <ToastContainer />
+    </div>
+  );
+}
 
-
-      <div className='grid sm:flex justify-between p-6 items-center'>
+/*
             <div className='w-full flex justify-center items-center'>
               <Link to="/emails" className="inline-block w-[250px] text-center px-12 py-3 mt-8 text-sm font-medium text-white transition bg-gray-800 border border-gray-800 rounded hover:shadow hover:bg-gray-900 focus:outline-none focus:ring">Emails</Link>
             </div>
@@ -113,14 +119,7 @@ export default function Footer() {
             <div className='w-full flex justify-center items-center'>
               <Link to="/add-package" className="inline-block w-[250px] text-center px-12 py-3 mt-8 text-sm font-medium text-white transition bg-gray-800 border border-gray-800 rounded hover:shadow hover:bg-gray-900 focus:outline-none focus:ring">Add Package</Link>
             </div>
-      </div>
-
-      <ToastContainer />
-    </div>
-  );
-}
-
-/*
+            
       <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="lg:flex lg:items-start lg:gap-8">
           <div className="mt-8 grid grid-cols-2 gap-8 lg:mt-0 lg:grid-cols-5 lg:gap-y-16">

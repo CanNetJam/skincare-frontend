@@ -15,7 +15,7 @@ export default function Package1() {
     const location = useLocation()
     const {id} = useParams()
     const [ packageData, setPackageData ] = useState({})
-
+    console.log(packageData)
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
