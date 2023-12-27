@@ -9,7 +9,7 @@ export default function Features({packageData, packageItems}) {
                 <div className="mx-auto max-w-2xl lg:text-center">
                     <h2 className="text-base font-semibold leading-7 text-blue-400">Maximum value</h2>
                     <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{packageData.name} Includes</p>
-                    <p className="mt-6 smallText leading-8 text-gray-600">Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum pulvinar et feugiat blandit at. In mi viverra elit nunc.</p>
+                    <p className="mt-6 smallText leading-8 text-gray-600">Enjoy the benefits of the following products when you avail the new {packageData.name}!</p>
                 </div>
                 <div className="mx-auto sm:mt-16 mt-8 max-w-2xl lg:max-w-6xl">
                     {packageItems[0]!==undefined ? 

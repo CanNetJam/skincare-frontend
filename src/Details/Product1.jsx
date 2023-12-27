@@ -23,8 +23,7 @@ export default function Product1() {
         }
         windowOpen()
     }, [])
-    console.log("product id: "+id)
-    console.log("location"+location?.state?.productid)
+    
     useEffect(()=> {
         const getProduct = async () => {
             try {
