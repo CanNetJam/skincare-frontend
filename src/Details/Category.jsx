@@ -23,7 +23,7 @@ export default function Category() {
     useEffect(()=> {
         const getProducts = async () => {
             try {
-                const products = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/product/get-all-products`)
+                const products = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/product/get-all-products`)
                 const cleanse = products?.data?.filter((item) => item.category === "Cleanser")
                 setCleanseList(cleanse)
                 const toner = products?.data?.filter((item) => item.category === "Toner")
@@ -107,21 +107,21 @@ export default function Category() {
                     {serumList.map((product) => (
                         <Link to={`/details/product/${product._id}`} state={{productid: product._id}} key={product._id} className="group relative">
                             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
-                            <img
-                                src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
-                                className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                            />
-                            </div>
-                            <div className="mt-4 flex justify-between">
-                            <div>
-                                <h3 className="text-sm text-gray-700">
-                                <div>
-                                    <span aria-hidden="true" className="absolute inset-0" />
-                                    {product.name}
+                                <img
+                                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
+                                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                                />
                                 </div>
-                                </h3>
-                                <p className="mt-1 text-sm text-gray-500 line-clamp-2">{product.maindesc}</p>
-                            </div>
+                                <div className="mt-4 flex justify-between">
+                                    <div>
+                                        <h3 className="text-sm text-gray-700">
+                                            <div>
+                                                <span aria-hidden="true" className="absolute inset-0" />
+                                                {product.name}
+                                            </div>
+                                        </h3>
+                                    <p className="mt-1 text-sm text-gray-500 line-clamp-2">{product.maindesc}</p>
+                                </div>
                             </div>
                         </Link>
                     ))}

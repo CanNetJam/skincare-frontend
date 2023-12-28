@@ -35,6 +35,7 @@ import Profile from './Components/Profile';
 import Policy from './Pages/Policy';
 import Settings from './Pages/Settings';
 import UserAccounts from './Pages/UserAccounts';
+import UpdateProduct from './Pages/UpdateProduct';
 
 export const UserContext = createContext();
 
@@ -86,10 +87,13 @@ const App = () => {
 
   const SuperAdminRoute = ( children ) => {
     let type = localStorage.getItem("user-type")
-    if (type!=="Super Admin") {
-      return <Navigate  to="/" />
+    if (type==="Super Admin") {
+      return children
     }
-    return children
+    if (type==="Admin") {
+      return children
+    }
+    return <Navigate  to="/" />
   }
 
   return (
@@ -109,20 +113,21 @@ const App = () => {
 
           <Route path="/details/product/:id" element={<Product1 />} />
           <Route path="/details/package/:id" element={<Package1 />} />
-          <Route path="/add-product" element={<AddProduct />} />
-          <Route path="/emails" element={<Email />} />
-          <Route path="/add-package" element={<AddPackage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/knowledge-base" element={AuthenticatedRoute(<KnowledgeBase />)} />
-          <Route path="/internal-policy" element={AuthenticatedRoute(<Policy />)} />
           <Route path="/accounts/profile/:id" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
-      
-          <Route path="/user-accounts" element={SuperAdminRoute(<UserAccounts />) } />
-
           <Route path="/terms-of-use" element={<TermsOfUse />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
+
+          <Route path="/knowledge-base" element={AuthenticatedRoute(<KnowledgeBase />)} />
+          <Route path="/internal-policy" element={AuthenticatedRoute(<Policy />)} />
+
+          <Route path="/emails" element={SuperAdminRoute(<Email />)} />
+          <Route path="/add-product" element={SuperAdminRoute(<AddProduct />)} />
+          <Route path="/add-package" element={SuperAdminRoute(<AddPackage />)} />
+          <Route path="/user-accounts" element={SuperAdminRoute(<UserAccounts />) } />
+          <Route path="/update-product" element={SuperAdminRoute(<UpdateProduct />)} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

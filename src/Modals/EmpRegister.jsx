@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,16 +14,6 @@ export default function Example({isOpen, setIsOpen}) {
     const [job, setJob] = useState("")
     const [department, setDepartment] = useState("")
     const [number, setNumber] = useState("")
-
-    useEffect(()=> {
-        const windowOpen = () => {   
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-            })
-        }
-        windowOpen()
-    }, [])
 
     function toastErrorNotification() {
       toast.error('Email already exists!', {
@@ -63,7 +53,7 @@ export default function Example({isOpen, setIsOpen}) {
         data.append("job", job)
         data.append("department", department)
         data.append("phone", number)
-        const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/accounts/register`, data, { headers: { "Content-Type": "application/json" } })
+        const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/register`, data, { headers: { "Content-Type": "application/json" } })
         if (res.data===false) {
             toastErrorNotification()
         }

@@ -39,7 +39,7 @@ export default function AddPackage() {
     useEffect(()=> {
         const getProducts = async () => {
             try {
-                const products = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/product/get-all-products`)
+                const products = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/product/get-all-products`)
                 setAvailableItems(products.data)
             } catch (err) {
                 console.log(err)
@@ -71,7 +71,7 @@ export default function AddPackage() {
             const data = new FormData()
             let uploadedProductPhoto
             if (productImage[0]!==undefined){
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/get-signature` )
+                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
 
                 const image = new FormData()
                 image.append("file", productImage[0])
@@ -91,7 +91,7 @@ export default function AddPackage() {
 
             if (productMoreImage[0]!==undefined) {
                 for (let i=0; i<productMoreImage.length; i++) {
-                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/get-signature` )
+                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
 
                     const image = new FormData()
                     image.append("file", productMoreImage[i])
@@ -123,7 +123,7 @@ export default function AddPackage() {
             data.append("lazadalink", packageSet.links.lazada)
             data.append("routines", JSON.stringify(packageSet.routines))
             
-            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/package/create-package`, data, { headers: { "Content-Type": "application/json" } })
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/package/create-package`, data, { headers: { "Content-Type": "application/json" } })
             console.log(res.data)
 
             setPackageSet({

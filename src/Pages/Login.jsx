@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext} from "react";
 import axios from "axios";
 import {UserContext} from "../App";
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import img1 from '../assets/Klued-logo.png';
 import img2 from '../assets/3.jpg';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const navigate = useNavigate()
@@ -26,6 +26,18 @@ function Login() {
     windowOpen()
   }, [])
 
+  function toastErrorNotification() {
+    toast.error('Wrong credentials!', {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -34,7 +46,7 @@ function Login() {
         email: user.email,
         password: user.password,
       }
-      const loginResponse = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/accounts/login`, newUser, { headers: { "Content-Type": "application/json" } })
+      const loginResponse = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/login`, newUser, { headers: { "Content-Type": "application/json" } })
       if (loginResponse.data) {
         setUserData({
           token: loginResponse.data.token,
@@ -47,6 +59,8 @@ function Login() {
           password: "",
         })
         navigate("/")
+      } else {
+        toastErrorNotification()
       }
     } catch (err) {
       console.log(err)

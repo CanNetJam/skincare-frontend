@@ -13,7 +13,7 @@ export default function Product1() {
     const location = useLocation()
     const {id} = useParams()
     const [ productData, setProductData ] = useState({})
-
+    
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
@@ -27,7 +27,7 @@ export default function Product1() {
     useEffect(()=> {
         const getProduct = async () => {
             try {
-                const product = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/product/get-product`, {params: {
+                const product = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/product/get-product`, {params: {
                     productid: id ? id : location.state.productid
                 }})
                 setProductData(product.data)
@@ -75,7 +75,7 @@ export default function Product1() {
             </div>
             <Usage usage={productData?.usage} extra={productData?.extra} moreimage={productData?.moreimage ? productData.moreimage : []}/>
             <Routines routines={productData?.routines}/>
-            <DoDonts proddo={productData?.do} proddont={productData?.dont}/>
+            <DoDonts proddo={productData?.do ? productData?.do : []} proddont={productData?.dont ? productData?.dont : []}/>
             <Precautions />
             <OrderNow productlinks={productData?.productlinks}/>
             <Footer/>

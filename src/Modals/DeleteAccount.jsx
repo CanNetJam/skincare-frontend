@@ -1,14 +1,12 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function DeleteAccountModal({isDelete, setIsDelete, toDelete, setToDelete}) {
 
   const handleDelete = async () => {
     try {
-      const res = await axios.delete(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/accounts/delete-account/${toDelete._id}`, { headers: { "Content-Type": "application/json" } })
+      const res = await axios.delete(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/delete-account/${toDelete._id}`, { headers: { "Content-Type": "application/json" } })
       if (res.data) {
         setToDelete("")
         setIsDelete(false)

@@ -15,7 +15,7 @@ export default function Footer() {
     e.preventDefault()
     try {
       const loadingNotif = async function myPromise() {
-        const passEmail = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/emails/submit-email`, {email})
+        const passEmail = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/emails/submit-email`, {email})
         console.log(passEmail.data)
         setEmail("")
       }

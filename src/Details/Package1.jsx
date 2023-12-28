@@ -29,7 +29,7 @@ export default function Package1() {
     useEffect(()=> {
         const getProduct = async () => {
             try {
-                const packageSet = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/package/get-package`, {params: {
+                const packageSet = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/package/get-package`, {params: {
                     packageid: id ? id : location.state.packageid
                 }})
                 setPackageData(packageSet.data)
