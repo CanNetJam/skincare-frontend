@@ -53,7 +53,7 @@ export default function Example({isOpen, setIsOpen}) {
         data.append("job", job)
         data.append("department", department)
         data.append("phone", number)
-        const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/register`, data, { headers: { "Content-Type": "application/json" } })
+        const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/accounts/register`, data, { headers: { "Content-Type": "application/json" } })
         if (res.data===false) {
             toastErrorNotification()
         }

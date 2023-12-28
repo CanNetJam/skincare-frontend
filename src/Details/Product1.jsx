@@ -27,7 +27,7 @@ export default function Product1() {
     useEffect(()=> {
         const getProduct = async () => {
             try {
-                const product = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/product/get-product`, {params: {
+                const product = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/product/get-product`, {params: {
                     productid: id ? id : location.state.productid
                 }})
                 setProductData(product.data)
