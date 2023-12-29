@@ -113,7 +113,7 @@ function Navbar() {
             </div>
 
             {openMenu===true ? 
-              <div className='md:hidden top-16 pt-4 sm:w-64 right-0 sm:pt-8 min-h-screen h-auto sm:border-l-2 bg-white z-10 fixed overflow-y-auto w-full'>
+              <div className='md:hidden top-16 pt-4 sm:w-64 right-0 sm:pt-8 min-h-screen h-full sm:border-l-2 bg-white z-10 fixed overflow-y-auto w-full'>
                 <div className='h-64 w-full sm:w-64 grid gap-0'>
                   <Link to="/product-details" className='h-10 sm:h-1 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex justify-center items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>Our Products</span></Link>
                   <Link to="/understandingyourskin" className='h-10 sm:h-1 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex justify-center items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>Understanding Your Skin</span></Link>
@@ -123,7 +123,7 @@ function Navbar() {
                   {userData?.user!==undefined &&
                     <>
                       <Link
-                        to="/profile"
+                        to={`/accounts/profile/${userData.user._id}`} state={{profileid: userData.user._id}}
                         className="h-10 flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                       >
                         <svg
@@ -159,7 +159,7 @@ function Navbar() {
                             to="/add-product"
                             className="h-10 flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                           >
-                          <svg width="24" height="24" clipRule="evenodd" fillRule="evenodd" strokeLinejoin="round" strokeMiterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 3.998c0-.478-.379-1-1-1h-16c-.62 0-1 .519-1 1v16c0 .621.52 1 1 1h16c.478 0 1-.379 1-1zm-16.5.5h15v15h-15zm6.75 6.752h-3.5c-.414 0-.75.336-.75.75s.336.75.75.75h3.5v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5h3.5c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-3.5v-3.5c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" fill-rule="nonzero"/></svg>
+                          <svg width="24" height="24" clipRule="evenodd" fillRule="evenodd" strokeLinejoin="round" strokeMiterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 3.998c0-.478-.379-1-1-1h-16c-.62 0-1 .519-1 1v16c0 .621.52 1 1 1h16c.478 0 1-.379 1-1zm-16.5.5h15v15h-15zm6.75 6.752h-3.5c-.414 0-.75.336-.75.75s.336.75.75.75h3.5v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5h3.5c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-3.5v-3.5c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" fillRule="nonzero"/></svg>
                             Add Product
                           </Link>
                         
@@ -167,7 +167,7 @@ function Navbar() {
                             to="/add-package"
                             className="h-10 flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                           >
-                          <svg width="24" height="24" clipRule="evenodd" fillRule="evenodd" strokeLinejoin="round" strokeMiterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m20 20h-15.25c-.414 0-.75.336-.75.75s.336.75.75.75h15.75c.53 0 1-.47 1-1v-15.75c0-.414-.336-.75-.75-.75s-.75.336-.75.75zm-1-17c0-.478-.379-1-1-1h-15c-.62 0-1 .519-1 1v15c0 .621.52 1 1 1h15c.478 0 1-.379 1-1zm-15.5.5h14v14h-14zm6.25 6.25h-3c-.414 0-.75.336-.75.75s.336.75.75.75h3v3c0 .414.336.75.75.75s.75-.336.75-.75v-3h3c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-3v-3c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" fill-rule="nonzero"/></svg>
+                          <svg width="24" height="24" clipRule="evenodd" fillRule="evenodd" strokeLinejoin="round" strokeMiterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m20 20h-15.25c-.414 0-.75.336-.75.75s.336.75.75.75h15.75c.53 0 1-.47 1-1v-15.75c0-.414-.336-.75-.75-.75s-.75.336-.75.75zm-1-17c0-.478-.379-1-1-1h-15c-.62 0-1 .519-1 1v15c0 .621.52 1 1 1h15c.478 0 1-.379 1-1zm-15.5.5h14v14h-14zm6.25 6.25h-3c-.414 0-.75.336-.75.75s.336.75.75.75h3v3c0 .414.336.75.75.75s.75-.336.75-.75v-3h3c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-3v-3c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" fillRule="nonzero"/></svg>
                             Add Package
                           </Link>
                         </>

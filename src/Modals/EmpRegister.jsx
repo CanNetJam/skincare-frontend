@@ -4,7 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Example({isOpen, setIsOpen}) {
+export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
     const [firstname, setFirstName] = useState("")
     const [lastname, setLastName] = useState("")
     const [email, setEmail] = useState("")
@@ -69,6 +69,7 @@ export default function Example({isOpen, setIsOpen}) {
             setDepartment("")
             setNumber("")
             setIsOpen(false)
+            setDateRange({...dateRange, endDate: new Date()})
         }
     }
 

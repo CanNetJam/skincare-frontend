@@ -39,6 +39,7 @@ export default function Package1() {
         }
         getProduct()
     }, [])
+    
     return (
         <div>
             <Navbar/>
@@ -48,7 +49,7 @@ export default function Package1() {
             <Features packageData={packageData} packageItems={packageData.items ? packageData.items : []}/>
             <Routines2 packageData={packageData} morning={packageData?.routines?.morning ? packageData.routines.morning : []} night={packageData?.routines?.night ? packageData.routines.night : []}/>
             <Precautions />
-            <OrderNow/>
+            <OrderNow productlinks={packageData?.packagelinks}/>
             <Footer/>
         </div>
     )

@@ -36,6 +36,8 @@ export default function AddPackage() {
     const [ productMoreImage, setProductMoreImage ] = useState([])
     const CreateProductMoreImageField = useRef()
 
+    console.log(availableItems)
+
     useEffect(()=> {
         const getProducts = async () => {
             try {
@@ -147,7 +149,6 @@ export default function AddPackage() {
             })
             setMorstep("")
             setNigstep("")
-            setAvailableItems([])
             setTestingArray([])
             setWord("")
             setProductImage([])

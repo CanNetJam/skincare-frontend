@@ -75,7 +75,13 @@ export default function Product1() {
             </div>
             <Usage usage={productData?.usage} extra={productData?.extra} moreimage={productData?.moreimage ? productData.moreimage : []}/>
             <Routines routines={productData?.routines}/>
-            <DoDonts proddo={productData?.do ? productData?.do : []} proddont={productData?.dont ? productData?.dont : []}/>
+            {productData?.do ?
+                <>
+                    {productData.do[0]!==undefined && productData.dont[0]!==undefined ? 
+                        <DoDonts proddo={productData?.do ? productData?.do : []} proddont={productData?.dont ? productData?.dont : []}/>
+                    :null}
+                </>
+            :null}
             <Precautions />
             <OrderNow productlinks={productData?.productlinks}/>
             <Footer/>

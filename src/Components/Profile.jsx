@@ -22,9 +22,6 @@ const Profile = () => {
     const [ profileData, setProfileData ] = useState({})
     const {id} = useParams()
 
-    console.log("product id: "+id)
-    console.log("location: "+location?.state?.profileid)
-
     useEffect(()=> {
         const getProfile = async () => {
             try {
@@ -67,7 +64,6 @@ const Profile = () => {
             data.append("phone", draftPhone)
             const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/accounts/update-account/${iD}`, data, 
             { headers: { "Content-Type": "application/json" }, "auth-token": token })
-            console.log(res.data)
 
             if (res.data) {
                 setProfileData({

@@ -41,7 +41,7 @@ export default function UserAccountsTable() {
             }
         }
         getAccounts()
-    }, [dateRange, page, pageEntries, isOpen, isDelete])
+    }, [dateRange, page, pageEntries, isDelete])
 
     function createElements(pages, page){
         var elements = [];
@@ -61,7 +61,7 @@ export default function UserAccountsTable() {
         <div className='h-auto w-full container mx-auto my-16 sm:p-10 py-4 px-4'>
             <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>User Accounts</h1>
             {isOpen && (
-                <Register isOpen={isOpen} setIsOpen={setIsOpen}/>
+                <Register isOpen={isOpen} setIsOpen={setIsOpen} dateRange={dateRange} setDateRange={setDateRange}/>
             )}  
             {isDelete && (
                 <DeleteAccountModal isDelete={isDelete} setIsDelete={setIsDelete} toDelete={toDelete} setToDelete={setToDelete}/>

@@ -301,7 +301,7 @@ export default function UpdateProduct() {
                 <UpdateIngredient isOpen={isOpen} setIsOpen={setIsOpen} updateIng={updateIng} setUpdateIng={setUpdateIng} setUpdateIngList={setUpdateIngList} product={product} setProduct={setProduct}/>
             )}  
             <div className="container mx-auto my-16 grid grid-cols-4">
-                <div className="col-span-1 p-8">
+                <div className="col-span-1 p-6 overflow-hidden">
                     <h1 className="font-bold contentSubHeading">Select product to edit</h1>
                     <div className="grid gap-2 w-full rounded-md text-gray-900 sm:max-w-xs sm:text-sm sm:leading-6">
                         {availableItems[0]!==undefined ?
@@ -632,12 +632,6 @@ export default function UpdateProduct() {
                                         <div className="col-span-2 w-full grid grid-cols-6">
                                             <div className="col-span-4 flex items-center">
                                                 <label className="block font-medium leading-6 text-gray-900 text-base">Product Routine</label>
-                                            </div>
-                                            <div className="col-span-1 flex justify-end items-center">
-                                                <label className="block text-sm font-medium leading-6 text-gray-900 text-right px-4">Skin Type:</label>
-                                            </div>
-                                            <div className="col-span-1">
-                                                
                                             </div>
                                         </div>
                                         <div className="col-span-2">
