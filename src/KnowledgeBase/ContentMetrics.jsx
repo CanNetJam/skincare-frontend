@@ -13,7 +13,7 @@ export default function ContentMetrics() {
     }, [])
     
     return (
-        <div className='bg-blue-100 h-auto w-full text-base sm:text-lg sm:p-8 p-4'>
+        <div className='bg-blue-200 h-auto w-full text-base sm:text-lg sm:p-8 p-4'>
             <section className='my-2'>
                 <h1 className='subHeading text-center sm:mb-6 mb-2'>Content Metrics<br/>(KB-011)</h1>
             </section>

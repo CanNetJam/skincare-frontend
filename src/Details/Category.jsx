@@ -155,7 +155,11 @@ export default function Category() {
                     ))}
                 </div>
             </div>
+        </div>
+    )
+}
 
+/*
             <div className="mx-auto max-w-2xl px-4 py-4 sm:px-6 lg:max-w-7xl lg:px-8">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">Sunscreen</h2>
         
@@ -183,11 +187,7 @@ export default function Category() {
                     ))}
                 </div>
             </div>
-        </div>
-    )
-}
-
-/*
+            
         <>
             <div className="h-[50vh] w-full overflow-hidden sm:flex sm:flex-rows-3 sm:flex-row-reverse grid grid-rows-3 rounded-xl bg-cover bg-no-repeat bg-center bg-[url('https://images.pexels.com/photos/3762877/pexels-photo-3762877.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&dpr=1')]">
                 <div className="h-full max-w-screen w-full sm:w-2/3 row-span-2">
