@@ -78,7 +78,7 @@ export default function UpdateProduct() {
     useEffect(()=> {
         const getProducts = async () => {
             try {
-                const products = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}}/product/get-all-products`)
+                const products = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/product/get-all-products`)
                 setAvailableItems(products.data)
             } catch (err) {
                 console.log(err)

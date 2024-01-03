@@ -131,7 +131,7 @@ export default function UserAccountsTable() {
                     :null}
                 </div>
             </div>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
+            <div className="relative w-auto overflow-x-auto shadow-md sm:rounded-lg p-4">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -209,7 +209,7 @@ export default function UserAccountsTable() {
                     </tbody>
                 </table>
 
-                <nav className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+                <nav className="flex w-full items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
                     <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span className="font-semibold text-gray-900 dark:text-white">1-{pageEntries<total ? pageEntries : total}</span> of <span className="font-semibold text-gray-900 dark:text-white">{total}</span></span>
                     <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                         <li>
