@@ -4,6 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { UserContext } from "../App";
+import { addDays } from 'date-fns';
 
 export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
     const { userData, setUserData } = useContext(UserContext)
@@ -73,7 +74,7 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
             setDepartment("")
             setNumber("")
             setIsOpen(false)
-            setDateRange({...dateRange, endDate: new Date()})
+            setDateRange({...dateRange, endDate: addDays(new Date(), +1)})
         }
     }
     

@@ -11,9 +11,9 @@ export default function UserAccountsTable() {
     const [ toDelete, setToDelete ] = useState("")
     const [ menu, setMenu ] = useState(false)
     const [ accounts, setAccounts] = useState([])
-    const [ range, setRange ] = useState("Last 30 days")
+    const [ range, setRange ] = useState("Last year")
     const [dateRange, setDateRange] = useState({
-        startDate: addDays(new Date(), -7),
+        startDate: addDays(new Date(), -365),
         endDate: new Date()
     })
     const [ page, setPage ] = useState(0)
