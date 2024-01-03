@@ -91,7 +91,7 @@ export default function AddProduct() {
             const data = new FormData()
             let uploadedProductPhoto
             if (productImage[0]!==undefined){
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/get-signature` )
+                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}}/get-signature` )
 
                 const image = new FormData()
                 image.append("file", productImage[0])
@@ -111,7 +111,7 @@ export default function AddProduct() {
 
             if (productMoreImage[0]!==undefined) {
                 for (let i=0; i<productMoreImage.length; i++) {
-                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/get-signature` )
+                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}}/get-signature` )
 
                     const image = new FormData()
                     image.append("file", productMoreImage[i])
@@ -133,7 +133,7 @@ export default function AddProduct() {
 
             if (file[0]!==undefined) {
                 for (let i=0; i<file.length; i++) {
-                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/get-signature` )
+                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}}/get-signature` )
 
                     const image = new FormData()
                     image.append("file", file[i])
@@ -169,7 +169,7 @@ export default function AddProduct() {
             data.append("do", JSON.stringify(product.do))
             data.append("dont", JSON.stringify(product.dont))
             
-            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/product/create-product`, data, { headers: { "Content-Type": "application/json" } })
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}}/product/create-product`, data, { headers: { "Content-Type": "application/json" } })
             console.log(res.data)
 
             setProduct({

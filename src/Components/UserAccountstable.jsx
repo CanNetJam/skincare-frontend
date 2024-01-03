@@ -25,7 +25,7 @@ export default function UserAccountsTable() {
         const getAccounts = async () => {
             try {
                 let token = localStorage.getItem("auth-token")
-                const getAccounts = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/all-accounts`, 
+                const getAccounts = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/accounts/all-accounts`, 
                 {params: {
                     startDate: dateRange.startDate,
                     endDate: dateRange.endDate,

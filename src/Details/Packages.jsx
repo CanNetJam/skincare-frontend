@@ -9,7 +9,7 @@ export default function Packages() {
     useEffect(()=> {
         const getPackage = async () => {
             try {
-                const packageList = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/package/get-all-packages`)
+                const packageList = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}}/package/get-all-packages`)
                 setPackages(packageList.data)
             } catch (err) {
                 console.log(err)

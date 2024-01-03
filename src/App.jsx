@@ -66,9 +66,9 @@ const App = () => {
       }
       
       if (token !== null && token !== ""){
-        const tokenResponse = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/token/tokenIsValid`, null, {headers: {"auth-token": token}})
+        const tokenResponse = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : 'https://kluedskincare-backend.onrender.com'}/token/tokenIsValid`, null, {headers: {"auth-token": token}})
         if(tokenResponse.data!==false){
-          const userResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/user-data`, {headers: {"auth-token": token}})
+          const userResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : 'https://kluedskincare-backend.onrender.com'}/accounts/user-data`, {headers: {"auth-token": token}})
           if (userResponse) {
             setUserData({
               token: token,

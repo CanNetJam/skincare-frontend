@@ -46,7 +46,7 @@ function Login() {
         email: user.email,
         password: user.password,
       }
-      const loginResponse = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/accounts/login`, newUser, { headers: { "Content-Type": "application/json" } })
+      const loginResponse = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}}/accounts/login`, newUser, { headers: { "Content-Type": "application/json" } })
       if (loginResponse.data) {
         setUserData({
           token: loginResponse.data.token,
