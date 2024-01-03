@@ -20,7 +20,7 @@ export default function UserAccountsTable() {
     const [ pages, setPages ] = useState(0)
     const [ pageEntries, setPageEntries ] = useState(10)
     const [ total, setTotal ] = useState(0)
-
+    
     useEffect(() => {
         const getAccounts = async () => {
             try {

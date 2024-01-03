@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy } from 'react';
 import img1 from '../assets/Knowledge Base/Creative Tigers/a1.png';
 
 export default function ContentMetrics() {
+    
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({

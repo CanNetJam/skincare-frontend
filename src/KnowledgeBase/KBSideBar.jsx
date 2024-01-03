@@ -4,7 +4,7 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
     return (
         <>
             {openMenu===true ? 
-                <div className='h-screen sm:w-[300px] w-[250px] bg-gray-800 sticky sm:top-[100px] top-[120px] left-0 duration-200 ease-linear lg:translate-x-0'>
+                <div className='sm:h-screen h-auto sm:w-[300px] w-[250px] bg-gray-800 sticky sm:top-[100px] top-[120px] left-0 duration-200 ease-linear lg:translate-x-0'>
                     <section className='flex justify-end items-center p-4'>
                         <svg onClick={()=>{
                             if (openMenu===true) {
@@ -55,7 +55,7 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
                     }
                 </div>
             :
-                <div className='h-screen w-[45px] bg-gray-800 sticky sm:top-[100px] top-[120px] left-0 duration-200 ease-linear lg:translate-x-100'>
+                <div className='sm:h-screen h-auto w-[45px] bg-gray-800 sticky sm:top-[100px] top-[120px] left-0 duration-200 ease-linear lg:translate-x-100'>
                     <section className='flex justify-end items-center p-2'>
                         <svg onClick={()=>{
                             if (openMenu===false) {

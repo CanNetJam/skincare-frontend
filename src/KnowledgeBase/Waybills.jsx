@@ -2,8 +2,19 @@ import React, { useEffect } from 'react';
 import img1 from '../assets/Knowledge Base/Mountain Movers/i1.png';
 import img2 from '../assets/Knowledge Base/Mountain Movers/i2.png';
 import img3 from '../assets/Knowledge Base/Mountain Movers/i3.png';
+import MyImage from  '../Components/MyImage'
 
 export default function Waybills() {
+    useEffect(() => {
+        const handleContextmenu = e => {
+            e.preventDefault()
+        }
+        document.addEventListener('contextmenu', handleContextmenu)
+        return function cleanup() {
+            document.removeEventListener('contextmenu', handleContextmenu)
+        }
+    }, [])
+
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
@@ -33,8 +44,8 @@ export default function Waybills() {
                             <li className='my-2'>Packing List</li>
                         </ol>
                     </div>
-                    <div className='col-span-1'>
-                        <img className='' src={img1}/>
+                    <div className='col-span-1 h-[75vh]'>
+                        <MyImage src={img1}/>
                     </div>
                 </section>
                 
@@ -48,8 +59,8 @@ export default function Waybills() {
                             <li className='my-2'>Packing List</li>
                         </ol>
                     </div>
-                    <div className='col-span-1'>
-                        <img className='' src={img2}/>
+                    <div className='col-span-1 h-[75vh]'>
+                        <MyImage src={img2}/>
                     </div>
                 </section>
 
@@ -63,8 +74,8 @@ export default function Waybills() {
                             <li className='my-2'>Packing List</li>
                         </ol>
                     </div>
-                    <div className='col-span-1'>
-                        <img className='' src={img3}/>
+                    <div className='col-span-1 h-[75vh]'>
+                        <MyImage src={img3}/>
                     </div>
                 </section>
             </div>

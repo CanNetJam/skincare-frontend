@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import img1 from '../assets/Policy/j1.png';
-import img2 from '../assets/Policy/j1.png';
+import img2 from '../assets/Policy/j2.png';
 
 export default function Attendance() {
     useEffect(()=> {

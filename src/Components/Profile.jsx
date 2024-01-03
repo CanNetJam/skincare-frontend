@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { useLocation, useParams } from 'react-router';
+import Settings from './ChangePassword';
 
 const Profile = () => {
     const location = useLocation()
@@ -88,14 +89,41 @@ const Profile = () => {
         )
     }
 
+    function toastErrorNotif() {
+        toast.error('File size too large, please select a file that is lower than 3 mb.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    const handleFileUpload = (e) => {
+        let file = e.target.files[0];
+        let fileType = file.type; // image/jpeg
+        let fileSize = file.size; // 3MB
+    
+        if (fileSize > 3 * 1000000) {
+          // fileSize > 5MB then show popup message
+            toastErrorNotif()
+            return
+        } else {
+            setFile(e.target.files[0])
+        }
+    }
+
     return (
         <>
             <Navbar/>
-            <div className="bg-gray-100 mt-16 grid justify-center">
-                <div className="container mx-auto py-8">
-                    <div className="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
-                        <div className="col-span-4 sm:col-span-3">
-                            <div className="bg-white shadow rounded-lg p-6">
+            <div className="bg-gray-100 w-full mt-16 grid justify-center sm:pb-4">
+                <div className="container w-screen mx-auto pt-4 sm:py-4 sm:min-w-[1000px]">
+                    <div className="grid w-full sm:grid-cols-12 gap-4 sm:px-10 px-4">
+                        <div className="sm:col-span-4">
+                            <div className="bg-white h-full w-full shadow rounded-lg p-6">
                                 <div className="flex flex-col items-center">
                                     <div className='w-full grid justify-center px-4 py-2 relative'>
                                         {isEditing && (
@@ -121,13 +149,19 @@ const Profile = () => {
                                                 fill=""
                                             />
                                             </svg>
-                                            <input ref={CreatePhotoField} onChange={e => setFile(e.target.files[0])} type="file" className="sr-only"/>
+                                            <input ref={CreatePhotoField} onChange={handleFileUpload} type="file" className="sr-only"/>
                                             </label>
                                         )}
                                         {profileData?.displayimage ? 
-                                        <img className='w-32 h-32 rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${profileData?.displayimage}.jpg`}></img>
+                                            <img className='w-40 h-40 rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${profileData?.displayimage}.jpg`}></img>
                                         :
-                                        <IoPersonCircleOutline className='w-32 h-32'/>
+                                            <>
+                                                {file!==undefined ? 
+                                                    <img className='w-40 h-40 rounded-full mb-4 shrink-0 object-cover' src={URL.createObjectURL(file)}></img>
+                                                :
+                                                    <IoPersonCircleOutline className='w-40 h-40'/>
+                                                }
+                                            </>
                                         }
                                     </div>
                                     <h1 className="text-xl font-bold">{profileData?.firstname +" "+ profileData?.lastname}</h1>
@@ -139,102 +173,110 @@ const Profile = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-span-4 sm:col-span-9">
-                        <div className="bg-white max-w-2xl shadow overflow-hidden  rounded-lg">
-                            <div className="px-4 py-5 sm:px-6 flex justify-between">
-                                <div>
-                                    <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                        User data
-                                    </h3>
-                                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                                        Details and informations about user.
-                                    </p>
-                                </div>
-                                {userData?.user?._id===profileData?._id ? 
-                                    <>
-                                        <label onClick={()=>{
-                                            if (isEditing===false) {
-                                                setIsEditing(true)
 
-                                                setDraftFirstName(profileData?.firstname)
-                                                setDraftLastName(profileData?.lastname)
-                                                setDraftPhone(profileData?.phone)
-                                                setId(profileData?._id)
-                                            } else {
-                                                setIsEditing(false)
-                                            }
-                                        }} className="flex cursor-pointer items-center justify-center gap-2 rounded bg-blue-500 py-1 px-2 text-sm font-medium text-white hover:bg-opacity-80 sm:px-4">
-                                            <span>Edit</span>
-                                        </label>
-                                    </>
-                                :null}
-                            </div>
-                            <form onSubmit={submitHandler} className="border-t border-gray-200">
-                                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt className="text-sm font-medium text-gray-500">
-                                        Full name
-                                    </dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        <div className="sm:col-span-8">
+                            <div className="bg-white h-full w-full shadow overflow-hidden rounded-lg">
+                                <div className="p-5 flex justify-between">
+                                    <div>
+                                        <h3 className="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white">
+                                            User data
+                                        </h3>
+                                        <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                                            
+                                        </p>
+                                    </div>
+                                    {userData?.user?._id===profileData?._id ? 
+                                        <div className='flex justify-end gap-2'>
+                                            {isEditing===true ? 
+                                                <label onClick={()=>setIsEditing(false)} type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</label>
+                                            :null}
+                                            <label onClick={()=>{
+                                                if (isEditing===false) {
+                                                    setIsEditing(true)
+
+                                                    setDraftFirstName(profileData?.firstname)
+                                                    setDraftLastName(profileData?.lastname)
+                                                    setDraftPhone(profileData?.phone)
+                                                    setId(profileData?._id)
+                                                } else {
+                                                    setIsEditing(false)
+                                                }
+                                            }} className="flex cursor-pointer items-center justify-center gap-2 rounded bg-blue-500 px-2 text-sm font-medium text-white hover:bg-opacity-80 sm:px-4">
+                                                <span>Edit</span>
+                                            </label>
+
+                                        </div>
+                                    :null}
+                                </div>
+                                <form onSubmit={submitHandler} className="border-t border-gray-200">
+                                    <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt className="text-sm font-medium text-gray-500">
+                                            Full name
+                                        </dt>
+                                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            {isEditing===false ? 
+                                                <>
+                                                {profileData?.firstname +" "+ profileData?.lastname}
+                                                </>
+                                            :<>
+                                            <div className=''>
+                                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name:</label>
+                                                <input onChange={e => setDraftFirstName(e.target.value)} value={draftFirstname} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Jose, Maria..." />
+                                            </div>
+                                            <div className=''>
+                                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name:</label>
+                                                <input onChange={e => setDraftLastName(e.target.value)} value={draftLastname} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Dela Cruz, Garcia..." />
+                                            </div>
+                                            </>}
+                                        </dd>
+                                    </div>
+                                    <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt className="text-sm font-medium text-gray-500">
+                                            Contact number
+                                        </dt>
+                                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                         {isEditing===false ? 
                                             <>
-                                            {profileData?.firstname +" "+ profileData?.lastname}
+                                                {profileData?.phone ? profileData?.phone : <i>Not specified.</i>}
                                             </>
                                         :<>
-                                        <div className=''>
-                                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name:</label>
-                                            <input onChange={e => setDraftFirstName(e.target.value)} value={draftFirstname} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Jose, Maria..." />
-                                        </div>
-                                        <div className=''>
-                                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name:</label>
-                                            <input onChange={e => setDraftLastName(e.target.value)} value={draftLastname} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Dela Cruz, Garcia..." />
-                                        </div>
+                                            <div className=''>
+                                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact number:</label>
+                                                <input onChange={e => setDraftPhone(e.target.value)} value={draftPhone} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0971263727" />
+                                            </div>
                                         </>}
-                                    </dd>
-                                </div>
-                                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt className="text-sm font-medium text-gray-500">
-                                        Contact number
-                                    </dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {isEditing===false ? 
-                                        <>
-                                            {profileData?.phone ? profileData?.phone : <i>Not specified.</i>}
-                                        </>
-                                    :<>
-                                        <div className=''>
-                                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact number:</label>
-                                            <input onChange={e => setDraftPhone(e.target.value)} value={draftPhone} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0971263727" />
-                                        </div>
-                                    </>}
-                                    </dd>
-                                </div>
-                                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt className="text-sm font-medium text-gray-500">
-                                        Email address
-                                    </dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                        {profileData?.email ? profileData?.email : <i>Not specified.</i>}
-                                    </dd>
-                                </div>
-                                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <dt className="text-sm font-medium text-gray-500">
-                                        Member since: 
-                                    </dt>
-                                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                        {moment(profileData?.createdAt).format('MMMM DD, YYYY')}
-                                    </dd>
-                                </div>
-
-                                {isEditing===true ? 
-                                    <div className="bg-white px-4 py-5 sm:grid sm:gap-4 sm:px-6 w-full grid justify-center">
-                                        <button type='submit' className="flex cursor-pointer items-center justify-center gap-2 rounded bg-blue-500 py-1 px-2 text-sm font-medium text-white hover:bg-opacity-80 sm:px-4">Confirm</button>
+                                        </dd>
                                     </div>
-                                :null}
-                            </form>
-                        </div>
+                                    <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt className="text-sm font-medium text-gray-500">
+                                            Email address
+                                        </dt>
+                                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            {profileData?.email ? profileData?.email : <i>Not specified.</i>}
+                                        </dd>
+                                    </div>
+                                    <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt className="text-sm font-medium text-gray-500">
+                                            Member since: 
+                                        </dt>
+                                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            {moment(profileData?.createdAt).format('MMMM DD, YYYY')}
+                                        </dd>
+                                    </div>
+
+                                    {isEditing===true ? 
+                                        <div className="bg-white px-4 py-5 sm:grid sm:gap-4 sm:px-6 w-full grid justify-center">
+                                            <button type='submit' className="flex cursor-pointer items-center justify-center gap-2 rounded bg-blue-500 py-1 px-2 text-sm font-medium text-white hover:bg-opacity-80 sm:px-4">Confirm</button>
+                                        </div>
+                                    :null}
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {userData?.user?._id===profileData?._id ? 
+                    <Settings/>
+                :null}
             </div>
             <Footer/>
             <ToastContainer />

@@ -31,7 +31,7 @@ export default function Packages() {
                                         return (
                                             <Link key={pack._id} to={`/details/package/${pack._id}`} state={{packageid: pack._id}} className="group flex-shrink-0 relative">
                                                 <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-56">
-                                                    <img src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${pack.displayimage}.jpg`} className="h-full w-full object-cover object-center"/>
+                                                    <img src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${pack.displayimage}.jpg`}/>
                                                 </div>
                                                 <p className="mt-6 text-base font-semibold text-gray-900">{pack.name}</p>
                                             </Link>

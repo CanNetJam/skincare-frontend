@@ -7,7 +7,6 @@ import video5 from '../assets/video5.mp4';
 import video6 from '../assets/video6.mp4';
 import video7 from '../assets/video7.mp4';
 import video8 from '../assets/video8.mp4';
-import video9 from '../assets/video9.mp4';
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { IoClose } from "react-icons/io5"
@@ -18,7 +17,7 @@ import { Progress } from "@material-tailwind/react"
 export default function TiktokSlider() {
     const ref = useRef(null);
     const vidRef = useRef(null);
-    const videos = [video1, video2, video3, video4, video5, video6, video7, video8, video9]
+    const videos = [video1, video2, video3, video4, video5, video6, video7, video8]
     const [devidedVideos, setDevidedVideos] = useState([])
     const [ page, setPage ] = useState(0)
     const [ videoPlayer, setVideoPlayer ] = useState(false)

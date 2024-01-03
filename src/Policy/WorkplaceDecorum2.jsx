@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import img1 from '../assets/Policy/l1.png';
-import img2 from '../assets/Policy/l1.png';
+import img2 from '../assets/Policy/l2.png';
 
 export default function WorkplaceDecorum2() {
     useEffect(()=> {

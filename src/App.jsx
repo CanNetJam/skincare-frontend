@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { Route, Routes, Navigate, BrowserRouter, HashRouter } from 'react-router-dom';
+import React, { createContext, useState, useEffect, lazy, Suspense } from 'react';
+import { Route, Routes, Navigate, HashRouter } from 'react-router-dom';
 import axios from "axios";
 import Home from './Pages/Home';
 import AboutUs from './Pages/AboutUs';
@@ -23,19 +23,30 @@ import Order from './User/Order';
 
 import ProductDetails from './Pages/ProductDetails';
 import Product1 from './Details/Product1';
-import AddProduct from './Pages/AddProduct';
-import Email from './Pages/Email';
+//import AddProduct from './Pages/AddProduct';
+//import Email from './Pages/Email';
 import Package1 from './Details/Package1';
-import AddPackage from './Pages/AddPackage';
+//import AddPackage from './Pages/AddPackage';
 import TermsOfUse from './Pages/TermsOfUse';
 import RefundPolicy from './Pages/RefundPolicy';
 import Register from './Pages/Register';
-import KnowledgeBase from './Pages/KnowledgeBase';
+//import KnowledgeBase from './Pages/KnowledgeBase';
 import Profile from './Components/Profile';
-import Policy from './Pages/Policy';
-import Settings from './Pages/Settings';
-import UserAccounts from './Pages/UserAccounts';
-import UpdateProduct from './Pages/UpdateProduct';
+//import Policy from './Pages/Policy';
+import Settings from './Components/ChangePassword';
+//import UserAccounts from './Pages/UserAccounts';
+//import UpdateProduct from './Pages/UpdateProduct';
+
+const KnowledgeBase = lazy(() => import('./Pages/KnowledgeBase'));
+const Policy = lazy(() => import('./Pages/Policy'));
+
+const AddProduct = lazy(() => import('./Pages/AddProduct'));
+const AddPackage = lazy(() => import('./Pages/AddPackage'));
+const UserAccounts = lazy(() => import('./Pages/UserAccounts'));
+const UpdateProduct = lazy(() => import('./Pages/UpdateProduct'));
+const Email = lazy(() => import('./Pages/Email'));
+
+import Loading from './Components/Loading';
 
 export const UserContext = createContext();
 
@@ -55,9 +66,9 @@ const App = () => {
       }
       
       if (token !== null && token !== ""){
-        const tokenResponse = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/token/tokenIsValid`, null, {headers: {"auth-token": token}})
+        const tokenResponse = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/token/tokenIsValid`, null, {headers: {"auth-token": token}})
         if(tokenResponse.data!==false){
-          const userResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://skincare-backend.onrender.com'}/accounts/user-data`, {headers: {"auth-token": token}})
+          const userResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/user-data`, {headers: {"auth-token": token}})
           if (userResponse) {
             setUserData({
               token: token,
@@ -120,14 +131,26 @@ const App = () => {
           <Route path="/terms-of-use" element={<TermsOfUse />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
 
-          <Route path="/knowledge-base" element={AuthenticatedRoute(<KnowledgeBase />)} />
-          <Route path="/internal-policy" element={AuthenticatedRoute(<Policy />)} />
+          <Route path="/knowledge-base" element={
+            AuthenticatedRoute(
+              <Suspense fallback={<Loading />}>
+                <KnowledgeBase />
+              </Suspense>
+            )
+          } />
+          <Route path="/internal-policy" element={
+            AuthenticatedRoute(
+              <Suspense fallback={<Loading />}>
+                <Policy />
+              </Suspense>
+            )
+          } />
 
-          <Route path="/emails" element={SuperAdminRoute(<Email />)} />
-          <Route path="/add-product" element={SuperAdminRoute(<AddProduct />)} />
-          <Route path="/add-package" element={SuperAdminRoute(<AddPackage />)} />
-          <Route path="/user-accounts" element={SuperAdminRoute(<UserAccounts />) } />
-          <Route path="/update-product" element={SuperAdminRoute(<UpdateProduct />)} />
+          <Route path="/emails" element={SuperAdminRoute(<Suspense fallback={<Loading />}><Email /></Suspense>)} />
+          <Route path="/add-product" element={SuperAdminRoute(<Suspense fallback={<Loading />}><AddProduct /></Suspense>)} />
+          <Route path="/add-package" element={SuperAdminRoute(<Suspense fallback={<Loading />}><AddPackage /></Suspense>)} />
+          <Route path="/user-accounts" element={SuperAdminRoute(<Suspense fallback={<Loading />}><UserAccounts /></Suspense>) } />
+          <Route path="/update-product" element={SuperAdminRoute(<Suspense fallback={<Loading />}><UpdateProduct /></Suspense>)} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -788,6 +788,7 @@ export default function UpdateProduct() {
                 </div>
             </div>
             <Footer/>
+            <ToastContainer/>
         </div>
     )
 }

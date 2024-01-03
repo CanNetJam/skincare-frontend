@@ -1,10 +1,12 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useContext } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from "../App";
 
 export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
+    const { userData, setUserData } = useContext(UserContext)
     const [firstname, setFirstName] = useState("")
     const [lastname, setLastName] = useState("")
     const [email, setEmail] = useState("")
@@ -14,6 +16,7 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
     const [job, setJob] = useState("")
     const [department, setDepartment] = useState("")
     const [number, setNumber] = useState("")
+    const [access, setAccess] = useState([])
 
     function toastErrorNotification() {
       toast.error('Email already exists!', {
@@ -53,6 +56,7 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
         data.append("job", job)
         data.append("department", department)
         data.append("phone", number)
+        data.append("access", JSON.stringify(access))
         const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/accounts/register`, data, { headers: { "Content-Type": "application/json" } })
         if (res.data===false) {
             toastErrorNotification()
@@ -70,6 +74,28 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
             setNumber("")
             setIsOpen(false)
             setDateRange({...dateRange, endDate: new Date()})
+        }
+    }
+    
+    function handleCheckbox(props) {
+        if (access[0]===undefined) {
+            setAccess(prev=>prev.concat([props]))
+        } else if (access[0]!==undefined) {
+            let dupe
+            for (let i = 0 ; i < access.length ; i++) {
+                if (props!==access[i]) {
+                    dupe = false
+                } else {
+                    dupe = true
+                }
+            }
+
+            if (dupe===false) {
+                setAccess(prev=>prev.concat([props]))
+            } else if (dupe===true) {
+                const filteredAccess = access.filter((a)=> a!==props)
+                setAccess(filteredAccess)
+            }
         }
     }
 
@@ -100,7 +126,7 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                             >
-                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white sm:p-10 p-6 text-left align-middle shadow-xl transition-all">
+                            <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white sm:p-10 p-6 text-left align-middle shadow-xl transition-all">
                                 <Dialog.Title as="h3" className="text-lg border-b pb-2 font-medium leading-6 text-gray-900 grid grid-cols-2 items-center">
                                 Account Registration
                                 </Dialog.Title>
@@ -109,6 +135,7 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
                                     <div className="col-span-4 flex justify-end mb-2">
                                         <select required onChange={e=>setType(e.target.value)} name="type" value={type} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
                                             <option value="" disabled>Select Account Type</option>
+                                            {userData.user?.type==="Super Admin" ? <option>Super Admin</option> : null}
                                             <option>Admin</option>
                                             <option>Customer</option>
                                             <option>Staff</option>
@@ -134,6 +161,35 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
                                     <div className='col-span-2'>
                                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job:</label>
                                         <input onChange={e => setJob(e.target.value)} value={job} type="text" name="job" id="job" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: Team Leader, Packer " required/>
+                                    </div>
+                                    <div className='col-span-4'>
+                                        <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Access</h3>
+                                        <ul onChange={e => handleCheckbox(e.target.value)} value={access} className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                            <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                                <div className="flex items-center ps-3">
+                                                    <input id="Mountain-Movers-list" type="checkbox" value="Mountain Movers" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                    <label htmlFor="Mountain-Movers-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mountain Movers</label>
+                                                </div>
+                                            </li>
+                                            <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                                <div className="flex items-center ps-3">
+                                                    <input id="Customer-Excellence-list" type="checkbox" value="Customer Excellence" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                    <label htmlFor="Customer-Excellence-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Customer Excellence</label>
+                                                </div>
+                                            </li>
+                                            <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                                <div className="flex items-center ps-3">
+                                                    <input id="Mountain-Excellence-list" type="checkbox" value="Mountain Excellence" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                    <label htmlFor="Mountain-Excellence-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mountain/<br/>Excellence</label>
+                                                </div>
+                                            </li>
+                                            <li className="w-full dark:border-gray-600">
+                                                <div className="flex items-center ps-3">
+                                                    <input id="Creative-Tigers-list" type="checkbox" value="Creative Tigers" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                    <label htmlFor="Creative-Tigers-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Creative Tigers</label>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
                                     <div className='col-span-2'>
                                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact number:</label>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import KBSideBar from './KBSideBar';
+import Default from './Default';
 import Waybills from './Waybills';
 import MassWayBills from './MassWayBills';
 import ProductPackaging from './ProductPackaging';
@@ -15,12 +16,17 @@ import SocialMediaChecking from './SocialMediaChecking';
 import LiveSessions from './LiveSessions'
 
 export default function KBBody({openMenu, setOpenMenu, openTab}) {
-    const [ openLink, setOpenLink ] = useState("Waybills")
-
+    const [ openLink, setOpenLink ] = useState("Default")
+   
     return (
         <div className='flex h-full w-full'>
-            <KBSideBar openMenu={openMenu} setOpenMenu={setOpenMenu} openTab={openTab} openLink={openLink} setOpenLink={setOpenLink}/>
-            
+            {openTab!==undefined ?
+                <KBSideBar openMenu={openMenu} setOpenMenu={setOpenMenu} openTab={openTab} openLink={openLink} setOpenLink={setOpenLink}/>
+            :null}
+
+            {openLink==="Default" && (
+                <Default/>
+            )}
             {openLink==="Waybills" && (
                 <Waybills/>
             )}
