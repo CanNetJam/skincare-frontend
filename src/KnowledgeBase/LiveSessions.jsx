@@ -10,6 +10,8 @@ import img7 from '../assets/Knowledge Base/Creative Tigers/f1.png';
 import img8 from '../assets/Knowledge Base/Creative Tigers/f2.png';
 import img9 from '../assets/Knowledge Base/Creative Tigers/g1.png';
 
+import MyImage from  '../Components/MyImage';
+
 export default function LiveSessions() {
     useEffect(()=> {
         const windowOpen = () => {   
@@ -19,6 +21,16 @@ export default function LiveSessions() {
             })
         }
         windowOpen()
+    }, [])
+
+    useEffect(() => {
+        const handleContextmenu = e => {
+            e.preventDefault()
+        }
+        document.addEventListener('contextmenu', handleContextmenu)
+        return function cleanup() {
+            document.removeEventListener('contextmenu', handleContextmenu)
+        }
     }, [])
 
     return (
@@ -42,8 +54,8 @@ export default function LiveSessions() {
                 <section className='container bg-gray-100 mx-auto sm:p-10 p-2 grid gap-2'>
                     <h1 className='font-bold contentHeading my-4'>Tiktok Live Event</h1>
                     <div className='grid justify-center gap-4'>
-                        <img src={img1}/>
-                        <img src={img2}/>
+                        <MyImage src={img1}/>
+                        <MyImage src={img2}/>
                     </div>
                 </section>
                 <section className='container bg-white mx-auto sm:p-10 p-2 grid gap-2'>
@@ -51,11 +63,11 @@ export default function LiveSessions() {
                     <p className='sm:text-xl text-base'>This is our standard for the table, product and lighting set up. Failure to do every step of this will lead to disciplinary action.</p>
                     <div className='grid justify-center grid-cols-2'>
                         <div className='w-full grid justify-center'>
-                            <img src={img3}/>
+                            <MyImage src={img3}/>
                             <label><i>The lighting set up should look like this.</i></label>
                         </div>
                         <div className='w-full grid justify-center'>
-                            <img src={img4}/>
+                            <MyImage src={img4}/>
                             <label><i>The products should be set up like this.</i></label>
                         </div>
                     </div>
@@ -63,8 +75,8 @@ export default function LiveSessions() {
                 <section className='container bg-gray-100 mx-auto sm:p-10 p-2 grid gap-2'>
                     <h1 className='font-bold contentHeading my-4'>How to go Live on Tiktok</h1>
                     <div className='grid justify-center gap-4'>
-                        <img src={img5}/>
-                        <img src={img6}/>
+                        <MyImage src={img5}/>
+                        <MyImage src={img6}/>
                     </div>
                     <div className='grid justify-center'>
                         <ul className='ml-4 list-disc sm:text-xl text-base'>
@@ -78,8 +90,8 @@ export default function LiveSessions() {
                 <section className='container bg-white mx-auto sm:p-10 p-2 grid gap-2'>
                     <h1 className='font-bold contentHeading my-4'>How to go Live on Shopee</h1>
                     <div className='grid justify-center gap-4'>
-                        <img src={img7}/>
-                        <img src={img8}/>
+                        <MyImage src={img7}/>
+                        <MyImage src={img8}/>
                     </div>
                     <div className='grid justify-center'>
                         <ul className='ml-4 list-disc sm:text-xl text-base'>
@@ -93,7 +105,7 @@ export default function LiveSessions() {
                 <section className='container bg-gray-100 mx-auto sm:p-10 p-2 grid gap-2'>
                     <h1 className='font-bold contentHeading my-4'>How to go Live on Lazada</h1>
                     <div className='grid justify-center'>
-                        <img src={img9}/>
+                        <MyImage src={img9}/>
                     </div>
                     <div className='grid justify-center'>
                         <ul className='ml-4 list-disc sm:text-xl text-base'>

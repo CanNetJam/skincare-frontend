@@ -22,6 +22,8 @@ import img18 from '../assets/Knowledge Base/Customer Excellence/e8.png';
 import img19 from '../assets/Knowledge Base/Customer Excellence/e9.png';
 import img20 from '../assets/Knowledge Base/Customer Excellence/e10.png';
 
+import MyImage from  '../Components/MyImage';
+
 export default function CustomerSupport() {
     useEffect(()=> {
         const windowOpen = () => {   
@@ -31,6 +33,16 @@ export default function CustomerSupport() {
             })
         }
         windowOpen()
+    }, [])
+
+    useEffect(() => {
+        const handleContextmenu = e => {
+            e.preventDefault()
+        }
+        document.addEventListener('contextmenu', handleContextmenu)
+        return function cleanup() {
+            document.removeEventListener('contextmenu', handleContextmenu)
+        }
     }, [])
 
     return (
@@ -52,7 +64,7 @@ export default function CustomerSupport() {
                             Maintaining the score of 85% Chat Response Rate on all platforms is required in order not to lose the privileges acquired. There would also be a higher chance of converting the person into a buyer and boosting the sales of the company by replying to them promptly thus speeding up their buying decision.</p>
                             <br/>
                             <div className='col-span-1'>
-                                <img className='' src={img1}/>
+                                <MyImage className='' src={img1}/>
                             </div>
                             <ol className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>Sticker - Use this to send a sticker as response to the customers.</li>
@@ -74,7 +86,7 @@ export default function CustomerSupport() {
                         <br/>
                         <div className='col-span-1'>
                             <div className='col-span-1'>
-                                <img className='' src={img2}/>
+                                <MyImage className='' src={img2}/>
                             </div>
                             <ol className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>Order ID - This is the generated Order ID of the customer’s order.</li>
@@ -87,7 +99,7 @@ export default function CustomerSupport() {
 
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img3}/>
+                            <MyImage className='' src={img3}/>
                         </div>
                         <div className='col-span-1'>
                             <ol start='11' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -102,13 +114,13 @@ export default function CustomerSupport() {
                             <h1 className='font-bold contentHeading my-4'>Chat Transfer: To Another Agent</h1>
                             <br/>
                             <p className='sm:text-xl text-base'>To transfer chats on Shopee, simply click the drop down icon beside the customer username then select Forward. You can also transfer chats by clicking the Forward button on the upper right side of the interface.</p>
-                            <img className='' src={img4}/>
+                            <MyImage className='' src={img4}/>
                         </div>
                         <br/>
 
                         <div className='col-span-1'>
                             <p className='sm:text-xl text-base'>The list of agents you can choose from would show and after choosing the agent, click the Forward to Member button to transfer the chat.</p>
-                            <img className='' src={img5}/>
+                            <MyImage className='' src={img5}/>
                         </div>
                 </section>
 
@@ -119,7 +131,7 @@ export default function CustomerSupport() {
                             <br/>
 
                             <div className='col-span-1'>
-                                <img className='' src={img6}/>
+                                <MyImage className='' src={img6}/>
                             </div>
                             <ol className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>Open - Current chats threads.</li>
@@ -154,7 +166,7 @@ export default function CustomerSupport() {
                         <br/>
                         <div className='col-span-1'>
                             <div className='col-span-1'>
-                                <img className='' src={img7}/>
+                                <MyImage className='' src={img7}/>
                             </div>
                             <ol className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>Order Details - Includes the date & time the order was made and the auto-cancellation date if the order was not dispatched.</li>
@@ -170,20 +182,20 @@ export default function CustomerSupport() {
                         <div className='col-span-1'>
                             <h1 className='font-bold contentHeading my-4'>Chat Transfer: To Another Agent</h1>
                             <br/>
-                            <img className='' src={img8}/>
+                            <MyImage className='' src={img8}/>
                             <p className='sm:text-xl text-base'>Click the human shape icon at the top right of the chat then choose the agent who you want to transfer the chat to.</p>
                         </div>
                         <br/>
                         <div className='col-span-1'>
                             <h1 className='font-bold contentHeading my-4'>Chat Transfer: From Another Agent</h1>
                             <br/>
-                            <img className='' src={img9}/>
+                            <MyImage className='' src={img9}/>
                             <p className='sm:text-xl text-base'>Mark the checkbox beside the chat you want to transfer. Click on the Transfer Chats button.</p>
                         </div>
                         <br/>
 
                         <div className='col-span-1'>
-                            <img className='' src={img10}/>
+                            <MyImage className='' src={img10}/>
                             <p className='sm:text-xl text-base'>After clicking, the agents available will show in a list. Choose the agent you want to transfer the chat to.</p>
                         </div>
                 </section>
@@ -195,14 +207,14 @@ export default function CustomerSupport() {
                             <p className='sm:text-xl text-base'>The orders checked out by the customer will show on the right side of the page. This includes the product/s, quantity, order creation date, order status, order ID, and the total amount they paid.</p>
                             <br/>
                             <div className='col-span-1'>
-                                <img className='' src={img11}/>
+                                <MyImage className='' src={img11}/>
                             </div>
                             <p className='sm:text-xl text-base'>By clicking on Check Logistics, you will see this page below.</p>
                         </div>
                         <br/>
                         <div className='col-span-1'>
                             <div className='col-span-1'>
-                                <img className='' src={img12}/>
+                                <MyImage className='' src={img12}/>
                             </div>
                             <p className='sm:text-xl text-base'>The Order ID, Tracking number, courier, and the Shipping Status is indicated in this page.
                             <br/>
@@ -212,14 +224,14 @@ export default function CustomerSupport() {
                         <br/>
                         <div className='col-span-1'>
                             <div className='col-span-1'>
-                                <img className='' src={img13}/>
+                                <MyImage className='' src={img13}/>
                             </div>
                             <p className='sm:text-xl text-base'>It will direct you to this page.</p>
                         </div>
                         <br/>
                         <div className='col-span-1'>
                             <div className='col-span-1'>
-                                <img className='' src={img14}/>
+                                <MyImage className='' src={img14}/>
                             </div>
                             <p className='sm:text-xl text-base'>To see the complete shipping status, click the Logistics Status button.
                             <br/>
@@ -232,26 +244,26 @@ export default function CustomerSupport() {
                             <h1 className='font-bold contentHeading my-4'>Chat Transfer: To Another Agent</h1>
                             <br/>
                             <p className='sm:text-xl text-base'>On the right side of the page, click the button that says Assign.</p>
-                            <img className='' src={img15}/>
+                            <MyImage className='' src={img15}/>
                             <br/>
                             <p className='sm:text-xl text-base'>Select an agent to whom you want to hand over the chat. Click Confirm.</p>
-                            <img className='' src={img16}/>
+                            <MyImage className='' src={img16}/>
                         </div>
                         <br/>
 
                         <div className='col-span-1'>
                             <h1 className='font-bold contentHeading my-4'>Chat Transfer: From Another Agent</h1>
                             <br/>
-                            <img className='' src={img17}/>
+                            <MyImage className='' src={img17}/>
                             <p className='sm:text-xl text-base'>Click the gear icon, to direct you to this page shown below.</p>
                             <br/>
-                            <img className='' src={img18}/>
+                            <MyImage className='' src={img18}/>
                             <p className='sm:text-xl text-base'>Among the various options, select the Agent Status tab.</p>
                             <br/>
-                            <img className='' src={img19}/>
+                            <MyImage className='' src={img19}/>
                             <p className='sm:text-xl text-base'>You will see the number of unreplied chats the agents have and to transfer it, click on the hyperlink with the word Transfer located beside the MMR list.</p>
                             <br/>
-                            <img className='' src={img20}/>
+                            <MyImage className='' src={img20}/>
                             <p className='sm:text-xl text-base'>Select an available agent to transfer the chat, then Confirm.</p>
                             <br/>
                         </div>

@@ -7,7 +7,7 @@ import { UserContext } from "../App";
 export default function KnowledgeBase() {
     const { userData, setUserData } = useContext(UserContext)
     const [ openTab, setopenTab ] = useState(undefined)
-    const [ openMenu, setOpenMenu ] = useState( userData.user?.access[0] ? true : false)
+    const [ openMenu, setOpenMenu ] = useState(false)
 
     const [ mountain, setMountain ] = useState(false)
     const [ excellence, setExcellence ] = useState(false)

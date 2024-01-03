@@ -45,6 +45,16 @@ export default function UndeliveredProducts() {
         windowOpen()
     }, [])
 
+    useEffect(() => {
+        const handleContextmenu = e => {
+            e.preventDefault()
+        }
+        document.addEventListener('contextmenu', handleContextmenu)
+        return function cleanup() {
+            document.removeEventListener('contextmenu', handleContextmenu)
+        }
+    }, [])
+
     return (
         <div className='bg-blue-200 h-auto w-full text-base sm:text-lg sm:p-8 p-4'>
             <section className='my-2'>
@@ -83,7 +93,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>To find the RTS parcels in Shopee platform. Head to My Orders {'>'} Failed Delivery. <br/><br/>Adjust the date range from first day to the present day of the month.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img1}/>
+                            <MyImage className='' src={img1}/>
                         </div>
                     </div>
                     <br/>
@@ -91,7 +101,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Click Export to download the excel file of the failed deliveries.Click Export to download the excel file of the failed deliveries.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img2}/>
+                            <MyImage className='' src={img2}/>
                         </div>
                     </div>
                     <br/>
@@ -99,7 +109,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Open the downloaded file and copy the whole Tracking Number column.<br/><br/>Adjust the date range from first day to the present day of the month.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img3}/>
+                            <MyImage className='' src={img3}/>
                         </div>
                     </div>
                     <br/>
@@ -107,7 +117,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Paste in on a new sheet. Go to the Data ribbon and Remove Duplicates.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img4}/>
+                            <MyImage className='' src={img4}/>
                         </div>
                     </div>
                     <br/>
@@ -115,7 +125,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Copy the remaining tracking number and paste them on the empty space in RTS Tracking Records MS Excel file.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img5}/>
+                            <MyImage className='' src={img5}/>
                         </div>
                     </div>
                     <br/>
@@ -123,7 +133,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Highlight all the Tracking IDs then find the Conditional Formatting tab {'>'} Highlight Cell Rules {'>'} Duplicate Values.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img6}/>
+                            <MyImage className='' src={img6}/>
                         </div>
                     </div>
                     <br/>
@@ -131,7 +141,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Duplicate values would show up in red/green color. Delete the duplicates and go back to the Shopee Seller Center to search for the Tracking numbers.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img7}/>
+                            <MyImage className='' src={img7}/>
                         </div>
                     </div>
                     <br/>
@@ -139,7 +149,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Search for the order using the tracking number. After finding it, check the details to see the logistics status.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img8}/>
+                            <MyImage className='' src={img8}/>
                         </div>
                     </div>
                     <br/>
@@ -147,7 +157,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Check the number of attempts made and the reason for RTS.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img9}/>
+                            <MyImage className='' src={img9}/>
                         </div>
                     </div>
                     <br/>
@@ -155,7 +165,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Place the Tracking number to the corresponding reason and courier.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img10}/>
+                            <MyImage className='' src={img10}/>
                         </div>
                     </div>
                     <br/>
@@ -167,7 +177,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Go to Manage Orders. Click the View Orders link beside the bullet that says Delivery failed & return to seller. Then Export Orders</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img11}/>
+                            <MyImage className='' src={img11}/>
                         </div>
                     </div>
                     <br/>
@@ -175,7 +185,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Select Excel format {'>'} Export {'>'} Download</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img12}/>
+                            <MyImage className='' src={img12}/>
                         </div>
                     </div>
                     <br/>
@@ -183,7 +193,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Open the Excel file you just downloaded.<br/><br/>Copy the whole Tracking ID row.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img13}/>
+                            <MyImage className='' src={img13}/>
                         </div>
                     </div>
                     <br/>
@@ -191,7 +201,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Paste in on a new sheet. Go to the Data ribbon and Remove Duplicates.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img14}/>
+                            <MyImage className='' src={img14}/>
                         </div>
                     </div>
                     <br/>
@@ -199,7 +209,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Copy the remaining tracking number and paste them on the empty space in RTS Tracking Records MS Excel file.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img15}/>
+                            <MyImage className='' src={img15}/>
                         </div>
                     </div>
                     <br/>
@@ -207,7 +217,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>And paste it on the RTS Tracking Records.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img16}/>
+                            <MyImage className='' src={img16}/>
                         </div>
                     </div>
                     <br/>
@@ -215,7 +225,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Some of the Tracking IDs shows up as a decimal number. To see the whole tracking, right click to find the Number Format option. Pick Number on the left side tabs. Set the decimal place to 0. Click OK to apply the changes.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img17}/>
+                            <MyImage className='' src={img17}/>
                         </div>
                     </div>
                     <br/>
@@ -223,7 +233,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>As you can see, the whole Tracking IDs can now be seen.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img18}/>
+                            <MyImage className='' src={img18}/>
                         </div>
                     </div>
                     <br/>
@@ -231,7 +241,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>After that, highlight all the Tracking IDs recorded in the sheet. Find the Conditional Formatting tab {'>'} Highlight Cell Rules {'>'} Duplicate Values.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img19}/>
+                            <MyImage className='' src={img19}/>
                         </div>
                     </div>
                     <br/>
@@ -239,7 +249,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>All the Tracking IDs with duplicates will be highlighted in red/green. Delete the duplicates and the remaining tracking numbers will be recorded in today’s date.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img20}/>
+                            <MyImage className='' src={img20}/>
                         </div>
                     </div>
                     <br/>
@@ -247,7 +257,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Copy the remaining Tracking IDs one-by-one then go back to the TikTok Seller Center to find the corresponding tracking number. Press Ctrl F or F3 to open the search bar and paste the Tracking number you copied.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img21}/>
+                            <MyImage className='' src={img21}/>
                         </div>
                     </div>
                     <br/>
@@ -255,7 +265,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>After you found the it, click the View logistics button to see the status of the parcel. Look for the reason of the RTS parcel which you can find through the tracking results.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img22}/>
+                            <MyImage className='' src={img22}/>
                         </div>
                     </div>
                     <br/>
@@ -263,7 +273,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Paste the corresponding Tracking ID to the designated courier. Put it under column stating the reason and under today’s date.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img23}/>
+                            <MyImage className='' src={img23}/>
                         </div>
                     </div>
                     <br/>
@@ -275,7 +285,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Go to Orders, then click the Failed Delivery tab.<br/>Press Ctrl F or F3 to open the search bar. Then type in the search bar ‘in transit’ to find the RTS parcels that are still being delivered back to us.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img24}/>
+                            <MyImage className='' src={img24}/>
                         </div>
                     </div>
                     <br/>
@@ -283,7 +293,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Copy the Tracking number of the highlighted parcels.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img25}/>
+                            <MyImage className='' src={img25}/>
                         </div>
                     </div>
                     <br/>
@@ -291,7 +301,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Go to the Excel file of RTS Tracking and paste the tracking numbers you copied on an empty space below the tables. Make sure that the sheet you are on is named Lazada.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img26}/>
+                            <MyImage className='' src={img26}/>
                         </div>
                     </div>
                     <br/>
@@ -299,7 +309,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>When pasting a pure number tracking the whole number doesn’t show up. To make it appear, highlight all the tracking numbers you pasted then right click.<br/><br/>Select Number Format.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img27}/>
+                            <MyImage className='' src={img27}/>
                         </div>
                     </div>
                     <br/>
@@ -307,7 +317,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Select Number in the Category section. The decimal place is automatically indicated as ‘2’ so we have to replace it with the number ‘0’. Press Okay to confirm.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img28}/>
+                            <MyImage className='' src={img28}/>
                         </div>
                     </div>
                     <br/>
@@ -315,7 +325,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>After the complete tracking number appeared, highlight all the tracking numbers including the ones on the table.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img29}/>
+                            <MyImage className='' src={img29}/>
                         </div>
                     </div>
                     <br/>
@@ -323,7 +333,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Home Tab {'>'} Conditional Formatting {'>'} Highlight Cell Rules {'>'} Duplicate Values</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img30}/>
+                            <MyImage className='' src={img30}/>
                         </div>
                     </div>
                     <br/>
@@ -331,7 +341,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Click Done. Duplicate values would show up in red/green color. Delete the duplicates and go back to the Lazada Seller Center to check the Logistics Status of the remaining tracking numbers.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img31}/>
+                            <MyImage className='' src={img31}/>
                         </div>
                     </div>
                     <br/>
@@ -339,7 +349,7 @@ export default function UndeliveredProducts() {
                         <p className='sm:text-xl text-base'>Find the reason the parcel was returned.</p>
                         <br/>
                         <div className='col-span-1'>
-                            <img className='' src={img32}/>
+                            <MyImage className='' src={img32}/>
                         </div>
                         <p className='sm:text-xl text-base'>Place the corresponding Tracking Number on the table according to the reason for RTS. The date indicated would be the same day you checked the RTS parcel.</p>
                     </div>

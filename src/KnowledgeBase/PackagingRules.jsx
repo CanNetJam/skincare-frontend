@@ -9,6 +9,7 @@ import img7 from '../assets/Knowledge Base/Mountain Movers/h7.png';
 import img8 from '../assets/Knowledge Base/Mountain Movers/h8.png';
 import img9 from '../assets/Knowledge Base/Mountain Movers/h9.png';
 import img10 from '../assets/Knowledge Base/Mountain Movers/h10.png';
+import MyImage from  '../Components/MyImage';
 
 export default function PackagingRules() {
     useEffect(()=> {
@@ -19,6 +20,16 @@ export default function PackagingRules() {
             })
         }
         windowOpen()
+    }, [])
+
+    useEffect(() => {
+        const handleContextmenu = e => {
+            e.preventDefault()
+        }
+        document.addEventListener('contextmenu', handleContextmenu)
+        return function cleanup() {
+            document.removeEventListener('contextmenu', handleContextmenu)
+        }
     }, [])
 
     return (
@@ -44,7 +55,7 @@ export default function PackagingRules() {
                     </ol>
                 </div>
                 <div className='col-span-1'>
-                    <img className='' src={img1}/>
+                    <MyImage className='' src={img1}/>
                 </div>
                 <div className='col-span-1'>
                     <ol start='2' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -56,8 +67,8 @@ export default function PackagingRules() {
                     </ol>
                 </div>
                 <div className='col-span-1 grid grid-cols-2 gap-2'>
-                    <img className='col-span-1' src={img2}/>
-                    <img className='col-span-1' src={img3}/>
+                    <MyImage className='col-span-1' src={img2}/>
+                    <MyImage className='col-span-1' src={img3}/>
                 </div>
 
                 <div className='col-span-1'>
@@ -66,7 +77,7 @@ export default function PackagingRules() {
                     </ol>
                 </div>
                 <div className='col-span-1'>
-                    <img className='' src={img4}/>
+                    <MyImage className='' src={img4}/>
                 </div>
 
                 <div className='col-span-1'>
@@ -75,8 +86,8 @@ export default function PackagingRules() {
                     </ol>
                 </div>
                 <div className='col-span-1 grid grid-cols-2 gap-2'>
-                    <img className='col-span-1' src={img5}/>
-                    <img className='col-span-1' src={img6}/>
+                    <MyImage className='col-span-1' src={img5}/>
+                    <MyImage className='col-span-1' src={img6}/>
                 </div>
 
                 <div className='col-span-1'>
@@ -85,8 +96,8 @@ export default function PackagingRules() {
                     </ol>
                 </div>
                 <div className='col-span-1 grid grid-cols-2 gap-2'>
-                    <img className='col-span-1' src={img7}/>
-                    <img className='col-span-1' src={img8}/>
+                    <MyImage className='col-span-1' src={img7}/>
+                    <MyImage className='col-span-1' src={img8}/>
                 </div>
 
                 <div className='col-span-1'>
@@ -95,8 +106,8 @@ export default function PackagingRules() {
                     </ol>
                 </div>
                 <div className='col-span-1 grid grid-cols-2 gap-2'>
-                    <img className='col-span-1' src={img9}/>
-                    <img className='col-span-1' src={img10}/>
+                    <MyImage className='col-span-1' src={img9}/>
+                    <MyImage className='col-span-1' src={img10}/>
                 </div>
             </section>
             </div>

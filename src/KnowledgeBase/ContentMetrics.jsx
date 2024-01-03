@@ -1,8 +1,8 @@
-import React, { useEffect, lazy } from 'react';
+import React, { useEffect } from 'react';
 import img1 from '../assets/Knowledge Base/Creative Tigers/a1.png';
+import MyImage from  '../Components/MyImage';
 
 export default function ContentMetrics() {
-    
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
@@ -11,6 +11,16 @@ export default function ContentMetrics() {
             })
         }
         windowOpen()
+    }, [])
+
+    useEffect(() => {
+        const handleContextmenu = e => {
+            e.preventDefault()
+        }
+        document.addEventListener('contextmenu', handleContextmenu)
+        return function cleanup() {
+            document.removeEventListener('contextmenu', handleContextmenu)
+        }
     }, [])
     
     return (
@@ -22,7 +32,7 @@ export default function ContentMetrics() {
             <div className='h-auto sm:rounded-[30px] rounded-[10px] overflow-hidden'>
                 <section className='container bg-white mx-auto sm:p-10 p-2 grid gap-2 sm:grid-cols-2'>
                     <div>
-                        <img src={img1}></img>
+                        <MyImage src={img1}/>
                         <h1 className='font-bold contentHeading my-4'>Daily Posting</h1>
                         <p className='sm:text-xl text-base'>This is our standard for creating Tiktok and Instagram contents.</p>
                     </div>

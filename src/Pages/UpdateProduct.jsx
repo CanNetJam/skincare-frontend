@@ -78,7 +78,7 @@ export default function UpdateProduct() {
     useEffect(()=> {
         const getProducts = async () => {
             try {
-                const products = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/product/get-all-products`)
+                const products = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/product/get-all-products`)
                 setAvailableItems(products.data)
             } catch (err) {
                 console.log(err)
@@ -96,7 +96,7 @@ export default function UpdateProduct() {
             
             if (product.displayimage!==undefined) {
                 if (typeof product.displayimage!=="string"){
-                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/get-signature` )
+                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/get-signature` )
 
                     const image = new FormData()
                     image.append("file", product.displayimage)
@@ -118,7 +118,7 @@ export default function UpdateProduct() {
             if (product.moreimage[0]!==undefined) {
                 for (let i =0; i <product.moreimage.length; i++) {
                     if (typeof product.moreimage[i]!=="string") {
-                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/get-signature` )
+                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/get-signature` )
                         const image = new FormData()
                         image.append("file", product.moreimage[i])
                         image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
@@ -139,7 +139,7 @@ export default function UpdateProduct() {
             if (product.ingredients[0]!==undefined) {
                 for (let i=0; i<product.ingredients.length; i++) {
                     if (typeof product.ingredients[i].photo!=="string") {
-                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/get-signature` )
+                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/get-signature` )
 
                         const image = new FormData()
                         image.append("file", product.ingredients[i].photo)
@@ -176,7 +176,7 @@ export default function UpdateProduct() {
             data.append("do", JSON.stringify(product.do))
             data.append("dont", JSON.stringify(product.dont))
             
-            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/product/update-product`, data, { headers: { "Content-Type": "application/json" } })
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/product/update-product`, data, { headers: { "Content-Type": "application/json" } })
             console.log(res.data)
             
             setProduct({

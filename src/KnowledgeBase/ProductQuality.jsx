@@ -4,6 +4,7 @@ import img2 from '../assets/Knowledge Base/Mountain Movers/g2.png';
 import img3 from '../assets/Knowledge Base/Mountain Movers/g3.png';
 import img4 from '../assets/Knowledge Base/Mountain Movers/g4.png';
 import img5 from '../assets/Knowledge Base/Mountain Movers/g5.png';
+import MyImage from  '../Components/MyImage';
 
 export default function ProductQuality() {
     useEffect(()=> {
@@ -14,6 +15,16 @@ export default function ProductQuality() {
             })
         }
         windowOpen()
+    }, [])
+
+    useEffect(() => {
+        const handleContextmenu = e => {
+            e.preventDefault()
+        }
+        document.addEventListener('contextmenu', handleContextmenu)
+        return function cleanup() {
+            document.removeEventListener('contextmenu', handleContextmenu)
+        }
     }, [])
 
     return (
@@ -37,19 +48,19 @@ export default function ProductQuality() {
                         <br/>
                         <br/>
                         <h1 className='font-bold contentHeading my-4'><b>Examples of rejected items:</b></h1>
-                        <img className='' src={img1}/>
+                        <MyImage className='' src={img1}/>
                         <label className='text-center'><i>Hair follicles can be seen inside the bottle.</i></label>
                         <br/>
-                        <img className='' src={img2}/>
+                        <MyImage className='' src={img2}/>
                         <label className='text-center'><i>White strings are floating inside the bottle.</i></label>
                         <br/>
-                        <img className='' src={img3}/>
+                        <MyImage className='' src={img3}/>
                         <label className='text-center'><i>Product was leaking because the packaging wasn’t sealed securely.</i></label>
                         <br/>
-                        <img className='' src={img4}/>
+                        <MyImage className='' src={img4}/>
                         <label className='text-center'><i>The blue hue is different from the official company color.</i></label>
                         <br/>
-                        <img className='' src={img5}/>
+                        <MyImage className='' src={img5}/>
                         <label className='text-center'><i>The box was badly damaged.</i></label>
                     </div>
                 </section>

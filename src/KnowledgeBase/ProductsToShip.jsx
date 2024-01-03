@@ -27,7 +27,7 @@ export default function ProductsToShip() {
                     <p className='sm:text-xl text-base'>Floating parcels are orders that have been packed and are just awaiting the courier to handover for dispatch. These parcels would show on the seller page after the waybills are printed and the orders are arranged for shipment</p>
                     <h1 className='font-bold contentHeading my-4'>Shopee</h1>
                     <div className='col-span-1'>
-                        <img className='' src={img1}/>
+                        <MyImage className='' src={img1}/>
                     </div>
                     <p className='sm:text-xl text-base'>Go to Orders tab {'>'} To Ship {'>'} Processed. Filter out the orders by courier and you will see the number of parcels that need to be dispatch to the corresponding courier.</p>
                 </section>
@@ -35,12 +35,12 @@ export default function ProductsToShip() {
                 <section className='container bg-gray-100 mx-auto sm:p-10 p-2 grid gap-2'>
                     <h1 className='font-bold contentHeading my-4'>Tiktok</h1>
                     <div className='col-span-1'>
-                        <img className='' src={img2}/>
+                        <MyImage className='' src={img2}/>
                     </div>
                     <p className='sm:text-xl text-base'>Head to Manage Orders {'>'} To Ship then select Awaiting Collection. Click on the More filters dropdown to see all options.</p>
                     <br/>
                     <div className='col-span-1'>
-                        <img className='' src={img3}/>
+                        <MyImage className='' src={img3}/>
                     </div>
                     <p className='sm:text-xl text-base'>Select a courier to sort the orders, and you will see the number of orders to be dispatched on the left side of the page.</p>
                 </section>
@@ -48,7 +48,7 @@ export default function ProductsToShip() {
                 <section className='container bg-white mx-auto sm:p-10 p-2 grid gap-2'>
                     <h1 className='font-bold contentHeading my-4'>Lazada</h1>
                     <div className='col-span-1'>
-                        <img className='' src={img3}/>
+                        <MyImage className='' src={img4}/>
                     </div>
                     <p className='sm:text-xl text-base'>Go to Orders tab {'>'} To Ship {'>'} To Handover. Choose a courier to sort, and the quantity of parcels that need to be dispatched to the relevant courier will be displayed on the left side of the page.</p>
                 </section>

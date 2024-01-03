@@ -37,7 +37,7 @@ import img31 from '../assets/Knowledge Base/Customer Excellence/m5.png';
 import img32 from '../assets/Knowledge Base/Customer Excellence/m6.png';
 import img33 from '../assets/Knowledge Base/Customer Excellence/m7.png';
 import img34 from '../assets/Knowledge Base/Customer Excellence/m8.png';
-
+import MyImage from  '../Components/MyImage';
 
 export default function CustomerReturnRefund() {
     useEffect(()=> {
@@ -48,6 +48,16 @@ export default function CustomerReturnRefund() {
             })
         }
         windowOpen()
+    }, [])
+
+    useEffect(() => {
+        const handleContextmenu = e => {
+            e.preventDefault()
+        }
+        document.addEventListener('contextmenu', handleContextmenu)
+        return function cleanup() {
+            document.removeEventListener('contextmenu', handleContextmenu)
+        }
     }, [])
 
     return (
@@ -114,7 +124,7 @@ export default function CustomerReturnRefund() {
                                 <li className='my-2'>Return Refund Details – this is where you can see the information you will need for investigation.</li>
                             </ol>
                             <div className='col-span-1'>
-                                <img className='' src={img1}/>
+                                <MyImage className='' src={img1}/>
                             </div>
                         </div>
                         <br/>
@@ -127,7 +137,7 @@ export default function CustomerReturnRefund() {
                                 <li className='my-2'>Completed – this tab lists all the return/refund requests that have been solved.</li>
                             </ol>
                             <div className='col-span-1'>
-                                <img className='' src={img2}/>
+                                <MyImage className='' src={img2}/>
                             </div>
                         </div>
 
@@ -141,7 +151,7 @@ export default function CustomerReturnRefund() {
                                 <li className='my-2'>Reason from Buyer – you can see here the detailed reason for customer request.</li>
                                 <li className='my-2'>This is the New Tracking ID generated after the file for return and refund was approved.</li>
                             </ol>
-                            <img className='' src={img3}/>
+                            <MyImage className='' src={img3}/>
                         </div>
                         <br/>
 
@@ -172,7 +182,7 @@ export default function CustomerReturnRefund() {
                                 <li className='my-2'>New tracking number will be generated when the customer requests a return/refund. You can see it on the Return Refund Details.</li>
                                 <li className='my-2'>The tracking number and the shipping provider is indicated on this page. Use this tracking number when monitoring the return parcel.</li>
                             </ol>
-                            <img className='' src={img4}/>
+                            <MyImage className='' src={img4}/>
                         </div>
                         <br/>
                         <div>
@@ -183,17 +193,17 @@ export default function CustomerReturnRefund() {
                             <ol className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>After escalating to the production team, they will send the evidence/proof you will use for dispute through Viber. You may also find evidence through other means (ie: the customer requesting copied the same photo from another customer, the customer requesting reused an old photo from their previous request for return/refund)</li>
                             </ol>
-                            <img className='' src={img5}/>
+                            <MyImage className='' src={img5}/>
                             <br/>
                             <ol start='2' className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>To reject a request, click on the Dispute button.</li>
                             </ol>
-                            <img className='' src={img6}/>
+                            <MyImage className='' src={img6}/>
                             <br/>
                             <ol start='3' className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>Upload the necessary evidence needed for dispute. Select a reason for dispute and state the detailed description in the box provided.</li>
                             </ol>
-                            <img className='' src={img7}/>
+                            <MyImage className='' src={img7}/>
                             <br/>
                             <ol start='4' className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>Wait for Shopee Review Team’s response and results given to the dispute.</li>
@@ -208,11 +218,11 @@ export default function CustomerReturnRefund() {
                                 <li className='my-2'>Escalate to Production Managers for the drama.</li>
                                 <li className='my-2'>Click on Dispute to Shopee.</li>
                             </ol>
-                            <img className='' src={img8}/>
+                            <MyImage className='' src={img8}/>
                             <ol start='3' className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>Choose the reason for dispute and explain the reason in the description box.</li>
                             </ol>
-                            <img className='' src={img9}/>
+                            <MyImage className='' src={img9}/>
                             <ol start='4' className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>Upload the evidence that was gathered from the production managers' investigation.</li>
                                 <li className='my-2'>Shopee will review the evidence and we wait for their response and result of the dispute.</li>
@@ -231,7 +241,7 @@ export default function CustomerReturnRefund() {
                                 <li className='my-2'>View Return Records – Additional information will be shown regarding the customer’s request.</li>
                             </ol>
                             <div className='col-span-1'>
-                                <img className='' src={img10}/>
+                                <MyImage className='' src={img10}/>
                             </div>
                         </div>
                         <br/>
@@ -242,7 +252,7 @@ export default function CustomerReturnRefund() {
                                 <li className='my-2'>You can view here detailed information of the customer’s reason for requesting a return/refund.</li>
                             </ol>
                             <div className='col-span-1'>
-                                <img className='' src={img11}/>
+                                <MyImage className='' src={img11}/>
                             </div>
                         </div>
                         <br/>
@@ -264,7 +274,7 @@ export default function CustomerReturnRefund() {
                                 <li className='my-2'>New tracking number will generate when the customer request for a return/refund. Click on Check return logistics to see.</li>
                                 <li className='my-2'>The tracking number and the shipping provider is indicated on this page. Use this tracking number when monitoring the return parcel.</li>
                             </ol>
-                            <img className='' src={img12}/>
+                            <MyImage className='' src={img12}/>
                         </div>
                         <br/>
 
@@ -276,17 +286,17 @@ export default function CustomerReturnRefund() {
                             <ol className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>After escalating to the production team, they will send the evidence/proof you will use for dispute through Viber. You may also find evidence through other means (ie: the customer requesting copied the same photo from another customer, the customer requesting reused an old photo from their previous request for return/refund)</li>
                             </ol>
-                            <img className='' src={img13}/>
+                            <MyImage className='' src={img13}/>
                             <br/>
                             <ol start='2' className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>To reject a request, click on the Dispute button.</li>
                             </ol>
-                            <img className='' src={img14}/>
+                            <MyImage className='' src={img14}/>
                             <br/>
                             <ol start='3' className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>Upload the necessary evidence needed for dispute. Select a reason for dispute and state the detailed description in the box provided.</li>
                             </ol>
-                            <img className='' src={img15}/>
+                            <MyImage className='' src={img15}/>
                             <br/>
                             <ol start='4' className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>Wait for Tiktok Review Team’s response and results given to the dispute.</li>
@@ -297,13 +307,13 @@ export default function CustomerReturnRefund() {
                         <div>
                             <h1 className='font-bold contentSubHeading my-4'>Submitting a Ticket for ‘Lost Package’ on TikTok</h1>
                             <p className='sm:text-xl text-base'>To know where to submit a ticket, click on Help Center. Choose the Complaint & Disputes {'>'} Logistic Issues then click on the hyperlinked word ‘ticket’.</p>
-                            <img className='' src={img16}/>
+                            <MyImage className='' src={img16}/>
                             <br/>
                             <p className='sm:text-xl text-base'>Fill in the necessary information including the screenshot of the proof of your complaint (message from the courier, logistic information, customer’s complaint, etc.). Then click on Submit.</p>
-                            <img className='' src={img17}/>
+                            <MyImage className='' src={img17}/>
                             <br/>
                             <p className='sm:text-xl text-base'>After that, you monitor and wait for the result of the ticket you submitted.</p>
-                            <img className='' src={img18}/>
+                            <MyImage className='' src={img18}/>
                             <br/>
                         </div>
                 </section>
@@ -313,7 +323,7 @@ export default function CustomerReturnRefund() {
                     <div className='col-span-1'>
                         <p className='sm:text-xl text-base'>To submit a ticket on Lazada. Go to the Lazada Seller Center Homepage {'>'} Support {'>'} Help Center. <br/><br/>Click the word ‘form’ in hyperlink.</p>
                         <div className='col-span-1'>
-                            <img className='' src={img19}/>
+                            <MyImage className='' src={img19}/>
                         </div>
                     </div>
                     <br/>
@@ -321,8 +331,8 @@ export default function CustomerReturnRefund() {
                     <div className='col-span-1'>
                         <p className='sm:text-xl text-base'>Fill in the necessary details in the form, then click Submit.</p>
                         <div className='col-span-1'>
-                            <img className='' src={img20}/>
-                            <img className='' src={img21}/>
+                            <MyImage className='' src={img20}/>
+                            <MyImage className='' src={img21}/>
                         </div>
                     </div>
                     <br/>
@@ -330,7 +340,7 @@ export default function CustomerReturnRefund() {
                     <div className='col-span-1'>
                         <p className='sm:text-xl text-base'>If you want to check on the case you submitted. You can find it on the My Cases tab and search for your Case ID.</p>
                         <div className='col-span-1'>
-                            <img className='' src={img22}/>
+                            <MyImage className='' src={img22}/>
                         </div>
                     </div>
                 </section>
@@ -345,8 +355,8 @@ export default function CustomerReturnRefund() {
                             <li className='my-2'>Submit a Follow up on Order Status Form and fill out the necessary information. Then Submit.</li>
                         </ol>
                         <div className='col-span-1'>
-                            <img className='' src={img23}/>
-                            <img className='' src={img24}/>
+                            <MyImage className='' src={img23}/>
+                            <MyImage className='' src={img24}/>
                         </div>
                     </div>
                     <br/>
@@ -356,7 +366,7 @@ export default function CustomerReturnRefund() {
                             <li className='my-2'>Message them through the Viber group chat FLASH x TikTok - Klued using the following template:</li>
                         </ol>
                         <div className='col-span-1'>
-                            <img className='' src={img25}/>
+                            <MyImage className='' src={img25}/>
                         </div>
                         <div className='sm:text-xl text-base'>
                             ----------
@@ -395,7 +405,7 @@ export default function CustomerReturnRefund() {
                             <li className='my-2'>Send them a message through Messenger group chatKLUED x J&T – Operations or call their customer service using this hotline number (02) 8911-1888.</li>
                         </ol>
                         <div className='col-span-1'>
-                            <img className='' src={img26}/>
+                            <MyImage className='' src={img26}/>
                         </div>
                         <br/>
                         <ol start='2' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -420,7 +430,7 @@ export default function CustomerReturnRefund() {
                             <li className='my-2'>Check the date the order was packed.</li>
                         </ol>
                         <div className='col-span-1'>
-                            <img className='' src={img27}/>
+                            <MyImage className='' src={img27}/>
                         </div>
                     </div>
                     <br/>
@@ -431,7 +441,7 @@ export default function CustomerReturnRefund() {
                             <li className='my-2'>First take note of the Tracking ID and the Shipping provider.</li>
                         </ol>
                         <div className='col-span-1'>
-                            <img className='' src={img28}/>
+                            <MyImage className='' src={img28}/>
                         </div>
                         <br/>
 
@@ -439,7 +449,7 @@ export default function CustomerReturnRefund() {
                             <li className='my-2'>Check the date the order was packed.</li>
                         </ol>
                         <div className='col-span-1'>
-                            <img className='' src={img29}/>
+                            <MyImage className='' src={img29}/>
                         </div>
                         <br/>
 
@@ -448,7 +458,7 @@ export default function CustomerReturnRefund() {
                             <li className='my-2'>Then click on the Records of Waybill.</li>
                         </ol>
                         <div className='col-span-1'>
-                            <img className='' src={img30}/>
+                            <MyImage className='' src={img30}/>
                         </div>
                         <br/>
 
@@ -456,7 +466,7 @@ export default function CustomerReturnRefund() {
                             <li className='my-2'>You will be taken to a Google Drive link where all the waybills scheduled for shipping on that day are stored. Select the platform and courier the waybill has been recorded.</li>
                         </ol>
                         <div className='col-span-1'>
-                            <img className='' src={img31}/>
+                            <MyImage className='' src={img31}/>
                         </div>
                         <br/>
 
@@ -464,8 +474,8 @@ export default function CustomerReturnRefund() {
                             <li className='my-2'>Open it one-by-one to search for the specific waybill.</li>
                         </ol>
                         <div className='col-span-1'>
-                            <img className='' src={img31}/>
-                            <img className='' src={img32}/>
+                            <MyImage className='' src={img31}/>
+                            <MyImage className='' src={img32}/>
                         </div>
                         <p><i>Note: Remember the page number of the waybill you are searching for</i></p>
                         <br/>
@@ -474,11 +484,14 @@ export default function CustomerReturnRefund() {
                             <li className='my-2'>Once you find the waybill, print only the page you need through Custom Pages then type the page number of the waybill. Use the Xprinter XP when printing waybills.</li>
                         </ol>
                         <div className='col-span-1'>
-                            <img className='' src={img33}/>
+                            <MyImage className='' src={img33}/>
                         </div>
                         <ol start='8' className='ml-4 list-decimal sm:text-xl text-base'>
                             <li className='my-2'>After printing, hand out the waybill to the production team for them to investigate.</li>
                         </ol>
+                        <div className='col-span-1'>
+                            <MyImage className='' src={img34}/>
+                        </div>
                     </div>
                 </section>
             </div>

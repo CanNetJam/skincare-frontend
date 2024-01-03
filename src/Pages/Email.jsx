@@ -18,7 +18,7 @@ export default function Email() {
     useEffect(() => {
         const getEmails = async () => {
             try {
-                const getEmails = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/emails/all-emails`, {params: {
+                const getEmails = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/emails/all-emails`, {params: {
                     startDate: dateRange.startDate,
                     endDate: dateRange.endDate,
                     page: page,

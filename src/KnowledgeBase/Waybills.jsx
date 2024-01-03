@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import img1 from '../assets/Knowledge Base/Mountain Movers/i1.png';
 import img2 from '../assets/Knowledge Base/Mountain Movers/i2.png';
 import img3 from '../assets/Knowledge Base/Mountain Movers/i3.png';
-import MyImage from  '../Components/MyImage'
+import MyImage from  '../Components/MyImage';
 
 export default function Waybills() {
     useEffect(() => {

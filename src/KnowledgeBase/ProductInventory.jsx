@@ -8,6 +8,8 @@ import img6 from '../assets/Knowledge Base/Mountain Movers/j6.png';
 import img7 from '../assets/Knowledge Base/Mountain Movers/j7.png';
 import img8 from '../assets/Knowledge Base/Mountain Movers/j8.png';
 
+import MyImage from  '../Components/MyImage';
+
 export default function ProductInventory() {
     useEffect(()=> {
         const windowOpen = () => {   
@@ -19,6 +21,16 @@ export default function ProductInventory() {
         windowOpen()
     }, [])
 
+    useEffect(() => {
+        const handleContextmenu = e => {
+            e.preventDefault()
+        }
+        document.addEventListener('contextmenu', handleContextmenu)
+        return function cleanup() {
+            document.removeEventListener('contextmenu', handleContextmenu)
+        }
+    }, [])
+
     return (
         <div className='bg-blue-200 h-auto w-full text-base sm:text-lg sm:p-8 p-4'>
             <section className='my-2'>
@@ -28,7 +40,7 @@ export default function ProductInventory() {
             <div className='h-auto sm:rounded-[30px] rounded-[10px] overflow-hidden'>
                 <section className='container bg-white mx-auto sm:p-10 p-2 grid justify-center gap-2'>
                     <p className='sm:text-xl text-base'>Product inventory needs to be accurately tallied or counted and passed the quality control before being stored in a rack or stock room and it should follow the first in and first out. It must be organizing the product and batch of product for product releasing purposes.</p>
-                    <img className='' src={img1}/>
+                    <MyImage className='' src={img1}/>
                     <p className='sm:text-xl text-base'>Before placing the products in the stock room, it should have the batch and box number paper which includes the following.</p>
                     <ul className='ml-4 list-disc sm:text-xl text-base'>
                         <li className='my-2'>Batch number & Box number</li>
@@ -41,13 +53,13 @@ export default function ProductInventory() {
                         <li className='my-2'>Dispatch Date</li>
                     </ul>
                     <p className='sm:text-xl text-base'>Purpose of having a Batch and Box number is to make sure that the "first in" and "first out" policies are followed for products released, a batch and box number paper is necessary.</p>
-                    <img className='' src={img2}/>
+                    <MyImage className='' src={img2}/>
                     <br/>
                     <p className='sm:text-xl text-base'>They should be arranged in the rack after the managers have approved the quality control the production staff did. To make it easier to identify the ‘First in, First out’ products. 
                     <br/>
                     <br/>
                     Reminder: The first Box number should always be put on the top of the next Box number to easily determine the ‘First in, First out’.</p>
-                    <img className='' src={img5}/>
+                    <MyImage className='' src={img5}/>
                     <br/>
                     <div className='sm:text-xl text-base'><b>Product Inventory contains two different aspects of proper recording.</b>
                         <ol className='ml-4 list-decimal sm:text-xl text-base'>
@@ -59,7 +71,7 @@ export default function ProductInventory() {
                             </li>
                         </ol>
                     </div>
-                    <img className='' src={img3}/>
+                    <MyImage className='' src={img3}/>
                     <br/>
 
                     <ol start='2' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -69,7 +81,7 @@ export default function ProductInventory() {
                             </ul>
                         </li>
                     </ol>
-                    <img className='' src={img4}/>
+                    <MyImage className='' src={img4}/>
                     <br/>
 
                     <p className='sm:text-xl text-base'>For inventory purposes, if all products have been released and if they notice that there are still products inside the box, Line 2 must put a new quantity in the Batch and Box numbers paper and easy to determine.
@@ -91,7 +103,7 @@ export default function ProductInventory() {
                         <li>Get the information of delivery time, delivery schedules, products to be delivered, and their quantity. We need to assure that the items would be delivered on time and always remind them by contacting them for a negotiation on product concerns.</li>
                     </ul>
                     <p className='sm:text-xl text-base'><i><b>Take note:</b> If we have concern or updates regarding the products, the assigned personnel will use Viber app to communicate with the manufacturer and also use emails for transaction.</i></p>
-                    <img src={img6}/>
+                    <MyImage src={img6}/>
                     <p className='sm:text-xl text-base'>We must know the products with low numbers in stock before informing the manufacturer to prioritize that certain product’s delivery. Before dealing with the manufacturer regarding our concern, we need to communicate with our assigned contact person from the manufacturer, ask them if the concerned product/s still have stocks or is available.</p>
                     <p className='sm:text-xl text-base'>Among our concerns, the delivery of low stock products should be on top priority and need to update from time to time and get the information that they give to us.
                     <br/>
@@ -101,8 +113,8 @@ export default function ProductInventory() {
                     <br/>
                     <h1 className='font-bold contentHeading my-4'>Record Book of the Manufacturer</h1>
                     <div className='grid grid-cols-2'>
-                        <img className='col-span-1'src={img7}/>
-                        <img className='col-span-1 rotate-90 translate-y-1/2'src={img8}/>
+                        <MyImage className='col-span-1'src={img7}/>
+                        <MyImage className='col-span-1 rotate-90 translate-y-1/2'src={img8}/>
                     </div>
                     <p className='sm:text-xl text-center'><i><b>Take note:</b> Make sure the numbers in the receipt are equal to what we received.</i></p>
                 </section>
