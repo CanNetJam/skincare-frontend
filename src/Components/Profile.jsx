@@ -26,7 +26,7 @@ const Profile = () => {
     useEffect(()=> {
         const getProfile = async () => {
             try {
-                const profile = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}}/accounts/get-profile`, {params: {
+                const profile = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/accounts/get-profile`, {params: {
                     profileid: id ? id : location.state.profileid
                 }})
                 setProfileData(profile.data)
@@ -44,7 +44,7 @@ const Profile = () => {
             const data = new FormData()
             let profileImage = ""
             if (file!==undefined){
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}}/get-signature` )
+                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/get-signature` )
 
                 const image = new FormData()
                 image.append("file", file)
@@ -63,7 +63,7 @@ const Profile = () => {
             data.append("firstname", draftFirstname)
             data.append("lastname", draftLastname)
             data.append("phone", draftPhone)
-            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}}/accounts/update-account/${iD}`, data, 
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/accounts/update-account/${iD}`, data, 
             { headers: { "Content-Type": "application/json" }, "auth-token": token })
 
             if (res.data) {

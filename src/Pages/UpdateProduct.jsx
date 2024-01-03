@@ -176,7 +176,7 @@ export default function UpdateProduct() {
             data.append("do", JSON.stringify(product.do))
             data.append("dont", JSON.stringify(product.dont))
             
-            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}}/product/update-product`, data, { headers: { "Content-Type": "application/json" } })
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/product/update-product`, data, { headers: { "Content-Type": "application/json" } })
             console.log(res.data)
             
             setProduct({
