@@ -11,7 +11,7 @@ export default function UserAccountsTable() {
     const [ toDelete, setToDelete ] = useState("")
     const [ menu, setMenu ] = useState(false)
     const [ accounts, setAccounts] = useState([])
-    const [ range, setRange ] = useState("Last year")
+    const [ range, setRange ] = useState("Last 30 days")
     const [dateRange, setDateRange] = useState({
         startDate: addDays(new Date(), -7),
         endDate: new Date()
@@ -25,7 +25,7 @@ export default function UserAccountsTable() {
         const getAccounts = async () => {
             try {
                 let token = localStorage.getItem("auth-token")
-                const getAccounts = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/accounts/all-accounts`, 
+                const getAccounts = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/all-accounts`, 
                 {params: {
                     startDate: dateRange.startDate,
                     endDate: dateRange.endDate,

@@ -8,7 +8,6 @@ import img5 from '../assets/Knowledge Base/Mountain Movers/e1.png';
 
 import img6 from '../assets/Knowledge Base/Mountain Movers/f1.png';
 import img7 from '../assets/Knowledge Base/Mountain Movers/f2.png';
-import MyImage from  '../Components/MyImage';
 
 export default function ProductPackaging() {
     useEffect(()=> {
@@ -52,8 +51,8 @@ export default function ProductPackaging() {
                             </ol>
                         </div>
                         <div className='col-span-1 grid gap-4 '>
-                            <MyImage className='col-span-1' src={img1}/>
-                            <MyImage className='col-span-1' src={img2}/>
+                            <img draggable={false} className='col-span-1' src={img1}/>
+                            <img draggable={false} className='col-span-1' src={img2}/>
                         </div>
                         <br/>
 
@@ -79,7 +78,7 @@ export default function ProductPackaging() {
                             </ol>
                         </div>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img3}/>
+                            <img draggable={false} className='' src={img3}/>
                         </div>
                     </div>
 
@@ -123,7 +122,7 @@ export default function ProductPackaging() {
                             </ol>
                         </div>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img4}/>
+                            <img draggable={false} className='' src={img4}/>
                         </div>
                     </div>
                 </section>
@@ -186,7 +185,7 @@ export default function ProductPackaging() {
                             </ol>
                         </div>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img5}/>
+                            <img draggable={false} className='' src={img5}/>
                         </div>
                     </div>
                 </section>
@@ -204,7 +203,7 @@ export default function ProductPackaging() {
                             </ol>
                         </div>
                         <div className='col-span-1 grid gap-4 '>
-                            <MyImage className='col-span-1' src={img6}/>
+                            <img draggable={false} className='col-span-1' src={img6}/>
                         </div>
                         <div className='col-span-1'>
                             <ol start='5' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -256,7 +255,7 @@ export default function ProductPackaging() {
                             </ol>
                         </div>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img7}/>
+                            <img draggable={false} className='' src={img7}/>
                         </div>
                     </div>
                 </section>

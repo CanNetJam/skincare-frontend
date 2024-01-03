@@ -13,7 +13,7 @@ export default function KnowledgeBase() {
     const [ excellence, setExcellence ] = useState(false)
     const [ mountainExcellence, setMountainExcellence ] = useState(false)
     const [ tigers, setTigers ] = useState(false)
-    let tabs = userData.user?.access.length || 1
+    let tabs = userData.user?.access?.length || 1
     
     useEffect(()=> {
         const windowOpen = () => {   

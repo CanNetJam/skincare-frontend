@@ -6,7 +6,7 @@ export default function DeleteAccountModal({isDelete, setIsDelete, toDelete, set
 
   const handleDelete = async () => {
     try {
-      const res = await axios.delete(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/accounts/delete-account/${toDelete._id}`, { headers: { "Content-Type": "application/json" } })
+      const res = await axios.delete(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/delete-account/${toDelete._id}`, { headers: { "Content-Type": "application/json" } })
       if (res.data) {
         setToDelete("")
         setIsDelete(false)

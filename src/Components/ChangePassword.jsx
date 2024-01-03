@@ -54,7 +54,7 @@ export default function Settings() {
         e.preventDefault()
         let token = localStorage.getItem("auth-token")
         if (isVerified===false) {
-            const res = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : 'https://kluedskincare-backend.onrender.com'}/accounts/check-password/${userData.user._id}/${password}`, {headers: {"auth-token": token}})
+            const res = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/check-password/${userData.user._id}/${password}`, {headers: {"auth-token": token}})
             setIsVerified(res.data)
             setCorrectPass(res.data)
         }
@@ -63,7 +63,7 @@ export default function Settings() {
                 setCorrectPass(true)
                 if (samePassword===false) {
                     if (isConfirmed===true) {
-                        const newPass = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : 'https://kluedskincare-backend.onrender.com'}/accounts/change-password/${userData.user._id}/${newPassword}`, {headers: {"auth-token": token}})
+                        const newPass = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/change-password/${userData.user._id}/${newPassword}`, {headers: {"auth-token": token}})
                         if (newPass.data===true) {
                             setCorrectPass(undefined)
                             setPassword("")

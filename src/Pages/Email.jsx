@@ -18,7 +18,7 @@ export default function Email() {
     useEffect(() => {
         const getEmails = async () => {
             try {
-                const getEmails = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/emails/all-emails`, {params: {
+                const getEmails = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/emails/all-emails`, {params: {
                     startDate: dateRange.startDate,
                     endDate: dateRange.endDate,
                     page: page,
@@ -109,7 +109,7 @@ export default function Email() {
                 </div>
 
             </div>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
+            <div className="relative w-full overflow-x-auto shadow-md sm:rounded-lg p-4">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import img1 from '../assets/Knowledge Base/Creative Tigers/b1.png';
 import img2 from '../assets/Knowledge Base/Creative Tigers/b1.png';
 import img3 from '../assets/Knowledge Base/Creative Tigers/b1.png';
-import MyImage from  '../Components/MyImage';
 
 export default function SocialMediaChecking() {
     useEffect(()=> {
@@ -43,7 +42,7 @@ export default function SocialMediaChecking() {
                         </p>
                     </div>
                     <div className='col-span-1'>
-                        <MyImage src={img1}/>
+                        <img draggable={false} src={img1}/>
                     </div>
                 </section>
                 <section className='container bg-gray-100 mx-auto sm:p-10 p-2 grid sm:gap-y-16 gap-y-2 sm:grid-cols-2'>
@@ -54,10 +53,10 @@ export default function SocialMediaChecking() {
                         </p>
                     </div>
                     <div className='col-span-1'>
-                        <MyImage src={img2}/>
+                        <img draggable={false} src={img2}/>
                     </div>
                     <div className='col-span-1'>
-                        <MyImage src={img3}/>
+                        <img draggable={false} src={img3}/>
                     </div>
                     <div className='col-span-1'>
                         <p className='sm:text-xl text-base'>

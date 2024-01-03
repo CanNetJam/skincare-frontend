@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react';
 
 export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, setOpenLink}) {
     return (
@@ -50,6 +50,9 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
                                 <li onClick={()=> setOpenLink("Content Metrics")} className={openLink==="Content Metrics" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Content Metrics</li>
                                 <li onClick={()=> setOpenLink("Social Media Checking")} className={openLink==="Social Media Checking" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Social Media Checking</li>
                                 <li onClick={()=> setOpenLink("Live Sessions")} className={openLink==="Live Sessions" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Live Sessions</li>
+                                <li onClick={()=> setOpenLink("Digital Marketing Training 1")} className={openLink==="Digital Marketing Training 1" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Digital Marketing Training 1</li>
+                                <li onClick={()=> setOpenLink("Digital Marketing Training 2")} className={openLink==="Digital Marketing Training 2" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Digital Marketing Training 2</li>
+                                <li onClick={()=> setOpenLink("Digital Marketing Training 3")} className={openLink==="Digital Marketing Training 3" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Digital Marketing Training 3</li>
                             </ul>
                         </section>
                     }

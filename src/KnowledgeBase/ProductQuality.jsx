@@ -4,7 +4,6 @@ import img2 from '../assets/Knowledge Base/Mountain Movers/g2.png';
 import img3 from '../assets/Knowledge Base/Mountain Movers/g3.png';
 import img4 from '../assets/Knowledge Base/Mountain Movers/g4.png';
 import img5 from '../assets/Knowledge Base/Mountain Movers/g5.png';
-import MyImage from  '../Components/MyImage';
 
 export default function ProductQuality() {
     useEffect(()=> {

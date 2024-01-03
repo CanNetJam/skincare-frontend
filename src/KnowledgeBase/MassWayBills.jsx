@@ -19,8 +19,6 @@ import img15 from '../assets/Knowledge Base/Mountain Movers/c2.png';
 import img16 from '../assets/Knowledge Base/Mountain Movers/c3.png';
 import img17 from '../assets/Knowledge Base/Mountain Movers/c4.png';
 
-import MyImage from  '../Components/MyImage';
-
 export default function MassWayBills() {
     useEffect(()=> {
         const windowOpen = () => {   
@@ -63,7 +61,7 @@ export default function MassWayBills() {
 
                         <br/>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img1}/>
+                            <img draggable={false} className='' src={img1}/>
                         </div>
                         <div className='col-span-1'>
                             <ol start='5' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -76,7 +74,7 @@ export default function MassWayBills() {
 
                         <br/>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img2}/>
+                            <img draggable={false} className='' src={img2}/>
                         </div>
                         <div className='col-span-1'>
                             <ol start='9' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -87,7 +85,7 @@ export default function MassWayBills() {
 
                         <br/>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img3}/>
+                            <img draggable={false} className='' src={img3}/>
                         </div>
                         <div className='col-span-1'>
                             <ol start='11' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -97,7 +95,7 @@ export default function MassWayBills() {
                         <br/>
 
                         <div className='col-span-1'>
-                            <MyImage className='' src={img4}/>
+                            <img draggable={false} className='' src={img4}/>
                         </div>
                         <div className='col-span-1'>
                             <ol start='12' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -107,7 +105,7 @@ export default function MassWayBills() {
                         <br/>
 
                         <div className='col-span-1'>
-                            <MyImage className='' src={img5}/>
+                            <img draggable={false} className='' src={img5}/>
                         </div>
                         <div className='col-span-1'>
                             <ol start='13' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -118,7 +116,7 @@ export default function MassWayBills() {
 
                         <br/>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img6}/>
+                            <img draggable={false} className='' src={img6}/>
                         </div>
                         <div className='col-span-1'>
                             <ol start='15' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -129,7 +127,7 @@ export default function MassWayBills() {
 
                         <br/>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img7}/>
+                            <img draggable={false} className='' src={img7}/>
                         </div>
                         <div className='col-span-1'>
                             <ol start='17' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -150,7 +148,7 @@ export default function MassWayBills() {
                             </ol>
                         </div>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img8}/>
+                            <img draggable={false} className='' src={img8}/>
                         </div>
 
                         <br/>
@@ -163,7 +161,7 @@ export default function MassWayBills() {
                             </ol>
                         </div>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img9}/>
+                            <img draggable={false} className='' src={img9}/>
                         </div>
 
                         <br/>
@@ -174,7 +172,7 @@ export default function MassWayBills() {
                             </ol>
                         </div>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img10}/>
+                            <img draggable={false} className='' src={img10}/>
                         </div>
 
                         <br/>
@@ -185,7 +183,7 @@ export default function MassWayBills() {
                             </ol>
                         </div>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img11}/>
+                            <img draggable={false} className='' src={img11}/>
                         </div>
 
                         <br/>
@@ -196,7 +194,7 @@ export default function MassWayBills() {
                             </ol>
                         </div>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img12}/>
+                            <img draggable={false} className='' src={img12}/>
                         </div>
 
                         <br/>
@@ -208,7 +206,7 @@ export default function MassWayBills() {
                             </ol>
                         </div>
                         <div className='col-span-1'>
-                            <MyImage className='' src={img13}/>
+                            <img draggable={false} className='' src={img13}/>
                         </div>
                 </section>
 
@@ -223,7 +221,7 @@ export default function MassWayBills() {
                         </ol>
                     </div> 
                     <div className='col-span-1'>
-                        <MyImage className='' src={img14}/>
+                        <img draggable={false} className='' src={img14}/>
                     </div>
                     <br/>
 
@@ -235,7 +233,7 @@ export default function MassWayBills() {
                         </ol>
                     </div>
                     <div className='col-span-1'>
-                        <MyImage className='' src={img15}/>
+                        <img draggable={false} className='' src={img15}/>
                     </div>
 
                     <br/>
@@ -246,7 +244,7 @@ export default function MassWayBills() {
                         </ol>
                     </div>
                     <div className='col-span-1'>
-                        <MyImage className='' src={img16}/>
+                        <img draggable={false} className='' src={img16}/>
                     </div>
 
                     <br/>
@@ -258,7 +256,7 @@ export default function MassWayBills() {
                         </ol>
                     </div>
                     <div className='col-span-1'>
-                        <MyImage className='' src={img17}/>
+                        <img draggable={false} className='' src={img17}/>
                     </div>
                 </section>
             </div>

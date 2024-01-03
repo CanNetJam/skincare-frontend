@@ -13,7 +13,10 @@ import UndelivredProducts from './UndeliveredProducts';
 import CustomerReturnRefund from './CustomerReturnRefund';
 import ContentMetrics from './ContentMetrics';
 import SocialMediaChecking from './SocialMediaChecking';
-import LiveSessions from './LiveSessions'
+import LiveSessions from './LiveSessions';
+import DigitalMarketing1 from './DigitalMarketing1';
+import DigitalMarketing2 from './DigitalMarketing2';
+import DigitalMarketing3 from './DigitalMarketing3';
 
 export default function KBBody({openMenu, setOpenMenu, openTab}) {
     const [ openLink, setOpenLink ] = useState("Default")
@@ -68,6 +71,15 @@ export default function KBBody({openMenu, setOpenMenu, openTab}) {
             )}
             {openLink==="Live Sessions" && (
                 <LiveSessions />
+            )}
+            {openLink==="Digital Marketing Training 1" && (
+                <DigitalMarketing1 />
+            )}
+            {openLink==="Digital Marketing Training 2" && (
+                <DigitalMarketing2 />
+            )}
+            {openLink==="Digital Marketing Training 3" && (
+                <DigitalMarketing3 />
             )}
         </div>
     )

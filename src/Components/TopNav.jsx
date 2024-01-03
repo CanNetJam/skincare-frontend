@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from "../App";
-import axios from 'axios';
 import photo1 from '../assets/logo.png';
 import Cart from '../Pages/Cart';
 import { AiOutlineMenu } from "react-icons/ai";
@@ -10,32 +9,7 @@ import DropdownUser from './DropdownUser';
 function Navbar() {
   const navigate = useNavigate()
   const { userData, setUserData } = useContext(UserContext)
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [firstName, setFirstName] = useState('');
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [openMenu, setopenMenu] = useState(false)
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleLogin = () => {
-    axios
-      .get('http://localhost:8081/loginuser')
-      .then((response) => {
-        const userFirstName = response.data.fname;
-        setFirstName(userFirstName);
-        setIsLoggedIn(true);
-      })
-      .catch((error) => {
-        console.error('Error fetching user data:', error);
-      });
-  };
 
   const logOut = async () => {
     setUserData({

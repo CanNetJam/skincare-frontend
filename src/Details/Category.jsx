@@ -23,7 +23,7 @@ export default function Category() {
     useEffect(()=> {
         const getProducts = async () => {
             try {
-                const products = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/product/get-all-products`)
+                const products = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/product/get-all-products`)
                 const cleanse = products?.data?.filter((item) => item.category === "Cleanser")
                 setCleanseList(cleanse)
                 const toner = products?.data?.filter((item) => item.category === "Toner")

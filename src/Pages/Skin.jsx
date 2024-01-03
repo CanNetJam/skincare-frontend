@@ -90,7 +90,7 @@ function Skin() {
 
       <div className='min-h-screen h-auto w-full bg-white py-8'>
         <h1 className='text-black font-bold subHeading py-4 bg-white text-center'>Different Skin Types</h1>
-          <div className='h-[10vh] sticky sm:top-0 top-16 bg-white z-30 w-full grid sm:grid-cols-4 grid-cols-2 sm:gap-2 gap-0 border-b border-black'>
+          <div className='h-[10vh] sticky top-16 bg-white z-30 w-full grid sm:grid-cols-4 grid-cols-2 sm:gap-2 gap-0 border-b border-black'>
             <section className={`h-full items-center flex justify-center font-bold sm:text-xl text-md text-center ${opentab==="Normal" ? "bg-blue-400 text-white" : null}`}>
               <span onClick={()=> setOpenTab("Normal")} className='cursor-pointer sm:hover:text-gray-600 sm:hover:text-2xl'>Normal</span>
             </section>

@@ -31,7 +31,7 @@ export default function Routines({routines}) {
     return (
         <>
             <div className="min-h-screen h-auto w-full sm:px-20 py-8 ">
-                <div className='h-[10vh] sticky sm:top-0 top-16 bg-white z-30 w-full grid sm:grid-cols-5 grid-cols-2 sm:gap-2 gap-0 sm:border-b sm:border-black border-0'>
+                <div className='h-[10vh] sticky top-16 bg-white z-30 w-full grid sm:grid-cols-5 grid-cols-2 sm:gap-2 gap-0 sm:border-b sm:border-black border-0'>
                     <section onClick={()=> setOpenTab("Wrinkle")}  className={`h-full items-center flex justify-center font-bold text-xl text-center sm:border-0 border-b border-black ${opentab==="Wrinkle" ? "bg-blue-400 text-white" : null}`}>
                         <span className='cursor-pointer sm:hover:text-gray-600 sm:hover:text-2xl'>Wrinkle</span>
                     </section>

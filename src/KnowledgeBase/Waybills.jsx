@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import img1 from '../assets/Knowledge Base/Mountain Movers/i1.png';
 import img2 from '../assets/Knowledge Base/Mountain Movers/i2.png';
 import img3 from '../assets/Knowledge Base/Mountain Movers/i3.png';
-import MyImage from  '../Components/MyImage';
 
 export default function Waybills() {
     useEffect(() => {
@@ -45,7 +44,7 @@ export default function Waybills() {
                         </ol>
                     </div>
                     <div className='col-span-1 h-[75vh]'>
-                        <MyImage src={img1}/>
+                        <img draggable={false} src={img1}/>
                     </div>
                 </section>
                 
@@ -60,7 +59,7 @@ export default function Waybills() {
                         </ol>
                     </div>
                     <div className='col-span-1 h-[75vh]'>
-                        <MyImage src={img2}/>
+                        <img draggable={false} src={img2}/>
                     </div>
                 </section>
 
@@ -75,7 +74,7 @@ export default function Waybills() {
                         </ol>
                     </div>
                     <div className='col-span-1 h-[75vh]'>
-                        <MyImage src={img3}/>
+                        <img draggable={false} src={img3}/>
                     </div>
                 </section>
             </div>
