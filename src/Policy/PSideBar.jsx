@@ -14,7 +14,7 @@ export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setO
                     </section>
 
                     {openTab==="General Rules" &&
-                        <section className='h-screen sm:px-8 px-2'>
+                        <section className='h-screen sm:px-6 px-2'>
                             <h1 className='subHeading text-white mb-6'>Contents</h1>
                             <ul className='text-gray-400 sm:ml-2'>
                                 <li onClick={()=> setOpenLink("Loitering")} className={openLink==="Loitering" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Loitering</li>
@@ -30,7 +30,7 @@ export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setO
                         </section>
                     }
                     {openTab==="Code of Conduct" &&
-                        <section className='h-screen sm:px-8 px-2'>
+                        <section className='h-screen sm:px-6 px-2'>
                             <h1 className='subHeading text-white mb-6'>Contents</h1>
                             <ul className='text-gray-400 sm:ml-2'>
                                 <li onClick={()=> setOpenLink("Code of Discipline")} className={openLink==="Code of Discipline" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Code of Discipline</li>

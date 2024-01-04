@@ -36,8 +36,6 @@ export default function AddPackage() {
     const [ productMoreImage, setProductMoreImage ] = useState([])
     const CreateProductMoreImageField = useRef()
 
-    console.log(availableItems)
-
     useEffect(()=> {
         const getProducts = async () => {
             try {
@@ -73,7 +71,7 @@ export default function AddPackage() {
             const data = new FormData()
             let uploadedProductPhoto
             if (productImage[0]!==undefined){
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/get-signature` )
+                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
 
                 const image = new FormData()
                 image.append("file", productImage[0])
@@ -93,7 +91,7 @@ export default function AddPackage() {
 
             if (productMoreImage[0]!==undefined) {
                 for (let i=0; i<productMoreImage.length; i++) {
-                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/get-signature` )
+                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
 
                     const image = new FormData()
                     image.append("file", productMoreImage[i])
@@ -125,7 +123,7 @@ export default function AddPackage() {
             data.append("lazadalink", packageSet.links.lazada)
             data.append("routines", JSON.stringify(packageSet.routines))
             
-            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : 'https://kluedskincare-backend.onrender.com'}/package/create-package`, data, { headers: { "Content-Type": "application/json" } })
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/package/create-package`, data, { headers: { "Content-Type": "application/json" } })
             console.log(res.data)
 
             setPackageSet({
@@ -250,7 +248,6 @@ export default function AddPackage() {
                                 <div className="mt-2 relative">
                                     <input onChange={e=>{
                                         setWord(e.target.value)
-                                        filteredProducts
                                     }} value={word} type="text" name="word" id="word" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                     
                                     {word!=="" ?
@@ -348,7 +345,7 @@ export default function AddPackage() {
                                                 <button onClick={()=> {
                                                     setPackageSet({...packageSet, routines: {
                                                         ...packageSet.routines, night: packageSet.routines.night.concat([nigstep])
-                                                    } })
+                                                    }})
                                                     setNigstep("")
                                                 }} type="button" disabled={nigstep!=="" ? false : true} className={`rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${nigstep!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add to Sequence</button>
                                             </div>

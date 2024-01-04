@@ -44,6 +44,7 @@ const AddProduct = lazy(() => import('./Pages/AddProduct'));
 const AddPackage = lazy(() => import('./Pages/AddPackage'));
 const UserAccounts = lazy(() => import('./Pages/UserAccounts'));
 const UpdateProduct = lazy(() => import('./Pages/UpdateProduct'));
+const UpdatePackage = lazy(() => import('./Pages/UpdatePackage'));
 const Email = lazy(() => import('./Pages/Email'));
 
 import Loading from './Components/Loading';
@@ -151,6 +152,7 @@ const App = () => {
           <Route path="/add-package" element={SuperAdminRoute(<Suspense fallback={<Loading />}><AddPackage /></Suspense>)} />
           <Route path="/user-accounts" element={SuperAdminRoute(<Suspense fallback={<Loading />}><UserAccounts /></Suspense>) } />
           <Route path="/update-product" element={SuperAdminRoute(<Suspense fallback={<Loading />}><UpdateProduct /></Suspense>)} />
+          <Route path="/update-package" element={SuperAdminRoute(<Suspense fallback={<Loading />}><UpdatePackage /></Suspense>)} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

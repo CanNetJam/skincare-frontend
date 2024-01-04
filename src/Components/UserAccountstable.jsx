@@ -4,11 +4,14 @@ import moment from "moment";
 import { addDays } from 'date-fns';
 import Register from '../Modals/EmpRegister';
 import DeleteAccountModal from '../Modals/DeleteAccount';
+import EditAccount from '../Modals/EditAccount';
 
 export default function UserAccountsTable() {
     const [ isOpen, setIsOpen ] = useState(false)
     const [ isDelete, setIsDelete ] = useState(false)
     const [ toDelete, setToDelete ] = useState("")
+    const [ isEdit, setIsEdit ] = useState(false)
+    const [ toEdit, setToEdit ] = useState("")
     const [ menu, setMenu ] = useState(false)
     const [ accounts, setAccounts] = useState([])
     const [ range, setRange ] = useState("Last year")
@@ -65,6 +68,9 @@ export default function UserAccountsTable() {
             )}  
             {isDelete && (
                 <DeleteAccountModal isDelete={isDelete} setIsDelete={setIsDelete} toDelete={toDelete} setToDelete={setToDelete}/>
+            )}  
+            {isEdit && (
+                <EditAccount isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit} dateRange={dateRange} setDateRange={setDateRange}/>
             )}  
             <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4 px-4 sm:px-0">
                 <div className="relative">
@@ -195,7 +201,10 @@ export default function UserAccountsTable() {
                                                 {moment(a.createdAt).format('MM-DD-YYYY')}
                                             </td>
                                             <td className="px-6 py-4 flex justify-center items-center gap-2">
-                                                <button className='h-full cursor-pointer hover:text-blue-400'>Edit</button>
+                                                <button onClick={()=>{
+                                                    setIsEdit(true)
+                                                    setToEdit(a)
+                                                    }}className='h-full cursor-pointer hover:text-blue-400'>Edit</button>
                                                 <button onClick={()=>{
                                                     setIsDelete(true)
                                                     setToDelete(a)

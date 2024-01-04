@@ -64,7 +64,7 @@ const Profile = () => {
             data.append("lastname", draftLastname)
             data.append("phone", draftPhone)
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/update-account/${iD}`, data, 
-            { headers: { "Content-Type": "application/json" }, "auth-token": token })
+            { headers: { "Content-Type": "application/json", "auth-token": token } })
 
             if (res.data) {
                 setProfileData({

@@ -22,7 +22,7 @@ export default function WorkplaceDecorum1() {
             <section className='container bg-white mx-auto sm:p-10 p-2 grid gap-2 sm:rounded-[30px] rounded-[10px]'>
                 <div className="relative w-full overflow-x-auto shadow-md sm:rounded-lg p-4">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-400">
-                        <thead className="text-xs sticky top-24 text-gray-900 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                        <thead className="text-xs text-gray-900 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 py-3">
                                     No.

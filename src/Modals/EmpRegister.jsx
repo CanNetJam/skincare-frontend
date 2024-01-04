@@ -77,27 +77,31 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
             setDateRange({...dateRange, endDate: addDays(new Date(), +1)})
         }
     }
+    console.log(access)
     
     function handleCheckbox(props) {
-        if (access[0]===undefined) {
-            setAccess(prev=>prev.concat([props]))
-        } else if (access[0]!==undefined) {
-            let dupe
-            for (let i = 0 ; i < access.length ; i++) {
-                if (props!==access[i]) {
-                    dupe = false
-                } else {
-                    dupe = true
+        let dupe
+        function haha () {
+            if (access[0]===undefined) {
+                setAccess(prev=>prev.concat([props]))
+            } else if (access[0]!==undefined) {
+                for (let i = 0 ; i < access.length ; i++) {
+                    if (props!==access[i]) {
+                        dupe = false
+                    } else {
+                        dupe = true
+                        return dupe
+                    }
                 }
             }
-
-            if (dupe===false) {
-                setAccess(prev=>prev.concat([props]))
-            } else if (dupe===true) {
-                const filteredAccess = access.filter((a)=> a!==props)
-                setAccess(filteredAccess)
-            }
         }
+        haha()
+        if (dupe===true) {
+            const filteredAccess = access.filter((a)=> a!==props)
+            setAccess(filteredAccess)
+        } else if (dupe===false) {
+            setAccess(prev=>prev.concat([props]))
+        } 
     }
 
     return (

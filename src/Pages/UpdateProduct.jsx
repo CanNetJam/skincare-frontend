@@ -4,7 +4,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
-import { FaPlus } from "react-icons/fa6";
 import UpdateIngredient from "../Modals/UpdateIngredient";
 
 export default function UpdateProduct() {
@@ -96,7 +95,7 @@ export default function UpdateProduct() {
             
             if (product.displayimage!==undefined) {
                 if (typeof product.displayimage!=="string"){
-                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/get-signature` )
+                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
 
                     const image = new FormData()
                     image.append("file", product.displayimage)
@@ -118,7 +117,7 @@ export default function UpdateProduct() {
             if (product.moreimage[0]!==undefined) {
                 for (let i =0; i <product.moreimage.length; i++) {
                     if (typeof product.moreimage[i]!=="string") {
-                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/get-signature` )
+                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
                         const image = new FormData()
                         image.append("file", product.moreimage[i])
                         image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
@@ -139,7 +138,7 @@ export default function UpdateProduct() {
             if (product.ingredients[0]!==undefined) {
                 for (let i=0; i<product.ingredients.length; i++) {
                     if (typeof product.ingredients[i].photo!=="string") {
-                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}}/get-signature` )
+                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
 
                         const image = new FormData()
                         image.append("file", product.ingredients[i].photo)
@@ -243,24 +242,6 @@ export default function UpdateProduct() {
         const {name, value} = e.target
         setProduct((prev)=> {
             return {...prev, [name]: value}
-        })
-    }
-
-    const fileChange = (e) => {
-        setFile(file.concat([e.target.files[0]]))
-        setIngredient({...ingredient, photo: e.target.files[0]})
-    }
-
-    const skinTypeChange = (e) => {
-        setSkinType(e.target.value)
-        setRoutine((prev)=> {
-            return {...prev, skintype: e.target.value}
-        })
-        setMorrout((prev)=> {
-            return {...prev, skintype: e.target.value}
-        })
-        setNigrout((prev)=> {
-            return {...prev, skintype: e.target.value}
         })
     }
 
@@ -462,19 +443,19 @@ export default function UpdateProduct() {
                                     <div className="sm:col-span-2">
                                         <label className="block text-sm font-medium leading-6 text-gray-900">Shopee link</label>
                                         <div className="mt-2 w-full">
-                                            <input required onChange={e => setProduct({...product, links: {...product.links, shopee: e.target.value}})} value={product.productlinks?.shopee} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                            <input required onChange={e => setProduct({...product, productlinks: {...product.productlinks, shopee: e.target.value}})} value={product.productlinks?.shopee} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2">
                                         <label className="block text-sm font-medium leading-6 text-gray-900">Tiktok link</label>
                                         <div className="mt-2 w-full">
-                                            <input required onChange={e => setProduct({...product, links: {...product.links, tiktok: e.target.value}})} value={product.productlinks?.tiktok} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                            <input required onChange={e => setProduct({...product, productlinks: {...product.productlinks, tiktok: e.target.value}})} value={product.productlinks?.tiktok} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2">
                                         <label className="block text-sm font-medium leading-6 text-gray-900">Lazada link</label>
                                         <div className="mt-2 w-full">
-                                            <input required onChange={e => setProduct({...product, links: {...product.links, lazada: e.target.value}})} value={product.productlinks?.lazada} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                            <input required onChange={e => setProduct({...product, productlinks: {...product.productlinks, lazada: e.target.value}})} value={product.productlinks?.lazada} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                         </div>
                                     </div>
 
@@ -677,7 +658,7 @@ export default function UpdateProduct() {
                                                             setMorrout({...morrout, steps: morrout.steps.concat([morstep])})
                                                             setMorstep("")
                                                         }} type="button" disabled={morstep!=="" ? false : true} className={`rounded-md bg-indigo-600 p-[6px] text-sm font-semibold text-white shadow-sm ${morstep!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
-                                                            <FaPlus className="w-6 h-6"/>
+                                                            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -723,7 +704,7 @@ export default function UpdateProduct() {
                                                             setNigrout({...nigrout, steps: nigrout.steps.concat([nigstep])})
                                                             setNigstep("")
                                                         }} type="button" disabled={nigstep!=="" ? false : true} className={`rounded-md bg-indigo-600 p-[6px] text-sm font-semibold text-white shadow-sm ${nigstep!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
-                                                            <FaPlus className="w-6 h-6"/>
+                                                            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg>
                                                         </button>
                                                     </div>
                                                 </div>
