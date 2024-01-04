@@ -66,7 +66,7 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
         }
         allAccess()
     }, [toEdit])
-  
+
     async function submitHandler(e) {
         e.preventDefault()
         const data = new FormData()
@@ -80,7 +80,6 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
         data.append("phone", number)
         data.append("access", JSON.stringify(access))
         let token = localStorage.getItem("auth-token")
-        console.log(token)
         const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/update-account-info/${toEdit._id}`, data, 
         { headers: { "Content-Type": "application/json", "auth-token": token } })
         if (res.data===false) {
@@ -101,9 +100,9 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
             setDateRange({...dateRange, endDate: addDays(new Date(), +1)})
         }
     }
-
+    
     function handleCheckbox(props) {
-        let dupe
+        let dupe = false
         function haha () {
             if (access[0]===undefined) {
                 setAccess(prev=>prev.concat([props]))
@@ -125,14 +124,24 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                         return dupe
                     }
                 }
+                return dupe
             }
         }
-        haha()
+        dupe = haha()
         if (dupe===true) {
             const filteredAccess = access.filter((a)=> a!==props)
             setAccess(filteredAccess)
         } else if (dupe===false) {
             setAccess(prev=>prev.concat([props]))
+            if(props==="Mountain Movers") {
+                setMountain(true)
+            } else if(props==="Customer Excellence") {
+                setExcellence(true)
+            } else if(props==="Mountain Excellence") {
+                setMountainExcellence(true)
+            } else if(props==="Creative Tigers") {
+                setTigers(true)
+            }
         } 
     }
 
@@ -202,28 +211,28 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                             </div>
                             <div className='col-span-4'>
                                 <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Access</h3>
-                                <ul onChange={e => handleCheckbox(e.target.value)} value={access} className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                     <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div className="flex items-center ps-3">
-                                            <input defaultChecked={mountain===true ? true : false} id="Mountain-Movers-list" type="checkbox" value="Mountain Movers" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                            <input onChange={(e)=>{handleCheckbox(e.target.value)}} checked={mountain===true ? true : false} id="Mountain-Movers-list" type="checkbox" value="Mountain Movers" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
                                             <label htmlFor="Mountain-Movers-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mountain Movers</label>
                                         </div>
                                     </li>
                                     <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div className="flex items-center ps-3">
-                                            <input defaultChecked={excellence===true ? true : false} id="Customer-Excellence-list" type="checkbox" value="Customer Excellence" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                            <input onChange={(e)=>{handleCheckbox(e.target.value)}} checked={excellence===true ? true : false} id="Customer-Excellence-list" type="checkbox" value="Customer Excellence" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
                                             <label htmlFor="Customer-Excellence-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Customer Excellence</label>
                                         </div>
                                     </li>
                                     <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div className="flex items-center ps-3">
-                                            <input defaultChecked={mountainExcellence===true ? true : false} id="Mountain-Excellence-list" type="checkbox" value="Mountain Excellence" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                            <input onChange={(e)=>{handleCheckbox(e.target.value)}} checked={mountainExcellence===true ? true : false} id="Mountain-Excellence-list" type="checkbox" value="Mountain Excellence" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
                                             <label htmlFor="Mountain-Excellence-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mountain/<br/>Excellence</label>
                                         </div>
                                     </li>
                                     <li className="w-full dark:border-gray-600">
                                         <div className="flex items-center ps-3">
-                                            <input defaultChecked={tigers===true ? true : false} id="Creative-Tigers-list" type="checkbox" value="Creative Tigers" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                            <input onChange={(e)=>{handleCheckbox(e.target.value)}} checked={tigers===true ? true : false} id="Creative-Tigers-list" type="checkbox" value="Creative Tigers" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
                                             <label htmlFor="Creative-Tigers-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Creative Tigers</label>
                                         </div>
                                     </li>

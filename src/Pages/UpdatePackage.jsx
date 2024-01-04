@@ -30,14 +30,27 @@ export default function UpdatePackage() {
     const [ morstep, setMorstep ] = useState("")
     const [ nigstep, setNigstep ] = useState("")
     const [ availableItems, setAvailableItems ] = useState([])
+    const [ availableProductItems, setAvailableProductItems ] = useState([])
     const [ word, setWord ] = useState("")
     const CreatePhotoField = useRef()
 
     useEffect(()=> {
         const getProducts = async () => {
             try {
+                const packageResult = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/package/get-all-packages`)
+                setAvailableItems(packageResult.data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getProducts()
+    }, [])
+
+    useEffect(()=> {
+        const getProducts = async () => {
+            try {
                 const products = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/product/get-all-products`)
-                setAvailableItems(products.data)
+                setAvailableProductItems(products.data)
             } catch (err) {
                 console.log(err)
             }
@@ -367,7 +380,7 @@ export default function UpdatePackage() {
                                             
                                             {word!=="" ?
                                                 <div className="grid gap-2 absolute bg-slate-100 h-auto max-h-[150px] w-full overflow-y-scroll rounded-b-xl no-scrollbar">
-                                                    {filteredProducts.map((a, index)=> {
+                                                    {availableProductItems.map((a, index)=> {
                                                         return <label onClick={()=>{
                                                             setPackageSet({...packageSet, items: packageSet.items.concat([a])})
                                                             setWord("")

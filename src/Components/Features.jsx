@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Features({packageData, packageItems}) {
-    //console.log(packageItems)
     return (
         <div className="bg-white py-12">
             <div className="mx-auto max-w-8xl px-4 lg:px-8">
@@ -15,9 +14,9 @@ export default function Features({packageData, packageItems}) {
                     {packageItems[0]!==undefined ? 
                         <>
                             <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-4 lg:max-w-none lg:grid-cols-2 lg:gap-y-8">
-                                {packageItems.map((item)=> {
+                                {packageItems.map((item, index)=> {
                                     return (
-                                        <div className="relative bg-blue-100 rounded-xl sm:px-12 p-4 shadow-2xl" key={item._id}>
+                                        <div className="relative bg-blue-100 rounded-xl sm:px-12 p-4 shadow-2xl" key={index}>
                                             <div className="text-base grid grid-cols-3 font-semibold leading-7 text-gray-900">
                                                 <div className="col-span-2 flex sm:h-[180px] sm:w-[260px] h-[150px] w-[175px] overflow-hidden items-center justify-center rounded-lg bg-indigo-600">
                                                     <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${item.displayimage}.jpg`}/>
