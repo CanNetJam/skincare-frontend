@@ -65,7 +65,7 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
             }
         }
         allAccess()
-    }, [toEdit?.access])
+    }, [toEdit])
   
     async function submitHandler(e) {
         e.preventDefault()

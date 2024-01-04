@@ -36,8 +36,8 @@ export default function UpdatePackage() {
     useEffect(()=> {
         const getProducts = async () => {
             try {
-                const packageResult = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/package/get-all-packages`)
-                setAvailableItems(packageResult.data)
+                const products = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/product/get-all-products`)
+                setAvailableItems(products.data)
             } catch (err) {
                 console.log(err)
             }
