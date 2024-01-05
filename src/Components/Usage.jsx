@@ -18,7 +18,7 @@ export default function Usage({usage, extra, moreimage}) {
                         </div>
                         {moreimage[0]!==undefined ? 
                             <div className="sm:h-[45vh] min-h-[30vh] h-auto sm:w-full w-1/2 flex">
-                                <img loading="lazy" className='w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${moreimage[0]}.jpg`}></img>
+                                <img className='w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${moreimage[0]}.jpg`}></img>
                             </div>
                         :null} 
                     </div>
@@ -33,7 +33,7 @@ export default function Usage({usage, extra, moreimage}) {
                         </div>
                         {moreimage[1]!==undefined ? 
                             <div className="sm:h-[45vh] min-h-[30vh] h-auto sm:w-full w-1/2 flex">
-                                <img loading="lazy" className='w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${moreimage[1]}.jpg`}></img>
+                                <img className='w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${moreimage[1]}.jpg`}></img>
                             </div>
                         :null}
                     </div>
@@ -48,7 +48,7 @@ export default function Usage({usage, extra, moreimage}) {
                         </div>
                         {moreimage[2]!==undefined ? 
                             <div className="sm:h-[45vh] min-h-[30vh] h-auto sm:w-full w-1/2 flex">
-                                <img autoPlay loading="lazy" className='w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${moreimage[2]}.jpg`}></img>
+                                <img className='w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${moreimage[2]}.jpg`}></img>
                             </div>
                         :null}
                     </div>

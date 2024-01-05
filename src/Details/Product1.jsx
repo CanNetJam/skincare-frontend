@@ -57,7 +57,7 @@ export default function Product1() {
                         return (
                             <div key={index} className="w-full grid my-8 bg-gray-50 backdrop-blur-sm bg-opacity-60 rounded-xl p-4">
                                 <div className="max-h-[50vh]">
-                                    <img className='h-full w-full rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_60/${a.photo}.jpg`}></img>
+                                    <img className='h-full w-full rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${a.photo}.jpg`}></img>
                                 </div>
                                 <br/>
                                 <h5 className="contentHeading text-blue-400 text-center">{a.name}</h5>
@@ -69,7 +69,7 @@ export default function Product1() {
                 </div>
                 <div className='h-screen w-full sticky top-0 items-center sm:overflow-hidden'>
                     {productData?.displayimage ? 
-                        <img className='h-full w-full object-cover z-10 overflow-visible' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${productData.displayimage}.jpg`}></img>
+                        <img className='h-full w-full object-cover z-10 overflow-visible' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_60/${productData.displayimage}.jpg`}></img>
                     :null}
                 </div>
             </div>
