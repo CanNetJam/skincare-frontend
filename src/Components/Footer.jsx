@@ -1,15 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import axios from "axios"
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa6";
 import img1 from '../assets/Klued-logo.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { UserContext } from "../App";
 
 export default function Footer() {
   const [ email, setEmail ] = useState("")
-  const { userData, setUserData } = useContext(UserContext)
 
   async function submitHandler(e) {
     e.preventDefault()
@@ -84,6 +82,7 @@ export default function Footer() {
                 onChange={e=>setEmail(e.target.value)}
                 value={email}
                 className="w-full p-3 text-sm rounded-md"
+                required
               />
 
               <button className="mt-1 w-full bg-blue-400 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-gray-700 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md">

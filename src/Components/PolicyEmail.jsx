@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import moment from "moment";
 
 export default function PolicyEmail({userData, policytitle}) {
+    const [ checked, setChecked ] = useState(false)
     let currentDate = moment(new Date()).format('MMMM DD, YYYY')
+
     async function handleSubmit(e) {
         e.preventDefault()
         try {
@@ -36,12 +38,26 @@ export default function PolicyEmail({userData, policytitle}) {
     return (
         <>
             <form onSubmit={handleSubmit} className='grid justify-center bg-white text-center border-2 rounded-lg p-4'>
-                You have read and agreed to follow the rules and regulations written above.
-                <br/>
-                An email will be sent to your email account as a confirmation for your action.
-                <br/>
+                <div className="flex items-center">
+                    <div className="flex items-center h-5">
+                        <input onChange={()=>{
+                            if (checked===false) {
+                                setChecked(true)
+                            } else if (checked===true) {
+                                setChecked(false)
+                            }
+                        }} id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required=""/>
+                    </div>
+                    <div className="ml-3 text-sm">
+                        <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">
+                            You have read and agreed to follow the rules and regulations written above.
+                            <br/>
+                            An email will be sent to your email account as a confirmation for your action.
+                        </label>
+                    </div>
+                </div>
                 <div className='flex justify-center mt-4'>
-                    <button type='submit' className="w-auto text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Confirm</button>
+                    <button disabled={checked===true ? false : true} type='submit' className={`${checked===true ? 'hover:bg-blue-600 dark:hover:bg-primary-700' : 'bg-gray-400'} w-auto text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-primary-600 dark:focus:ring-primary-800`}>Confirm</button>
                 </div>
             </form>
             <ToastContainer/>

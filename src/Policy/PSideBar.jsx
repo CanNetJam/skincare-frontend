@@ -1,9 +1,6 @@
-import React, { useState, useContext } from 'react';
-import {UserContext} from "../App";
-import PolicyEmail from '../Components/PolicyEmail';
+import React from 'react';
 
 export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setOpenLink}) {
-    const { userData, setUserData } = useContext(UserContext)
 
     return (
         <>
@@ -32,7 +29,7 @@ export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setO
                                 <li onClick={()=> setOpenLink("KPI New Hire")} className={openLink==="KPI New Hire" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>KPI New Hire</li>
                             </ul>
                             <br/>
-                            <PolicyEmail userData={userData?.user} policytitle={["Loitering and Malingering (IP-001)", "Progressive Corrective Action (IP-002)", "Safeguarding Premises (IP-003)", "Social Media Policy (IP-004)", "Streaming Line Communication (IP-005)", "Confidentiality (IP-006)", "Critical Work Day (IP-007)", "Dress Code (IP-008)", "Key Performance Indicator (IP-009)"]}/>
+                            
                         </section>
                     }
                     {openTab==="Code of Conduct" &&
@@ -45,7 +42,7 @@ export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setO
                                 <li onClick={()=> setOpenLink("Work Place Decorum 2")} className={openLink==="Work Place Decorum 2" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Work Place Decorum 2</li>
                             </ul>
                             <br/>
-                            <PolicyEmail userData={userData?.user} policytitle={["Code of Discipline (IP-010)", "Attendance & Punctuality (IP-011)", "Work Place Decorum 1 (IP-012)", "Work Place Decorum 2 (IP-013)"]}/>
+                            
                         </section>
                     }
                 </div>
@@ -63,3 +60,6 @@ export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setO
         </>
     )
 }
+
+//<PolicyEmail userData={userData?.user} policytitle={["Loitering and Malingering (IP-001)", "Progressive Corrective Action (IP-002)", "Safeguarding Premises (IP-003)", "Social Media Policy (IP-004)", "Streaming Line Communication (IP-005)", "Confidentiality (IP-006)", "Critical Work Day (IP-007)", "Dress Code (IP-008)", "Key Performance Indicator (IP-009)"]}/>
+//<PolicyEmail userData={userData?.user} policytitle={["Code of Discipline (IP-010)", "Attendance & Punctuality (IP-011)", "Work Place Decorum 1 (IP-012)", "Work Place Decorum 2 (IP-013)"]}/>
