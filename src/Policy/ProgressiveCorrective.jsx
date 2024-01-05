@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import img1 from '../assets/Policy/b1.png';
 import img2 from '../assets/Policy/b3.png';
+import {UserContext} from "../App";
+import PolicyEmail from '../Components/PolicyEmail';
 
 export default function ProgressiveCorrective() {
+    const { userData, setUserData } = useContext(UserContext)
+
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
@@ -30,6 +34,7 @@ export default function ProgressiveCorrective() {
                     <img className='' src={img2}/>
                     <label className='text-center'>Page 2 of 2</label>
                 </div>
+                <PolicyEmail userData={userData?.user} policytitle={"Progressive Corrective Action (IP-002)"}/>
             </section>
         </div>
     )

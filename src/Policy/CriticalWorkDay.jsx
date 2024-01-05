@@ -1,7 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import img1 from '../assets/Policy/g1.png';
+import {UserContext} from "../App";
+import PolicyEmail from '../Components/PolicyEmail';
 
 export default function CriticalWorkDay() {
+    const { userData, setUserData } = useContext(UserContext)
+
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
@@ -24,6 +28,7 @@ export default function CriticalWorkDay() {
                     <img className='' src={img1}/>
                     <label className='text-center'>Page 1 of 1</label>
                 </div>
+                <PolicyEmail userData={userData?.user} policytitle={"Critical Work Day (IP-007)"}/>
             </section>
         </div>
     )

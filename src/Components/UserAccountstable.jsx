@@ -23,6 +23,16 @@ export default function UserAccountsTable() {
     const [ pages, setPages ] = useState(0)
     const [ pageEntries, setPageEntries ] = useState(10)
     const [ total, setTotal ] = useState(0)
+
+    useEffect(()=> {
+        const windowOpen = () => {   
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            })
+        }
+        windowOpen()
+    }, [])
     
     useEffect(() => {
         const getAccounts = async () => {
@@ -217,21 +227,19 @@ export default function UserAccountsTable() {
                         :null}
                     </tbody>
                 </table>
-
-                <nav className="flex w-full items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
-                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span className="font-semibold text-gray-900 dark:text-white">1-{pageEntries<total ? pageEntries : total}</span> of <span className="font-semibold text-gray-900 dark:text-white">{total}</span></span>
-                    <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                        <li>
-                            <button disabled={page===0? true : false} onClick={()=>setPage(prev=>prev-1)} className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg ${page!==0? 'hover:bg-gray-100 hover:text-gray-700' : null } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Previous</button>
-                        </li>
-                        {createElements(pages, page)}
-
-                        <li>
-                            <button disabled={page===(pages-1)? true : false} onClick={()=>setPage(prev=>prev+1)} className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg ${page!==(pages-1)? 'hover:bg-gray-100 hover:text-gray-700' : null } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Next</button>
-                        </li>
-                    </ul>
-                </nav>
             </div>
+            <nav className="flex w-full items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+                <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span className="font-semibold text-gray-900 dark:text-white">1-{pageEntries<total ? pageEntries : total}</span> of <span className="font-semibold text-gray-900 dark:text-white">{total}</span></span>
+                <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+                    <li>
+                        <button disabled={page===0? true : false} onClick={()=>setPage(prev=>prev-1)} className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg ${page!==0? 'hover:bg-gray-100 hover:text-gray-700' : null } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Previous</button>
+                    </li>
+                    {createElements(pages, page)}
+                    <li>
+                        <button disabled={page===(pages-1)? true : false} onClick={()=>setPage(prev=>prev+1)} className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg ${page!==(pages-1)? 'hover:bg-gray-100 hover:text-gray-700' : null } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Next</button>
+                    </li>
+                </ul>
+            </nav>
         </div>
     )
 }

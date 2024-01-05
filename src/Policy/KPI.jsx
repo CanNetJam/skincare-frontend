@@ -1,7 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import img1 from '../assets/Policy/h1.png';
+import {UserContext} from "../App";
+import PolicyEmail from '../Components/PolicyEmail';
 
 export default function KPI() {
+    const { userData, setUserData } = useContext(UserContext)
+    
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
@@ -24,6 +28,7 @@ export default function KPI() {
                     <img className='' src={img1}/>
                     <label className='text-center'>Page 1 of 1</label>
                 </div>
+                <PolicyEmail userData={userData?.user} policytitle={"Key Performance Indicator (IP-009)"}/>
             </section>
         </div>
     )

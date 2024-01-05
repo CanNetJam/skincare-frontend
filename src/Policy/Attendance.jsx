@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
-import img1 from '../assets/Policy/j1.png';
-import img2 from '../assets/Policy/j2.png';
+import React, { useEffect, useContext  } from 'react';
+import {UserContext} from "../App";
+import PolicyEmail from '../Components/PolicyEmail';
 
 export default function Attendance() {
+    const { userData, setUserData } = useContext(UserContext)
+
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
@@ -271,6 +273,7 @@ export default function Attendance() {
                         </tbody>
                     </table>
                 </div>
+                <PolicyEmail userData={userData?.user} policytitle={"Code of Discipline on Attendance & Punctuality (IP-011)"}/>
             </section>
         </div>
     )

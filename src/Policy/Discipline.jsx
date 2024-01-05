@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import img1 from '../assets/Policy/i1.png';
 import img2 from '../assets/Policy/i2.png';
+import {UserContext} from "../App";
+import PolicyEmail from '../Components/PolicyEmail';
 
 export default function Discipline() {
+    const { userData, setUserData } = useContext(UserContext)
+
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
@@ -29,6 +33,7 @@ export default function Discipline() {
                     <img className='' src={img2}/>
                     <label className='text-center'>Page 2 of 2</label>
                 </div>
+                <PolicyEmail userData={userData?.user} policytitle={"Code of Discipline on Discipline (IP-010)"}/>
             </section>
         </div>
     )

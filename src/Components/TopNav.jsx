@@ -24,12 +24,11 @@ function Navbar() {
     <>
       <header>
         <div className="h-16 bg-white w-full z-50 fixed inset-0">
-          <div className="h-full container mx-auto px-10 flex justify-between items-center sm:relative sm:grid-rows-2">
+          <div className="h-full container mx-auto sm:px-10 flex justify-between items-center sm:relative sm:grid-rows-2">
 
             <div className="md:flex md:items-center md:gap-12">
               <a className="block text-teal-600" href="/">
-                <span className="sr-only">Home</span>
-                <img src={photo1} alt="" />
+                <img className='h-[45px] w-[125px] object-contain' src={photo1} alt="" />
               </a>
             </div>
 
@@ -138,6 +137,14 @@ function Navbar() {
                             <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.25 6c.398 0 .75.352.75.75 0 .414-.336.75-.75.75-1.505 0-7.75 0-7.75 0v12h17v-8.749c0-.414.336-.75.75-.75s.75.336.75.75v9.249c0 .621-.522 1-1 1h-18c-.48 0-1-.379-1-1v-13c0-.481.38-1 1-1zm1.521 9.689 9.012-9.012c.133-.133.217-.329.217-.532 0-.179-.065-.363-.218-.515l-2.423-2.415c-.143-.143-.333-.215-.522-.215s-.378.072-.523.215l-9.027 8.996c-.442 1.371-1.158 3.586-1.264 3.952-.126.433.198.834.572.834.41 0 .696-.099 4.176-1.308zm-2.258-2.392 1.17 1.171c-.704.232-1.274.418-1.729.566zm.968-1.154 7.356-7.331 1.347 1.342-7.346 7.347z"/></svg>
                             Update Package
                           </Link>
+
+                          <Link
+                            to="/emails"
+                            className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg>
+                            Email Subscriptions
+                          </Link>
                         </>
                       : null}
                       <Link
@@ -211,7 +218,7 @@ function Navbar() {
                 if(openMenu===true) {
                   setopenMenu(false)
                 }
-              }}className='md:hidden w=1/2 h-full flex justify-end items-center'>
+              }}className='md:hidden w=1/2 h-full px-4 flex justify-end items-center'>
               <AiOutlineMenu className='h-6 w-6'/>
             </div>
 

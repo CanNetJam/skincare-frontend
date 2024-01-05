@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
-import img1 from '../assets/Policy/k1.png';
-import img2 from '../assets/Policy/k2.png';
+import React, { useEffect, useContext  } from 'react';
+import {UserContext} from "../App";
+import PolicyEmail from '../Components/PolicyEmail';
 
 export default function WorkplaceDecorum1() {
+    const { userData, setUserData } = useContext(UserContext)
+
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
@@ -324,6 +326,7 @@ export default function WorkplaceDecorum1() {
                         </tbody>
                     </table>
                 </div>
+                <PolicyEmail userData={userData?.user} policytitle={"Code of Discipline on Workplace Decorum 1 (IP-012)"}/>
             </section>
         </div>
     )
