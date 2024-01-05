@@ -33,7 +33,7 @@ export default function SocialMedia() {
                     <img className='' src={img2}/>
                     <label className='text-center'>Page 2 of 2</label>
                 </div>
-                <PolicyEmail userData={userData?.user} policytitle={"Social Media Policy (IP-004)"}/>
+                <PolicyEmail userData={userData?.user} policytitle={["Social Media Policy (IP-004)"]}/>
             </section>
         </div>
     )

@@ -33,7 +33,7 @@ export default function Discipline() {
                     <img className='' src={img2}/>
                     <label className='text-center'>Page 2 of 2</label>
                 </div>
-                <PolicyEmail userData={userData?.user} policytitle={"Code of Discipline on Discipline (IP-010)"}/>
+                <PolicyEmail userData={userData?.user} policytitle={["Code of Discipline on Discipline (IP-010)"]}/>
             </section>
         </div>
     )

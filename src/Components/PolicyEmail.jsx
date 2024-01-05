@@ -35,10 +35,10 @@ export default function PolicyEmail({userData, policytitle}) {
     
     return (
         <>
-            <form onSubmit={handleSubmit} className='grid justify-center text-center border-2 rounded-lg p-4'>
+            <form onSubmit={handleSubmit} className='grid justify-center bg-white text-center border-2 rounded-lg p-4'>
                 You have read and agreed to follow the rules and regulations written above.
                 <br/>
-                An email will be sent to your account as a confirmation for your action.
+                An email will be sent to your email account as a confirmation for your action.
                 <br/>
                 <div className='flex justify-center mt-4'>
                     <button type='submit' className="w-auto text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Confirm</button>

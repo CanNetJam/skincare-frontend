@@ -28,7 +28,7 @@ export default function KPI() {
                     <img className='' src={img1}/>
                     <label className='text-center'>Page 1 of 1</label>
                 </div>
-                <PolicyEmail userData={userData?.user} policytitle={"Key Performance Indicator (IP-009)"}/>
+                <PolicyEmail userData={userData?.user} policytitle={["Key Performance Indicator (IP-009)"]}/>
             </section>
         </div>
     )

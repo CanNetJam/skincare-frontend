@@ -313,7 +313,7 @@ export default function WorkplaceDecorum2() {
                         </tbody>
                     </table>
                 </div>
-                <PolicyEmail userData={userData?.user} policytitle={"Code of Discipline on Workplace Decorum 2 (IP-013)"}/>
+                <PolicyEmail userData={userData?.user} policytitle={["Code of Discipline on Workplace Decorum 2 (IP-013)"]}/>
             </section>
         </div>
     )

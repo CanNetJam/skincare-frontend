@@ -21,7 +21,7 @@ export default function UserAccountsTable() {
     })
     const [ page, setPage ] = useState(0)
     const [ pages, setPages ] = useState(0)
-    const [ pageEntries, setPageEntries ] = useState(10)
+    const [ pageEntries, setPageEntries ] = useState(100)
     const [ total, setTotal ] = useState(0)
 
     useEffect(()=> {

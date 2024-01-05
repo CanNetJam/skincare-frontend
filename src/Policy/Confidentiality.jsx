@@ -28,7 +28,7 @@ export default function Confidentiality() {
                     <img className='' src={img1}/>
                     <label className='text-center'>Page 1 of 1</label>
                 </div>
-                <PolicyEmail userData={userData?.user} policytitle={"Confidentiality (IP-006)"}/>
+                <PolicyEmail userData={userData?.user} policytitle={["Confidentiality (IP-006)"]}/>
             </section>
         </div>
     )

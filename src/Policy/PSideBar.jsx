@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import {UserContext} from "../App";
+import PolicyEmail from '../Components/PolicyEmail';
 
 export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setOpenLink}) {
+    const { userData, setUserData } = useContext(UserContext)
+
     return (
         <>
             {openMenu===true ? 
-                <div className='h-screen sm:w-[300px] w-[250px] bg-gray-800 sticky sm:top-[100px] top-[100px] left-0 duration-200 ease-linear lg:translate-x-0'>
+                <div className='min-h-screen h-auto sm:w-[300px] w-[250px] bg-gray-800 sticky sm:top-[100px] top-[100px] left-0 duration-200 ease-linear lg:translate-x-0'>
                     <section className='flex justify-end items-center p-4'>
                         <svg onClick={()=>{
                             if (openMenu===true) {
@@ -27,6 +31,8 @@ export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setO
                                 <li onClick={()=> setOpenLink("Dress Code")} className={openLink==="Dress Code" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Dress Code</li>
                                 <li onClick={()=> setOpenLink("KPI New Hire")} className={openLink==="KPI New Hire" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>KPI New Hire</li>
                             </ul>
+                            <br/>
+                            <PolicyEmail userData={userData?.user} policytitle={["Loitering and Malingering (IP-001)", "Progressive Corrective Action (IP-002)", "Safeguarding Premises (IP-003)", "Social Media Policy (IP-004)", "Streaming Line Communication (IP-005)", "Confidentiality (IP-006)", "Critical Work Day (IP-007)", "Dress Code (IP-008)", "Key Performance Indicator (IP-009)"]}/>
                         </section>
                     }
                     {openTab==="Code of Conduct" &&
@@ -38,9 +44,10 @@ export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setO
                                 <li onClick={()=> setOpenLink("Work Place Decorum 1")} className={openLink==="Work Place Decorum 1" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Work Place Decorum 1</li>
                                 <li onClick={()=> setOpenLink("Work Place Decorum 2")} className={openLink==="Work Place Decorum 2" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Work Place Decorum 2</li>
                             </ul>
+                            <br/>
+                            <PolicyEmail userData={userData?.user} policytitle={["Code of Discipline (IP-010)", "Attendance & Punctuality (IP-011)", "Work Place Decorum 1 (IP-012)", "Work Place Decorum 2 (IP-013)"]}/>
                         </section>
                     }
-
                 </div>
             :
                 <div className='h-screen w-[45px] bg-gray-800 sticky sm:top-[100px] top-[100px] left-0 duration-200 ease-linear lg:translate-x-100'>

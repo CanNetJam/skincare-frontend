@@ -28,7 +28,7 @@ export default function Loitering() {
                     <img className='' src={img1}/>
                     <label className='text-center'>Page 1 of 1</label>
                 </div>
-                <PolicyEmail userData={userData?.user} policytitle={"Loitering and Malingering (IP-001)"}/>
+                <PolicyEmail userData={userData?.user} policytitle={["Loitering and Malingering (IP-001)"]}/>
             </section>
         </div>
     )

@@ -28,7 +28,7 @@ export default function StreamLineCommunication() {
                     <img className='' src={img1}/>
                     <label className='text-center'>Page 1 of 1</label>
                 </div>
-                <PolicyEmail userData={userData?.user} policytitle={"Streaming Line Communication (IP-005)"}/>
+                <PolicyEmail userData={userData?.user} policytitle={["Streaming Line Communication (IP-005)"]}/>
             </section>
         </div>
     )

@@ -34,7 +34,7 @@ export default function ProgressiveCorrective() {
                     <img className='' src={img2}/>
                     <label className='text-center'>Page 2 of 2</label>
                 </div>
-                <PolicyEmail userData={userData?.user} policytitle={"Progressive Corrective Action (IP-002)"}/>
+                <PolicyEmail userData={userData?.user} policytitle={["Progressive Corrective Action (IP-002)"]}/>
             </section>
         </div>
     )

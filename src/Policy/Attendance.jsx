@@ -273,7 +273,7 @@ export default function Attendance() {
                         </tbody>
                     </table>
                 </div>
-                <PolicyEmail userData={userData?.user} policytitle={"Code of Discipline on Attendance & Punctuality (IP-011)"}/>
+                <PolicyEmail userData={userData?.user} policytitle={["Code of Discipline on Attendance & Punctuality (IP-011)"]}/>
             </section>
         </div>
     )
