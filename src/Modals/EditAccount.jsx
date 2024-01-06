@@ -198,16 +198,17 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                             </div>
                             <div className='col-span-2'>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department:</label>
-                                <select required onChange={e=>setDepartment(e.target.value)} name="department" value={department} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
+                                <select onChange={e=>setDepartment(e.target.value)} name="department" value={department} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
                                     <option value="" disabled>Select Department</option>
                                     <option>Mountain Movers</option>
                                     <option>Customer Excellence</option>
                                     <option>Creative Tigers</option>
+                                    <option>Others</option>
                                 </select>
                             </div>
                             <div className='col-span-2'>
                                 <label htmlFor="job" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job:</label>
-                                <input onChange={e => setJob(e.target.value)} value={job} type="text" name="job" id="job" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: Team Leader, Packer " required/>
+                                <input onChange={e => setJob(e.target.value)} value={job} type="text" name="job" id="job" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: Team Leader, Packer "/>
                             </div>
                             <div className='col-span-4'>
                                 <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Access</h3>
@@ -240,7 +241,7 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                             </div>
                             <div className='col-span-2'>
                                 <label htmlFor="number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact number:</label>
-                                <input onChange={e => setNumber(e.target.value)} value={number} type="text" name="number" id="number" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="09029374987" required/>
+                                <input onChange={e => setNumber(e.target.value)} value={number} type="text" name="number" id="number" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="09029374987" />
                             </div>
                             <div className='col-span-2'>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email:</label>
