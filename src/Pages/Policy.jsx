@@ -38,7 +38,7 @@ export default function Policy() {
                                 if(openMenu===false) {
                                     setOpenMenu(true)
                                 }
-                                }} className={`inline-block px-4 py-2 ${openTab==="Code of Conduct" ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500': 'cursor-pointer hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 border-b-2 border-transparent'}  rounded-t-lg active `}>Code of Conduct</label>
+                                }} className={`inline-block px-4 py-2 ${openTab==="Code of Conduct" ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500': 'cursor-pointer hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 border-b-2 border-transparent'}  rounded-t-lg active `}>Code of Discipline</label>
                         </li>
                     </ul>
                 </div>

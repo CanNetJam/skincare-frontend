@@ -50,7 +50,7 @@ export default function PolicyEmail({userData, policytitle}) {
                     </div>
                     <div className="ml-3 text-sm">
                         <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">
-                            You have read and agreed to follow the rules and regulations written above.
+                            You have signed, understood and agreed to follow the rules and regulations written above.
                             <br/>
                             An email will be sent to your email account as a confirmation for your action.
                         </label>

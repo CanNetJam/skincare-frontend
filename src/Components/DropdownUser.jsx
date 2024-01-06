@@ -44,6 +44,7 @@ const DropdownUser = () => {
     });
     localStorage.setItem("auth-token", "")
     localStorage.setItem("user-type", "")
+    localStorage.setItem("user-verified", false)
   }
 
   return (

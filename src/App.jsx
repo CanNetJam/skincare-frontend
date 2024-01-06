@@ -46,6 +46,7 @@ const UserAccounts = lazy(() => import('./Pages/UserAccounts'));
 const UpdateProduct = lazy(() => import('./Pages/UpdateProduct'));
 const UpdatePackage = lazy(() => import('./Pages/UpdatePackage'));
 const Email = lazy(() => import('./Pages/Email'));
+const EmailVerification = lazy(() => import('./Pages/EmailVerification'));
 
 import Loading from './Components/Loading';
 
@@ -60,22 +61,29 @@ const App = () => {
   useEffect(() => {
     const isLoggedIn = async () => {
       let token = localStorage.getItem("auth-token")
+      let verified = localStorage.getItem("user-verified")
 
       if (token === null){
         localStorage.setItem("auth-token", "")
         token = ""
       }
+
+      if (verified === null){
+        localStorage.setItem("user-verified", "")
+        verified = ""
+      }
       
       if (token !== null && token !== ""){
-        const tokenResponse = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : 'https://kluedskincare-backend.onrender.com'}/token/tokenIsValid`, null, {headers: {"auth-token": token}})
+        const tokenResponse = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/token/tokenIsValid`, null, {headers: {"auth-token": token}})
         if(tokenResponse.data!==false){
-          const userResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : 'https://kluedskincare-backend.onrender.com'}/accounts/user-data`, {headers: {"auth-token": token}})
+          const userResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/user-data`, {headers: {"auth-token": token}})
           if (userResponse) {
             setUserData({
               token: token,
               user: userResponse.data
             })
             localStorage.setItem("user-type", userResponse.data.type)
+            localStorage.setItem("user-verified", userResponse.data.verified)
           }
           if (!userResponse) {
             setUserData({
@@ -131,6 +139,11 @@ const App = () => {
           <Route path="/settings" element={<Settings />} />
           <Route path="/terms-of-use" element={<TermsOfUse />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route path="/email-verification/:id/:uniqueString" element={
+            <Suspense fallback={<Loading />}>
+              <EmailVerification />
+            </Suspense>
+          } />
 
           <Route path="/knowledge-base" element={
             AuthenticatedRoute(

@@ -160,6 +160,7 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
                                             <option>Mountain Movers</option>
                                             <option>Customer Excellence</option>
                                             <option>Creative Tigers</option>
+                                            <option>Others</option>
                                         </select>
                                     </div>
                                     <div className='col-span-2'>
@@ -167,7 +168,7 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
                                         <input onChange={e => setJob(e.target.value)} value={job} type="text" name="job" id="job" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: Team Leader, Packer " required/>
                                     </div>
                                     <div className='col-span-4'>
-                                        <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Access</h3>
+                                        <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Knowledge Base Access</h3>
                                         <ul onChange={e => handleCheckbox(e.target.value)} value={access} className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                             <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                 <div className="flex items-center ps-3">
@@ -212,12 +213,14 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
                                         <input onChange={e => setCheckPassword(e.target.value)} value={checkPassword} type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                     </div>
                                     <br/>
-                                    <div className='col-span-4 flex gap-2 justify-center items-center'>
+                                    <div className='col-span-4 grid gap-2 justify-center items-center'>
                                         {password!=="" && checkPassword!=="" && password!==checkPassword ?
                                             <p className="text-red-500 font-semibold w-full my-2 text-center">Password does not match!</p>
                                         :null}
-                                        <button disabled={password!=="" && checkPassword!=="" && password!==checkPassword ? true : false} type="submit" className={`w-full text-white bg-blue-500 ${password!=="" && checkPassword!=="" && password!==checkPassword ? 'hover:bg-blue-600' : null} focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>Create an account</button>
-                                        <button onClick={()=>setIsOpen(false)} type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                        <div className='flex gap-2 justify-center items-center'>
+                                            <button disabled={password!=="" && checkPassword!=="" && password!==checkPassword ? true : false} type="submit" className={`w-full text-white bg-blue-500 ${password!=="" && checkPassword!=="" && password!==checkPassword ? 'hover:bg-blue-600' : null} focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>Create an account</button>
+                                            <button onClick={()=>setIsOpen(false)} type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                        </div>
                                     </div>
                                 </form>
                             </Dialog.Panel>

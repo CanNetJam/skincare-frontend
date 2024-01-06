@@ -39,6 +39,19 @@ function Login() {
     })
   }
 
+  function toastErrorNotification() {
+    toast.warn('User not verified! Check your email to continue.', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -48,17 +61,22 @@ function Login() {
       }
       const loginResponse = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/login`, newUser, { headers: { "Content-Type": "application/json" } })
       if (loginResponse.data) {
-        setUserData({
-          token: loginResponse.data.token,
-          user: loginResponse.data.user,
-        })
-        localStorage.setItem("auth-token", loginResponse.data.token)
-        localStorage.setItem("user-type", loginResponse.data.user.type)
-        setUser({
-          email: "",
-          password: "",
-        })
-        navigate("/")
+        if (loginResponse.data.user.verified===false) {
+          toastErrorNotification()
+        } else {
+          setUserData({
+            token: loginResponse.data.token,
+            user: loginResponse.data.user,
+          })
+          localStorage.setItem("auth-token", loginResponse.data.token)
+          localStorage.setItem("user-type", loginResponse.data.user.type)
+          localStorage.setItem("user-verified", loginResponse.data.user.verified)
+          setUser({
+            email: "",
+            password: "",
+          })
+          navigate("/")
+        }
       } else {
         toastErrorNotification()
       }
