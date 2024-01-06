@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import axios from "axios";
 
 export default function DeleteAccountModal({isDelete, setIsDelete, toDelete, setToDelete}) {
-
+  console.log(toDelete)
   const handleDelete = async () => {
     try {
       const res = await axios.delete(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/delete-account/${toDelete._id}`, { headers: { "Content-Type": "application/json" } })

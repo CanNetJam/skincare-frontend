@@ -24,6 +24,9 @@ export default function UserAccountsTable() {
     const [ pageEntries, setPageEntries ] = useState(100)
     const [ total, setTotal ] = useState(0)
 
+    console.log("to open modal: "+isDelete)
+    console.log("to delete: "+toDelete._id)
+
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
