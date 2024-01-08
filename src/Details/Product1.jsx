@@ -56,12 +56,14 @@ export default function Product1() {
                     {productData.ingredients?.map((a, index)=> {
                         return (
                             <div key={index} className="w-full grid justify-center my-8 bg-gray-50 backdrop-blur-sm bg-opacity-40 rounded-xl p-4">
-                                <div className="h-[25vh] sm:w-[250px]">
-                                    <img className='h-full w-full rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${a.photo}.jpg`}></img>
+                                <div className="flex justify-center">
+                                    <img className='h-[25vh] sm:w-[250px] rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${a.photo}.jpg`}></img>
                                 </div>
                                 <br/>
-                                <h5 className="contentHeading text-blue-400 text-center">{a.name}</h5>
-                                <p className="smallText sm:text-center text-justify mt-4 first-letter:uppercase">{a.desc}</p>
+                                <div className="w-full">
+                                    <h5 className="contentHeading text-blue-400 text-center">{a.name}</h5>
+                                    <p className="tinyText sm:text-center text-justify mt-4 first-letter:uppercase">{a.desc}</p>
+                                </div>
                             </div>
                         )   
                     })}
