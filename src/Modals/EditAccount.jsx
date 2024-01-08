@@ -103,10 +103,20 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
     
     function handleCheckbox(props) {
         let dupe = false
+
         function haha () {
-            if (access[0]===undefined) {
+            if (access.length===0) {
                 setAccess(prev=>prev.concat([props]))
-            } else if (access[0]!==undefined) {
+                if(props==="Mountain Movers") {
+                    setMountain(true)
+                } else if(props==="Customer Excellence") {
+                    setExcellence(true)
+                } else if(props==="Mountain Excellence") {
+                    setMountainExcellence(true)
+                } else if(props==="Creative Tigers") {
+                    setTigers(true)
+                }
+            } else if (access.length>0) {
                 for (let i = 0 ; i < access.length ; i++) {
                     if (props!==access[i]) {
                         dupe = false
