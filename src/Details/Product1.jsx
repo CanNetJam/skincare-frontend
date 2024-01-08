@@ -45,7 +45,7 @@ export default function Product1() {
             </div>
             <div className="h-full w-full flex container mx-auto sm:px-10 gap-0">
                 <div className="min-h-[200vh] h-auto w-full sm:px-20 z-10 px-4 py-16">
-                    <div className="pb-10">
+                    <div className="py-8">
                         <h1 className="subHeading">{productData.name}</h1>
                         <br/>
                         <p className="tinyText whitespace-pre-wrap break-normal text-justify">{productData.maindesc}</p>
@@ -55,8 +55,8 @@ export default function Product1() {
                     <br/>
                     {productData.ingredients?.map((a, index)=> {
                         return (
-                            <div key={index} className="w-full grid my-8 bg-gray-50 backdrop-blur-sm bg-opacity-60 rounded-xl p-4">
-                                <div className="max-h-[50vh]">
+                            <div key={index} className="w-full grid justify-center my-8 bg-gray-50 backdrop-blur-sm bg-opacity-40 rounded-xl p-4">
+                                <div className="h-[25vh] sm:w-[250px]">
                                     <img className='h-full w-full rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${a.photo}.jpg`}></img>
                                 </div>
                                 <br/>

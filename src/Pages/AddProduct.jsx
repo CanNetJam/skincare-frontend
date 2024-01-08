@@ -35,8 +35,14 @@ export default function AddProduct() {
         desc: "",
         photo: ""
     })
-    const [ dos, setDos ] = useState("")
-    const [ donts, setDonts ] = useState("")
+    const [ dos, setDos ] = useState({
+        title: "",
+        desc: ""
+    })
+    const [ donts, setDonts ] = useState({
+        title: "",
+        desc: ""
+    })
     const [ skinType, setSkinType ] = useState("")
     const [ morrout, setMorrout ] = useState({
         skintype: "",
@@ -265,6 +271,33 @@ export default function AddProduct() {
         setProduct({...product, routines: list})
     }
 
+    function toastErrorNotif() {
+        toast.error('File size too large, please select a file that is lower than 3 mb.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+    
+    const handleFileUpload = (e) => {
+        let file = e.target.files[0];
+        let fileType = file.type; // image/jpeg
+        let fileSize = file.size; // 3MB
+    
+        if (fileSize > 3 * 1000000) {
+            toastErrorNotif()
+            return
+        } else {
+            setProductMoreImage([...e.target.files])
+        }
+    }
+
+
     return (
         <div className="h-screen w-full">
             <Navbar/>
@@ -315,7 +348,7 @@ export default function AddProduct() {
                                 <input required ref={CreateProductImageField} onChange={e => setProductImage(productImage.concat([e.target.files[0]]))} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
                                 <br/>
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Additonal Images</label>
-                                <input required multiple ref={CreateProductMoreImageField} onChange={e => setProductMoreImage([...e.target.files])} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
+                                <input required multiple ref={CreateProductMoreImageField} onChange={handleFileUpload} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
                             </div>
                             <div className="sm:col-span-3">
                                 <label className="block text-sm font-medium leading-6 text-gray-900">How to Use</label>
@@ -362,23 +395,32 @@ export default function AddProduct() {
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <div className="sm:col-span-6 sm:grid-cols-2 sm:grid sm:gap-4 border border-black rounded-lg p-8">
                                 <div className="sm:col-span-1">
                                     <div className="sm:grid sm:grid-cols-6 sm:gap-2 items-center">
                                         <div className="sm:col-span-5 h-full items-center grid">
-                                            <label className="block text-sm font-medium leading-6 text-gray-900">Do's (Product Specific)</label>
+                                            <label className="block text-sm font-medium leading-6 text-gray-900">Do's </label>
+                                            <br/>
+                                            <label className="block text-sm font-medium leading-6 text-gray-900">Title</label>
                                             <div className="mt-2 w-full">
-                                                <input onChange={e => setDos(e.target.value)} value={dos} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                <input onChange={e => setDos({...dos, title: e.target.value})} value={dos.title} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                            </div>
+                                            <label className="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                            <div className="mt-2 w-full">
+                                                <textarea rows={3} onChange={e => setDos({...dos, desc: e.target.value})} value={dos.desc} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                             </div>
                                         </div>
-                                        <div className="sm:col-span-1 h-full items-center grid">
+                                        <div className="sm:col-span-1 h-full items-end grid">
                                             <label className="text-white">Filler</label>
                                             <div className="mt-2 w-full">
                                                 <button onClick={()=> {
                                                     setProduct({...product, do: product.do.concat([dos])})
-                                                    setDos("")
-                                                }} type="button" disabled={dos!=="" ? false : true} className={`rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${dos!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add</button>
+                                                    setDos({
+                                                        title: "",
+                                                        desc: ""
+                                                    })
+                                                }} type="button" disabled={dos.title!=="" && dos.desc!=="" ? false : true} className={`rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${dos.title!=="" && dos.desc!==""? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add</button>
                                             </div>
                                         </div>
                                     </div>
@@ -392,7 +434,9 @@ export default function AddProduct() {
                                                         return (
                                                             <div className="h-auto w-auto inline-block p-2 rounded-lg bg-blue-400 relative" key={index}>
                                                                 <label onClick={()=>removeDo(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
-                                                                <label>{a}</label>
+                                                                <label className="font-semibold">{a?.title}</label>
+                                                                <br/>
+                                                                <label>{a?.desc}</label>
                                                             </div>
                                                         )
                                                     })}
@@ -409,18 +453,27 @@ export default function AddProduct() {
                                 <div className="sm:col-span-1">
                                     <div className="sm:grid sm:grid-cols-6 sm:gap-2 items-center">
                                         <div className="sm:col-span-5 h-full items-center grid">
-                                            <label className="block text-sm font-medium leading-6 text-gray-900">Dont's (Product Specific)</label>
+                                            <label className="block text-sm font-medium leading-6 text-gray-900">Dont's</label>
+                                            <br/>
+                                            <label className="block text-sm font-medium leading-6 text-gray-900">Title</label>
                                             <div className="mt-2 w-full">
-                                                <input onChange={e => setDonts(e.target.value)} value={donts} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                <input onChange={e => setDonts({...donts, title: e.target.value})} value={donts.title} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                            </div>
+                                            <label className="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                            <div className="mt-2 w-full">
+                                                <textarea rows={3} onChange={e => setDonts({...donts, desc: e.target.value})} value={donts.desc} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                             </div>
                                         </div>
-                                        <div className="sm:col-span-1 h-full items-center grid">
+                                        <div className="sm:col-span-1 h-full items-end grid">
                                             <label className="text-white">Filler</label>
                                             <div className="mt-2 w-full">
                                                 <button onClick={()=> {
                                                     setProduct({...product, dont: product.dont.concat([donts])})
-                                                    setDonts("")
-                                                }} type="button" disabled={donts!=="" ? false : true} className={`rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${donts!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add</button>
+                                                    setDonts({
+                                                        title: "",
+                                                        desc: ""
+                                                    })
+                                                }} type="button" disabled={donts.title!=="" && donts.desc!=="" ? false : true} className={`rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${donts.title!=="" && donts.desc!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add</button>
                                             </div>
                                         </div>
                                     </div>
@@ -434,7 +487,9 @@ export default function AddProduct() {
                                                         return (
                                                             <div className="h-auto w-auto inline-block p-2 rounded-lg bg-blue-400 relative" key={index}>
                                                                 <label onClick={()=>removeDont(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
-                                                                <label>{a}</label>
+                                                                <label className="font-semibold">{a?.title}</label>
+                                                                <br/>
+                                                                <label>{a?.desc}</label>
                                                             </div>
                                                         )
                                                     })}

@@ -67,6 +67,7 @@ const Profile = () => {
             { headers: { "Content-Type": "application/json", "auth-token": token } })
 
             if (res.data) {
+                setUserData({...userData, displayimage: profileImage})
                 setProfileData({
                     ...profileData, displayimage: profileImage, firstname: draftFirstname, lastname: draftLastname, phone: draftPhone
                 })
@@ -108,7 +109,6 @@ const Profile = () => {
         let fileSize = file.size; // 3MB
     
         if (fileSize > 3 * 1000000) {
-          // fileSize > 5MB then show popup message
             toastErrorNotif()
             return
         } else {
@@ -118,7 +118,7 @@ const Profile = () => {
 
     return (
         <>
-            <Navbar/>
+            <Navbar userData={userData}/>
             <div className="bg-gray-100 w-full mt-16 grid justify-center sm:pb-4">
                 <div className="container w-screen mx-auto pt-4 sm:py-4 sm:min-w-[1000px]">
                     <div className="grid w-full sm:grid-cols-12 gap-4 sm:px-10 px-4">
@@ -153,7 +153,13 @@ const Profile = () => {
                                             </label>
                                         )}
                                         {profileData?.displayimage ? 
-                                            <img className='w-40 h-40 rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${profileData?.displayimage}.jpg`}></img>
+                                            <>
+                                                {file!==undefined ? 
+                                                    <img className='w-40 h-40 rounded-full mb-4 shrink-0 object-cover' src={URL.createObjectURL(file)}></img>
+                                                :
+                                                    <img className='w-40 h-40 rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${profileData?.displayimage}.jpg`}></img>
+                                                }
+                                            </>
                                         :
                                             <>
                                                 {file!==undefined ? 
@@ -188,23 +194,24 @@ const Profile = () => {
                                     {userData?.user?._id===profileData?._id ? 
                                         <div className='flex justify-end gap-2'>
                                             {isEditing===true ? 
-                                                <label onClick={()=>setIsEditing(false)} type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</label>
+                                                <label onClick={()=>setIsEditing(false)} type="button" className="text-gray-500 bg-white cursor-pointer hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</label>
                                             :null}
-                                            <label onClick={()=>{
-                                                if (isEditing===false) {
-                                                    setIsEditing(true)
+                                            {isEditing!==true ? 
+                                                <label onClick={()=>{
+                                                    if (isEditing===false) {
+                                                        setIsEditing(true)
 
-                                                    setDraftFirstName(profileData?.firstname)
-                                                    setDraftLastName(profileData?.lastname)
-                                                    setDraftPhone(profileData?.phone)
-                                                    setId(profileData?._id)
-                                                } else {
-                                                    setIsEditing(false)
-                                                }
-                                            }} className="flex cursor-pointer items-center justify-center gap-2 rounded bg-blue-500 px-2 text-sm font-medium text-white hover:bg-opacity-80 sm:px-4">
-                                                <span>Edit</span>
-                                            </label>
-
+                                                        setDraftFirstName(profileData?.firstname)
+                                                        setDraftLastName(profileData?.lastname)
+                                                        setDraftPhone(profileData?.phone)
+                                                        setId(profileData?._id)
+                                                    } else {
+                                                        setIsEditing(false)
+                                                    }
+                                                }} className="flex cursor-pointer items-center justify-center gap-2 rounded bg-blue-500 px-2 text-sm font-medium text-white hover:bg-opacity-80 sm:px-4">
+                                                    <span>Edit</span>
+                                                </label>
+                                            :null}
                                         </div>
                                     :null}
                                 </div>

@@ -3,6 +3,7 @@ import { FaBoxOpen } from "react-icons/fa";
 import { TbNotes } from "react-icons/tb";
 
 export default function Usage({usage, extra, moreimage}) {
+    console.log("Usage rendered")
     return (
         <>
             <div className="min-h-screen h-auto w-full items-center py-8 px-4 bg-blue-300">

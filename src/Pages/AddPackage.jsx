@@ -188,6 +188,32 @@ export default function AddPackage() {
         setPackageSet({...packageSet, items: list2})
     }
 
+    function toastErrorNotif() {
+        toast.error('File size too large, please select a file that is lower than 3 mb.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    const handleFileUpload = (e) => {
+        let file = e.target.files[0];
+        let fileType = file.type; // image/jpeg
+        let fileSize = file.size; // 3MB
+    
+        if (fileSize > 3 * 1000000) {
+            toastErrorNotif()
+            return
+        } else {
+            setProductImage(productImage.concat([e.target.files[0]]))
+        }
+    }
+
     return (
         <div className="h-screen w-full">
             <Navbar/>
@@ -237,7 +263,7 @@ export default function AddPackage() {
                             </div>
                             <div className="sm:col-span-2 ">
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Package Image</label>
-                                <input required ref={CreateProductImageField} onChange={e => setProductImage(productImage.concat([e.target.files[0]]))} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
+                                <input required ref={CreateProductImageField} onChange={handleFileUpload} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
                                 <br/>
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Additonal Images</label>
                                 <input required multiple ref={CreateProductMoreImageField} onChange={e => setProductMoreImage([...e.target.files])} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>

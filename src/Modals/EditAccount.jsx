@@ -37,7 +37,7 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
         })
     }
   
-    function toastSuccessNotification(props) {
+    function toastSuccessNotification() {
         toast.success(`Successfully edited the account.`, {
           position: "top-right",
           autoClose: 2000,
@@ -173,30 +173,32 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                     leaveTo="opacity-0 scale-95"
                     >
                     <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                        <Dialog.Title as="h3" className="flex items-center justify-center gap-2 text-lg font-medium leading-6 text-gray-900">
-                            <label className='font-bold text-lg'>Edit Account</label>
-                            <svg height="30" width="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m9.134 19.319 11.587-11.588c.171-.171.279-.423.279-.684 0-.229-.083-.466-.28-.662l-3.115-3.104c-.185-.185-.429-.277-.672-.277s-.486.092-.672.277l-11.606 11.566c-.569 1.763-1.555 4.823-1.626 5.081-.02.075-.029.15-.029.224 0 .461.349.848.765.848.511 0 .991-.189 5.369-1.681zm-3.27-3.342 2.137 2.137-3.168 1.046zm.955-1.166 10.114-10.079 2.335 2.327-10.099 10.101z"></path></svg> 
+                        <Dialog.Title as="h3" className="text-lg border-b pb-2 font-semibold leading-6 text-gray-900 flex items-center">
+                            Edit Account
                         </Dialog.Title>
 
                         <form className="grid grid-cols-4 gap-x-4 gap-y-2 mt-2" onSubmit={submitHandler}>
-                            <div className="col-span-4 flex justify-end mb-2">
+                            <div className="col-span-2 mb-2 grid items-center">
+                                <p>Status: {toEdit?.verified===true? <span className='font-semibold text-green-500'>Active</span> : <span className='font-semibold text-red-500'>Inactive</span>}</p>
+                            </div>
+                            <div className="col-span-2 flex justify-end mb-2">
                                 <select required onChange={e=>setType(e.target.value)} name="type" value={type} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
-                                    <option value="" disabled>Select Account Type</option>
+                                    <option value="" disabled>Account Type</option>
                                     {userData.user?.type==="Super Admin" ? <option>Super Admin</option> : null}
                                     <option>Admin</option>
                                     <option>Customer</option>
                                     <option>Staff</option>
                                 </select>
                             </div>
-                            <div className='col-span-2'>
+                            <div className='sm:col-span-2 col-span-4'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name:</label>
                                 <input required onChange={e => setFirstName(e.target.value)} value={firstname} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Juan, Pedro..." />
                             </div>
-                            <div className='col-span-2'>
+                            <div className='sm:col-span-2 col-span-4'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name:</label>
                                 <input required onChange={e => setLastName(e.target.value)} value={lastname} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Dela Cruz, Garcia..." />
                             </div>
-                            <div className='col-span-2'>
+                            <div className='sm:col-span-2 col-span-4'>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department:</label>
                                 <select onChange={e=>setDepartment(e.target.value)} name="department" value={department} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
                                     <option value="" disabled>Select Department</option>
@@ -206,7 +208,7 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                                     <option>Others</option>
                                 </select>
                             </div>
-                            <div className='col-span-2'>
+                            <div className='sm:col-span-2 col-span-4'>
                                 <label htmlFor="job" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job:</label>
                                 <input onChange={e => setJob(e.target.value)} value={job} type="text" name="job" id="job" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: Team Leader, Packer "/>
                             </div>
@@ -239,11 +241,11 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                                     </li>
                                 </ul>
                             </div>
-                            <div className='col-span-2'>
+                            <div className='sm:col-span-2 col-span-4'>
                                 <label htmlFor="number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact number:</label>
                                 <input onChange={e => setNumber(e.target.value)} value={number} type="text" name="number" id="number" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="09029374987" />
                             </div>
-                            <div className='col-span-2'>
+                            <div className='sm:col-span-2 col-span-4'>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email:</label>
                                 <input onChange={e => setEmail(e.target.value)} value={email} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required/>
                             </div>

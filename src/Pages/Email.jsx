@@ -4,6 +4,7 @@ import moment from "moment";
 import { addDays } from 'date-fns';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
+import { CSVLink, CSVDownload } from "react-csv";
 
 export default function Email() {
     const [ menu, setMenu ] = useState(false)
@@ -17,6 +18,7 @@ export default function Email() {
     const [ pages, setPages ] = useState(0)
     const [ pageEntries, setPageEntries ] = useState(100)
     const [ total, setTotal ] = useState(0)
+    const [ emailData, setEmailData] = useState([])
 
     useEffect(() => {
         const getEmails = async () => {
@@ -27,6 +29,14 @@ export default function Email() {
                     page: page,
                     limit: pageEntries
                 }})
+                
+                if (getEmails.data.sortedEmails.length>0) {
+                    setEmailData([])
+                    for (let i=0; i<getEmails.data.sortedEmails.length; i++){
+                        
+                        setEmailData(prev=>prev.concat([{ email: getEmails.data.sortedEmails[i].email }]))
+                    }
+                }
                 setEmails(getEmails.data.sortedEmails)
                 setPages(getEmails.data.totalEmails)
                 setTotal(getEmails.data.total)
@@ -56,16 +66,23 @@ export default function Email() {
         <Navbar/>
         <div className='min-h-screen h-auto pt-16 w-full container mx-auto sm:p-10 p-4'>
             <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Email Subscriptions</h1>
-            <div className="flex relative flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-end pb-4">
-                <button onClick={()=> menu===false ? setMenu(true) : setMenu(false)} id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-                    <svg className="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
-                    </svg>
-                    {range}
-                    <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
-                    </svg>
-                </button>
+            <div className="flex relative gap-2 flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-end pb-4">
+                <CSVLink 
+                    filename={`Email-Subscriptions(${moment(Date.now()).format('MM-DD-YYYY')}).csv`}     
+                    data={emailData.length>0 ? emailData : []}>
+                    <button className='mt-1 w-full bg-blue-500 px-4 py-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md'>Export to Excel</button>
+                </CSVLink>
+                <div className='flex items-center justify-center h-full '>
+                    <button onClick={()=> menu===false ? setMenu(true) : setMenu(false)} id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+                        <svg className="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+                        </svg>
+                        {range}
+                        <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                </div>
                 {menu===true ? 
                     <div id="dropdownRadio" className="z-10 top-10 m-0 absolute w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" styles={{position: "absolute", inset: "auto auto 0px 0px", margin: "0px"}}>
                         <ul className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">

@@ -11,7 +11,7 @@ export default function Precautions2() {
             <div className='col-span-1 grid gap-10 mt-6'>
                 <div className='sm:h-[40vh] h-auto w-full grid items-center'>
                     <div>
-                        <h2 className='font-bold text-gray-800 subHeading sm:mb-4'>General Precautions</h2>
+                        <h2 className='font-bold text-blue-400 subHeading sm:mb-4'>General Precautions</h2>
                         <label>Please keep these things in mind when using our products...</label>
                     </div>
                 </div>
@@ -42,7 +42,7 @@ export default function Precautions2() {
                     </div>
                     <div className='sm:row-span-1 h-full w-full'>
                         <p className='text-gray-900  text-center normalText font-semibold capitalize mb-2'>pregnant/ breast-feeding</p>
-                        <p className='text-center'>We do not recommend this product if pregnant or breastfeeding, consult your doctor before use.</p>
+                        <p className='text-center text-sm'>We do not recommend this product if you're pregnant or breastfeeding, consult your doctor before use.</p>
                     </div>
                 </div>
             </div>

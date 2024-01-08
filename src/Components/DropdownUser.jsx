@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from "../App";
 import { IoPersonCircleOutline } from "react-icons/io5";
 
-const DropdownUser = () => {
+const DropdownUser = ({forwardUserData}) => {
   const navigate = useNavigate()
   const { userData, setUserData } = useContext(UserContext)
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
@@ -56,12 +56,19 @@ const DropdownUser = () => {
       >
         {userData.user?.displayimage ? 
           <span className="h-12 w-12 cursor-pointer overflow-hidden rounded-full">
-            <img className='w-full h-full rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${userData.user.displayimage}.jpg`}></img>
+            <img className='w-full h-full rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${forwardUserData?.displayimage ? forwardUserData?.displayimage : userData.user.displayimage}.jpg`}></img>
           </span>
         :
-        <IoPersonCircleOutline className='h-12 w-12'/>
+          <>
+            {forwardUserData?.displayimage ? 
+              <span className="h-12 w-12 cursor-pointer overflow-hidden rounded-full">
+                <img className='w-full h-full rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${forwardUserData?.displayimage}.jpg`}></img>
+              </span>
+            :
+              <IoPersonCircleOutline className='h-12 w-12'/>
+            }
+          </>
         }
-
       </Link>
 
       {/* <!-- Dropdown Start --> */}
@@ -69,7 +76,7 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-2 py-4 flex w-[230px] flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
+        className={`rounded-lg absolute right-0 mt-2 py-4 flex w-[230px] flex-col border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
           dropdownOpen === true ? 'block' : 'hidden'
         }`}
       >
@@ -133,15 +140,17 @@ const DropdownUser = () => {
             </>
           : null}
 
-          <li>
-            <Link
-              to="/knowledge-base"
-              className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5.495 2h16.505v-2h-17c-1.656 0-3 1.343-3 3v18c0 1.657 1.344 3 3 3h17v-20h-16.505c-1.376 0-1.376-2 0-2zm.505 4h14v16h-14v-16zm5.211 11.365c.464-1.469 1.342-3.229 1.496-3.675.225-.646-.174-.934-1.429.171l-.278-.525c1.432-1.559 4.381-1.91 3.378.504-.627 1.508-1.075 2.525-1.331 3.31-.374 1.144.569.68 1.493-.173.127.206.167.271.294.508-2.054 1.953-4.331 2.125-3.623-.12zm3.895-6.71c-.437.372-1.084.364-1.446-.018-.361-.382-.302-.992.135-1.364.438-.372 1.084-.363 1.446.018.362.382.302.993-.135 1.364z"/></svg>
-              Knowledge Base
-            </Link>
-          </li>
+          {userData.user.access.length!==0 ? 
+            <li>
+              <Link
+                to="/knowledge-base"
+                className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5.495 2h16.505v-2h-17c-1.656 0-3 1.343-3 3v18c0 1.657 1.344 3 3 3h17v-20h-16.505c-1.376 0-1.376-2 0-2zm.505 4h14v16h-14v-16zm5.211 11.365c.464-1.469 1.342-3.229 1.496-3.675.225-.646-.174-.934-1.429.171l-.278-.525c1.432-1.559 4.381-1.91 3.378.504-.627 1.508-1.075 2.525-1.331 3.31-.374 1.144.569.68 1.493-.173.127.206.167.271.294.508-2.054 1.953-4.331 2.125-3.623-.12zm3.895-6.71c-.437.372-1.084.364-1.446-.018-.361-.382-.302-.992.135-1.364.438-.372 1.084-.363 1.446.018.362.382.302.993-.135 1.364z"/></svg>
+                Knowledge Base
+              </Link>
+            </li>
+          :null}
 
           <li>
             <Link

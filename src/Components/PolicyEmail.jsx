@@ -6,7 +6,6 @@ import moment from "moment";
 
 export default function PolicyEmail({userData, policytitle}) {
     const [ checked, setChecked ] = useState(false)
-    let currentDate = moment(new Date()).format('MMMM DD, YYYY')
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -16,11 +15,14 @@ export default function PolicyEmail({userData, policytitle}) {
                     useremail: userData?.email,
                     fullname: `${userData?.firstname +" "+ userData?.lastname}`,
                     policytitle: policytitle,
-                    date: currentDate
+                    date: moment(new Date()).format('MMMM DD, YYYY')
                 }
                 let token = localStorage.getItem("auth-token")
                 const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/emails/send-policy-email`, emailInfo, 
                 { headers: { "Content-Type": "application/json", "auth-token": token } })
+                if (res.data) {
+                    setChecked(false)
+                }
             }
             toast.promise(
                 loadingNotif,

@@ -31,7 +31,7 @@ export default function Footer() {
   }
 
   return (
-    <div className="bg-slate-900 sm:h-auto h-[120vh] w-full sm:px-10 p-4">
+    <div className="bg-slate-900 sm:h-auto h-auto w-full sm:px-10 p-4">
       <div className='grid sm:grid sm:grid-cols-3 border-b gap-y-6 border-slate-700 py-10 sm:px-2'>
         <div className='col-span-1'>
             <div className='h-[50px] w-[150px]'>

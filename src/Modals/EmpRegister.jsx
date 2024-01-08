@@ -131,29 +131,29 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
                             leaveTo="opacity-0 scale-95"
                             >
                             <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white sm:p-10 p-6 text-left align-middle shadow-xl transition-all">
-                                <Dialog.Title as="h3" className="text-lg border-b pb-2 font-medium leading-6 text-gray-900 grid grid-cols-2 items-center">
+                                <Dialog.Title as="h3" className="text-lg border-b pb-2 font-semibold leading-6 text-gray-900 grid grid-cols-2 items-center">
                                 Account Registration
                                 </Dialog.Title>
 
                                 <form className="grid grid-cols-4 gap-x-4 gap-y-2 mt-2" onSubmit={submitHandler}>
                                     <div className="col-span-4 flex justify-end mb-2">
                                         <select required onChange={e=>setType(e.target.value)} name="type" value={type} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
-                                            <option value="" disabled>Select Account Type</option>
+                                            <option value="" disabled>Account Type</option>
                                             {userData.user?.type==="Super Admin" ? <option>Super Admin</option> : null}
                                             <option>Admin</option>
                                             <option>Customer</option>
                                             <option>Staff</option>
                                         </select>
                                     </div>
-                                    <div className='col-span-2'>
+                                    <div className='sm:col-span-2 col-span-4'>
                                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name:</label>
                                         <input required onChange={e => setFirstName(e.target.value)} value={firstname} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Juan, Pedro..." />
                                     </div>
-                                    <div className='col-span-2'>
+                                    <div className='sm:col-span-2 col-span-4'>
                                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name:</label>
                                         <input required onChange={e => setLastName(e.target.value)} value={lastname} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Dela Cruz, Garcia..." />
                                     </div>
-                                    <div className='col-span-2'>
+                                    <div className='sm:col-span-2 col-span-4'>
                                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department:</label>
                                         <select onChange={e=>setDepartment(e.target.value)} name="department" value={department} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
                                             <option value="" disabled>Select Department</option>
@@ -163,7 +163,7 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
                                             <option>Others</option>
                                         </select>
                                     </div>
-                                    <div className='col-span-2'>
+                                    <div className='sm:col-span-2 col-span-4'>
                                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job:</label>
                                         <input onChange={e => setJob(e.target.value)} value={job} type="text" name="job" id="job" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: Team Leader, Packer "/>
                                     </div>
@@ -196,19 +196,19 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
                                             </li>
                                         </ul>
                                     </div>
-                                    <div className='col-span-2'>
-                                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact number:</label>
+                                    <div className='sm:col-span-2 col-span-4'>
+                                        <label htmlFor="number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact number:</label>
                                         <input onChange={e => setNumber(e.target.value)} value={number} type="text" name="number" id="number" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="09029374987" />
                                     </div>
-                                    <div className='col-span-2'>
+                                    <div className='sm:col-span-2 col-span-4'>
                                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email:</label>
                                         <input onChange={e => setEmail(e.target.value)} value={email} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required/>
                                     </div>
-                                    <div className='col-span-2'>
+                                    <div className='sm:col-span-2 col-span-4'>
                                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password:</label>
                                         <input onChange={e => setPassword(e.target.value)} value={password} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                     </div>
-                                    <div className='col-span-2'>
+                                    <div className='sm:col-span-2 col-span-4'>
                                         <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password:</label>
                                         <input onChange={e => setCheckPassword(e.target.value)} value={checkPassword} type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                     </div>

@@ -9,6 +9,7 @@ import NotFound from './NotFound';
 import Login from './Pages/Login';
 import Skin from './Pages/Skin';
 import Faq from './Pages/Faq';
+import ForgotPassword from './Pages/ForgotPassword';
 import Admin from './Admin/Admin';
 import Orders from './Admin/Orders';
 import Users from './Admin/Users';
@@ -135,6 +136,7 @@ const App = () => {
           <Route path="/details/package/:id" element={<Package1 />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forget-password" element={<ForgotPassword />} />
           <Route path="/accounts/profile/:id" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/terms-of-use" element={<TermsOfUse />} />

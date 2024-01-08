@@ -36,19 +36,17 @@ function AboutUs() {
       </h2>
       <p className='text-xl'>clue (ˈklü)</p>
       <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
-          1. Something that guides through an intricate procedure or maze of difficulties.
-          </p>
-          <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl italic ">
-            specifically: a piece of evidence that leads one toward the solution of a problem
-          </p>
-          <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
-            2. Idea and Notion
-          </p>
-          <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
-            3. To give reliable information
-          </p>
-
-      
+        1. Something that guides through an intricate procedure or maze of difficulties.
+      </p>
+      <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl italic ">
+        specifically: a piece of evidence that leads one toward the solution of a problem
+      </p>
+      <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
+        2. Idea and Notion
+      </p>
+      <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
+        3. To give reliable information
+      </p>
     </div>
   </div>
 
@@ -149,12 +147,12 @@ function AboutUs() {
       <div className="lg:py-24">
         <h2 className="text-5xl font-bold sm:text-5xl text-gray-800">Mission</h2>
 
-        <p className="mt-4 text-gray-600 text-2xl">
+        <div className="mt-4 text-gray-600 text-2xl">
         We were founded on the belief that 
-       <p className='text-2xl'>
-       skincare should not break the bank.
-       </p>
+        <p className='text-2xl'>
+        skincare should not break the bank.
         </p>
+        </div>
       </div>
     </div>
   </div>
