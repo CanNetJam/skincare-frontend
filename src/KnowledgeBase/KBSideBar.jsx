@@ -15,7 +15,7 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
                     {openTab==="Mountain Movers" ?
                         <section className='h-screen sm:px-8 px-2'>
                             <h1 className='subHeading text-white mb-6'>Contents</h1>
-                            <ul className='text-gray-400 sm:ml-2'>
+                            <ul className='text-gray-400 sm:ml-2 sm:text-base text-sm list-decimal px-4'>
                                 <li onClick={()=> setOpenLink("Waybills")} className={openLink==="Waybills" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Waybills</li>
                                 <li onClick={()=> setOpenLink("Mass Printing Waybills")} className={openLink==="Mass Printing Waybills" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Mass Printing Waybills</li>
                                 <li onClick={()=> setOpenLink("Product Packaging")} className={openLink==="Product Packaging" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Product Packaging</li>
@@ -29,7 +29,7 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
                     {openTab==="Customer Excellence" &&
                         <section className='h-screen sm:px-8 px-2'>
                             <h1 className='subHeading text-white mb-6'>Contents</h1>
-                            <ul className='text-gray-400 sm:ml-2'>
+                            <ul className='text-gray-400 sm:ml-2 sm:text-base text-sm list-decimal px-4'>
                                 <li onClick={()=> setOpenLink("Customer Support")} className={openLink==="Customer Support" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Customer Support</li>
                             </ul>
                         </section>
@@ -37,7 +37,7 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
                     {openTab==="Mountain Excellence" &&
                         <section className='h-screen sm:px-8 px-2'>
                             <h1 className='subHeading text-white mb-6'>Contents</h1>
-                            <ul className='text-gray-400 sm:ml-2'>
+                            <ul className='text-gray-400 sm:ml-2 sm:text-base text-sm list-decimal px-4'>
                                 <li onClick={()=> setOpenLink("RTS (Undelivered Products)")} className={openLink==="RTS (Undelivered Products)" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>RTS (Undelivered Products)</li>
                                 <li onClick={()=> setOpenLink("Customer Return/Refund")} className={openLink==="Customer Return/Refund" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Customer Return/<br/>Refund</li>
                             </ul>
@@ -46,7 +46,7 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
                     {openTab==="Creative Tigers" &&
                         <section className='h-screen sm:px-8 px-2'>
                             <h1 className='subHeading text-white mb-6'>Contents</h1>
-                            <ul className='text-gray-400 sm:ml-2'>
+                            <ul className='text-gray-400 sm:ml-2 sm:text-base text-sm list-decimal px-4'>
                                 <li onClick={()=> setOpenLink("Content Metrics")} className={openLink==="Content Metrics" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Content Metrics</li>
                                 <li onClick={()=> setOpenLink("Social Media Checking")} className={openLink==="Social Media Checking" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Social Media Checking</li>
                                 <li onClick={()=> setOpenLink("Live Sessions")} className={openLink==="Live Sessions" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Live Sessions</li>

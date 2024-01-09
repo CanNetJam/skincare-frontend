@@ -5,6 +5,7 @@ import { addDays } from 'date-fns';
 import Register from '../Modals/EmpRegister';
 import DeleteAccountModal from '../Modals/DeleteAccount';
 import EditAccount from '../Modals/EditAccount';
+import { IoPersonCircleOutline } from "react-icons/io5";
 
 export default function UserAccountsTable() {
     const [ isOpen, setIsOpen ] = useState(false)
@@ -84,7 +85,7 @@ export default function UserAccountsTable() {
             )}  
             <div className="grid grid-cols-2 gap-2 sm:flex sm:justify-between sm:space-y-0 items-center justify-between p-2 sm:px-0">
                 <div className="relative grid justify-center items-center h-full">
-                    <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                    <div className="absolute inset-y-0 left-4 sm:left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="white" d="M8.602 3.7c-1.154 1.937-.635 5.227 1.424 9.025.93 1.712.697 3.02.338 3.815-.982 2.178-3.675 2.799-6.525 3.456-1.964.454-1.839.87-1.839 4.004h-1.995l-.005-1.241c0-2.52.199-3.975 3.178-4.663 3.365-.777 6.688-1.473 5.09-4.418-4.733-8.729-1.35-13.678 3.732-13.678 3.321 0 5.97 2.117 5.97 6.167 0 3.555-1.949 6.833-2.383 7.833h-2.115c.392-1.536 2.499-4.366 2.499-7.842 0-5.153-5.867-4.985-7.369-2.458zm15.398 15.8c0 2.485-2.017 4.5-4.5 4.5s-4.5-2.015-4.5-4.5 2.017-4.5 4.5-4.5 4.5 2.015 4.5 4.5zm-2-.5h-2v-2h-1v2h-2v1h2v2h1v-2h2v-1z"/></svg>
                     </div>
                     <button onClick={()=>setIsOpen(true)} className="mt-1 w-full bg-blue-500 p-2 text-sm font-bold uppercase tracking-wide pl-8 text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md">Add Account</button>
@@ -155,13 +156,13 @@ export default function UserAccountsTable() {
                                 User Type
                             </th>
                             <th scope="col" className="px-6 py-3">
+                                Picture
+                            </th>
+                            <th scope="col" className="px-6 py-3">
                                 First Name
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Last Name
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Contact Number
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Department
@@ -171,6 +172,9 @@ export default function UserAccountsTable() {
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Email
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Contact Number
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Date Registered
@@ -193,13 +197,19 @@ export default function UserAccountsTable() {
                                                 {a.type}
                                             </th>
                                             <td className="px-6 py-4">
+                                                {a?.displayimage ? 
+                                                    <span className="h-12 w-12 cursor-pointer overflow-hidden rounded-full">
+                                                        <img className='w-full h-full rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.displayimage}.jpg`}></img>
+                                                    </span>
+                                                    :
+                                                    <IoPersonCircleOutline className='h-12 w-12'/>
+                                                }
+                                            </td>
+                                            <td className="px-6 py-4">
                                                 {a.firstname}
                                             </td>
                                             <td className="px-6 py-4">
                                                 {a.lastname}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {a.phone}
                                             </td>
                                             <td className="px-6 py-4">
                                                 {a.department}
@@ -209,6 +219,9 @@ export default function UserAccountsTable() {
                                             </td>
                                             <td className="px-6 py-4">
                                                 {a.email}
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                {a.phone}
                                             </td>
                                             <td className="px-6 py-4">
                                                 {moment(a.createdAt).format('MM-DD-YYYY')}

@@ -17,7 +17,7 @@ export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setO
                     {openTab==="General Rules" &&
                         <section className='h-screen sm:px-6 px-2'>
                             <h1 className='subHeading text-white mb-6'>Contents</h1>
-                            <ul className='text-gray-400 sm:ml-2'>
+                            <ul className='text-gray-400 sm:ml-2 sm:text-base text-sm list-decimal px-4'>
                                 <li onClick={()=> setOpenLink("Loitering")} className={openLink==="Loitering" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Loitering</li>
                                 <li onClick={()=> setOpenLink("Progressive Corrective")} className={openLink==="Progressive Corrective" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Progressive Corrective</li>
                                 <li onClick={()=> setOpenLink("Safeguard Premises")} className={openLink==="Safeguard Premises" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Safeguard Premises</li>
@@ -35,7 +35,7 @@ export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setO
                     {openTab==="Code of Conduct" &&
                         <section className='h-screen sm:px-6 px-2'>
                             <h1 className='subHeading text-white mb-6'>Contents</h1>
-                            <ul className='text-gray-400 sm:ml-2'>
+                            <ul className='text-gray-400 sm:ml-2 sm:text-base text-sm list-decimal px-4'>
                                 <li onClick={()=> setOpenLink("Code of Discipline")} className={openLink==="Code of Discipline" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Code of Discipline</li>
                                 <li onClick={()=> setOpenLink("Attendance & Punctuality")} className={openLink==="Attendance & Punctuality" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Attendance & Punctuality</li>
                                 <li onClick={()=> setOpenLink("Work Place Decorum 1")} className={openLink==="Work Place Decorum 1" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Work Place Decorum 1</li>

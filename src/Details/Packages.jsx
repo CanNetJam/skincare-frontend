@@ -34,6 +34,10 @@ export default function Packages() {
                                                     <img src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${pack.displayimage}.jpg`}/>
                                                 </div>
                                                 <p className="mt-6 text-base font-semibold text-gray-900">{pack.name}</p>
+                                                <p>{pack.origprice}</p>
+                                                <div>
+                                                    <button className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-8 py-3 text-base font-medium text-white hover:bg-black focus:outline-none">Add to Cart</button>
+                                                </div>
                                             </Link>
                                         )
                                     })}
@@ -48,7 +52,7 @@ export default function Packages() {
 }
 
 /*
-                                    <div className='hidden group-hover/item:block group-hover:bg-gray-100 group-hover:backdrop-blur-sm group-hover:bg-opacity-20 absolute inset-0 py-10 px-4'>
-                                        <button className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-8 py-3 text-base font-medium text-white hover:bg-black focus:outline-none">Learn More</button>
-                                        <button className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-8 py-3 text-base font-medium text-white hover:bg-black focus:outline-none">Add to Cart</button>
-                                    </div>*/
+                                                <div className='hidden group-hover:block group-hover:bg-gray-100 group-hover:backdrop-blur-xs group-hover:bg-opacity-20 absolute inset-0 py-10 px-4'>
+                                                    <button className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-8 py-3 text-base font-medium text-white hover:bg-black focus:outline-none">Learn More</button>
+                                                    <button className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-8 py-3 text-base font-medium text-white hover:bg-black focus:outline-none">Add to Cart</button>
+                                                </div>*/

@@ -47,7 +47,7 @@ export default function KnowledgeBase() {
             <Navbar/>
             <div className='h-auto pt-16'>
                 <h1 className='pageTitle'>Klued Knowledge Base</h1>
-                <div className="z-10 sticky top-16 text-lg font-semibold shadow-lg text-center text-gray-900 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 bg-white">
+                <div className="z-10 sticky top-16 sm:text-lg text-xs font-semibold shadow-lg text-center text-gray-900 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 bg-white">
                     
                     <ul className={`grid grid-cols-${tabs} justify-center -mb-px`}>
                         {mountain===true ? 
