@@ -1,11 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import photo1 from '../assets/1.jpg';
 import photo2 from '../assets/2.jpg';
 import photo3 from '../assets/14.jpg';
+import SubscriptionRedirect from '../Components/SubscriptionRedirect';
 
 function AboutUs() {
+  const footerRef = useRef()
+
+  const handleClick =() => {
+    footerRef.current?.scrollIntoView({behavior: 'smooth'})
+  }
+
   useEffect(()=> {
     const windowOpen = () => {   
         window.scrollTo({
@@ -21,11 +28,12 @@ function AboutUs() {
 
       <div >
         <Navbar/>
+        <SubscriptionRedirect  handleClick={handleClick}/>
       </div>
 
       <div>
 
-<section className="overflow-hidden sm:pt-0 pt-16 bg-gray-200 sm:grid sm:grid-cols-2">
+<section className="overflow-hidden sm:pt-0 mt-20 bg-gray-200 sm:grid sm:grid-cols-2">
   <div className="p-8 md:p-12 lg:px-16 lg:py-24">
     <div
       className="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right"
@@ -159,9 +167,7 @@ function AboutUs() {
 </section>
       </div>
 
-     
-
-      <div>
+      <div ref={footerRef}>
         <Footer/>
       </div>
 

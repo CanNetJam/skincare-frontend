@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import { PiNumberCircleOneFill, PiNumberCircleTwoFill, PiNumberCircleThreeFill } from "react-icons/pi";
@@ -7,9 +7,15 @@ import icon2 from '../assets/icons8-cure-96.png';
 import icon3 from '../assets/icons8-confident-96.png';
 import icon4 from '../assets/icons8-sprout-96.png';
 import img1 from '../assets/2.jpg';
+import SubscriptionRedirect from '../Components/SubscriptionRedirect';
 
 function Skin() {
   const [opentab, setOpenTab] = useState("Normal")
+  const footerRef = useRef()
+
+  const handleClick =() => {
+    footerRef.current?.scrollIntoView({behavior: 'smooth'})
+  }
 
   useEffect(()=> {
     const windowOpen = () => {   
@@ -24,8 +30,8 @@ function Skin() {
   return (
     <div className='sm:mt-16 mt-8 bg-fixed bg-[url("./src/assets/8.jpg")] bg-cover bg-no-repeat relative bg-center'>
       <Navbar/>
-
-      <div className='h-full bg-white grid sm:pt-0 pt-16 justify-center py-4'>
+      <SubscriptionRedirect  handleClick={handleClick}/>
+      <div className='h-full bg-white grid sm:pt-0 mt-24 justify-center py-4'>
         <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Understanding your skin</h1>
         
         <div className='container mx-auto grid sm:px-10 sm:grid sm:grid-cols-3'>
@@ -374,117 +380,11 @@ function Skin() {
           </div>
       </div>
 
-      <Footer/>
+      <div ref={footerRef}>
+        <Footer/>
+      </div>
     </div>
   )
 }
 
 export default Skin
-
-/*<br/>You are shedding skin cells throughout the day, so it is important to keep your skin glowing and in good condition. An effective routine can help prevent acne, treat wrinkles, and help keep your skin looking its best.
-<br/>As you age, your skin’s cells turn over more slowly, make it look duller and less radiant. Using a quality skin care line can help remove dead skin cells so your body will replace them with newer, more youthful cells.
-<br/>Preventing skin problems is easier -– and less costly – than trying to fix them in the future.
-<br/>When your skin looks better, you will feel better about yourself and have more self-confidence.
-
-        <div className='h-full bg-white grid sm:pt-0 pt-16 justify-center'>
-          <h1 className='font-bold lg:text-6xl text-3xl lg:py-10 py-6 text-center'>Understanding your skin</h1>
-          <div className='min-h-screen h-auto w-full bg-white'>
-        <div className='container mx-auto grid sm:grid-cols-2'>
-          <div className='grid sm:max-h-[100vh] max-h-[50vh] h-full w-full'>
-            <div className='h-full w-full overflow-hidden p-4'>
-              <img className='h-full w-full object-cover' src='https://images.pexels.com/photos/3762871/pexels-photo-3762871.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
-            </div>
-            <div className='h-full w-full p-4'>
-              <p className='text-justify smallText'>
-                <span className='font-bold text-xl'>Skin</span> is the largest organ in the body and covers the body's entire external surface. It is made up of three layers, the epidermis, dermis, and the hypodermis, all three of which vary significantly in their anatomy and function. It serves as a barrier to water, invasion by microorganisms, mechanical and chemical trauma, and damage from UV light.
-              </p>
-            </div>
-          </div>
-
-          <div className='grid max-h-[50vh] h-full w-full p-4'>
-            <h1 className='font-bold text-blue-500 text-3xl text-center mb-4'>Layers of Skin</h1>
-            <div>
-              <div className="grid grid-cols-5 gap-4 py-2">
-                <div className="flex justify-center">
-                  <PiNumberCircleOneFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
-                </div>
-                <div className="col-span-4">
-                  <h1 className="capitalize font-bold text-black text-lg my-1">Epidermis</h1>
-                  <div className="grid grid-cols-4 items-center">
-                    <p className="col-span-4 tinyText inline-block">The word “epidermis” combines the Ancient Greek prefix epi-, which means “outer,” and the Ancient Greek word derma, which means “skin.” So the word translates to “outer skin.”</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div className="grid grid-cols-5 gap-4 py-2">
-                <div className="col-span-4">
-                  <h1 className="capitalize font-bold text-black text-lg my-1 text-right">Dermis</h1>
-                  <div className="grid grid-cols-4 items-center">
-                    <p className="col-span-4 tinyText inline-block text-right">The dermis is connected to the epidermis at the level of the basement membrane. It also houses the sweat glands, hair, hair follicles, muscles, sensory neurons, and blood vessels.</p>
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <PiNumberCircleTwoFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div className="grid grid-cols-5 gap-4 py-2">
-                <div className="flex justify-center">
-                  <PiNumberCircleThreeFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
-                </div>
-                <div className="col-span-4">
-                  <h1 className="capitalize font-bold text-black text-lg my-1">Hypodermis</h1>
-                  <div className="grid grid-cols-4 items-center">
-                    <p className="col-span-4 tinyText inline-block">The hypodermis is deep to the dermis. It is the deepest layer of skin and contains some skin appendages like the hair follicles, sensory neurons, and blood vessels.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-        </div>
-
-              <div className='min-h-screen h-auto w-full bg-white'>
-        <div className='grid sm:grid-cols-2 lg:px-20 first-letter:px-4'>
-            <div className='skin-p1 lg:p-10 p-4'>
-              <h2 className='font-bold lg:text-4xl text-2xl'>What is Sebum?</h2>
-              <br/>
-              <p className='lg:text-xl text-lg'><b>Sebum</b> - the oil secreted by the sebaceous glands present in the skin. Why do these glands exist and is it possible to control their activity? 
-                <br/>
-                <br/>The sebaceous glands are attached to the hair follicles and release natural oils called sebum. It is composed of fats (cholesterol).</p>
-            </div>
-            <div className='skin_image1 p-10'>
-              <img className='h-full w-full' loading='lazy' src='https://s3-us-west-2.amazonaws.com/courses-images/wp-content/uploads/sites/1223/2017/02/08004822/501_Structure_of_the_skin-1024x803.jpg'></img>
-            </div>
-          </div>
-      </div>
-
-            <div className='sm:max-h-screen min-h-screen h-auto w-full lg:flex grid bg-gray-900 bg-opacity-60 p-10'>
-        <div className='lg:p-10 p-4 border-l-8'>
-          <h1 className='font-bold lg:text-8xl text-4xl text-blue-200'>Why Skincare Routine is important?</h1>
-        </div>
-        <div className='lg:p-10 p-4'>
-          <p className='text-white lg:text-3xl text-2xl'>Skin care routine can help your skin look better now as well as in the future. It will also help you help you avoid skin problems in the future.</p>
-          <div className='p-8 grid justify-center'>
-            <label className='text-white lg:text-4xl text-3xl font-semibold w-full text-center'>Common skin issues:</label>
-            <ul className='text-white text-2xl list-disc mt-4'>
-              <li className='mt-2'>Acne</li>
-              <li className='mt-2'>Ageing</li>
-              <li className='mt-2'>Dark spots</li>
-              <li className='mt-2'>Melasma</li>
-              <li className='mt-2'>Dry skin</li>
-              <li className='mt-2'>Sun burn</li>
-              <li className='mt-2'>Dull Skin etc.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-
-https://images.pexels.com/photos/7479528/pexels-photo-7479528.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
-*/

@@ -7,7 +7,7 @@ import image3 from '../assets/20.jpg';
 export default function NewProducts() {
 
     return (
-        <div className="min-h-screen h-full sm:mt-16 mt-8 bg-blue-300 sm:px-10 px-4">
+        <div className="min-h-screen h-full sm:mt-24 mt-8 bg-blue-300 sm:px-10 px-4">
             <div className="container mx-auto min-h-screen h-full w-full sm:pt-0 pt-16 md:grid-cols-2 md:grid items-center grid">
                 <div className="h-full flex sm:p-12 py-8 w-full items-center">
                     <div className="">
