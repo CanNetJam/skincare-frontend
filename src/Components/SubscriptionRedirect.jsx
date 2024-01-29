@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function SubscriptionRedirect({handleClick}) {
     return (
-        <div className='h-10 fixed z-40 top-16 w-full bg-black text-white flex justify-center items-center'>
+        <div className='h-10 fixed z-30 top-16 w-full bg-black text-white flex justify-center items-center'>
             <div className='container sm:text-base text-xs max-w-lg mx-auto flex items-center gap-4 p-2'>
                 <p>Subscribe to our newsletter for special discounts!</p>
                 <div>

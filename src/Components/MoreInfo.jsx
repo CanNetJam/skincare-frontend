@@ -5,8 +5,8 @@ import img2 from '../assets/Pouch.png';
 export default function MoreInfo({packageData}) {
     return (
         <div className='w-full bg-gray-200 sm:py-20 py-12'>
-            <div className='container mx-auto grid sm:grid-cols-2 gap-2 items-center'>
-                <div className='px-8 text-gray-900 whitespace-pre-wrap break-normal text-justify'>
+            <div className='container mx-auto grid max-w-6xl sm:grid-cols-2 gap-6 items-center'>
+                <div className='sm:px-8 px-4 text-gray-900 whitespace-pre-wrap break-normal text-justify'>
                     {packageData.moredesc}
                     <br/>
                     <br/>

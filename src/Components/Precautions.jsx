@@ -7,7 +7,7 @@ import pregnant from '../assets/pregnant.png';
 
 export default function Precautions2() {
     return (
-        <div className='min-h-screen container mx-auto grid gri sm:grid-cols-3 gap-10 h-auto w-full sm:px-20 sm:py-10 px-4 py-8'>
+        <div className='min-h-screen container max-w-6xl mx-auto grid sm:grid-cols-3 sm:gap-10 gap-4 h-auto w-full py-8 px-4 sm:px-0'>
             <div className='col-span-1 grid gap-10 mt-6'>
                 <div className='sm:h-[40vh] h-auto w-full grid items-center'>
                     <div>
@@ -15,7 +15,7 @@ export default function Precautions2() {
                         <label>Please keep these things in mind when using our products...</label>
                     </div>
                 </div>
-                <div className='sm:h-[40vh] h-[30vh] px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 shadow-xl'>
+                <div className='sm:h-[40vh] h-[30vh] px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
                         <img className='object-contain h-full w-full' src={boxes}/>
                     </div>
@@ -27,7 +27,7 @@ export default function Precautions2() {
             </div>
 
             <div className='col-span-1 grid gap-10 mb-6'>
-                <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 shadow-xl'>
+                <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
                         <img className='object-contain h-full w-full' src={irritation}/>
                     </div>
@@ -36,7 +36,7 @@ export default function Precautions2() {
                         <p className='text-center'> Apply a small amount on your inner arm. Wait at least 24 hours to see for reactions.</p>
                     </div>
                 </div>
-                <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400  shadow-xl'>
+                <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400  sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
                         <img className='object-contain h-full w-full' src={pregnant}/>
                     </div>
@@ -48,7 +48,7 @@ export default function Precautions2() {
             </div>
 
             <div className='col-span-1 grid gap-10 mt-6'>
-                <div className='sm:h-[40vh] h-[30vh] px-10 py-5 rounded-md col-span-1 bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 shadow-xl'>
+                <div className='sm:h-[40vh] h-[30vh] px-10 py-5 rounded-md col-span-1 bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
                         <img className='object-contain h-full w-full' src={boy}/>
                     </div>
@@ -57,7 +57,7 @@ export default function Precautions2() {
                         <p className='text-center'>This product is only recommended for people aged 13 and above.</p>
                     </div>
                 </div>
-                <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md col-span-1 bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 shadow-xl'>
+                <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md col-span-1 bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
                         <img className='object-contain h-full w-full' src={brightness}/>
                     </div>

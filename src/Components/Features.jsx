@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default function Features({packageData, packageItems}) {
     return (
         <div className="bg-white py-12">
-            <div className="mx-auto max-w-8xl px-4 lg:px-8">
+            <div className="container mx-auto max-w-6xl px-4 sm:px-0">
                 <div className="mx-auto max-w-2xl lg:text-center">
                     <h2 className="text-base font-semibold leading-7 text-blue-400">Maximum value</h2>
                     <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{packageData.name} Includes</p>
@@ -16,7 +16,7 @@ export default function Features({packageData, packageItems}) {
                             <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-4 lg:max-w-none lg:grid-cols-2 lg:gap-y-8">
                                 {packageItems.map((item, index)=> {
                                     return (
-                                        <div className="relative bg-blue-100 rounded-xl sm:px-12 p-4 shadow-2xl" key={index}>
+                                        <div className="relative bg-blue-100 rounded-xl sm:px-12 p-4 sm:shadow-xl shadow-md" key={index}>
                                             <div className="text-base grid grid-cols-2 font-semibold leading-7 text-gray-900">
                                                 <div className="col-span-1 flex sm:h-[180px] sm:w-[260px] h-[150px] w-[150px] overflow-hidden items-center justify-center rounded-lg bg-indigo-600">
                                                     <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${item.displayimage}.jpg`}/>

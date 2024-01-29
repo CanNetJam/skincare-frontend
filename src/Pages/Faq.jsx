@@ -1,15 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlinePlus, AiOutlineLine } from "react-icons/ai";
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
-import SubscriptionRedirect from '../Components/SubscriptionRedirect';
 
 function Faq() {
-    const footerRef = useRef()
-
-    const handleClick =() => {
-      footerRef.current?.scrollIntoView({behavior: 'smooth'})
-    }
     const [question1, setQuestion1] = useState(false)
     const [question2, setQuestion2] = useState(false)
     const [question3, setQuestion3] = useState(false)
@@ -37,10 +31,9 @@ function Faq() {
         <div>   
             <div>
                 <Navbar/>
-                <SubscriptionRedirect  handleClick={handleClick}/>
             </div>
-            <div className="min-h-screen h-auto sm:pt-0 mt-24 container mx-auto py-2 lg:flex grid">
-                    <div className="h-full w-full py-8 md:px-8 px-4">
+            <div className="min-h-screen h-auto sm:pt-0 mt-16 container mx-auto max-w-6xl py-2 lg:flex grid">
+                    <div className="h-full w-full md:px-8 px-4">
                         <div>
                             <h3 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Frequently Asked Questions</h3>
                             <br/>
@@ -65,7 +58,9 @@ function Faq() {
                                     }} className='cursor-pointer'>{question1!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
                                 </div>
                                 {question1===true ? 
-                                <p className="pb-5 transition ease-in duration-500">After contact with light, heat and air, vitamin C eventually oxidizes and loses its potency.</p>
+                                    <div className='duration-200 ease-linear sm:translate-y-100'>
+                                        <p className="pb-5">After contact with light, heat and air, vitamin C eventually oxidizes and loses its potency.</p>
+                                    </div>
                                 :null}
                             </div>
 
@@ -341,7 +336,7 @@ function Faq() {
                         </div>
                     </div>
             </div>
-            <div ref={footerRef}>
+            <div>
                 <Footer/>
             </div>
         </div>

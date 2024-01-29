@@ -2,7 +2,7 @@ import { useState, useEffect, Fragment, useContext } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import axios from "axios";
 import { UserContext } from "../App";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addDays } from 'date-fns';
 
@@ -270,6 +270,7 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                 </div>
                 </div>
             </Dialog>
+           
             </Transition>
         </>
     )

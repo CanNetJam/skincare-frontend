@@ -47,19 +47,19 @@ export default function ProductQuality() {
                         <br/>
                         <br/>
                         <h1 className='font-bold contentHeading my-4'><b>Examples of rejected items:</b></h1>
-                        <MyImage className='' src={img1}/>
+                        <img className='' src={img1}/>
                         <label className='text-center'><i>Hair follicles can be seen inside the bottle.</i></label>
                         <br/>
-                        <MyImage className='' src={img2}/>
+                        <img className='' src={img2}/>
                         <label className='text-center'><i>White strings are floating inside the bottle.</i></label>
                         <br/>
-                        <MyImage className='' src={img3}/>
+                        <img className='' src={img3}/>
                         <label className='text-center'><i>Product was leaking because the packaging wasn’t sealed securely.</i></label>
                         <br/>
-                        <MyImage className='' src={img4}/>
+                        <img className='' src={img4}/>
                         <label className='text-center'><i>The blue hue is different from the official company color.</i></label>
                         <br/>
-                        <MyImage className='' src={img5}/>
+                        <img className='' src={img5}/>
                         <label className='text-center'><i>The box was badly damaged.</i></label>
                     </div>
                 </section>

@@ -1,157 +1,321 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from "../App";
+import CheckoutDetails from '../Components/CheckoutDetails';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CartDetails() {
-  const [cartData, setCartData] = useState([]);
-  const [cartTotal, setCartTotal] = useState([]);
+    const { userData, setUserData } = useContext(UserContext)
+    const [cartData, setCartData] = useState([])
+    const [cartTotal, setCartTotal] = useState(0)
 
-  useEffect(() => {
-    const fetchCartData = async () => {
-      try {
-        let localData = JSON.parse(localStorage.getItem("items"))
-        /*
-        const response = await fetch('http://localhost:8081/cart');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+    useEffect(()=> {
+        const windowOpen = () => {   
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            })
         }
-        const data = await response.json();*/
-        setCartData(localData);
-      } catch (error) {
-        console.error('Error fetching cart data:', error);
-      }
-    };
-    fetchCartData();
-  }, []);
+        windowOpen()
+    }, [])
 
-  //console.log(cartData)
-  useEffect(() => {
-    const computeTotal = async () => {
-      try {
-        let summary = []
-        cartData.map((a)=> {
-          let haha = Number(a.product.pprice) * Number(a.quantity)
-          summary.push(Number(haha))
+    useEffect(() => {
+        const fetchCartData = async () => {
+        try {
+            let localData = JSON.parse(localStorage.getItem("items")) || []
+            setCartData(localData)
+        } catch (error) {
+            console.error('Error fetching cart data:', error)
+        }
+        }
+        fetchCartData()
+    }, [])
+
+    useEffect(() => {
+        const computeTotal = async () => {
+        try {
+            let summary = []
+
+            cartData.map((a)=> {
+                let haha = Number(a.product?.price ? a.product.price : a.product.origprice) * Number(a.quantity)
+                summary.push(haha)
+            })
+
+            let total = 0
+            function computeSum(){
+                if (summary.length>1) {
+                    for (let i=0; i<summary.length; i++){
+                    total = summary[i] + total
+                    }
+                    return total
+                }
+                if (summary.length===1) {
+                    total = summary[0]
+                    return total
+                }
+                return total
+            }
+            computeSum()
+            if (total===0) {
+                setCartTotal(0)
+            } else {
+                setCartTotal(total+40)
+            }
+        } catch (error) {
+            console.error('Error computing data:', error);
+        }
+        }
+        computeTotal()
+    }, [cartData])
+
+    const handleAddQuantity = async (pack) => {
+        try {
+        let cart = localStorage.getItem("items")
+        const obj = {
+            type: pack.type,
+            product: {
+            _id: pack.product._id,
+            name: pack.product.name,
+            displayimage: pack.product.displayimage,
+            price: pack.product.price ? pack.product.price : pack.product.origprice,
+            stock: pack.product.stock,
+            },
+            quantity: pack.quantity
+        }
+
+        if (userData.user) {
+            let token = localStorage.getItem("auth-token")
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/update-add-cart/${userData?.user?._id}`, obj, 
+            { headers: { "Content-Type": "application/json", "auth-token": token } })
+        }
+        
+        if ( cart === null) {
+            localStorage.setItem("items", JSON.stringify([obj]))
+            setUserData({...userData, cartNumber: userData.cartNumber+1})
+        }
+        if (cart !== null) {
+            let currentCart = JSON.parse(localStorage.getItem("items"))
+            let dupe = false
+            function duplicateCheck() {
+            currentCart.map((a, index )=> {
+                if (a.product._id === pack.product._id){
+                currentCart[index] = {
+                    type: pack.type,
+                    product: {
+                    _id: pack.product._id,
+                    name: pack.product.name,
+                    displayimage: pack.product.displayimage,
+                    price: pack.product.price ? pack.product.price : pack.product.origprice,
+                    stock: pack.product.stock,
+                    },
+                    quantity: a.quantity+1
+                }
+                setUserData({...userData, cartNumber: userData.cartNumber+1})
+                dupe = true
+                return dupe
+                }
+                return dupe
+            })
+            }
+            duplicateCheck()
+            if (dupe===false) {
+            currentCart.push(obj)
+            setUserData({...userData, cartNumber: userData.cartNumber+1})
+            }
+            localStorage.setItem("items", JSON.stringify(currentCart))
+            setCartData(currentCart)
+        }
+        } catch (error) {
+        console.log(error)
+        }
+    }
+
+    const handleSubtractQuantity = async (pack) => {
+        try {
+            let cart = localStorage.getItem("items")
+            const obj = {
+            type: pack.type,
+            product: {
+                _id: pack.product._id,
+                name: pack.product.name,
+                displayimage: pack.product.displayimage,
+                price: pack.product.price ? pack.product.price : pack.product.origprice,
+                stock: pack.product.stock,
+            },
+            quantity: pack.quantity
+            }
+
+            if (userData.user) {
+            let token = localStorage.getItem("auth-token")
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/update-subtract-cart/${userData?.user?._id}`, obj, 
+            { headers: { "Content-Type": "application/json", "auth-token": token } })
+            }
+            
+            if (cart !== null) {
+                let currentCart = JSON.parse(localStorage.getItem("items"))
+                let dupe = false
+
+                function duplicateCheck() {
+                    currentCart.map((a, index )=> {
+                        if (a.product._id === pack.product._id){
+                            currentCart[index] = {
+                            type: pack.type,
+                            product: {
+                                _id: pack.product._id,
+                                name: pack.product.name,
+                                displayimage: pack.product.displayimage,
+                                price: pack.product.price ? pack.product.price : pack.product.origprice,
+                                stock: pack.product.stock,
+                            },
+                            quantity: a.quantity-1
+                            }
+                            setUserData({...userData, cartNumber: userData.cartNumber-1})
+                            dupe = true
+                            return dupe
+                        }
+                        return dupe
+                    })
+                }
+                duplicateCheck()
+                if (dupe===false) {
+                    currentCart.push(obj)
+                    setUserData({...userData, cartNumber: userData.cartNumber-1})
+                }
+                localStorage.setItem("items", JSON.stringify(currentCart))
+                setCartData(currentCart)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    function toastSuccessNotification(props) {
+        toast.success(`Removed ${props} to your cart.`, {
+        position: "top-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
         })
+    }
 
-        let total = 0
-        if (summary.length>1) {
-          for (let i=0; i<summary.length; i++){
-            total = summary[i] + total
-          }
+    function toastErrorNotification() {
+        toast.error('An error happened while removing an item to your cart.', {
+        position: "top-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        })
+    }
+
+    async function handleRemoveItem(prop1, prop2) {
+        if (userData.user) {
+        let token = localStorage.getItem("auth-token")
+        const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/update-remove-cart-item/${userData?.user?._id}`, prop1, 
+        { headers: { "Content-Type": "application/json", "auth-token": token } })
+        if (res.data===true) {
+            toastSuccessNotification(prop1.name) 
+        } else {
+            toastErrorNotification()
         }
-        if (summary.length=1) {
-          total = summary[0]
         }
-        setCartTotal(total)
-      } catch (error) {
-        console.error('Error computing data:', error);
-      }
-    };
-    computeTotal();
-  }, [cartData]);
 
-  function handleRemoveItem(props) {
-      let currentCart = JSON.parse(localStorage.getItem("items"))
-      currentCart.map((a)=> {
-        if (a.product.productid === props.productid){
-          currentCart.pop(props)
+        let currentCart = JSON.parse(localStorage.getItem("items"))
+        const filteredCart = currentCart.filter((a)=> a.product._id!==prop1._id)
+        localStorage.setItem("items", JSON.stringify(filteredCart))
+        setUserData({...userData, cartNumber: userData.cartNumber-prop2})
+        setCartData(filteredCart)
+        if (!userData.user) {
+        toastSuccessNotification(prop1.name)
         }
-      })
-      localStorage.setItem("items", JSON.stringify(currentCart));
-  }
+    }
 
-  return (
-    <div>
-      <div>
-        <Navbar />
-      </div>
+    return (
+        <div className='bg-gray-100'>
+            <div className="container mx-auto grid sm:grid-cols-2 gap-4 h-auto p-4 sm:p-8">
+                <CheckoutDetails cartData={cartData} cartTotal={cartTotal}/>
+                <div className='p-4'>
+                    <header className="text-center my-4">
+                        <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Order Summary</h1>
+                    </header>
+                    {cartData.length>0 ? 
+                        <ul>
+                        {cartData.map((item, index) => (
+                            <li key={index} className="border-b border-gray-200 py-4 grid grid-cols-3 items-center gap-4">
+                                <div className='col-span-2 flex items-center gap-4'>
+                                <img className='h-24 w-24 rounded-lg' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${item.product.displayimage}.jpg`}/>
+                                <div>
+                                    <h3 className="text-sm font-semibold text-gray-900">{item.product.name}</h3>
+                                    <dl className="flex gap-2 text-xs text-gray-600">
+                                        <dt className="inline">Price:</dt>
+                                        <dd className="inline">₱ {item.product?.price ? item.product.price : item.product.origprice}.00</dd>
+                                    </dl>
+                                    <p className='py-2'><b>{item.product.stock}</b> <span className='text-xs'>items left</span></p>
+                                </div>
+                                </div>
 
-      <div>
-        <section>
-          <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-            <div className="mx-auto max-w-3xl">
-              <header className="text-center">
-                <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Your Cart</h1>
-              </header>
+                                <div className='col-span-1 grid gap-2 items-center justify-center min-w-lg'>
+                                <label htmlFor="quantity-input" className="block text-sm text-center font-medium text-gray-900 dark:text-white">Quantity:</label>
+                                <div className="flex items-center text-center gap-2">
+                                    <div className="relative flex items-center justify-center max-w-[8rem]">
+                                        <button onClick={()=>{
+                                                        if (item.quantity>1) {
+                                                            handleSubtractQuantity(item)
+                                                        } else {
+                                                            handleRemoveItem(item.product, item.quantity)
+                                                        }
+                                                    }} type="button" id="decrement-button" data-input-counter-decrement="quantity-input" className={`${item.quantity>1 ? 'hover:bg-gray-200 dark:hover:bg-gray-600' : null}bg-gray-100 dark:bg-gray-700  dark:border-gray-600  border border-gray-300 rounded-s-lg p-2 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none`}>
+                                            <svg className="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                                <path stroke="currentColor" d="M1 1h16"/>
+                                            </svg>
+                                        </button>
+                                        <input readOnly value={item.quantity} type="number" id={`quantity-input`+item.product?._id} data-input-counter aria-describedby="helper-text-explanation" className="bg-gray-50 border-x-0 border-gray-300 h-8 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-center" placeholder="99" required/>
+                                        <button onClick={()=>handleAddQuantity(item)} disabled={item.quantity<item.product.stock ? false : true} type="button" id="increment-button" data-input-counter-increment="quantity-input" className={`${item.quantity<item.product.stock ? 'hover:bg-gray-200' : null} bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 border border-gray-300 rounded-e-lg p-2 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none`}>
+                                            <svg className="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                                <path stroke="currentColor" d="M9 1v16M1 9h16"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
 
-              <div className="mt-8">
-                <ul className="space-y-4">
-                {cartData.map((item, index) => (
-                    <li key={index} className="flex items-center gap-4">
-                        <img src={item.image} alt={item.product.pname} className="h-16 w-16 rounded object-cover" />
-                        <div>
-                        <h3 className="text-sm text-gray-900">{item.product.pname}</h3>
-                        <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
-                            <div>
-                            <dt className="inline">Price:</dt>
-                            <dd className="inline">{item.product.pprice}</dd>
-                            </div>
-                        </dl>
-                        </div>
-                        <div className="flex flex-1 items-center justify-end gap-2">
-                        <form className=''>
-                            <label htmlFor={`qty${index}`} className="sr-only"> Quantity </label>
-                            <input
-                            type="number"
-                            min="1"
-                            defaultValue={item?.quantity}
-                            id={`qty${index}`}
-                            className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-                            />
-                        </form>
-                        <button onClick={()=>handleRemoveItem(item?.product)} className="text-gray-600 transition hover:text-red-600">
-                            <span className="sr-only">Remove item</span>
-                            <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            className="h-4 w-4"
-                            >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                            />
-                            </svg>
-                        </button>
-                        </div>
-                    </li>
-                    ))}
-                </ul>
-
-            <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
-                <div className="mt-8 flex justify-end  border-gray-100 pt-8">
-                    <div className="w-screen max-w-lg space-y-4">
-                        <dl className="space-y-0.5 text-sm text-gray-700">
-
-                        <div className="flex justify-between !text-base font-medium">
-                            <dt>Total</dt>
-                            <dd>{cartTotal}</dd>
-                        </div>
-                        </dl>
-
-                        <div className="flex justify-end">
-                        <a href="#" className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600">
-                            Checkout
-                        </a>
+                                </div>
+                            </li>
+                        ))}
+                        </ul>
+                    :null}
+                    <div className="flex justify-end border-t border-slate-500 pt-8">
+                        <div className="w-auto space-y-4">
+                            <dl className="space-y-0.5 text-sm text-gray-700">
+                                <div className="flex gap-6 justify-between text-sm ">
+                                    <dt>Subtotal: </dt>
+                                    <dd className='font-bold text-black'>₱ <b>{cartTotal}.00</b></dd>
+                                </div>
+                                {cartData.length>0 ? 
+                                    <div className="flex gap-6 justify-between text-sm ">
+                                        <dt>Shipping: </dt>
+                                        <dd className='font-bold text-black'>₱ <b>40.00</b></dd>
+                                    </div>
+                                :null}
+                                <div className="flex gap-6 border-t py-2 justify-between !text-base font-medium">
+                                    <dt>Total: </dt>
+                                    <dd className='font-bold text-black'>₱ <b>{cartTotal}.00</b></dd>
+                                </div>
+                            </dl>
                         </div>
                     </div>
                 </div>
-                </div>
-              </div>
             </div>
-          </div>
-        </section>
-      </div>
-
-      <div>
-        <Footer />
-      </div>
-    </div>
-  );
+            <ToastContainer/>
+        </div>
+    )
 }
 
-export default CartDetails;
+export default CartDetails

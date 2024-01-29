@@ -6,6 +6,8 @@ import Register from '../Modals/EmpRegister';
 import DeleteAccountModal from '../Modals/DeleteAccount';
 import EditAccount from '../Modals/EditAccount';
 import { IoPersonCircleOutline } from "react-icons/io5";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UserAccountsTable() {
     const [ isOpen, setIsOpen ] = useState(false)
@@ -72,7 +74,7 @@ export default function UserAccountsTable() {
     }
 
     return (
-        <div className='h-auto w-full container mx-auto my-16 sm:p-10 py-4 px-4'>
+        <div className='h-auto w-full my-16 sm:p-10 py-4 px-4'>
             <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>User Accounts</h1>
             {isOpen && (
                 <Register isOpen={isOpen} setIsOpen={setIsOpen} dateRange={dateRange} setDateRange={setDateRange}/>
@@ -159,22 +161,13 @@ export default function UserAccountsTable() {
                                 Picture
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                First Name
+                                Full Name
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Last Name
+                                Designation
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Department
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Job
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Email
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Contact Number
+                                Contact Information
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Date Registered
@@ -198,29 +191,22 @@ export default function UserAccountsTable() {
                                             </th>
                                             <td className="px-6 py-4">
                                                 {a?.displayimage ? 
-                                                    <span className="h-12 w-12 cursor-pointer overflow-hidden rounded-full">
-                                                        <img className='w-full h-full rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.displayimage}.jpg`}></img>
-                                                    </span>
+                                                    <div className="h-12 w-12 overflow-hidden rounded-full">
+                                                        <img className='h-full w-full rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.displayimage}.jpg`}></img>
+                                                    </div>
                                                     :
                                                     <IoPersonCircleOutline className='h-12 w-12'/>
                                                 }
                                             </td>
                                             <td className="px-6 py-4">
-                                                {a.firstname}
+                                                {a.firstname+" "+a.lastname}
                                             </td>
                                             <td className="px-6 py-4">
-                                                {a.lastname}
+                                                {a.job}<br/>
+                                                {a.department ? `(${a.department})`:null}
                                             </td>
                                             <td className="px-6 py-4">
-                                                {a.department}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {a.job}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {a.email}
-                                            </td>
-                                            <td className="px-6 py-4">
+                                                {a.email}<br/>
                                                 {a.phone}
                                             </td>
                                             <td className="px-6 py-4">
@@ -261,6 +247,7 @@ export default function UserAccountsTable() {
                     </li>
                 </ul>
             </nav>
+            <ToastContainer/>
         </div>
     )
 }

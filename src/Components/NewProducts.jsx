@@ -1,20 +1,20 @@
 import React from "react"
 import { Link } from 'react-router-dom';
-import image1 from '../assets/Jelly1.jpg';
-import image2 from '../assets/18.jpg';
-import image3 from '../assets/20.jpg';
+import image1 from '../assets/Compressed-Webp/Jelly1-min.webp';
+import image2 from '../assets/Compressed-Webp/18-min.webp';
+import image3 from '../assets/Compressed-Webp/20-min.webp';
 
 export default function NewProducts() {
 
     return (
-        <div className="min-h-screen h-full sm:mt-24 mt-8 bg-blue-300 sm:px-10 px-4">
-            <div className="container mx-auto min-h-screen h-full w-full sm:pt-0 pt-16 md:grid-cols-2 md:grid items-center grid">
-                <div className="h-full flex sm:p-12 py-8 w-full items-center">
+        <div className="min-h-screen h-full sm:mt-16 mt-8 bg-blue-300">
+            <div className="container mx-auto max-w-6xl  min-h-screen h-full w-full sm:pt-0 pt-16 md:grid-cols-2 md:grid items-center grid">
+                <div className="h-full flex sm:p-12 py-8 sm:px-0 px-4 w-full items-center">
                     <div className="">
                         <h1 className="font-bold lg:text-7xl md:text-5xl text-5xl sm:text-left text-center">3 New Products Available</h1>
                         <p className="sm:text-3xl text-lg sm:mt-6 mt-2 text-white font-semibold sm:text-left text-center">Prepare to be transformed!</p>
-                        <div className="grid justify-center sm:justify-start sm:flex">
-                            <Link to="/product-details" className="h-auto px-12 py-3 mt-8 text-sm font-medium text-white transition bg-gray-800 border border-gray-800 rounded hover:shadow hover:bg-gray-900 focus:outline-none focus:ring">Learn More</Link>
+                        <div className="grid justify-center sm:justify-start sm:flex my-2">
+                            <Link to="/product-details" className="relative text-center text-sm font-semibold py-3 w-auto sm:px-12 px-1 rounded-md before:bg-yellow-200 before:-z-10 bg-slate-900 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden">Learn More</Link>
                         </div>
                     </div>
                 </div>

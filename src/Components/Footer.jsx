@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from "axios"
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa6";
-import img1 from '../assets/Klued-logo.png';
+import img1 from '../assets/Compressed-Webp/Klued-logo-min.webp';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,7 +14,6 @@ export default function Footer() {
     try {
       const loadingNotif = async function myPromise() {
         const passEmail = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/emails/submit-email`, {email})
-        console.log(passEmail.data)
         setEmail("")
       }
       toast.promise(
@@ -103,7 +102,6 @@ export default function Footer() {
           <h1 className='text-slate-400 text-sm'>© 2023 Klued. All rights reserved.</h1>
         </div>
       </div>
-      <ToastContainer />
     </div>
   )
 }

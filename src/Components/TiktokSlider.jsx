@@ -1,97 +1,39 @@
-import React, {useState, useEffect, useRef } from "react"
-import video1 from '../assets/video1.mp4';
-import video2 from '../assets/video2.mp4';
-import video3 from '../assets/video3.mp4';
-import video4 from '../assets/video4.mp4';
-import video5 from '../assets/video5.mp4';
-import video6 from '../assets/video6.mp4';
-import video7 from '../assets/video7.mp4';
-import video8 from '../assets/video8.mp4';
+import React, {useState, useRef } from "react";
 
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
-import { IoClose } from "react-icons/io5"
-import { GoMute, GoUnmute } from "react-icons/go"
-import { FaPlay, FaPause } from "react-icons/fa6"
-import { Progress } from "@material-tailwind/react"
-
-export default function TiktokSlider() {
-    const ref = useRef(null);
-    const vidRef = useRef(null);
-    const videos = [video1, video2, video3, video4, video5, video6, video7, video8]
-    const [devidedVideos, setDevidedVideos] = useState([])
-    const [ page, setPage ] = useState(0)
-    const [ videoPlayer, setVideoPlayer ] = useState(false)
-    const [ showIcon, setShowIcon ] = useState(false)
-    const [ vidMuted, setVidMuted ] = useState(false)
-    const [stop, setStop] = useState(true)
-    const [progress, setProgress] = useState(0)
+export default function TiktokSlider({videos, videoPlayer, setVideoPlayer, setPage}) {
+    const ref = useRef(null)
     const [remainingScroll, setRemainingScroll] = useState(window.innerWidth)
-  
-    const handleVideo = () => {
-        setStop(!stop)
-        if (stop === true) {
-            vidRef.current.pause()
-            setShowIcon(true)
-        } else {
-            vidRef.current.play()
-            //vidRef.current.muted = true;
-            setShowIcon(true)
-            const show = setTimeout(() => {
-                // After 3 seconds set the show value to false
-                setShowIcon(false)
-            }, 800)
-            show
-        }
-    }
 
     const scroll = (scrollOffset) => {
         setRemainingScroll(ref.current.scrollLeft)
         ref.current.scrollLeft += scrollOffset
     }
-    
-    useEffect(()=> {
-        const setSliderArray = async ()=> {
-            try {
-                let index = 0
-                let length = videos.length
-                let size = 1
-                setDevidedVideos([])
-                let slice = (source, index) => source.slice(index, index + size)
-                while (index < length) {
-                    let temp = [slice(videos, index)]
-                    setDevidedVideos(prev=>prev.concat(temp))
-                    index += size
-                }
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        setSliderArray()
-    }, [])
 
     return (
         <>
-        <div className="h-full w-full bg-blue-400 ">
+        <div className="h-full w-full bg-blue-400 overflow-hidden">
             <h1 className="text-white font-bold text-5xl text-center py-2">Tiktok Videos</h1>
-            <div className="sm:min-h-screen sm:h-[80vh] h-[50vh] w-full bg-blue-400 relative z-10 grid items-center">
-                <div ref={ref} className="sm:h-[70vh] h-[40vh] w-full flex overflow-x-scroll no-scrollbar scroll-smooth px-2 gap-2">
+            <div className="h-auto py-6 w-full container mx-auto max-w-6xl bg-blue-400 relative z-10 grid items-center">
+                <div ref={ref} className="sm:h-[70vh] h-[70vh] w-full flex items-center overflow-x-scroll no-scrollbar scroll-smooth px-2 gap-2">
                     {videos.map((video, index)=> {
                         return (
-                            <div key={index} className="sm:h-[65vh] h-[40vh] sm:w-[280px] w-[225px] flex-shrink-0 bg-gray-400">
+                            <div key={index} className="sm:h-[65vh] h-[70vh] sm:w-[260px] w-[280px] flex-shrink-0 bg-gray-400 rounded-md overflow-hidden">
                                 <video
                                     className="h-full w-full object-cover cursor-pointer"
                                     preload="metadata"
                                     muted
                                     loop
                                     //poster="URL" for video thumbnail
-                                    onMouseOver={event => event.target.play()}
+                                    onMouseOver={event => {
+                                        event.target.play()
+                                    }}
                                     onMouseOut={event => event.target.pause()}
                                     onClick={()=> {
                                         setPage(index)
                                         setVideoPlayer(true)
                                     }}
                                 >
-                                    <source src={video} type="video/mp4" />
+                                    <source src={video.video} type="video/mp4" />
                                 </video>
                             </div>
                         )
@@ -99,31 +41,38 @@ export default function TiktokSlider() {
                 </div>
                 {window.innerWidth >=639 ? 
                     <>
-
-                {videoPlayer===false ?
-                    <>
-                        {remainingScroll===0 ? 
-                            <div className="absolute top-1/2 left-0 -translate-y-1/2 z-10">
-                                <button className="sm:h-[50px] sm:w-[50px] h-[40px] w-[40px] rounded-full bg-gray-200 flex justify-center items-center" 
-                                    onClick={()=>scroll(-window.innerWidth)}>
-                                    <FaChevronLeft className='sm:h-[30px] sm:w-[30px] h-[25px] w-[25px] text-black'/>
-                                </button>
-                            </div>
-                        :null}
-                        {remainingScroll!==0 ?
-                            <div className="absolute top-1/2 right-0 -translate-y-1/2 z-10">
-                                <button className="sm:h-[50px] sm:w-[50px] h-[40px] w-[40px] rounded-full bg-gray-200 flex justify-center items-center" 
-                                    onClick={()=>scroll(window.innerWidth)}>
-                                    <FaChevronRight className='sm:h-[30px] sm:w-[30px] h-[25px] w-[25px] text-black'/>
-                                </button>
-                            </div>
+                        {videoPlayer===false ?
+                            <>
+                                {remainingScroll===0 ? 
+                                    <div className="absolute top-1/2 -left-6 -translate-y-1/2 z-10">
+                                        <button className="sm:h-[50px] sm:w-[50px] h-[40px] w-[40px] rounded-full bg-gray-600 p-0.2 flex justify-center items-center" 
+                                            onClick={()=>scroll(-window.innerWidth)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12zm7.58 0l5.988-5.995 1.414 1.416-4.574 4.579 4.574 4.59-1.414 1.416-5.988-6.006z"/></svg>
+                                        </button>
+                                    </div>
+                                :null}
+                                {remainingScroll!==0 ?
+                                    <div className="absolute top-1/2 -right-6 -translate-y-1/2 z-10">
+                                        <button className="sm:h-[50px] sm:w-[50px] h-[40px] w-[40px] rounded-full bg-gray-600 p-0.2 flex justify-center items-center" 
+                                            onClick={()=>scroll(window.innerWidth)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.568 18.005l-1.414-1.415 4.574-4.59-4.574-4.579 1.414-1.416 5.988 5.995-5.988 6.005z"/></svg>
+                                        </button>
+                                    </div>
+                                :null}
+                            </>
                         :null}
                     </>
                 :null}
-                                    </>
-                :null}
                 
                 {videoPlayer===true ? 
+                    null
+                :null}
+            </div>
+        </div>
+        </>
+    )
+}
+/*
                     <div className="absolute inset-0 top-0">
                         <div className="sm:min-h-screen h-[50vh] w-full bg-black flex justify-center relative overflow-hidden z-0 items-center backdrop-blur-sm bg-opacity-70">
                             <div className='absolute top-0 h-10 w-10 right-0 sm:text-4xl text-3xl text-gray-500 cursor-pointer sm:m-4 mt-2' onClick={()=> {
@@ -305,9 +254,4 @@ export default function TiktokSlider() {
                             :null}
                         </div>
                     </div>
-                :null}
-            </div>
-        </div>
-        </>
-    )
-}
+*/

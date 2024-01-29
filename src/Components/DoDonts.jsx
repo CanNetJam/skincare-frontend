@@ -4,12 +4,12 @@ import { PiNumberCircleOneFill, PiNumberCircleTwoFill, PiNumberCircleThreeFill, 
 export default function DoDonts({proddo, proddont}) {
     return (
         <>
-            <div className="min-h-screen h-full w-full sm:py-10 grid bg-blue-300 sm:bg-cover sm:bg-[linear-gradient(to_right,rgba(147,197,253,1),rgba(255,255,255,0)),url('https://images.unsplash.com/photo-1521840233161-295ed621e056?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
-                <div className="h-[20vh] w-full sm:pl-12 pl-4 pt-8 sm:bg-none bg-cover bg-[linear-gradient(to_right,rgba(147,197,253,1),rgba(255,255,255,0)),url('https://images.unsplash.com/photo-1521840233161-295ed621e056?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
+            <div className="min-h-screen h-full w-full grid justify-center p-2 sm:py-10 bg-blue-300 sm:bg-cover sm:bg-[linear-gradient(to_right,rgba(147,197,253,1),rgba(255,255,255,0)),url('https://images.unsplash.com/photo-1521840233161-295ed621e056?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
+                <div className="h-[20vh] w-full max-w-6xl pt-8 sm:bg-none bg-cover bg-[linear-gradient(to_right,rgba(147,197,253,1),rgba(255,255,255,0)),url('https://images.unsplash.com/photo-1521840233161-295ed621e056?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
                     <h1 className="text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.5)] sm:text-5xl text-4xl font-bold">Klued products do's and don'ts</h1>
                 </div>
 
-                <div className="h-full w-full grid sm:container sm:mx-auto sm:grid-cols-2">
+                <div className="h-full w-full sm:max-w-6xl grid sm:container sm:mx-auto sm:grid-cols-2">
 
                     <div className="sm:rounded-tl-[100px] border-b-2 sm:border-b-0 container mx-auto grid bg-white sm:border-r-2 border-blue-300">
                         <div className="grid gap-2 p-6">

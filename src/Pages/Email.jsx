@@ -4,7 +4,7 @@ import moment from "moment";
 import { addDays } from 'date-fns';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 
 export default function Email() {
     const [ menu, setMenu ] = useState(false)
@@ -19,6 +19,24 @@ export default function Email() {
     const [ pageEntries, setPageEntries ] = useState(100)
     const [ total, setTotal ] = useState(0)
     const [ emailData, setEmailData] = useState([])
+    const [ openPageCount, setOpenPageCount ] = useState(false)
+
+    useEffect(()=> {
+        const windowOpen = () => {   
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            })
+        }
+        windowOpen()
+    }, [pageEntries, page])
+
+    useEffect(()=> {
+        const resetPage = () => {   
+            setPage(0)
+        }
+        resetPage()
+    }, [pageEntries])
 
     useEffect(() => {
         const getEmails = async () => {
@@ -176,7 +194,37 @@ export default function Email() {
 
             </div>
             <nav className="flex w-full items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span className="font-semibold text-gray-900 dark:text-white">1-{pageEntries<total ? pageEntries : total}</span> of <span className="font-semibold text-gray-900 dark:text-white">{total}</span></span>
+                <div>
+                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
+                        <button onClick={()=> {
+                            if (openPageCount===false) {
+                                setOpenPageCount(true)
+                            } else {
+                                setOpenPageCount(false)
+                            }
+                        }}className="font-semibold text-gray-900 dark:text-white px-3 rounded-md bg-gray-200 relative">
+                            {(pageEntries*(page+1))-(pageEntries-1)}-{pageEntries*(page+1)}
+                            
+                            {openPageCount===true && (
+                                <div id="dropdown" className="absolute top-5 left-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-auto dark:bg-gray-700">
+                                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+                                        <li>
+                                            <button onClick={()=>setPageEntries(10)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">10</button>
+                                        </li>
+                                        <li>
+                                            <button onClick={()=>setPageEntries(50)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">50</button>
+                                        </li>
+                                        <li>
+                                            <button onClick={()=>setPageEntries(100)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">100</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            )}
+                        </button> of 
+                        <span className="font-semibold text-gray-900 dark:text-white">{" "+total}</span>
+                    </span>
+                </div>
+
                 <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                     <li>
                         <button disabled={page===0? true : false} onClick={()=>setPage(prev=>prev-1)} className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg ${page!==0? 'hover:bg-gray-100 hover:text-gray-700' : null } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Previous</button>
