@@ -73,6 +73,63 @@ function Home() {
       ]
     },  
   ]
+  const prodVideos = [
+    {
+      video: video1,
+      item: [
+        "658a91fd5ac2ac596c97c126",
+      ]
+    }, 
+    {
+      video: video2,
+      item: [
+        "658a700a24f42f89038e840e",
+        "658a9f93d90d279a936ea474"
+      ]
+    }, 
+    {
+      video: video3,
+      item: [
+        "658b7bb1b6b310876eb11c5d",
+      ]
+    }, 
+    {
+      video: video4,
+      item: [
+        "658b7bb1b6b310876eb11c5d",
+      ]
+    }, 
+    {
+      video: video5,
+      item: [
+        "658a700a24f42f89038e840e",
+        "658b690d1e6468d2fe2969fb",
+        "658a700a24f42f89038e840e",
+        "658a9f93d90d279a936ea474",
+        "658a91fd5ac2ac596c97c126",
+        "658a8a3619223a68746e19d6"
+      ]
+    }, 
+    {
+      video: video6,
+      item: [
+        "658b7bb1b6b310876eb11c5d",
+      ]
+    },
+    {
+      video: video7,
+      item: [
+        "658b7bb1b6b310876eb11c5d",
+      ]
+    }, 
+    {
+      video: video8,
+      item: [
+        "658a9f93d90d279a936ea474",
+        "658a9a3f7afdf3e06d405dec"
+      ]
+    },  
+  ]
   const [devidedVideos, setDevidedVideos] = useState([])
   const [ page, setPage ] = useState(0)
   const [ videoPlayer, setVideoPlayer ] = useState(false)
@@ -166,7 +223,7 @@ function Home() {
       )}
       <NewProducts />
       <TiktokSlider
-        videos={videos}
+        videos={import.meta.env.DEV ? videos : prodVideos}
         setVideoPlayer={setVideoPlayer}
         videoPlayer={videoPlayer}
         setPage={setPage}

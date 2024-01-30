@@ -50,7 +50,7 @@ const App = () => {
             let cart = localStorage.getItem("items")
 
             let num1 = 0 
-            for(let i =0; i<JSON.parse(cart).length; i++){
+            for(let i =0; i<JSON.parse(cart)?.length; i++){
                 num1 = num1+JSON.parse(cart)[i].quantity
             }
             
