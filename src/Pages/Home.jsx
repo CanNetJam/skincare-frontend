@@ -198,13 +198,14 @@ function Home() {
   useEffect(()=> {
     const setSliderArray = async ()=> {
         try {
+            let collection = import.meta.env.DEV ? videos : prodVideos
             let index = 0
-            let length = videos.length
+            let length = import.meta.env.DEV ? videos.length : prodVideos.length
             let size = 1
             setDevidedVideos([])
             let slice = (source, index) => source.slice(index, index + size)
             while (index < length) {
-                let temp = [slice(videos, index)]
+                let temp = [slice(collection, index)]
                 setDevidedVideos(prev=>prev.concat(temp))
                 index += size
             }
