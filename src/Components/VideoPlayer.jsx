@@ -16,23 +16,23 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
     const [progress, setProgress] = useState(0)
     const elmnt = document.getElementById("items")
     const ref = useRef(null)
-    const [remainingScroll, setRemainingScroll] = useState(elmnt?.offsetWidth)
+    const [remainingScroll, setRemainingScroll] = useState(ref?.current?.innerWidth)
     const [ quantity, setQuantity ] = useState(1)
 
     const scroll = (scrollOffset) => {
-        setRemainingScroll(ref.current.scrollLeft)
         ref.current.scrollLeft += scrollOffset
+        setRemainingScroll(ref.current.scrollLeft)    
     }
 
     useEffect(() => {
-      setRemainingScroll(elmnt?.offsetWidth)
-      const getwidth = () => {
-        setRemainingScroll(elmnt?.offsetWidth)
-      }
-      window.addEventListener("resize", getwidth)
-      return () => window.removeEventListener("resize", getwidth)
+        setRemainingScroll(ref?.current?.scrollLeft)
+        const getwidth = () => {
+            setRemainingScroll(ref?.current?.scrollLeft)
+        }
+        window.addEventListener("resize", getwidth)
+        return () => window.removeEventListener("resize", getwidth)
     }, [productData])
-
+    
     useEffect(() => {
         document.body.style.overflow = "hidden"
         return () => {
@@ -42,27 +42,27 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
 
     function toastSuccessNotification(props) {
         toast.success(`Added ${props} to your cart.`, {
-          position: "top-left",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+            position: "top-left",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
         })
     }
 
     function toastErrorNotification() {
         toast.error('An error happened while adding an item to your cart.', {
-          position: "top-left",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+            position: "top-left",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
         })
     }
 
@@ -273,7 +273,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
 
                                         <div className='absolute bottom-4'>
                                             <div className='h-50 sm:w-[350px] w-screen relative'>
-                                                <div ref={ref} id='items' className={`px-6 flex overflow-x-scroll no-scrollbar scroll-smooth gap-4`}>
+                                                <div ref={ref} id='items' className="px-6 flex overflow-x-auto scroll-smooth gap-4 no-scrollbar">
                                                     {sentProductData.length>0 ? 
                                                         <>
                                                             {sentProductData.map((a, index)=> {
@@ -296,18 +296,18 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                             })}
                                                             {sentProductData.length>1 ? 
                                                                 <>
-                                                                    {remainingScroll===0 ? 
+                                                                    {remainingScroll>0 ? 
                                                                         <div className="absolute top-1/2 left-0 -translate-y-1/2 z-10">
                                                                             <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center" 
-                                                                                onClick={()=>scroll(-elmnt?.offsetWidth)}>
+                                                                                onClick={()=>scroll(-(elmnt?.offsetWidth-20))}>
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12zm7.58 0l5.988-5.995 1.414 1.416-4.574 4.579 4.574 4.59-1.414 1.416-5.988-6.006z"/></svg>
                                                                             </button>
                                                                         </div>
                                                                     :null}
-                                                                    {remainingScroll>0 ?
+                                                                    {remainingScroll===0 ?
                                                                         <div className="absolute top-1/2 right-0 -translate-y-1/2 z-10">
                                                                             <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center" 
-                                                                                onClick={()=>scroll(elmnt?.offsetWidth)}>
+                                                                                onClick={()=>scroll(elmnt?.offsetWidth-20)}>
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.568 18.005l-1.414-1.415 4.574-4.59-4.574-4.579 1.414-1.416 5.988 5.995-5.988 6.005z"/></svg>
                                                                             </button>
                                                                         </div>

@@ -21,6 +21,7 @@ function Navbar(props) {
         localStorage.setItem("user-type", "")
         localStorage.setItem("user-verified", false)
         localStorage.setItem("items", JSON.stringify([]))
+        setopenMenu(false)
     }
 
     return (
@@ -269,9 +270,9 @@ function Navbar(props) {
                             className='h-10 sm:h-1 w-full flex items-center justify-around'
                             to="/login"
                             >
-                                <span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>
+                                <div className='bg-blue-400 text-white text-center h-10 w-full flex justify-center items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>
                                     Login
-                                </span>
+                                </div>
                             </Link>   
                         }
                         </div>

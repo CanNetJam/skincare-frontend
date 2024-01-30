@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function CartDetails() {
     const { userData, setUserData } = useContext(UserContext)
     const [cartData, setCartData] = useState([])
+    const [subTotal, setSubTotal] = useState(0)
     const [cartTotal, setCartTotal] = useState(0)
 
     useEffect(()=> {
@@ -60,6 +61,7 @@ function CartDetails() {
             if (total===0) {
                 setCartTotal(0)
             } else {
+                setSubTotal(total)
                 setCartTotal(total+40)
             }
         } catch (error) {
@@ -241,8 +243,8 @@ function CartDetails() {
     return (
         <div className='bg-gray-100'>
             <div className="container mx-auto grid sm:grid-cols-2 gap-4 h-auto p-4 sm:p-8">
-                <CheckoutDetails cartData={cartData} cartTotal={cartTotal}/>
-                <div className='p-4'>
+                
+                <div className='order-2'>
                     <header className="text-center my-4">
                         <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Order Summary</h1>
                     </header>
@@ -296,7 +298,7 @@ function CartDetails() {
                             <dl className="space-y-0.5 text-sm text-gray-700">
                                 <div className="flex gap-6 justify-between text-sm ">
                                     <dt>Subtotal: </dt>
-                                    <dd className='font-bold text-black'>₱ <b>{cartTotal}.00</b></dd>
+                                    <dd className='font-bold text-black'>₱ <b>{subTotal}.00</b></dd>
                                 </div>
                                 {cartData.length>0 ? 
                                     <div className="flex gap-6 justify-between text-sm ">
@@ -311,6 +313,9 @@ function CartDetails() {
                             </dl>
                         </div>
                     </div>
+                </div>
+                <div className='order-1'>
+                    <CheckoutDetails cartData={cartData} cartTotal={cartTotal}/>
                 </div>
             </div>
             <ToastContainer/>

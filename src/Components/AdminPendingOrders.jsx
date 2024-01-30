@@ -37,7 +37,7 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                         Phone_number: a.phone,
                         Phone_number2: null,
                         COD: a.amounttotal,
-                        Item_type: "Skin Care",
+                        Item_type: null,
                         Weight_kg: a.items.length*0.2,
                         Length: 1,
                         Width: 1,

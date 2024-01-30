@@ -184,8 +184,8 @@ export default function CheckoutDetails({cartData, cartTotal}) {
                                 <label htmlFor="bordered-radio-2" className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">GCash</label>
                             </div>
                         </div>
-                        <div className="flex justify-end">
-                            <button disabled={delivery==="" || payment==="" ? true : false} type='submit' className={`${delivery==="" || payment==="" ? 'bg-gray-500': ' before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-2 w-full sm:px-3 px-1 font-bold rounded-md`}>
+                        <div className="flex justify-center">
+                            <button disabled={delivery==="" || payment==="" ? true : false} type='submit' className={`${delivery==="" || payment==="" ? 'bg-gray-500': ' before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-2 w-auto sm:px-10 px-1 font-bold rounded-md`}>
                                 Checkout
                             </button>
                         </div>

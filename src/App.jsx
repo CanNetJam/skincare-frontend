@@ -116,10 +116,24 @@ const App = () => {
         isLoggedIn()
     }, [])
 
-    const AuthenticatedRoute = ( children ) => {
+    const AuthenticatedStaffRoute = ( children ) => {
         let token = localStorage.getItem("auth-token")
         if (!token) {
             return <Navigate  to="/login" />
+        }
+        if (userData?.user?.type!=="Staff") {
+            return <Navigate  to="/" />
+        }
+        return children
+    }
+
+    const AuthenticatedCustomerRoute = ( children ) => {
+        let token = localStorage.getItem("auth-token")
+        if (!token) {
+            return <Navigate  to="/login" />
+        }
+        if (userData?.user?.type!=="Customer") {
+            return <Navigate  to="/" />
         }
         return children
     }
@@ -163,21 +177,21 @@ const App = () => {
                 } />
 
                 <Route path="/knowledge-base" element={
-                    AuthenticatedRoute(
+                    AuthenticatedStaffRoute(
                     <Suspense fallback={<Loading />}>
                         <KnowledgeBase />
                     </Suspense>
                     )
                 } />
                 <Route path="/internal-policy" element={
-                    AuthenticatedRoute(
+                    AuthenticatedStaffRoute(
                     <Suspense fallback={<Loading />}>
                         <Policy />
                     </Suspense>
                     )
                 } />
                 <Route path="/orders/:id" element={
-                    AuthenticatedRoute(
+                    AuthenticatedCustomerRoute(
                     <Suspense fallback={<Loading />}>
                         <Orders />
                     </Suspense>
