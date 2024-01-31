@@ -14,24 +14,12 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
     const [ vidMuted, setVidMuted ] = useState(false)
     const [stop, setStop] = useState(true)
     const [progress, setProgress] = useState(0)
-    const elmnt = document.getElementById("items")
     const ref = useRef(null)
-    const [remainingScroll, setRemainingScroll] = useState(ref?.current?.innerWidth)
     const [ quantity, setQuantity ] = useState(1)
 
     const scroll = (scrollOffset) => {
-        ref.current.scrollLeft += scrollOffset
-        setRemainingScroll(ref.current.scrollLeft)    
+        ref.current.scrollLeft = ref.current.scrollLeft + scrollOffset
     }
-
-    useEffect(() => {
-        setRemainingScroll(ref?.current?.scrollLeft)
-        const getwidth = () => {
-            setRemainingScroll(ref?.current?.scrollLeft)
-        }
-        window.addEventListener("resize", getwidth)
-        return () => window.removeEventListener("resize", getwidth)
-    }, [productData])
     
     useEffect(() => {
         document.body.style.overflow = "hidden"
@@ -273,9 +261,8 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
 
                                         <div className='absolute bottom-4'>
                                             <div className='h-50 sm:w-[350px] w-screen relative'>
-                                                <div ref={ref} id='items' className="px-6 flex overflow-x-auto scroll-smooth gap-4 no-scrollbar">
                                                     {sentProductData.length>0 ? 
-                                                        <>
+                                                        <div ref={ref} id='items' className="px-6 flex w-auto overflow-x-auto no-scrollbar scroll-smooth gap-4">
                                                             {sentProductData.map((a, index)=> {
                                                                 return (
                                                                     <div key={index} className='col-span 1 h-42 sm:w-[300px] w-full flex-shrink-0 bg-gray-100 rounded-md p-2'>
@@ -287,7 +274,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                                                 <Link target='_blank' to={a?.price ? `/details/product/${a?._id}` : `/details/package/${a?._id}`} className='font-semibold hover:underline line-clamp-2'>{a?.name}</Link>
                                                                                 <p className="tinyText">₱ {a?.price ? a?.price : a?.origprice}.00</p>
                                                                                 <div className='h-auto w-full flex items-end'>
-                                                                                    <button onClick={()=>handleAddToCart(a)} className="relative text-center py-1 h-full w-full sm:px-3 px-1 font-bold rounded-lg before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-white transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden">Add to Cart</button>
+                                                                                    <button onClick={()=>handleAddToCart(a)} disabled={a.stock<1 ? true : false} className={`${a.stock<1 ? 'bg-gray-400' : 'before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-white transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-1 h-full w-full sm:px-3 px-1 font-bold rounded-lg `}>{a.stock<1 ? "Out of Stock" : "Add to Cart"}</button>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -296,27 +283,27 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                             })}
                                                             {sentProductData.length>1 ? 
                                                                 <>
-                                                                    {remainingScroll>0 ? 
+                                                                    {ref?.current?.scrollLeft>0 ? 
                                                                         <div className="absolute top-1/2 left-0 -translate-y-1/2 z-10">
                                                                             <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center" 
-                                                                                onClick={()=>scroll(-(elmnt?.offsetWidth-20))}>
+                                                                                onClick={()=>scroll(-(ref?.current?.clientWidth))}>
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12zm7.58 0l5.988-5.995 1.414 1.416-4.574 4.579 4.574 4.59-1.414 1.416-5.988-6.006z"/></svg>
                                                                             </button>
                                                                         </div>
                                                                     :null}
-                                                                    {remainingScroll===0 ?
+                                                                    {ref?.current?.scrollLeft<(ref?.current?.scrollWidth - ref?.current?.clientWidth) ?
                                                                         <div className="absolute top-1/2 right-0 -translate-y-1/2 z-10">
                                                                             <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center" 
-                                                                                onClick={()=>scroll(elmnt?.offsetWidth-20)}>
+                                                                                onClick={()=>scroll(ref?.current?.clientWidth)}>
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.568 18.005l-1.414-1.415 4.574-4.59-4.574-4.579 1.414-1.416 5.988 5.995-5.988 6.005z"/></svg>
                                                                             </button>
                                                                         </div>
                                                                     :null}
                                                                 </>
                                                             :null}
-                                                        </>
+                                                        </div>
                                                     :null}
-                                                </div>
+
                                             </div>
                                         </div>
                                         {//Progress bar
