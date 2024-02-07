@@ -3,11 +3,15 @@ import { CSVLink } from "react-csv";
 import moment from "moment";
 import DateRangePickerComp from './DateRangePickerComp';
 import EditOrder from '../Modals/EditOrder';
+import { Link } from 'react-router-dom';
+import PageButtons from './PageButtons';
 
 export default function AdminPendingOrders({orders, page, setPage, pages, pageEntries, total, setPageEntries, tab, deliveryType, setDeliveryType, setDateRange, isEdit, setIsEdit, deliveryStatus, setDeliveryStatus}) {
     const [ openPageCount, setOpenPageCount ] = useState(false)
     const [ convertedOrders, setConvertedOrders ] = useState([])
     const [ toEdit, setToEdit ] = useState("")
+    const [ pageButtons, setPageButtons] = useState([])
+    const [ displayedPages, setDisplayedPages ] = useState(10)
 
     useEffect(()=>{
         const convertOrders = () => {
@@ -51,20 +55,6 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
         }
         convertOrders()
     }, [orders])
-
-    function createElements(pages, page){
-        var elements = [];
-        for(let i =0; i < pages; i++){
-            elements.push(
-                <li key={i}>
-                    <button disabled={page===i ? true : false} onClick={()=>setPage(i)} className={`${page===i ? 'text-blue-600 bg-blue-50' : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700' } flex items-center justify-center px-3 h-8 leading-tight  border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>
-                        {i+1}
-                    </button>
-                </li>
-            )
-        }
-        return elements;
-    }
     
     return (
         <div className='h-full sm:w-auto w-screen pb-6 px-4'>
@@ -112,7 +102,26 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                             </div>
                         </div>
                     </div>
-                :null}
+                :
+                    <div className='group'>
+                        <div className="relative bg-blue-400 text-white text-sm font-bold py-2 px-4 min-w-[150px] whitespace-nowrap flex justify-center items-center">
+                            {deliveryStatus!== "" ? 
+                                <>
+                                    {deliveryStatus}
+                                    <svg onClick={()=>setDeliveryStatus("")} className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill='white' d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
+                                </>
+                            : "Select Status"}
+                            <div className="absolute left-0 top-9 w-full bg-gray-200 text-black z-10 hidden group-hover:block">
+                                <label onClick={()=>setDeliveryStatus("Delivered")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                    Delivered
+                                </label>
+                                <label onClick={()=>setDeliveryStatus("Cancelled")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                    Cancelled
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                }
                 <div className='w-full flex sm:justify-end'>
                     <CSVLink 
                         filename={`All ${tab} Orders (${moment(Date.now()).format('MM-DD-YYYY')}).csv`}     
@@ -140,10 +149,10 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                                 Status
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Oreder Details
+                                Order Details
                             </th>
-                            <th scope="col" className="px-6 py-3">
-                                Action
+                            <th scope="col" className="px-6 py-3 text-center">
+                                {deliveryStatus==="Cancelled" ? 'Reason' : 'Action'}
                             </th>
                         </tr>
                     </thead>
@@ -187,20 +196,30 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                                                 <b className='whitespace-nowrap'>Tracking</b>: {a?.trackingnumber ? a.trackingnumber : <i>None</i>}<br/>
                                                 <b className='whitespace-nowrap'>Order Id</b>:{a._id}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap grid w-auto items-center">
-                                                {tab==="Pending Orders" ?
+                                            <td className="px-6 py-4 whitespace-nowrap grid w-auto justify-center items-center">
+                                                {deliveryStatus==="Cancelled" ? 
+                                                <>
+                                                    <p>{a?.reason}</p>
+                                                    <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><Link to={`/order-details/${a._id}`} className='hover:underline cursor-pointer'>View Order Details</Link></button>
+                                                </>
+                                                : 
                                                     <>
-                                                        <button onClick={()=>{
-                                                            setIsEdit(true)
-                                                            setToEdit(a)
-                                                            }} className="font-medium text-blue-500 dark:text-blue-400 hover:underline">Update Status</button>
+                                                        {tab==="Pending Orders" ?
+                                                            <>
+                                                                <button onClick={()=>{
+                                                                    setIsEdit(true)
+                                                                    setToEdit(a)
+                                                                    }} className="font-medium text-blue-500 dark:text-blue-400 hover:underline">Update Status</button>
+                                                            </>
+                                                        :
+                                                            null
+                                                        }
+                                                        {deliveryStatus==="In Transit" || deliveryStatus==="Delivered" ? 
+                                                            <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><a href={`https://www.flashexpress.ph/fle/tracking?se=${a?.trackingnumber}`} target='_blank' className='hover:underline cursor-pointer'>View Pickup Details</a></button>
+                                                        :null}
+                                                        <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><Link to={`/order-details/${a._id}`} className='hover:underline cursor-pointer'>View Order Details</Link></button>
                                                     </>
-                                                :
-                                                    null
                                                 }
-                                                {deliveryStatus==="In Transit" || deliveryStatus==="Delivered" ? 
-                                                    <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><a href={`https://www.flashexpress.ph/fle/tracking?se=${a?.trackingnumber}`} target='_blank' className='hover:underline cursor-pointer'>View Pickup Details</a></button>
-                                                :null}
                                             </td>
                                         </tr>
                                     )
@@ -242,15 +261,15 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                     </span>
                 </div>
 
-                <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                    <li>
-                        <button disabled={page===0? true : false} onClick={()=>setPage(prev=>prev-1)} className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg ${page!==0? 'hover:bg-gray-100 hover:text-gray-700' : null } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Previous</button>
-                    </li>
-                    {createElements(pages, page)}
-                    <li>
-                        <button disabled={page===(pages-1)? true : false} onClick={()=>setPage(prev=>prev+1)} className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg ${page!==(pages-1)? 'hover:bg-gray-100 hover:text-gray-700' : null } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Next</button>
-                    </li>
-                </ul>
+                <PageButtons
+                    page={page}
+                    pages={pages}
+                    setPage={setPage}
+                    displayedPages={displayedPages}
+                    setDisplayedPages={setDisplayedPages}
+                    pageButtons={pageButtons}
+                    setPageButtons={setPageButtons}
+                />
             </nav>
         </div>
     )

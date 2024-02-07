@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import img1 from '../assets/Compressed-Webp/Flash.webp';
 import img2 from '../assets/Compressed-Webp/J&T.webp';
 
-export default function CheckoutDetails({cartData, cartTotal}) {
+export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTotal}) {
     const navigate = useNavigate()
     const { userData, setUserData } = useContext(UserContext)
     const [ firstname, setFirstName ] = useState("")
@@ -58,6 +58,8 @@ export default function CheckoutDetails({cartData, cartTotal}) {
             data.append("delivery", delivery)
             data.append("items", JSON.stringify(cartData))
             data.append("amounttotal", cartTotal)
+            data.append("subtotal", subTotal)
+            data.append("shippingfee", shippingFee)
             
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/submit-order/${userData.user._id}`, data, 
             { headers: { "Content-Type": "application/json", "auth-token": token } })
@@ -164,8 +166,8 @@ export default function CheckoutDetails({cartData, cartTotal}) {
                                 <label className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" htmlFor="radio_1">
                                 <img className="w-14 object-contain" src={img1} alt="Flash logo" />
                                 <div className="ml-5">
-                                    <span className="mt-2 font-semibold">Flash Express</span>
-                                    <p className="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
+                                    <span className="font-semibold">Flash Express</span>
+                                    <p className="text-slate-500 text-sm leading-6">₱{shippingFee}.00</p>
                                 </div>
                                 </label>
                             </div>
@@ -173,7 +175,7 @@ export default function CheckoutDetails({cartData, cartTotal}) {
                         <br/>
 
                         <p className="text-xl font-semibold">Payment Method</p>
-                        <p className="text-gray-400">Decide how you pay your order.</p>
+                        <p className="text-gray-400">Decide how you would like to pay your order.</p>
                         <div className='grid sm:grid-cols-2 gap-4 py-8'>
                             <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
                                 <input onChange={()=>setPayment("Credit / Debit Card")} id="bordered-radio-1" type="radio" name="bordered-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>

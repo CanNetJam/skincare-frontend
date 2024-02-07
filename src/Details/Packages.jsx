@@ -139,7 +139,7 @@ export default function Packages() {
                                                 <img className='rounded-md' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${pack.displayimage}.jpg`}/>
                                             </Link>
                                             <div className='min-h-[80px]'>
-                                                <p className="my-2 text-base font-semibold text-gray-900">{pack.name}</p>
+                                                <p className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{pack.name}</p>
                                             </div>
                                             <div className='flex justify-between'>
                                                 <p className='text-gray-700'>₱ {pack.origprice}.00</p>

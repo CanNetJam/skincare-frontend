@@ -1,36 +1,15 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CancelOrder from '../Modals/CancelOrder';
+import { Link } from 'react-router-dom';
+import PageButtons from './PageButtons';
 
-export default function PendingOrders({orders, page, setPage, pages, pageEntries, total, setPageEntries, tab}) {
+export default function PendingOrders({orders, page, setPage, pages, pageEntries, total, setPageEntries, tab, isEdit, setIsEdit}) {
     const [ openPageCount, setOpenPageCount ] = useState(false)
-
-    function createElements(pages, page){
-        var elements = [];
-        for(let i =0; i < pages; i++){
-            elements.push(
-                <li key={i}>
-                    <button disabled={page===i ? true : false} onClick={()=>setPage(i)} className={`${page===i ? 'text-blue-600 bg-blue-50' : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700' } flex items-center justify-center px-3 h-8 leading-tight  border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>
-                        {i+1}
-                    </button>
-                </li>
-            )
-        }
-        return elements;
-    }
-
-    function toastInfoNotification() {
-        toast.info(`To cancel your order, please contact hello@kluedskincare.com`, {
-            position: "top-right",
-            autoClose: 8000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        })
-    }
+    const [ toEdit, setToEdit ] = useState("")
+    const [ pageButtons, setPageButtons] = useState([])
+    const [ displayedPages, setDisplayedPages ] = useState(10)
 
     function toastInfoNotification2() {
         toast.info(`Coming soon!`, {
@@ -47,6 +26,9 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
 
     return (
         <div className='h-full sm:w-auto w-screen pb-6 px-4'>
+            {isEdit && (
+                <CancelOrder isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit}/>
+            )} 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -63,7 +45,7 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                             <th scope="col" className="px-6 py-3">
                                 Order Details
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-6 py-3 text-center">
                                 Action
                             </th>
                         </tr>
@@ -110,9 +92,20 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                                                     :null}
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 text-right">
+                                            <td className="px-6 py-4 grid whitespace-nowrap text-center">
+                                                <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><Link to={`/order-details/${a._id}`} className='hover:underline cursor-pointer'>View Order Details</Link></button>
+                                                {a.deliverystatus==="In Transit" || a.deliverystatus==="Delivered" ?
+                                                    <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><a href={`https://www.flashexpress.ph/fle/tracking?se=${a?.trackingnumber}`} target='_blank' className='hover:underline cursor-pointer'>View Pickup Details</a></button>
+                                                :null}
                                                 {tab==="Pending Orders" ?
-                                                    <button onClick={()=>toastInfoNotification()} className="font-medium text-red-500 dark:text-red-400 hover:underline">Cancel</button>
+                                                    <>
+                                                        {a.deliverystatus==="Seller Processing" ? 
+                                                            <button onClick={()=>{
+                                                                setIsEdit(true)
+                                                                setToEdit(a)
+                                                            }} className="font-medium text-red-500 dark:text-red-400 hover:underline">Cancel</button>
+                                                        :null}
+                                                    </>
                                                 :
                                                     <button onClick={()=>toastInfoNotification2()} className="font-medium text-blue-500 dark:text-blue-400 hover:underline">Review</button>
                                                 }
@@ -157,15 +150,15 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                     </span>
                 </div>
 
-                <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                    <li>
-                        <button disabled={page===0? true : false} onClick={()=>setPage(prev=>prev-1)} className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg ${page!==0? 'hover:bg-gray-100 hover:text-gray-700' : null } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Previous</button>
-                    </li>
-                    {createElements(pages, page)}
-                    <li>
-                        <button disabled={page===(pages-1)? true : false} onClick={()=>setPage(prev=>prev+1)} className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg ${page!==(pages-1)? 'hover:bg-gray-100 hover:text-gray-700' : null } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Next</button>
-                    </li>
-                </ul>
+                <PageButtons
+                    page={page}
+                    pages={pages}
+                    setPage={setPage}
+                    displayedPages={displayedPages}
+                    setDisplayedPages={setDisplayedPages}
+                    pageButtons={pageButtons}
+                    setPageButtons={setPageButtons}
+                />
             </nav>
             <ToastContainer/>
         </div>

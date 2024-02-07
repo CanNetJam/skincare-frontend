@@ -8,6 +8,7 @@ import EditAccount from '../Modals/EditAccount';
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PageButtons from './PageButtons';
 
 export default function UserAccountsTable() {
     const [ isOpen, setIsOpen ] = useState(false)
@@ -26,6 +27,10 @@ export default function UserAccountsTable() {
     const [ pages, setPages ] = useState(0)
     const [ pageEntries, setPageEntries ] = useState(100)
     const [ total, setTotal ] = useState(0)
+    const [ pageButtons, setPageButtons] = useState([])
+    const [ displayedPages, setDisplayedPages ] = useState(10)
+    const [ openPageCount, setOpenPageCount ] = useState(false)
+    const [ userType, setUserType ] = useState("Klued Staff")
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -43,6 +48,7 @@ export default function UserAccountsTable() {
                 let token = localStorage.getItem("auth-token")
                 const getAccounts = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/all-accounts`, 
                 {params: {
+                    type: userType,
                     startDate: dateRange.startDate,
                     endDate: dateRange.endDate,
                     page: page,
@@ -57,21 +63,7 @@ export default function UserAccountsTable() {
             }
         }
         getAccounts()
-    }, [dateRange, page, pageEntries, isDelete])
-
-    function createElements(pages, page){
-        var elements = [];
-        for(let i =0; i < pages; i++){
-            elements.push(
-                <li key={i}>
-                    <button disabled={page===i ? true : false} onClick={()=>setPage(i)} className={`${page===i ? 'text-blue-600 bg-blue-50' : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700' } flex items-center justify-center px-3 h-8 leading-tight  border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>
-                        {i+1}
-                    </button>
-                </li>
-            )
-        }
-        return elements;
-    }
+    }, [dateRange, page, pageEntries, isDelete, userType])
 
     return (
         <div className='h-auto w-full my-16 sm:p-10 py-4 px-4'>
@@ -92,62 +84,82 @@ export default function UserAccountsTable() {
                     </div>
                     <button onClick={()=>setIsOpen(true)} className="mt-1 w-full bg-blue-500 p-2 text-sm font-bold uppercase tracking-wide pl-8 text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md">Add Account</button>
                 </div> 
-                <div className='relative grid justify-center items-center h-full'>
-                        <button onClick={()=> menu===false ? setMenu(true) : setMenu(false)} id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-                            <svg className="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
-                            </svg>
-                            {range}
-                            <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
-                            </svg>
-                        </button>
-                    {menu===true ? 
-                        <div id="dropdownRadio" className="z-10 top-10 right-0 absolute w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" styles={{position: "absolute", inset: "auto auto 0px 0px", margin: "0px"}}>
-                            <ul className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
-                                <li>
-                                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input onChange={e=> {
-                                            setRange(e.target.value)
-                                            setDateRange({...dateRange, startDate: addDays(new Date(), -1)})
-                                            setMenu(false)
-                                        }} defaultChecked={range==="Last day" ? true : false} id="filter-radio-example-1" type="radio" value="Last day" name="filter-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                                        <label htmlFor="filter-radio-example-1" className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last day</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input onChange={e=> {
-                                            setRange(e.target.value)
-                                            setDateRange({...dateRange, startDate: addDays(new Date(), -7)})
-                                            setMenu(false)
-                                        }} defaultChecked={range==="Last 7 days" ? true : false} id="filter-radio-example-2" type="radio" value="Last 7 days" name="filter-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                                        <label htmlFor="filter-radio-example-2" className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last 7 days</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input onChange={e=> {
-                                            setRange(e.target.value)
-                                            setDateRange({...dateRange, startDate: addDays(new Date(), -30)})
-                                            setMenu(false)
-                                        }} defaultChecked={range==="Last 30 days" ? true : false} id="filter-radio-example-3" type="radio" value="Last 30 days" name="filter-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                                        <label htmlFor="filter-radio-example-3" className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last 30 days</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input onChange={e=> {
-                                            setRange(e.target.value)
-                                            setDateRange({...dateRange, startDate: addDays(new Date(), -365)})
-                                            setMenu(false)
-                                        }} defaultChecked={range==="Last year" ? true : false} id="filter-radio-example-5" type="radio" value="Last year" name="filter-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                                        <label htmlFor="filter-radio-example-5" className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last year</label>
-                                    </div>
-                                </li>
-                            </ul>
+                <div className='flex gap-2'>
+                    <div className='group'>
+                        <div className="relative bg-blue-400 text-white text-sm font-bold whitespace-nowrap py-2 px-4 min-w-[150px] flex justify-center items-center rounded-md">
+                            {userType!== "" ? 
+                                <>
+                                    {userType}
+                                    <svg onClick={()=>setUserType("")} className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill='white' d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
+                                </>
+                            : "Select User Type"}
+                            <div className="absolute left-0 top-9 w-full bg-gray-200 text-black z-10 hidden group-hover:block">
+                                <label onClick={()=>setUserType("Klued Staff")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                    Klued Staff
+                                </label>
+                                <label onClick={()=>setUserType("Customer")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                    Customer
+                                </label>
+                            </div>
                         </div>
-                    :null}
+                    </div>
+                    <div className='relative grid justify-center items-center h-full'>
+                            <button onClick={()=> menu===false ? setMenu(true) : setMenu(false)} id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+                                <svg className="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+                                </svg>
+                                {range}
+                                <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+                                </svg>
+                            </button>
+                        {menu===true ? 
+                            <div id="dropdownRadio" className="z-10 top-10 right-0 absolute w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" styles={{position: "absolute", inset: "auto auto 0px 0px", margin: "0px"}}>
+                                <ul className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
+                                    <li>
+                                        <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <input onChange={e=> {
+                                                setRange(e.target.value)
+                                                setDateRange({...dateRange, startDate: addDays(new Date(), -1)})
+                                                setMenu(false)
+                                            }} defaultChecked={range==="Last day" ? true : false} id="filter-radio-example-1" type="radio" value="Last day" name="filter-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                                            <label htmlFor="filter-radio-example-1" className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last day</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <input onChange={e=> {
+                                                setRange(e.target.value)
+                                                setDateRange({...dateRange, startDate: addDays(new Date(), -7)})
+                                                setMenu(false)
+                                            }} defaultChecked={range==="Last 7 days" ? true : false} id="filter-radio-example-2" type="radio" value="Last 7 days" name="filter-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                                            <label htmlFor="filter-radio-example-2" className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last 7 days</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <input onChange={e=> {
+                                                setRange(e.target.value)
+                                                setDateRange({...dateRange, startDate: addDays(new Date(), -30)})
+                                                setMenu(false)
+                                            }} defaultChecked={range==="Last 30 days" ? true : false} id="filter-radio-example-3" type="radio" value="Last 30 days" name="filter-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                                            <label htmlFor="filter-radio-example-3" className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last 30 days</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <input onChange={e=> {
+                                                setRange(e.target.value)
+                                                setDateRange({...dateRange, startDate: addDays(new Date(), -365)})
+                                                setMenu(false)
+                                            }} defaultChecked={range==="Last year" ? true : false} id="filter-radio-example-5" type="radio" value="Last year" name="filter-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                                            <label htmlFor="filter-radio-example-5" className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last year</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        :null}
+                    </div>
                 </div>
             </div>
             <div className="relative w-auto overflow-x-auto shadow-md sm:rounded-lg p-4">
@@ -234,18 +246,45 @@ export default function UserAccountsTable() {
                 </table>
             </div>
             <nav className="flex w-full items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
-                <div>
-                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span className="font-semibold text-gray-900 dark:text-white">1-{pageEntries<total ? pageEntries : total}</span> of <span className="font-semibold text-gray-900 dark:text-white">{total}</span></span>
+            <div>
+                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
+                        <button onClick={()=> {
+                            if (openPageCount===false) {
+                                setOpenPageCount(true)
+                            } else {
+                                setOpenPageCount(false)
+                            }
+                        }}className="font-semibold text-gray-900 dark:text-white px-3 rounded-md bg-gray-200 relative">
+                            {(pageEntries*(page+1))-(pageEntries-1)}-{pageEntries*(page+1)}
+                            
+                            {openPageCount===true && (
+                                <div id="dropdown" className="absolute top-5 left-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-auto dark:bg-gray-700">
+                                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+                                        <li>
+                                            <button onClick={()=>setPageEntries(10)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">10</button>
+                                        </li>
+                                        <li>
+                                            <button onClick={()=>setPageEntries(50)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">50</button>
+                                        </li>
+                                        <li>
+                                            <button onClick={()=>setPageEntries(100)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">100</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            )}
+                        </button> of 
+                        <span className="font-semibold text-gray-900 dark:text-white">{" "+total}</span>
+                    </span>
                 </div>
-                <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                    <li>
-                        <button disabled={page===0? true : false} onClick={()=>setPage(prev=>prev-1)} className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg ${page!==0? 'hover:bg-gray-100 hover:text-gray-700' : null } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Previous</button>
-                    </li>
-                    {createElements(pages, page)}
-                    <li>
-                        <button disabled={page===(pages-1)? true : false} onClick={()=>setPage(prev=>prev+1)} className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg ${page!==(pages-1)? 'hover:bg-gray-100 hover:text-gray-700' : null } dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>Next</button>
-                    </li>
-                </ul>
+                <PageButtons
+                    page={page}
+                    pages={pages}
+                    setPage={setPage}
+                    displayedPages={displayedPages}
+                    setDisplayedPages={setDisplayedPages}
+                    pageButtons={pageButtons}
+                    setPageButtons={setPageButtons}
+                />
             </nav>
             <ToastContainer/>
         </div>

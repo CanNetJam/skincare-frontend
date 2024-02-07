@@ -140,7 +140,6 @@ export default function DeliveryDetails() {
     
     async function submitHandler(e) {
         e.preventDefault()
-
         const loadingNotif = async function myPromise() {
             const data = new FormData()
             let token = localStorage.getItem("auth-token")
@@ -187,7 +186,7 @@ export default function DeliveryDetails() {
             }
         )
     }
-
+    
     return (
         <div className='h-auto w-full px-4'>
             <div className='container mx-auto max-w-6xl grid sm:grid-cols-2 gap-6 py-6'>
@@ -205,15 +204,22 @@ export default function DeliveryDetails() {
                         }} className='cursor-pointer' height='30' width='30' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z"/></svg>
                     </div>
                     {isEditing===false ?
-                        <p className='text-black'>
-                            {userData.user?.billingaddress?.street}, {userData.user?.billingaddress?.barangay}, {userData.user?.billingaddress?.city}, {userData.user?.billingaddress?.province}, {userData.user?.billingaddress?.region}, {userData.user?.billingaddress?.postal}
-                        </p>
+                        <>
+                            { (userData.user?.billingaddress?.street==="" && userData.user?.billingaddress?.barangay==="" && userData.user?.billingaddress?.city==="" && userData.user?.billingaddress?.province==="" && userData.user?.billingaddress?.region==="" && userData.user?.billingaddress?.postal==="") ||
+                            (userData.user?.billingaddress?.street===undefined && userData.user?.billingaddress?.barangay===undefined && userData.user?.billingaddress?.city===undefined && userData.user?.billingaddress?.province===undefined && userData.user?.billingaddress?.region===undefined && userData.user?.billingaddress?.postal===undefined) ? 
+                                <p>No Data.</p>
+                            :
+                                <p className='text-black'>
+                                    {userData.user?.billingaddress?.street}, {userData.user?.billingaddress?.barangay}, {userData.user?.billingaddress?.city}, {userData.user?.billingaddress?.province}, {userData.user?.billingaddress?.region}, {userData.user?.billingaddress?.postal}
+                                </p>
+                            }
+                        </>
                     : 
                     <form onSubmit={submitHandler} className="">
                         <div className="bg-gray-50 rounded-xl px-4 py-5 sm:grid sm:gap-2 sm:px-6">
                             <div className='relative pb-4'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Region:</label>
-                                <input autoFocus onChange={e => setDraftRegion(e.target.value)} value={draftRegion} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <input required autoFocus onChange={e => setDraftRegion(e.target.value)} value={draftRegion} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 {draftRegion!=="" && draftRegion!==selectedRegion?.regionName?
                                     <div className="grid gap-2 absolute bg-slate-100 h-auto max-h-[150px] w-full overflow-y-scroll rounded-b-xl no-scrollbar z-10">
                                         {filteredRegions?.map((a, index)=> {
@@ -229,7 +235,7 @@ export default function DeliveryDetails() {
 
                             <div className='relative pb-4'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Province:</label>
-                                <input onChange={e => setDraftProvince(e.target.value)} value={draftProvince} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <input required onChange={e => setDraftProvince(e.target.value)} value={draftProvince} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 {draftProvince!=="" && draftProvince!==selectedProvince?.name?
                                     <div className="grid gap-2 absolute bg-slate-100 h-auto max-h-[150px] w-full overflow-y-scroll rounded-b-xl no-scrollbar z-10">
                                         {filteredProvinces?.map((a, index)=> {
@@ -245,7 +251,7 @@ export default function DeliveryDetails() {
 
                             <div className='relative pb-4'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City:</label>
-                                <input onChange={e => setDraftCity(e.target.value)} value={draftCity} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <input required onChange={e => setDraftCity(e.target.value)} value={draftCity} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 
                                 {draftCity!=="" && draftCity!==selectedCity?.name?
                                     <div className="grid gap-2 absolute bg-slate-100 h-auto max-h-[150px] w-full overflow-y-scroll rounded-b-xl no-scrollbar z-10">
@@ -262,7 +268,7 @@ export default function DeliveryDetails() {
 
                             <div className='relative pb-4'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Barangay:</label>
-                                <input  onChange={e => setDraftBarangay(e.target.value)} value={draftBarangay} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <input required onChange={e => setDraftBarangay(e.target.value)} value={draftBarangay} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 
                                 {draftBarangay!=="" && draftBarangay!==selectedBarangay?.name?
                                     <div className="grid gap-2 absolute bg-slate-100 h-auto max-h-[150px] w-full overflow-y-scroll rounded-b-xl no-scrollbar z-10">
@@ -279,11 +285,11 @@ export default function DeliveryDetails() {
 
                             <div className='pb-4'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Postal Code:</label>
-                                <input onChange={e => setDraftPostal(e.target.value)} value={draftPostal} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <input required onChange={e => setDraftPostal(e.target.value)} value={draftPostal} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                             </div>
                             <div className='pb-4'>
-                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Street, Building or House Number:</label>
-                                <input onChange={e => setDraftStreet(e.target.value)} value={draftStreet} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Street, Building, House Number or Landmark:</label>
+                                <input required onChange={e => setDraftStreet(e.target.value)} value={draftStreet} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                             </div>
 
                             <div className="px-4 py-4 sm:grid sm:gap-4 sm:px-6 w-full grid justify-center">
@@ -293,7 +299,6 @@ export default function DeliveryDetails() {
                     </form>
                     }
                 </div>
-
             </div>
         </div>
     )

@@ -8,17 +8,26 @@ import NotFound from './NotFound';
 import Login from './Pages/Login';
 import Skin from './Pages/Skin';
 import Faq from './Pages/Faq';
-import ForgotPassword from './Pages/ForgotPassword';
-import CartDetails from './Pages/CartDetails';
+//import ForgotPassword from './Pages/ForgotPassword';
+//import CartDetails from './Pages/CartDetails';
 import ProductDetails from './Pages/ProductDetails';
 import Product1 from './Details/Product1';
 import Package1 from './Details/Package1';
 import TermsOfUse from './Pages/TermsOfUse';
 import RefundPolicy from './Pages/RefundPolicy';
-import Register from './Pages/Register';
-import Profile from './Components/Profile';
-import Settings from './Components/ChangePassword';
-import Orders from './Pages/Orders';
+//import Register from './Pages/Register';
+// import Profile from './Components/Profile';
+// import Settings from './Components/ChangePassword';
+// import Orders from './Pages/Orders';
+// import OrderDetails from './Pages/OrderDetails';
+
+const Profile = lazy(() => import('./Components/Profile'));
+const Settings = lazy(() => import('./Components/Settings'));
+const Orders = lazy(() => import('./Pages/Orders'));
+const OrderDetails = lazy(() => import('./Pages/OrderDetails'));
+const Register = lazy(() => import('./Pages/Register'));
+const ForgotPassword = lazy(() => import('./Pages/ForgotPassword'));
+const CartDetails = lazy(() => import('./Pages/CartDetails'));
 
 const KnowledgeBase = lazy(() => import('./Pages/KnowledgeBase'));
 const Policy = lazy(() => import('./Pages/Policy'));
@@ -31,6 +40,8 @@ const UpdatePackage = lazy(() => import('./Pages/UpdatePackage'));
 const Email = lazy(() => import('./Pages/Email'));
 const EmailVerification = lazy(() => import('./Pages/EmailVerification'));
 const AdminOrders = lazy(() => import('./Pages/AdminOrders'));
+const AdminTickets = lazy(() => import('./Pages/AdminTickets'));
+const Tickets = lazy(() => import('./Pages/Tickets'));
 
 import Loading from './Components/Loading';
 
@@ -121,7 +132,8 @@ const App = () => {
         if (!token) {
             return <Navigate  to="/login" />
         }
-        if (userData?.user?.type!=="Staff") {
+        let type = localStorage.getItem("user-type")
+        if (type==="Customer") {
             return <Navigate  to="/" />
         }
         return children
@@ -157,22 +169,28 @@ const App = () => {
                 <Route path="/aboutus" element={<AboutUs />} />
                 <Route path="/understandingyourskin" element={<Skin />} />
                 <Route path="/faqs" element={<Faq />} />
-                <Route path="/cartdetails" element={<CartDetails />} />
-                <Route path="/product-details" element={<ProductDetails />} />
-
-                <Route path="/details/product/:id" element={<Product1 />} />
-                <Route path="/details/package/:id" element={<Package1 />} />
-                <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/forget-password" element={<ForgotPassword />} />
-                <Route path="/accounts/profile/:id" element={<Profile />} />
-                <Route path="/settings" element={<Settings />} />
                 <Route path="/terms-of-use" element={<TermsOfUse />} />
                 <Route path="/refund-policy" element={<RefundPolicy />} />
+                <Route path="/product-details" element={<ProductDetails />} />
+                <Route path="/details/product/:id" element={<Product1 />} />
+                <Route path="/details/package/:id" element={<Package1 />} />
+
+                <Route path="/register" element={<Suspense fallback={<Loading />}><Register /></Suspense>} />
+                <Route path="/cartdetails" element={<Suspense fallback={<Loading />}><CartDetails /></Suspense>} />
+                <Route path="/forget-password" element={<Suspense fallback={<Loading />}><ForgotPassword /></Suspense>} />
+                <Route path="/accounts/profile/:id" element={<Suspense fallback={<Loading />}><Profile /></Suspense>} />
+                <Route path="/settings" element={<Suspense fallback={<Loading />}><Settings /></Suspense>} />
+
+                <Route path="/order-details/:id" element={
+                    <Suspense fallback={<Loading />}>
+                        <OrderDetails />
+                    </Suspense>
+                } />
 
                 <Route path="/email-verification/:id/:uniqueString" element={
                     <Suspense fallback={<Loading />}>
-                    <EmailVerification />
+                        <EmailVerification />
                     </Suspense>
                 } />
 
@@ -197,6 +215,13 @@ const App = () => {
                     </Suspense>
                     )
                 } />
+                <Route path="/tickets/:id" element={
+                    AuthenticatedCustomerRoute(
+                    <Suspense fallback={<Loading />}>
+                        <Tickets />
+                    </Suspense>
+                    )
+                } />
 
                 <Route path="/emails" element={SuperAdminRoute(<Suspense fallback={<Loading />}><Email /></Suspense>)} />
                 <Route path="/add-product" element={SuperAdminRoute(<Suspense fallback={<Loading />}><AddProduct /></Suspense>)} />
@@ -206,6 +231,7 @@ const App = () => {
                 <Route path="/update-package" element={SuperAdminRoute(<Suspense fallback={<Loading />}><UpdatePackage /></Suspense>)} />
 
                 <Route path="/all-orders" element={SuperAdminRoute(<Suspense fallback={<Loading />}><AdminOrders /></Suspense>)} />
+                <Route path="/all-tickets" element={SuperAdminRoute(<Suspense fallback={<Loading />}><AdminTickets /></Suspense>)} />
 
                 <Route path="*" element={<NotFound />} />
                 </Routes>

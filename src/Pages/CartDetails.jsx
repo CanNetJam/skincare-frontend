@@ -10,6 +10,7 @@ function CartDetails() {
     const [cartData, setCartData] = useState([])
     const [subTotal, setSubTotal] = useState(0)
     const [cartTotal, setCartTotal] = useState(0)
+    const [shippingFee, setShippingFee] = useState(0)
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -20,6 +21,20 @@ function CartDetails() {
         }
         windowOpen()
     }, [])
+
+    useEffect(()=> {
+        const calculateShipping = () => { 
+            let userRegion = userData.user?.billingaddress?.region.toUpperCase() 
+            if(userRegion==="REGION 1" || userRegion==="REGION 2" || userRegion==="REGION 3" || userRegion==="CORDILLERA ADMINISTRATIVE REGION" || userRegion==="NATIONAL CAPITAL REGION" || userRegion==="REGION IV-A" || userRegion==="REGION V") {
+                setShippingFee(85)
+            } else if (userRegion==="MIMAROPA REGION" || userRegion==="REGION VI" || userRegion==="REGION VIII" || userRegion==="REGION VII") {
+                setShippingFee(95)
+            } else if (userRegion==="REGION IX" || userRegion==="REGION X" || userRegion==="REGION XI" || userRegion==="REGION XII" || userRegion==="REGION XIII" || userRegion==="BANGSAMORO AUTONOMOUS REGION IN MUSLIM MINDANAO") {
+                setShippingFee(105)
+            }
+        }
+        calculateShipping()
+    }, [userData.user?.billingaddress?.region])
 
     useEffect(() => {
         const fetchCartData = async () => {
@@ -62,7 +77,7 @@ function CartDetails() {
                 setCartTotal(0)
             } else {
                 setSubTotal(total)
-                setCartTotal(total+40)
+                setCartTotal(total+shippingFee)
             }
         } catch (error) {
             console.error('Error computing data:', error);
@@ -242,9 +257,9 @@ function CartDetails() {
 
     return (
         <div className='bg-gray-100'>
-            <div className="container mx-auto grid sm:grid-cols-2 gap-4 h-auto p-4 sm:p-8">
+            <div className="container mx-auto grid lg:grid-cols-2 gap-4 h-auto p-4 sm:p-8">
                 
-                <div className='order-2'>
+                <div className='sm:order-2 order-1'>
                     <header className="text-center my-4">
                         <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Order Summary</h1>
                     </header>
@@ -303,7 +318,7 @@ function CartDetails() {
                                 {cartData.length>0 ? 
                                     <div className="flex gap-6 justify-between text-sm ">
                                         <dt>Shipping: </dt>
-                                        <dd className='font-bold text-black'>₱ <b>40.00</b></dd>
+                                        <dd className='font-bold text-black'>₱ <b>{shippingFee}.00</b></dd>
                                     </div>
                                 :null}
                                 <div className="flex gap-6 border-t py-2 justify-between !text-base font-medium">
@@ -314,8 +329,8 @@ function CartDetails() {
                         </div>
                     </div>
                 </div>
-                <div className='order-1'>
-                    <CheckoutDetails cartData={cartData} cartTotal={cartTotal}/>
+                <div className='sm:order-1 order-2'>
+                    <CheckoutDetails cartData={cartData} cartTotal={cartTotal} shippingFee={shippingFee} subTotal={subTotal}/>
                 </div>
             </div>
             <ToastContainer/>
