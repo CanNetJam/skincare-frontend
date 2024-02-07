@@ -118,19 +118,24 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                                 <label onClick={()=>setDeliveryStatus("Cancelled")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
                                     Cancelled
                                 </label>
+                                <label onClick={()=>setDeliveryStatus("Returned/Refunded")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                    Returned/Refunded
+                                </label>
                             </div>
                         </div>
                     </div>
                 }
-                <div className='w-full flex sm:justify-end'>
-                    <CSVLink 
-                        filename={`All ${tab} Orders (${moment(Date.now()).format('MM-DD-YYYY')}).csv`}     
-                        data={orders.length>0 ? convertedOrders : []}>
-                        <button className='mt-1 w-full bg-blue-500 px-4 py-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md'>
-                            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" ><path fill='white' d="M16 2v7h-2v-5h-12v16h12v-5h2v7h-16v-20h16zm2 9v-4l6 5-6 5v-4h-10v-2h10z"/></svg>
-                        </button>
-                    </CSVLink>
-                </div>
+                {tab==="Pending Orders" && deliveryStatus==="Seller Processing" ? 
+                    <div className='w-full flex sm:justify-end'>
+                        <CSVLink 
+                            filename={`All ${tab} Orders (${moment(Date.now()).format('MM-DD-YYYY')}).csv`}     
+                            data={orders.length>0 ? convertedOrders : []}>
+                            <button className='mt-1 w-full bg-blue-500 px-4 py-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md'>
+                                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" ><path fill='white' d="M16 2v7h-2v-5h-12v16h12v-5h2v7h-16v-20h16zm2 9v-4l6 5-6 5v-4h-10v-2h10z"/></svg>
+                            </button>
+                        </CSVLink>
+                    </div>
+                :null}
             </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

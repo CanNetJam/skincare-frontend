@@ -188,13 +188,13 @@ const DropdownUser = ({forwardUserData}) => {
                         <li>
                             <Link to={`/orders/${userData.user._id}`} state={{profileid: userData.user._id}} className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M24 3l-.743 2h-1.929l-3.474 12h-13.239l-4.615-11h16.812l-.564 2h-13.24l2.937 7h10.428l3.432-12h4.195zm-15.5 15c-.828 0-1.5.672-1.5 1.5 0 .829.672 1.5 1.5 1.5s1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm6.9-7-1.9 7c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5z"/></svg>
-                            My Orders
+                                My Orders
                             </Link>
                         </li>
                         <li>
                             <Link to={`/tickets/${userData.user._id}`} state={{profileid: userData.user._id}} className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4 22v-20h16v11.543c0 4.107-6 2.457-6 2.457s1.518 6-2.638 6h-7.362zm18-7.614v-14.386h-20v24h10.189c3.163 0 9.811-7.223 9.811-9.614zm-11.073-8.14c-.081-.659.431-1.246 1.101-1.246.628 0 1.124.552 1.045 1.184l-.618 4.941c-.029.231-.226.405-.459.405-.232 0-.43-.174-.459-.405l-.61-4.879zm1.069 8.754c-.563 0-1.021-.457-1.021-1.021s.457-1.021 1.021-1.021c.564 0 1.021.457 1.021 1.021s-.457 1.021-1.021 1.021z"/></svg>
-                            My Tickets
+                                My Tickets
                             </Link>
                         </li>
                     </>    

@@ -49,7 +49,7 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                     Approved
                                 </label>
                                 <label onClick={()=>setStatus("Rejected")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
-                                    Denied
+                                    Rejected
                                 </label>
                             </div>
                         </div>

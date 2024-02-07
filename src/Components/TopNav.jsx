@@ -148,6 +148,22 @@ function Navbar(props) {
                             {userData.user.type==="Super Admin" || userData.user.type==="Admin" ? 
                                 <>
                                 <Link
+                                    to="/all-orders"
+                                    className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
+                                >
+                                <svg width="24" height="24"  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 4c0-.478-.379-1-1-1h-16c-.62 0-1 .519-1 1v16c0 .621.52 1 1 1h16c.478 0 1-.379 1-1zm-16.5.5h15v15h-15zm13.5 10.75c0-.414-.336-.75-.75-.75h-4.5c-.414 0-.75.336-.75.75s.336.75.75.75h4.5c.414 0 .75-.336.75-.75zm-11.772-.537 1.25 1.114c.13.116.293.173.455.173.185 0 .37-.075.504-.222l2.116-2.313c.12-.131.179-.296.179-.459 0-.375-.303-.682-.684-.682-.185 0-.368.074-.504.221l-1.66 1.815-.746-.665c-.131-.116-.293-.173-.455-.173-.379 0-.683.307-.683.682 0 .188.077.374.228.509zm11.772-2.711c0-.414-.336-.75-.75-.75h-4.5c-.414 0-.75.336-.75.75s.336.75.75.75h4.5c.414 0 .75-.336.75-.75zm-11.772-1.613 1.25 1.114c.13.116.293.173.455.173.185 0 .37-.074.504-.221l2.116-2.313c.12-.131.179-.296.179-.46 0-.374-.303-.682-.684-.682-.185 0-.368.074-.504.221l-1.66 1.815-.746-.664c-.131-.116-.293-.173-.455-.173-.379 0-.683.306-.683.682 0 .187.077.374.228.509zm11.772-1.639c0-.414-.336-.75-.75-.75h-4.5c-.414 0-.75.336-.75.75s.336.75.75.75h4.5c.414 0 .75-.336.75-.75z"/></svg>
+                                    Manage Orders
+                                </Link>
+
+                                <Link
+                                    to="/all-tickets"
+                                    className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
+                                >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4 22v-20h16v11.543c0 4.107-6 2.457-6 2.457s1.518 6-2.638 6h-7.362zm18-7.614v-14.386h-20v24h10.189c3.163 0 9.811-7.223 9.811-9.614zm-11.073-8.14c-.081-.659.431-1.246 1.101-1.246.628 0 1.124.552 1.045 1.184l-.618 4.941c-.029.231-.226.405-.459.405-.232 0-.43-.174-.459-.405l-.61-4.879zm1.069 8.754c-.563 0-1.021-.457-1.021-1.021s.457-1.021 1.021-1.021c.564 0 1.021.457 1.021 1.021s-.457 1.021-1.021 1.021z"/></svg>
+                                    Manage Reports
+                                </Link>
+
+                                <Link
                                     to="/user-accounts"
                                     className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                                 >
@@ -215,10 +231,16 @@ function Navbar(props) {
                                 </Link>
                             :null}
                             {userData.user.type==="Customer" ? 
-                                <Link to={`/orders/${userData.user._id}`} state={{profileid: userData.user._id}} className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M24 3l-.743 2h-1.929l-3.474 12h-13.239l-4.615-11h16.812l-.564 2h-13.24l2.937 7h10.428l3.432-12h4.195zm-15.5 15c-.828 0-1.5.672-1.5 1.5 0 .829.672 1.5 1.5 1.5s1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm6.9-7-1.9 7c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5z"/></svg>
-                                    My Orders
-                                </Link>
+                                <>
+                                    <Link to={`/orders/${userData.user._id}`} state={{profileid: userData.user._id}} className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M24 3l-.743 2h-1.929l-3.474 12h-13.239l-4.615-11h16.812l-.564 2h-13.24l2.937 7h10.428l3.432-12h4.195zm-15.5 15c-.828 0-1.5.672-1.5 1.5 0 .829.672 1.5 1.5 1.5s1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm6.9-7-1.9 7c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5z"/></svg>
+                                        My Orders
+                                    </Link>
+                                    <Link to={`/tickets/${userData.user._id}`} state={{profileid: userData.user._id}} className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4 22v-20h16v11.543c0 4.107-6 2.457-6 2.457s1.518 6-2.638 6h-7.362zm18-7.614v-14.386h-20v24h10.189c3.163 0 9.811-7.223 9.811-9.614zm-11.073-8.14c-.081-.659.431-1.246 1.101-1.246.628 0 1.124.552 1.045 1.184l-.618 4.941c-.029.231-.226.405-.459.405-.232 0-.43-.174-.459-.405l-.61-4.879zm1.069 8.754c-.563 0-1.021-.457-1.021-1.021s.457-1.021 1.021-1.021c.564 0 1.021.457 1.021 1.021s-.457 1.021-1.021 1.021z"/></svg>
+                                        My Tickets
+                                    </Link>
+                                </>
                             :null}
                             <Link
                                 to={`/accounts/profile/${userData.user._id}`} state={{profileid: userData.user._id}}
