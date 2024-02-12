@@ -1,10 +1,8 @@
-import { useState, Fragment } from 'react';
+import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import axios from "axios";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-export default function ImageZoom({isZoom, setIsZoom, toZoom, zoomId, setZoomId}) {
+export default function ImageZoom({isZoom, setIsZoom, toZoom, zoomId, setZoomId, zoomType}) {
+
     return (
         <>
             <Transition appear show={isZoom} as={Fragment}>
@@ -37,7 +35,9 @@ export default function ImageZoom({isZoom, setIsZoom, toZoom, zoomId, setZoomId}
                             >
                             <Dialog.Panel className="relative h-auto w-auto max-h-screen transform overflow-y-auto bg-white text-left align-middle shadow-xl transition-all">
                                 <Dialog.Title as="h3" className="sticky top-0 bg-gray-100 h-12 text-lg border-b px-6 font-semibold leading-6 text-gray-900 flex items-center">
-                                    Order ID: {zoomId} 
+                                    {zoomId ? 
+                                        <label>Order ID: {zoomId}</label>
+                                    :null}
                                     <div className='absolute z-20 top-0 h-8 w-8 m-2 right-0 sm:text-4xl text-3xl grid justify-center items-center cursor-pointer' onClick={()=> {
                                         setIsZoom(false)
                                         setZoomId("")
@@ -46,7 +46,11 @@ export default function ImageZoom({isZoom, setIsZoom, toZoom, zoomId, setZoomId}
                                     </div>
                                 </Dialog.Title>
                                 <div className='px-6 py-2'>
-                                    <img className='h-full w-full object-contain rounded-md overflow-hidden' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${toZoom}.jpg`}></img>
+                                    {zoomType==="String" ? 
+                                        <img className='h-full w-full object-contain rounded-md overflow-hidden' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${toZoom}.jpg`}></img>
+                                    :
+                                        <img className='h-full w-full object-contain rounded-md overflow-hidden' src={toZoom}/>
+                                    }
                                 </div>
                             </Dialog.Panel>
                             </Transition.Child>

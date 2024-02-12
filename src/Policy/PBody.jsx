@@ -13,6 +13,7 @@ import Discipline from './Discipline';
 import Attendance from './Attendance';
 import WorkplaceDecorum1 from './WorkplaceDecorum1';
 import WorkplaceDecorum2 from './WorkplaceDecorum2';
+import Fragile from './Fragile';
 
 export default function PBody({openMenu, setOpenMenu, openTab}) {
     const [ openLink, setOpenLink ] = useState("Loitering")
@@ -47,6 +48,9 @@ export default function PBody({openMenu, setOpenMenu, openTab}) {
             )}
             {openLink==="KPI New Hire" && (
                 <KPI/>
+            )}
+            {openLink==="Fragile" && (
+                <Fragile/>
             )}
 
             {openLink==="Code of Discipline" && (

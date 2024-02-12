@@ -31,6 +31,8 @@ function CartDetails() {
                 setShippingFee(95)
             } else if (userRegion==="REGION IX" || userRegion==="REGION X" || userRegion==="REGION XI" || userRegion==="REGION XII" || userRegion==="REGION XIII" || userRegion==="BANGSAMORO AUTONOMOUS REGION IN MUSLIM MINDANAO") {
                 setShippingFee(105)
+            } else {
+                setShippingFee(100)
             }
         }
         calculateShipping()
@@ -88,63 +90,63 @@ function CartDetails() {
 
     const handleAddQuantity = async (pack) => {
         try {
-        let cart = localStorage.getItem("items")
-        const obj = {
-            type: pack.type,
-            product: {
-            _id: pack.product._id,
-            name: pack.product.name,
-            displayimage: pack.product.displayimage,
-            price: pack.product.price ? pack.product.price : pack.product.origprice,
-            stock: pack.product.stock,
-            },
-            quantity: pack.quantity
-        }
+            let cart = localStorage.getItem("items")
+            const obj = {
+                type: pack.type,
+                product: {
+                _id: pack.product._id,
+                name: pack.product.name,
+                displayimage: pack.product.displayimage,
+                price: pack.product.price ? pack.product.price : pack.product.origprice,
+                stock: pack.product.stock,
+                },
+                quantity: pack.quantity
+            }
 
-        if (userData.user) {
-            let token = localStorage.getItem("auth-token")
-            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/update-add-cart/${userData?.user?._id}`, obj, 
-            { headers: { "Content-Type": "application/json", "auth-token": token } })
-        }
-        
-        if ( cart === null) {
-            localStorage.setItem("items", JSON.stringify([obj]))
-            setUserData({...userData, cartNumber: userData.cartNumber+1})
-        }
-        if (cart !== null) {
-            let currentCart = JSON.parse(localStorage.getItem("items"))
-            let dupe = false
-            function duplicateCheck() {
-            currentCart.map((a, index )=> {
-                if (a.product._id === pack.product._id){
-                currentCart[index] = {
-                    type: pack.type,
-                    product: {
-                    _id: pack.product._id,
-                    name: pack.product.name,
-                    displayimage: pack.product.displayimage,
-                    price: pack.product.price ? pack.product.price : pack.product.origprice,
-                    stock: pack.product.stock,
-                    },
-                    quantity: a.quantity+1
-                }
+            if (userData.user) {
+                let token = localStorage.getItem("auth-token")
+                const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/update-add-cart/${userData?.user?._id}`, obj, 
+                { headers: { "Content-Type": "application/json", "auth-token": token } })
+            }
+            
+            if ( cart === null) {
+                localStorage.setItem("items", JSON.stringify([obj]))
                 setUserData({...userData, cartNumber: userData.cartNumber+1})
-                dupe = true
-                return dupe
+            }
+            if (cart !== null) {
+                let currentCart = JSON.parse(localStorage.getItem("items"))
+                let dupe = false
+                function duplicateCheck() {
+                currentCart.map((a, index )=> {
+                    if (a.product._id === pack.product._id){
+                    currentCart[index] = {
+                        type: pack.type,
+                        product: {
+                        _id: pack.product._id,
+                        name: pack.product.name,
+                        displayimage: pack.product.displayimage,
+                        price: pack.product.price ? pack.product.price : pack.product.origprice,
+                        stock: pack.product.stock,
+                        },
+                        quantity: a.quantity+1
+                    }
+                    setUserData({...userData, cartNumber: userData.cartNumber+1})
+                    dupe = true
+                    return dupe
+                    }
+                    return dupe
+                })
                 }
-                return dupe
-            })
+                duplicateCheck()
+                if (dupe===false) {
+                currentCart.push(obj)
+                setUserData({...userData, cartNumber: userData.cartNumber+1})
+                }
+                localStorage.setItem("items", JSON.stringify(currentCart))
+                setCartData(currentCart)
             }
-            duplicateCheck()
-            if (dupe===false) {
-            currentCart.push(obj)
-            setUserData({...userData, cartNumber: userData.cartNumber+1})
-            }
-            localStorage.setItem("items", JSON.stringify(currentCart))
-            setCartData(currentCart)
-        }
         } catch (error) {
-        console.log(error)
+            console.log(error)
         }
     }
 

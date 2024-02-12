@@ -4,12 +4,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import CancelOrder from '../Modals/CancelOrder';
 import { Link } from 'react-router-dom';
 import PageButtons from './PageButtons';
+import EmptyContent from './EmptyContent';
 
 export default function PendingOrders({orders, page, setPage, pages, pageEntries, total, setPageEntries, tab, isEdit, setIsEdit}) {
     const [ openPageCount, setOpenPageCount ] = useState(false)
     const [ toEdit, setToEdit ] = useState("")
     const [ pageButtons, setPageButtons] = useState([])
-    const [ displayedPages, setDisplayedPages ] = useState(10)
+    const [ displayedPages, setDisplayedPages ] = useState(5)
 
     function toastInfoNotification2() {
         toast.info(`Coming soon!`, {
@@ -25,7 +26,7 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
     }
 
     return (
-        <div className='h-full sm:w-auto w-screen pb-6 px-4'>
+        <div className='h-auto sm:w-auto w-screen pb-6 px-4'>
             {isEdit && (
                 <CancelOrder isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit}/>
             )} 
@@ -80,7 +81,7 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className='grid gap-2'>
-                                                    <span className='font-semibold text-blue-500'>{a.deliverystatus}</span>
+                                                    <span className={`${a.deliverystatus==="Seller Processing" || a.deliverystatus==="In Transit" ? `text-blue-500` : a.deliverystatus==="Cancelled" ?  'text-red-500': a.deliverystatus==="Delivered" ?  'text-green-500': `text-yellow-500` } font-semibold`}>{a.deliverystatus}</span>
                                                     <label>{a.deliveryoption}</label>
                                                 </div>
                                             </td>
@@ -114,13 +115,28 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                                     )
                                 })}
                             </>
-                        :null}
+                        :
+                            null
+                        }
                     </tbody>
                 </table>
             </div>
-            <nav className="flex w-full items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+            {orders.length<=0 ?
+                <EmptyContent/>
+            : null}
+            
+            <nav className="sm:flex sm:flex-row-reverse grid justify-center gap-2 w-full items-center sm:justify-between pt-4" aria-label="Table navigation">
+                <PageButtons
+                    page={page}
+                    pages={pages}
+                    setPage={setPage}
+                    displayedPages={displayedPages}
+                    setDisplayedPages={setDisplayedPages}
+                    pageButtons={pageButtons}
+                    setPageButtons={setPageButtons}
+                />
                 <div>
-                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
+                    <span className="text-sm text-center font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
                         <button onClick={()=> {
                             if (openPageCount===false) {
                                 setOpenPageCount(true)
@@ -134,13 +150,13 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                                 <div id="dropdown" className="absolute top-5 left-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-auto dark:bg-gray-700">
                                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                                         <li>
-                                            <button onClick={()=>setPageEntries(10)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">10</button>
+                                            <label onClick={()=>setPageEntries(10)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">10</label>
                                         </li>
                                         <li>
-                                            <button onClick={()=>setPageEntries(50)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">50</button>
+                                            <label onClick={()=>setPageEntries(50)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">50</label>
                                         </li>
                                         <li>
-                                            <button onClick={()=>setPageEntries(100)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">100</button>
+                                            <label onClick={()=>setPageEntries(100)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">100</label>
                                         </li>
                                     </ul>
                                 </div>
@@ -149,16 +165,6 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                         <span className="font-semibold text-gray-900 dark:text-white">{" "+total}</span>
                     </span>
                 </div>
-
-                <PageButtons
-                    page={page}
-                    pages={pages}
-                    setPage={setPage}
-                    displayedPages={displayedPages}
-                    setDisplayedPages={setDisplayedPages}
-                    pageButtons={pageButtons}
-                    setPageButtons={setPageButtons}
-                />
             </nav>
             <ToastContainer/>
         </div>

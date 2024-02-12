@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import img1 from '../assets/Knowledge Base/Creative Tigers/b1.png';
-import img2 from '../assets/Knowledge Base/Creative Tigers/b1.png';
-import img3 from '../assets/Knowledge Base/Creative Tigers/b1.png';
+import img2 from '../assets/Knowledge Base/Creative Tigers/b2.png';
+import img3 from '../assets/Knowledge Base/Creative Tigers/b3.png';
 
 export default function SocialMediaChecking() {
     useEffect(()=> {
@@ -41,7 +41,7 @@ export default function SocialMediaChecking() {
                             <br/><b>Comments</b> - must be replied ahead of time. Response can be emojis and react with the comment
                         </p>
                     </div>
-                    <div className='col-span-1'>
+                    <div className='col-span-1 grid items-center'>
                         <img draggable={false} src={img1}/>
                     </div>
                 </section>
@@ -52,10 +52,10 @@ export default function SocialMediaChecking() {
                             <b>Message Requests</b> - must be opened within the day. Mostly inquiries with the product and UGC applications
                         </p>
                     </div>
-                    <div className='col-span-1'>
+                    <div className='col-span-1 grid items-center'>
                         <img draggable={false} src={img2}/>
                     </div>
-                    <div className='col-span-1'>
+                    <div className='col-span-1 grid items-center'>
                         <img draggable={false} src={img3}/>
                     </div>
                     <div className='col-span-1'>
@@ -67,7 +67,9 @@ export default function SocialMediaChecking() {
                             All the mentions and tagged videos of us should be acknowledged immediately.
                         </p>
                     </div>
+                    <p className='font-bold italic grid text-center col-span-2'>This will be the daily routine</p>
                 </section>
+                
             </div>
         </div>
     )

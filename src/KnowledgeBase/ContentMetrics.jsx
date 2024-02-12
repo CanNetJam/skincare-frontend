@@ -29,15 +29,11 @@ export default function ContentMetrics() {
             </section>
             <br/>
             <section className='container bg-white mx-auto sm:p-10 p-2 grid gap-2 sm:rounded-[30px] rounded-[10px]'>
-                    <div className='grid grid-cols-2 gap-6'>
-                        <div>
-                            <img draggable={false} src={img1}/>
-                        </div>
-                        <div>
-                            <h1 className='font-bold contentHeading my-4'>Daily Posting</h1>
-                            <p className='sm:text-xl text-base'>This is our standard for creating Tiktok and Instagram contents.</p>
-                        </div>
+                    <div className='grid justify-center'>
+                        <h1 className='font-bold contentHeading my-4 text-center'>Daily Posting</h1>
+                        <p className='sm:text-xl text-base text-center'>This is our standard for creating Tiktok and Instagram contents.</p>
                     </div>
+                    <br/>
                     <div className='grid grid-cols-2 gap-6'>
                         <div>
                             <h1 className='font-bold contentHeading my-4'>TIKTOK</h1>
@@ -58,6 +54,23 @@ export default function ContentMetrics() {
                                 <li className='my-2'>Ask anyone to four-eye the captions and texts to avoid deleting and re-uploading due to mistakes. </li>
                             </ul>
                         </div>
+                        <p className='italic font-semibold col-span-2 text-center'>Note:    Failure to follow these rules will lead to disciplinary action.</p>
+                    </div>
+                    <br/>
+                    <div className='grid justify-center'>
+                        <h1 className='font-bold contentHeading my-4 text-center'>Daily Posting</h1>
+                        Morning Shift and Night Shift should post 5 TikTok contents per shift (10 videos in all) ( 3 Memes and 2 Quality Video/Informative)
+                        <p className='italic font-semibold text-center py-2'>Note that TikTok Videos should be uploaded in Shopee Video and YouTube Shorts</p>
+                        <div className='grid justify-center'>
+                            <img draggable={false} src={img1}/>
+                        </div>
+                        <p className='text-center text-2xl'>
+                            INCENTIVE POSTINGS IN TIKTOK<br/>
+                            100K VIEWS - <b>3,000 PHP</b><br/>
+                            200K VIEWS - <b>5,000 PHP</b><br/>
+                            300K VIEWS - <b>7,000 PHP</b><br/>
+                            500K VIEWS - <b>10,000 PHP</b>
+                        </p>
                     </div>
             </section>
         </div>

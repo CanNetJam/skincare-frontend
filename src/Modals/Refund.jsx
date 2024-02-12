@@ -170,12 +170,12 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                             leaveTo="opacity-0 scale-95"
                             >
                             <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                <Dialog.Title as="h3" className="text-lg border-b pb-2 font-semibold leading-6 text-gray-900 flex items-center">
+                                <Dialog.Title as="h3" className="sm:flex grid text-lg border-b pb-2 font-semibold leading-6 text-gray-900 items-center">
                                     Return/Refund for Order: <span className='text-blue-400'>{toEdit._id}</span>
                                 </Dialog.Title>
                                 <form onSubmit={submitHandler}>
                                     <div className="grid grid-cols-2 text-sm py-2 items-center">
-                                        <select required onChange={e=>setMainReason(e.target.value)} name="type" value={mainReason} className="col-span-2 py-1 block w-full rounded-md border-1 shadow-sm sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
+                                        <select required onChange={e=>setMainReason(e.target.value)} name="type" value={mainReason} className="sm:col-span-2 py-2 block w-full rounded-md border-1 shadow-sm sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
                                             <option value="" disabled>Select your reason</option>
                                             <option>Damaged item</option>
                                             <option>Wrong item</option>
@@ -184,9 +184,9 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                                             <option>Item did not arrive</option>
                                         </select>
                                         <br/>
-                                        <div className='col-span-2 grid grid-cols-3 gap-2'>
+                                        <div className='col-span-2 grid sm:grid-cols-3 gap-2 pt-2'>
                                             <div>
-                                                <label>Image 1: (Waybill)</label>
+                                                <label>Image 1: (<b>Waybill</b>)</label>
                                                 <div className="flex items-center justify-center w-full">
                                                     <label htmlFor="dropzone-file1" className="relative overflow-hidden flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -207,7 +207,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                                                 </div> 
                                             </div>
                                             <div>
-                                                <label>Image 2: (Product photo 1)</label>
+                                                <label>Image 2: (<b>Product photo 1</b>)</label>
                                                 <div className="flex items-center justify-center w-full">
                                                 <label htmlFor="dropzone-file2" className="relative overflow-hidden flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -228,7 +228,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                                                 </div> 
                                             </div>
                                             <div>
-                                                <label>Image 3: (Product photo 2)</label>
+                                                <label>Image 3: (<b>Product photo 2</b>)</label>
                                                 <div className="flex items-center justify-center w-full">
                                                     <label htmlFor="dropzone-file3" className="relative overflow-hidden flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -251,6 +251,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                                         <label className='col-span-2 flex justify-center w-full'><i>Note: Please ensure that you upload each image on its designated section.</i></label>
                                         <br/>
                                         <div className='col-span-2'>
+                                            <label>Request description:</label>
                                             <textarea required onChange={(e)=>setDescription(e.target.value)} rows={3} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Please describe your issue in full detail..."></textarea>
                                         </div>
                                     </div>

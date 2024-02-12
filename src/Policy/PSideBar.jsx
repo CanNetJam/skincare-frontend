@@ -27,6 +27,7 @@ export default function PSideBar({openMenu, setOpenMenu, openTab, openLink, setO
                                 <li onClick={()=> setOpenLink("Critical Work Day")} className={openLink==="Critical Work Day" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Critical Work Day</li>
                                 <li onClick={()=> setOpenLink("Dress Code")} className={openLink==="Dress Code" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Dress Code</li>
                                 <li onClick={()=> setOpenLink("KPI New Hire")} className={openLink==="KPI New Hire" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>KPI New Hire</li>
+                                <li onClick={()=> setOpenLink("Fragile")} className={openLink==="Fragile" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Waybill and Fragile Sticker</li>
                             </ul>
                             <br/>
                             

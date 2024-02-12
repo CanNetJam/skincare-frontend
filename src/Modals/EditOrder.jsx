@@ -1,12 +1,10 @@
-import { useState, useEffect, Fragment, useContext } from 'react';
+import { useState, useEffect, Fragment,  } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import axios from "axios";
-import { UserContext } from "../App";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function EditOrder({isEdit, setIsEdit, toEdit}) {
-    const { userData, setUserData } = useContext(UserContext)
     const [tracking, setTracking] = useState(toEdit?.trackingnumber ? toEdit.trackingnumber : "")
     const [status, setStatus] = useState(toEdit.deliverystatus)
 
@@ -41,6 +39,10 @@ export default function EditOrder({isEdit, setIsEdit, toEdit}) {
         const data = new FormData()
         data.append("tracking", tracking)
         data.append("status", status)
+        if (status==="Returned to Seller") {
+            data.append("paymentid", toEdit.paymentid)
+            data.append("amountpaid", toEdit.amountpaid)
+        }
         let token = localStorage.getItem("auth-token")
         const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/update-order/${toEdit._id}`, data, 
         { headers: { "Content-Type": "application/json", "auth-token": token } })
@@ -118,6 +120,7 @@ export default function EditOrder({isEdit, setIsEdit, toEdit}) {
                                             <option>Seller Processing</option>
                                             <option>In Transit</option>
                                             <option>Delivered</option>
+                                            <option>Returned to Seller</option>
                                         </select>
                                     </div>
 

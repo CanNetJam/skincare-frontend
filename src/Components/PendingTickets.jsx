@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import {UserContext} from "../App";
 import moment from "moment";
 import ImageZoom from '../Modals/ImageZoom';
 import { Link } from 'react-router-dom';
 import PageButtons from './PageButtons';
+import EmptyContent from './EmptyContent';
 
 export default function PendingtTickets({tickets, page, setPage, pages, pageEntries, total, setPageEntries, tab}) {
+    const { userData, setUserData } = useContext(UserContext)
     const [ openPageCount, setOpenPageCount ] = useState(false)
     const [ toZoom, setToZoom] = useState("")
     const [ zoomId, setZoomId] = useState("")
@@ -12,12 +15,13 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
     const [ showMore, setShowMore ] = useState(false)
     const [ showMoreId, setShowMoreId ] = useState("")
     const [ pageButtons, setPageButtons] = useState([])
-    const [ displayedPages, setDisplayedPages ] = useState(10)
+    const [ displayedPages, setDisplayedPages ] = useState(5)
+    const [ zoomType, setZoomType] = useState("")
 
     return (
         <div className='h-full sm:w-auto w-screen pb-6 px-4'>
             {isZoom && (
-                <ImageZoom isZoom={isZoom} setIsZoom={setIsZoom} toZoom={toZoom} zoomId={zoomId} setZoomId={setZoomId}/>
+                <ImageZoom isZoom={isZoom} setIsZoom={setIsZoom} toZoom={toZoom} zoomId={zoomId} setZoomId={setZoomId} zoomType={zoomType}/>
             )}  
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -72,6 +76,7 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
                                                         setIsZoom(true)
                                                         setToZoom(a?.waybillimage)
                                                         setZoomId(a._id)
+                                                        setZoomType("String")
                                                     }} className='h-full w-full object-cover cursor-pointer' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.waybillimage}.jpg`}></img>
                                                 </div>
                                             </td>
@@ -82,6 +87,7 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
                                                         setIsZoom(true)
                                                         setToZoom(a?.productimage1)
                                                         setZoomId(a._id)
+                                                        setZoomType("String")
                                                         }} className='h-full w-full object-cover cursor-pointer' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.productimage1}.jpg`}></img>
                                                     </div>
                                                     <div className='h-40 w-40 rounded-md overflow-hidden'>
@@ -89,6 +95,7 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
                                                         setIsZoom(true)
                                                         setToZoom(a?.productimage2)
                                                         setZoomId(a._id)
+                                                        setZoomType("String")
                                                         }} className='h-full w-full object-cover cursor-pointer' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.productimage2}.jpg`}></img>
                                                     </div>
                                                 </div>
@@ -100,6 +107,9 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
                                                         <>
                                                             <b>Response</b>: <span className='text-blue-400 font-semibold'>{a.response}</span>
                                                         </>
+                                                    :null}
+                                                    {a.status==="Pending" && userData.user?._id===a.orderid.userid ?
+                                                        <label className='italic py-2 text-center'>Note: Please send back the item to the Klued headquarters to further amplify your chances of a successful refund.</label>
                                                     :null}
                                                 </div>
                                             </td>
@@ -114,9 +124,21 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
                     </tbody>
                 </table>
             </div>
-            <nav className="flex w-full items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+            {tickets.length<=0 ?
+                <EmptyContent/>
+            : null}
+            <nav className="sm:flex sm:flex-row-reverse grid justify-center gap-2 w-full items-center sm:justify-between pt-4" aria-label="Table navigation">
+                <PageButtons
+                    page={page}
+                    pages={pages}
+                    setPage={setPage}
+                    displayedPages={displayedPages}
+                    setDisplayedPages={setDisplayedPages}
+                    pageButtons={pageButtons}
+                    setPageButtons={setPageButtons}
+                />
                 <div>
-                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
+                    <span className="text-sm text-center font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
                         <button onClick={()=> {
                             if (openPageCount===false) {
                                 setOpenPageCount(true)
@@ -130,13 +152,13 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
                                 <div id="dropdown" className="absolute top-5 left-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-auto dark:bg-gray-700">
                                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                                         <li>
-                                            <button onClick={()=>setPageEntries(10)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">10</button>
+                                            <label onClick={()=>setPageEntries(5)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">5</label>
                                         </li>
                                         <li>
-                                            <button onClick={()=>setPageEntries(50)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">50</button>
+                                            <label onClick={()=>setPageEntries(10)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">10</label>
                                         </li>
                                         <li>
-                                            <button onClick={()=>setPageEntries(100)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">100</button>
+                                            <label onClick={()=>setPageEntries(50)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">50</label>
                                         </li>
                                     </ul>
                                 </div>
@@ -145,16 +167,6 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
                         <span className="font-semibold text-gray-900 dark:text-white">{" "+total}</span>
                     </span>
                 </div>
-
-                <PageButtons
-                    page={page}
-                    pages={pages}
-                    setPage={setPage}
-                    displayedPages={displayedPages}
-                    setDisplayedPages={setDisplayedPages}
-                    pageButtons={pageButtons}
-                    setPageButtons={setPageButtons}
-                />
             </nav>
         </div>
     )

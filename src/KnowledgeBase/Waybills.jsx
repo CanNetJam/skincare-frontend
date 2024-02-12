@@ -43,7 +43,7 @@ export default function Waybills() {
                             <li className='my-2'>Packing List</li>
                         </ol>
                     </div>
-                    <div className='col-span-1 h-[75vh]'>
+                    <div className='col-span-1'>
                         <img draggable={false} src={img1}/>
                     </div>
                 </section>
@@ -58,7 +58,7 @@ export default function Waybills() {
                             <li className='my-2'>Packing List</li>
                         </ol>
                     </div>
-                    <div className='col-span-1 h-[75vh]'>
+                    <div className='col-span-1'>
                         <img draggable={false} src={img2}/>
                     </div>
                 </section>
@@ -73,7 +73,7 @@ export default function Waybills() {
                             <li className='my-2'>Packing List</li>
                         </ol>
                     </div>
-                    <div className='col-span-1 h-[75vh]'>
+                    <div className='col-span-1'>
                         <img draggable={false} src={img3}/>
                     </div>
                 </section>

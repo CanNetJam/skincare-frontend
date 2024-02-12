@@ -33,14 +33,14 @@ export default function AdminOrders() {
             })
         }
         windowOpen()
-    }, [tab, pageEntries, page])
+    }, [tab, pageEntries, page, orders])
 
     useEffect(()=> {
         const resetPage = () => {   
             setPage(0)
         }
         resetPage()
-    }, [pageEntries])
+    }, [pageEntries, search, deliveryType, dateRange, deliveryStatus])
 
     useEffect(()=> {
         let isCancelled = false
@@ -95,7 +95,7 @@ export default function AdminOrders() {
                         <li className="order-3 me-2">
                             <button onClick={()=> {
                                 setTab("Purchase History")
-                                setDeliveryStatus("Delivered")
+                                setDeliveryStatus("")
                                 setPage(0)
                             }} aria-current="page" className={`${tab==="Purchase History" ? 'text-blue-600 bg-gray-100' : null} inline-block sm:p-4 p-2 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500`}>Purchase Records</button>
                         </li>

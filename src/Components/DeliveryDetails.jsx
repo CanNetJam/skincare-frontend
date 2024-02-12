@@ -99,10 +99,13 @@ export default function DeliveryDetails() {
             if (selectedProvince!==undefined) {
                 const res1 = await axios.get(`https://psgc.gitlab.io/api/provinces/${selectedProvince?.code}/cities/`)
                 setCities(res1.data)
+            } else if (selectedRegion!==undefined && (draftProvince==="" || selectedProvince===undefined)) {
+                const res1 = await axios.get(`https://psgc.gitlab.io/api/regions/${selectedRegion?.code}/cities.json`)
+                setCities(res1.data)
             }
         }
         getLocations()
-    }, [selectedProvince])
+    }, [selectedRegion, selectedProvince])
 
     useEffect(() => {
         setFilteredProvinces([])
@@ -235,7 +238,7 @@ export default function DeliveryDetails() {
 
                             <div className='relative pb-4'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Province:</label>
-                                <input required onChange={e => setDraftProvince(e.target.value)} value={draftProvince} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                <input onChange={e => setDraftProvince(e.target.value)} value={draftProvince} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                 {draftProvince!=="" && draftProvince!==selectedProvince?.name?
                                     <div className="grid gap-2 absolute bg-slate-100 h-auto max-h-[150px] w-full overflow-y-scroll rounded-b-xl no-scrollbar z-10">
                                         {filteredProvinces?.map((a, index)=> {

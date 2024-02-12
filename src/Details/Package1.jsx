@@ -10,11 +10,14 @@ import Features from '../Components/Features';
 import MoreInfo from '../Components/MoreInfo';
 import Precautions from '../Components/Precautions';
 import Routines2 from '../Components/Routines2';
+import EmailSubscription from '../Modals/EmailSubscription';
+import { ToastContainer } from 'react-toastify';
 
 export default function Package1() {
     const location = useLocation()
     const {id} = useParams()
     const [ packageData, setPackageData ] = useState({})
+    const [ isOpen, setIsOpen ] = useState(false)
     
     useEffect(()=> {
         const windowOpen = () => {   
@@ -24,6 +27,23 @@ export default function Package1() {
             })
         }
         windowOpen()
+    }, [])
+
+    useEffect(()=> {
+        const showPopup = () => {
+        let token = localStorage.getItem("auth-token")
+        if (token === null){
+            localStorage.setItem("auth-token", "")
+            token = ""
+        }
+
+        if (token==="" || token===null || token===undefined) {
+            setTimeout(()=>{
+                setIsOpen(true)
+            }, 5000)
+        }
+        }
+        showPopup()
     }, [])
 
     useEffect(()=> {
@@ -43,6 +63,9 @@ export default function Package1() {
     return (
         <div>
             <Navbar/>
+            {isOpen && (
+                <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
+            )}
             <Hero packageData={packageData}/>
             <MoreInfo packageData={packageData}/>
             <Approvals/>
@@ -51,6 +74,7 @@ export default function Package1() {
             <Precautions />
             <OrderNow productlinks={packageData?.packagelinks}/>
             <Footer/>
+            <ToastContainer/>
         </div>
     )
 }

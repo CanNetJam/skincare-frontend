@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlinePlus, AiOutlineLine } from "react-icons/ai";
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
+import EmailSubscription from '../Modals/EmailSubscription';
+import { ToastContainer } from 'react-toastify';
+import BillingAddress from '../QuestionsTopic/BillingAddress';
 
 function Faq() {
+    const [billaddquestion, setBillAddQuestion] = useState(false)
     const [question1, setQuestion1] = useState(false)
     const [question2, setQuestion2] = useState(false)
     const [question3, setQuestion3] = useState(false)
@@ -16,6 +20,7 @@ function Faq() {
     const [question10, setQuestion10] = useState(false)
     const [question11, setQuestion11] = useState(false)
     const [question12, setQuestion12] = useState(false)
+    const [ isOpen, setIsOpen ] = useState(false)
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -27,11 +32,31 @@ function Faq() {
         windowOpen()
     }, [])
 
+    useEffect(()=> {
+        const showPopup = () => {
+        let token = localStorage.getItem("auth-token")
+        if (token === null){
+            localStorage.setItem("auth-token", "")
+            token = ""
+        }
+
+        if (token==="" || token===null || token===undefined) {
+            setTimeout(()=>{
+                setIsOpen(true)
+            }, 5000)
+        }
+        }
+        showPopup()
+    }, [])
+
     return (
         <div>   
             <div>
                 <Navbar/>
             </div>
+            {isOpen && (
+                <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
+            )}
             <div className="min-h-screen h-auto sm:pt-0 mt-16 container mx-auto max-w-6xl py-2 lg:flex grid">
                     <div className="h-full w-full md:px-8 px-4">
                         <div>
@@ -39,6 +64,28 @@ function Faq() {
                             <br/>
                             <p className='text-center'>We understand that you have a lot of questions regarding our products and all off its characteristics and capabilities, therefore feel free to browse through the questions below so that hopefully one of your questions would be answered immediately. In cases where you can not find what you are looking for, please send as a message through Chat!</p>
                             <br/>
+
+                            <div className="border-t-2 grid">
+                                <div className="flex justify-between items-center">
+                                    <label onClick={()=> {
+                                        if (billaddquestion===false) {
+                                            setBillAddQuestion(true)
+                                        } else {
+                                            setBillAddQuestion(false)
+                                        }
+                                    }} className="font-bold text-blue-400 py-5 cursor-pointer">How do I setup my billing address?</label>
+                                    <label onClick={()=> {
+                                        if (billaddquestion===false) {
+                                            setBillAddQuestion(true)
+                                        } else {
+                                            setBillAddQuestion(false)
+                                        }
+                                    }} className='cursor-pointer'>{billaddquestion!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                </div>
+                                {billaddquestion===true ? 
+                                    <BillingAddress/>
+                                :null}
+                            </div>
 
                             <div className="border-t-2 grid">
                                 <div className="flex justify-between items-center">
@@ -339,6 +386,7 @@ function Faq() {
             <div>
                 <Footer/>
             </div>
+            <ToastContainer/>
         </div>
     )
 }

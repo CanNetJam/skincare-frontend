@@ -23,7 +23,7 @@ export default function Email() {
     const [ openPageCount, setOpenPageCount ] = useState(false)
     const [ search, setSearch ] = useState("")
     const [ pageButtons, setPageButtons] = useState([])
-    const [ displayedPages, setDisplayedPages ] = useState(10)
+    const [ displayedPages, setDisplayedPages ] = useState(5)
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -33,14 +33,14 @@ export default function Email() {
             })
         }
         windowOpen()
-    }, [pageEntries, page])
+    }, [pageEntries, page, emails])
 
     useEffect(()=> {
         const resetPage = () => {   
             setPage(0)
         }
         resetPage()
-    }, [pageEntries])
+    }, [pageEntries, search])
 
     useEffect(() => {
         let isCancelled = false
@@ -158,6 +158,9 @@ export default function Email() {
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
+                            <th scope="col" className="px-2 py-3">
+                                No.
+                            </th>
                             <th scope="col" className="px-6 py-3">
                                 Email
                             </th>
@@ -178,6 +181,9 @@ export default function Email() {
                                 {emails.map((a, index)=> {
                                     return (
                                         <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <td className="px-2 py-4">
+                                                <b>{(pageEntries*page)+(index+1)}</b>
+                                            </td>
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {a.email}
                                             </th>
@@ -199,9 +205,18 @@ export default function Email() {
                 </table>
 
             </div>
-            <nav className="flex w-full items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+            <nav className="sm:flex sm:flex-row-reverse grid justify-center gap-2 w-full items-center sm:justify-between pt-4" aria-label="Table navigation">
+                <PageButtons
+                    page={page}
+                    pages={pages}
+                    setPage={setPage}
+                    displayedPages={displayedPages}
+                    setDisplayedPages={setDisplayedPages}
+                    pageButtons={pageButtons}
+                    setPageButtons={setPageButtons}
+                />
                 <div>
-                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
+                    <span className="text-sm text-center font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
                         <button onClick={()=> {
                             if (openPageCount===false) {
                                 setOpenPageCount(true)
@@ -215,13 +230,13 @@ export default function Email() {
                                 <div id="dropdown" className="absolute top-5 left-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-auto dark:bg-gray-700">
                                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                                         <li>
-                                            <button onClick={()=>setPageEntries(10)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">10</button>
+                                            <label onClick={()=>setPageEntries(10)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">10</label>
                                         </li>
                                         <li>
-                                            <button onClick={()=>setPageEntries(50)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">50</button>
+                                            <label onClick={()=>setPageEntries(50)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">50</label>
                                         </li>
                                         <li>
-                                            <button onClick={()=>setPageEntries(100)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">100</button>
+                                            <label onClick={()=>setPageEntries(100)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">100</label>
                                         </li>
                                     </ul>
                                 </div>
@@ -230,17 +245,6 @@ export default function Email() {
                         <span className="font-semibold text-gray-900 dark:text-white">{" "+total}</span>
                     </span>
                 </div>
-
-                <PageButtons
-                    page={page}
-                    pages={pages}
-                    setPage={setPage}
-                    displayedPages={displayedPages}
-                    setDisplayedPages={setDisplayedPages}
-                    pageButtons={pageButtons}
-                    setPageButtons={setPageButtons}
-                />
-
             </nav>
         </div>
         <Footer/>

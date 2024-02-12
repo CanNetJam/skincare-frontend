@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import moment from "moment";
 import DateRangePickerComp from './DateRangePickerComp';
-import { Link } from 'react-router-dom';
 import ImageZoom from '../Modals/ImageZoom';
 import EditTicket from '../Modals/EditTicket';
 import { ToastContainer } from 'react-toastify';
@@ -13,11 +12,12 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
     const [ toEdit, setToEdit ] = useState("")
     const [ toZoom, setToZoom] = useState("")
     const [ zoomId, setZoomId] = useState("")
+    const [ zoomType, setZoomType] = useState("")
     const [ isZoom, setIsZoom ] = useState(false)
     const [ showMore, setShowMore ] = useState(false)
     const [ showMoreId, setShowMoreId ] = useState("")
     const [ pageButtons, setPageButtons] = useState([])
-    const [ displayedPages, setDisplayedPages ] = useState(10)
+    const [ displayedPages, setDisplayedPages ] = useState(5)
 
     return (
         <div className='h-full sm:w-auto w-screen pb-6 px-4'>
@@ -25,7 +25,7 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                 <EditTicket isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit}/>
             )}  
             {isZoom && (
-                <ImageZoom isZoom={isZoom} setIsZoom={setIsZoom} toZoom={toZoom} zoomId={zoomId} setZoomId={setZoomId}/>
+                <ImageZoom isZoom={isZoom} setIsZoom={setIsZoom} toZoom={toZoom} zoomId={zoomId} setZoomId={setZoomId} zoomType={zoomType}/>
             )}  
             <div className='relative'>
                 <DateRangePickerComp setDateRange={setDateRange}/>
@@ -87,6 +87,7 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                 <b>{(pageEntries*page)+(index+1)}</b>
                                             </td>
                                             <td scope="row" className="px-6 py-4">
+                                                <b className='whitespace-nowrap'>Ticket Id</b>: {a._id}<br/>
                                                 <b className='whitespace-nowrap'>Order Id</b>: {a.orderid._id}<br/>
                                                 {tab==="Pending Tickets" ? 
                                                     <div className='whitespace-nowrap'>
@@ -116,6 +117,7 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                     <img onClick={()=> {
                                                         setIsZoom(true)
                                                         setToZoom(a?.waybillimage)
+                                                        setZoomType("String")
                                                         setZoomId(a._id)
                                                     }} className='h-full w-full object-cover cursor-pointer' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.waybillimage}.jpg`}></img>
                                                 </div>
@@ -126,6 +128,7 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                         <img onClick={()=> {
                                                         setIsZoom(true)
                                                         setToZoom(a?.productimage1)
+                                                        setZoomType("String")
                                                         setZoomId(a._id)
                                                         }} className='h-full w-full object-cover cursor-pointer' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.productimage1}.jpg`}></img>
                                                     </div>
@@ -133,6 +136,7 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                         <img onClick={()=> {
                                                         setIsZoom(true)
                                                         setToZoom(a?.productimage2)
+                                                        setZoomType("String")
                                                         setZoomId(a._id)
                                                         }} className='h-full w-full object-cover cursor-pointer' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.productimage2}.jpg`}></img>
                                                     </div>
@@ -164,9 +168,18 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                     </tbody>
                 </table>
             </div>
-            <nav className="flex w-full items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+            <nav className="sm:flex sm:flex-row-reverse grid justify-center gap-2 w-full items-center sm:justify-between pt-4" aria-label="Table navigation">
+                <PageButtons
+                    page={page}
+                    pages={pages}
+                    setPage={setPage}
+                    displayedPages={displayedPages}
+                    setDisplayedPages={setDisplayedPages}
+                    pageButtons={pageButtons}
+                    setPageButtons={setPageButtons}
+                />
                 <div>
-                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
+                    <span className="text-sm text-center font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
                         <button onClick={()=> {
                             if (openPageCount===false) {
                                 setOpenPageCount(true)
@@ -180,13 +193,13 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                 <div id="dropdown" className="absolute top-5 left-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-auto dark:bg-gray-700">
                                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                                         <li>
-                                            <label onClick={()=>setPageEntries(5)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">5</label>
-                                        </li>
-                                        <li>
                                             <label onClick={()=>setPageEntries(10)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">10</label>
                                         </li>
                                         <li>
-                                            <label onClick={()=>setPageEntries(25)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">25</label>
+                                            <label onClick={()=>setPageEntries(50)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">50</label>
+                                        </li>
+                                        <li>
+                                            <label onClick={()=>setPageEntries(100)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">100</label>
                                         </li>
                                     </ul>
                                 </div>
@@ -195,16 +208,6 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                         <span className="font-semibold text-gray-900 dark:text-white">{" "+total}</span>
                     </span>
                 </div>
-
-                <PageButtons
-                    page={page}
-                    pages={pages}
-                    setPage={setPage}
-                    displayedPages={displayedPages}
-                    setDisplayedPages={setDisplayedPages}
-                    pageButtons={pageButtons}
-                    setPageButtons={setPageButtons}
-                />
             </nav>
             <ToastContainer/>
         </div>

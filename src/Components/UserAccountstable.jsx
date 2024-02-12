@@ -30,7 +30,7 @@ export default function UserAccountsTable() {
     const [ pageButtons, setPageButtons] = useState([])
     const [ displayedPages, setDisplayedPages ] = useState(10)
     const [ openPageCount, setOpenPageCount ] = useState(false)
-    const [ userType, setUserType ] = useState("Klued Staff")
+    const [ userType, setUserType ] = useState("")
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -40,7 +40,7 @@ export default function UserAccountsTable() {
             })
         }
         windowOpen()
-    }, [])
+    }, [page, pageEntries, accounts])
     
     useEffect(() => {
         const getAccounts = async () => {
@@ -166,6 +166,9 @@ export default function UserAccountsTable() {
                 <table className="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
+                            <th scope="col" className="px-2 py-3">
+                                No.
+                            </th>
                             <th scope="col" className="px-6 py-3">
                                 User Type
                             </th>
@@ -198,6 +201,9 @@ export default function UserAccountsTable() {
                                 {accounts.map((a, index)=> {
                                     return (
                                         <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <td className="px-2 py-4">
+                                                <b>{(pageEntries*page)+(index+1)}</b>
+                                            </td>
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {a.type}
                                             </th>

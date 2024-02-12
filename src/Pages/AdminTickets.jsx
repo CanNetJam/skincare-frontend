@@ -30,14 +30,14 @@ export default function AdminTickets() {
             })
         }
         windowOpen()
-    }, [tab, pageEntries, page])
+    }, [tab, pageEntries, page, tickets])
 
     useEffect(()=> {
         const resetPage = () => {   
             setPage(0)
         }
         resetPage()
-    }, [pageEntries])
+    }, [pageEntries, search])
 
     useEffect(()=> {
         let isCancelled = false

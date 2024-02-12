@@ -7,14 +7,14 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function CancelOrder({isEdit, setIsEdit, toEdit}) {
     const [reason, setReason] = useState("")
     const [specificReason, setSpecificReason] = useState("")
-
+    
     async function submitHandler(e) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {
             const data = new FormData()
             data.append("reason", reason!=="Others" ? reason : specificReason)
             data.append("paymentid", toEdit?.paymentid)
-            data.append("amountpaid", toEdit?.amountpaid)
+            data.append("amountpaid", toEdit?.netamount)
             let token = localStorage.getItem("auth-token")
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/cancel-order/${toEdit._id}`, data, 
             { headers: { "Content-Type": "application/json", "auth-token": token } })
@@ -65,25 +65,43 @@ export default function CancelOrder({isEdit, setIsEdit, toEdit}) {
                                 <Dialog.Title as="h3" className="text-lg border-b pb-2 font-semibold leading-6 text-gray-900 flex items-center">
                                     Cancel Order 
                                 </Dialog.Title>
-                                <div className='grid grid-cols-3 text-sm py-1'>
-                                    <label className='col-span-1'>Order ID:</label>
-                                    <label className='col-span-2 text-right'>{toEdit._id}</label>
+                                <div className='border-2 border-blue-400 rounded-xl p-4 relative my-4'>
+                                    <h1 className='absolute -top-3 bg-white px-2 font-bold text-blue-400'>Order Details</h1>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Order ID:</label>
+                                        <label className='col-span-2 text-right'>{toEdit._id}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Name:</label>
+                                        <label className='col-span-2 text-right'>{toEdit.owner}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Total amount paid:</label>
+                                        <label className='col-span-2 text-right'>₱ {toEdit.amountpaid}.00</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Payment option:</label>
+                                        <label className='col-span-2 text-right'>{toEdit.paymentoption}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Billing address:</label>
+                                        <label className='col-span-2 text-right'>{toEdit.billingaddress.street + ", " + toEdit.billingaddress.barangay + ", " + toEdit.billingaddress.city + ", " + toEdit.billingaddress.province + ", " + toEdit.billingaddress.region + ", " + toEdit.billingaddress.postal }</label>
+                                    </div>
                                 </div>
-                                <div className='grid grid-cols-3 text-sm py-1'>
-                                    <label className='col-span-1'>Name:</label>
-                                    <label className='col-span-2 text-right'>{toEdit.owner}</label>
-                                </div>
-                                <div className='grid grid-cols-3 text-sm py-1'>
-                                    <label className='col-span-1'>Total amount paid:</label>
-                                    <label className='col-span-2 text-right'>₱ {toEdit.amountpaid}.00</label>
-                                </div>
-                                <div className='grid grid-cols-3 text-sm py-1'>
-                                    <label className='col-span-1'>Payment option:</label>
-                                    <label className='col-span-2 text-right'>{toEdit.paymentoption}</label>
-                                </div>
-                                <div className='grid grid-cols-3 text-sm py-1'>
-                                    <label className='col-span-1'>Billing address:</label>
-                                    <label className='col-span-2 text-right'>{toEdit.billingaddress.street + ", " + toEdit.billingaddress.barangay + ", " + toEdit.billingaddress.city + ", " + toEdit.billingaddress.province + ", " + toEdit.billingaddress.region + ", " + toEdit.billingaddress.postal }</label>
+                                <div className='border-2 border-red-400 rounded-xl p-4 relative my-4'>
+                                    <h1 className='absolute -top-3 bg-white px-2 font-bold text-red-400'>Refund Details</h1>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1 whitespace-nowrap'>Order total:</label>
+                                        <label className='col-span-2 text-right'>₱ {toEdit.amountpaid}.00</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1 whitespace-nowrap'>Transaction fee:</label>
+                                        <label className='col-span-2 text-right'>₱ {toEdit.transactionfee}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1 border-t'>
+                                        <label className='col-span-1 whitespace-nowrap'>Refundable amount:</label>
+                                        <label className='col-span-2 text-right'>₱ {toEdit.netamount}</label>
+                                    </div>
                                 </div>
                                 <form onSubmit={submitHandler}>
                                     <div className="grid grid-cols-2 text-sm py-2 items-center">

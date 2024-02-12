@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from 'react-router-dom';
 import img1 from '../assets/Compressed-Webp/Flash.webp';
 import img2 from '../assets/Compressed-Webp/J&T.webp';
+import img3 from '../assets/Compressed-Webp/visa.webp';
+import img4 from '../assets/Compressed-Webp/gcash.webp';
 
 export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTotal}) {
     const navigate = useNavigate()
@@ -178,15 +180,17 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
                         <p className="text-gray-400">Decide how you would like to pay your order.</p>
                         <div className='grid sm:grid-cols-2 gap-4 py-8'>
                             <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-                                <input onChange={()=>setPayment("Credit / Debit Card")} id="bordered-radio-1" type="radio" name="bordered-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                                <label htmlFor="bordered-radio-1" className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Credit / Debit Card</label>
+                                <img className="h-10 w-10 object-contain cursor-pointer" src={img3} alt="Visa/Mastercard logo" />
+                                <label htmlFor="bordered-radio-1" className="w-full py-4 ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300 cursor-pointer">Credit / Debit Card</label>
+                                <input onChange={()=>setPayment("Credit / Debit Card")} id="bordered-radio-1" type="radio" name="bordered-radio" className="mr-2 w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
                             </div>
                             <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-                                <input onChange={()=>setPayment("Gcash")} id="bordered-radio-2" type="radio" name="bordered-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                                <label htmlFor="bordered-radio-2" className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">GCash</label>
+                                <img className="h-10 w-10 object-contain cursor-pointer" src={img4} alt="Gcash logo" />
+                                <label htmlFor="bordered-radio-2" className="w-full py-4 ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300 cursor-pointer">GCash</label>
+                                <input onChange={()=>setPayment("Gcash")} id="bordered-radio-2" type="radio" name="bordered-radio" className="mr-2 w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
                             </div>
                         </div>
-                        <div className="flex justify-center">
+                        <div className="justify-center hidden">
                             <button disabled={delivery==="" || payment==="" ? true : false} type='submit' className={`${delivery==="" || payment==="" ? 'bg-gray-500': ' before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-2 w-auto sm:px-10 px-1 font-bold rounded-md`}>
                                 Checkout
                             </button>

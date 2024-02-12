@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
-import DeliveryDetails from '../Components/DeliveryDetails';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router';
@@ -14,7 +13,7 @@ export default function Tickets() {
     const [ tickets, setTickets ] = useState([])
     const [ page, setPage ] = useState(0)
     const [ pages, setPages ] = useState(0)
-    const [ pageEntries, setPageEntries ] = useState(10)
+    const [ pageEntries, setPageEntries ] = useState(5)
     const [ total, setTotal ] = useState(0)
 
     useEffect(()=> {
@@ -63,7 +62,7 @@ export default function Tickets() {
                 <div className='h-full py-2 w-full container mx-auto'>
                 <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>My Tickets</h1>
 
-                    <ul className="sm:flex sm:flex-wrap grid grid-cols-3 text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                    <ul className="sm:flex sm:flex-wrap grid grid-cols-2 text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
                         <li className="me-2">
                             <button onClick={()=> {
                                 setTab("Pending Tickets")

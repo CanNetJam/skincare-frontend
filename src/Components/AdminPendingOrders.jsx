@@ -11,7 +11,7 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
     const [ convertedOrders, setConvertedOrders ] = useState([])
     const [ toEdit, setToEdit ] = useState("")
     const [ pageButtons, setPageButtons] = useState([])
-    const [ displayedPages, setDisplayedPages ] = useState(10)
+    const [ displayedPages, setDisplayedPages ] = useState(5)
 
     useEffect(()=>{
         const convertOrders = () => {
@@ -55,7 +55,7 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
         }
         convertOrders()
     }, [orders])
-    
+
     return (
         <div className='h-full sm:w-auto w-screen pb-6 px-4'>
             {isEdit && (
@@ -65,66 +65,71 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                 <DateRangePickerComp setDateRange={setDateRange}/>
             </div>
             <div className='w-full z-20 py-2 sm:flex sm:justify-between grid gap-4'>
-                <div className='group'>
-                    <div className="relative bg-blue-400 text-white text-sm font-bold whitespace-nowrap py-2 px-4 min-w-[150px] flex justify-center items-center">
-                        {deliveryType!== "" ? 
-                            <>
-                                {deliveryType}
-                                <svg onClick={()=>setDeliveryType("")} className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill='white' d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
-                            </>
-                        : "Select Courier"}
-                        <div className="absolute left-0 top-9 w-full bg-gray-200 text-black z-10 hidden group-hover:block">
-                            <label onClick={()=>setDeliveryType("Flash Express")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
-                                Flash Express
-                            </label>
-                            <label onClick={()=>setDeliveryType("J&T Express")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
-                                J&T Express
-                            </label>
+                <div className='grid sm:flex gap-2'>
+                    <div className='group'>
+                        <div className="relative bg-blue-400 text-white text-sm font-bold whitespace-nowrap py-2 px-4 min-w-[150px] flex justify-center items-center">
+                            {deliveryType!== "" ? 
+                                <>
+                                    {deliveryType}
+                                    <svg onClick={()=>setDeliveryType("")} className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill='white' d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
+                                </>
+                            : "Select Courier"}
+                            <div className="absolute left-0 top-9 w-full bg-gray-200 text-black z-10 hidden group-hover:block">
+                                <label onClick={()=>setDeliveryType("Flash Express")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                    Flash Express
+                                </label>
+                                <label onClick={()=>setDeliveryType("J&T Express")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                    J&T Express
+                                </label>
+                            </div>
                         </div>
                     </div>
+                    {tab==="Pending Orders" ? 
+                        <div className='group'>
+                            <div className="relative bg-blue-400 text-white text-sm font-bold py-2 px-4 min-w-[220px] whitespace-nowrap flex justify-center items-center">
+                                {deliveryStatus!== "" ? 
+                                    <>
+                                        {deliveryStatus}
+                                        <svg onClick={()=>setDeliveryStatus("")} className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill='white' d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
+                                    </>
+                                : "Select Status"}
+                                <div className="absolute left-0 top-9 w-full bg-gray-200 text-black z-10 hidden group-hover:block">
+                                    <label onClick={()=>setDeliveryStatus("Seller Processing")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        Seller Processing
+                                    </label>
+                                    <label onClick={()=>setDeliveryStatus("In Transit")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        In Transit
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    :
+                        <div className='group'>
+                            <div className="relative bg-blue-400 text-white text-sm font-bold py-2 px-4 min-w-[220px] whitespace-nowrap flex justify-center items-center">
+                                {deliveryStatus!== "" ? 
+                                    <>
+                                        {deliveryStatus}
+                                        <svg onClick={()=>setDeliveryStatus("")} className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill='white' d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
+                                    </>
+                                : "Select Status"}
+                                <div className="absolute left-0 top-9 w-full bg-gray-200 text-black z-10 hidden group-hover:block">
+                                    <label onClick={()=>setDeliveryStatus("Delivered")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        Delivered
+                                    </label>
+                                    <label onClick={()=>setDeliveryStatus("Cancelled")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        Cancelled
+                                    </label>
+                                    <label onClick={()=>setDeliveryStatus("Returned/Refunded")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        Returned/Refunded
+                                    </label>
+                                    <label onClick={()=>setDeliveryStatus("Returned to Seller")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        Returned to Seller
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
-                {tab==="Pending Orders" ? 
-                    <div className='group'>
-                        <div className="relative bg-blue-400 text-white text-sm font-bold py-2 px-4 min-w-[150px] whitespace-nowrap flex justify-center items-center">
-                            {deliveryStatus!== "" ? 
-                                <>
-                                    {deliveryStatus}
-                                    <svg onClick={()=>setDeliveryStatus("")} className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill='white' d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
-                                </>
-                            : "Select Status"}
-                            <div className="absolute left-0 top-9 w-full bg-gray-200 text-black z-10 hidden group-hover:block">
-                                <label onClick={()=>setDeliveryStatus("Seller Processing")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
-                                    Seller Processing
-                                </label>
-                                <label onClick={()=>setDeliveryStatus("In Transit")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
-                                    In Transit
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                :
-                    <div className='group'>
-                        <div className="relative bg-blue-400 text-white text-sm font-bold py-2 px-4 min-w-[150px] whitespace-nowrap flex justify-center items-center">
-                            {deliveryStatus!== "" ? 
-                                <>
-                                    {deliveryStatus}
-                                    <svg onClick={()=>setDeliveryStatus("")} className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill='white' d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
-                                </>
-                            : "Select Status"}
-                            <div className="absolute left-0 top-9 w-full bg-gray-200 text-black z-10 hidden group-hover:block">
-                                <label onClick={()=>setDeliveryStatus("Delivered")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
-                                    Delivered
-                                </label>
-                                <label onClick={()=>setDeliveryStatus("Cancelled")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
-                                    Cancelled
-                                </label>
-                                <label onClick={()=>setDeliveryStatus("Returned/Refunded")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
-                                    Returned/Refunded
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                }
                 {tab==="Pending Orders" && deliveryStatus==="Seller Processing" ? 
                     <div className='w-full flex sm:justify-end'>
                         <CSVLink 
@@ -193,7 +198,7 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className='grid gap-2'>
-                                                    <span className='font-semibold text-blue-500'>{a.deliverystatus}</span>
+                                                    <label className={`${a.deliverystatus==="Seller Processing" || a.deliverystatus==="In Transit" ? `text-blue-500` : a.deliverystatus==="Cancelled" ?  'text-red-500': a.deliverystatus==="Delivered" ?  'text-green-500': `text-yellow-500` } font-semibold`}>{a.deliverystatus}</label>
                                                     <label>{a.deliveryoption}</label>
                                                 </div>
                                             </td>
@@ -234,9 +239,18 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                     </tbody>
                 </table>
             </div>
-            <nav className="flex w-full items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+            <nav className="sm:flex sm:flex-row-reverse grid justify-center gap-2 w-full items-center sm:justify-between pt-4" aria-label="Table navigation">
+                <PageButtons
+                    page={page}
+                    pages={pages}
+                    setPage={setPage}
+                    displayedPages={displayedPages}
+                    setDisplayedPages={setDisplayedPages}
+                    pageButtons={pageButtons}
+                    setPageButtons={setPageButtons}
+                />
                 <div>
-                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
+                    <span className="text-sm text-center font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing{" "}
                         <button onClick={()=> {
                             if (openPageCount===false) {
                                 setOpenPageCount(true)
@@ -250,13 +264,13 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                                 <div id="dropdown" className="absolute top-5 left-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-auto dark:bg-gray-700">
                                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                                         <li>
-                                            <button onClick={()=>setPageEntries(10)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">10</button>
+                                            <label onClick={()=>setPageEntries(10)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">10</label>
                                         </li>
                                         <li>
-                                            <button onClick={()=>setPageEntries(50)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">50</button>
+                                            <label onClick={()=>setPageEntries(50)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">50</label>
                                         </li>
                                         <li>
-                                            <button onClick={()=>setPageEntries(100)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">100</button>
+                                            <label onClick={()=>setPageEntries(100)} className="text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">100</label>
                                         </li>
                                     </ul>
                                 </div>
@@ -265,16 +279,6 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                         <span className="font-semibold text-gray-900 dark:text-white">{" "+total}</span>
                     </span>
                 </div>
-
-                <PageButtons
-                    page={page}
-                    pages={pages}
-                    setPage={setPage}
-                    displayedPages={displayedPages}
-                    setDisplayedPages={setDisplayedPages}
-                    pageButtons={pageButtons}
-                    setPageButtons={setPageButtons}
-                />
             </nav>
         </div>
     )

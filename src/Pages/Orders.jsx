@@ -64,20 +64,20 @@ export default function Orders() {
                 <div className='h-full py-2 w-full container mx-auto'>
                 <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Manage your Orders</h1>
 
-                    <ul className="sm:flex sm:flex-wrap grid grid-cols-3 text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
-                        <li className="me-2">
+                    <ul className="sm:flex sm:flex-wrap grid grid-cols-3 sm:text-sm text-xs font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                        <li className="">
                             <button onClick={()=> {
                                 setTab("Pending Orders")
                                 setPage(0)
                             }} aria-current="page" className={`${tab==="Pending Orders" ? 'text-blue-600 bg-gray-100' : null} inline-block sm:p-4 p-2 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500`}>Pending Orders</button>
                         </li>
-                        <li className="me-2">
+                        <li className="">
                             <button onClick={()=> {
                                 setTab("Purchase History")
                                 setPage(0)
                             }} aria-current="page" className={`${tab==="Purchase History" ? 'text-blue-600 bg-gray-100' : null} inline-block sm:p-4 p-2 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500`}>Purchase History</button>
                         </li>
-                        <li className="me-2">
+                        <li className="">
                             <button onClick={()=> setTab("Delivery Details")} aria-current="page" className={`${tab==="Delivery Details" ? 'text-blue-600 bg-gray-100' : null} inline-block sm:p-4 p-2 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500`}>Delivery Details</button>
                         </li>
                     </ul>

@@ -9,6 +9,7 @@ import Footer from '../Components/Footer';
 import Usage from '../Components/Usage';
 import OrderNow from '../Components/OrderNow';
 import { UserContext } from "../App";
+import EmailSubscription from '../Modals/EmailSubscription';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,6 +19,7 @@ export default function Product1() {
     const {id} = useParams()
     const [ productData, setProductData ] = useState({})
     const [ quantity, setQuantity ] = useState(1)
+    const [ isOpen, setIsOpen ] = useState(false)
     
     useEffect(()=> {
         const windowOpen = () => {   
@@ -27,6 +29,23 @@ export default function Product1() {
             })
         }
         windowOpen()
+    }, [])
+
+    useEffect(()=> {
+        const showPopup = () => {
+        let token = localStorage.getItem("auth-token")
+        if (token === null){
+            localStorage.setItem("auth-token", "")
+            token = ""
+        }
+
+        if (token==="" || token===null || token===undefined) {
+            setTimeout(()=>{
+                setIsOpen(true)
+            }, 5000)
+        }
+        }
+        showPopup()
     }, [])
     
     useEffect(()=> {
@@ -45,27 +64,27 @@ export default function Product1() {
 
     function toastSuccessNotification(props) {
         toast.success(`Added ${props} to your cart.`, {
-          position: "top-left",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+            position: "top-left",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
         })
     }
 
     function toastErrorNotification() {
         toast.error('An error happened while adding an item to your cart.', {
-          position: "top-left",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+            position: "top-left",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
         })
     }
 
@@ -152,6 +171,9 @@ export default function Product1() {
             <div>
                 <Navbar/>
             </div>
+            {isOpen && (
+                <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
+            )}
             <div className="h-full w-full sm:flex grid grid-cols-3 container max-w-6xl mx-auto gap-0">
                 <div className="min-h-[200vh] h-auto w-full col-span-2 sm:px-20 z-10 px-4 py-16">
                     <div className="py-8">
