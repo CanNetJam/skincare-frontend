@@ -67,7 +67,7 @@ export default function SocialMediaChecking() {
                             All the mentions and tagged videos of us should be acknowledged immediately.
                         </p>
                     </div>
-                    <p className='font-bold italic grid text-center col-span-2'>This will be the daily routine</p>
+                    <p className='font-bold italic grid text-center sm:col-span-2'>This will be the daily routine</p>
                 </section>
                 
             </div>
