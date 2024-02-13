@@ -1,9 +1,15 @@
-import React, { useEffect, useContext  } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import {UserContext} from "../App";
 import PolicyEmail from '../Components/PolicyEmail';
+import ImageZoom from '../Modals/ImageZoom';
+import PdfViewer from '../Components/PdfViewer';
+import pdf from '../assets/Policy/Decorum1.pdf'
 
 export default function WorkplaceDecorum1() {
     const { userData, setUserData } = useContext(UserContext)
+    const [ toZoom, setToZoom] = useState("")
+    const [ isZoom, setIsZoom ] = useState(false)
+    const [ zoomType, setZoomType] = useState("")
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -17,11 +23,28 @@ export default function WorkplaceDecorum1() {
 
     return (
         <div className='bg-blue-200 h-auto w-full text-base sm:text-lg sm:p-8 p-4'>
+            {isZoom && (
+                <ImageZoom isZoom={isZoom} setIsZoom={setIsZoom} toZoom={toZoom} zoomType={zoomType}/>
+            )}  
             <section className='my-2'>
                 <h1 className='subHeading text-center sm:mb-6 mb-2'>Code of Discipline on Workplace Decorum 1<br/>(IP-012)</h1>
             </section>
             <br/>
             <section className='container bg-white mx-auto sm:p-10 p-2 grid gap-2 sm:rounded-[30px] rounded-[10px]'>
+                <div onClick={()=> {
+                        setIsZoom(true)
+                        setToZoom(pdf)
+                        setZoomType("File")
+                    }} className='cursor-pointer w-full grid justify-center'>
+                    <PdfViewer pdfFile={pdf} />
+                </div>
+                <PolicyEmail userData={userData?.user} policytitle={["Code of Discipline on Workplace Decorum 1 (IP-012)"]}/>
+            </section>
+        </div>
+    )
+}
+
+/*
                 <div className="relative w-full overflow-x-auto shadow-md sm:rounded-lg p-4">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-400">
                         <thead className="text-xs text-gray-900 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -326,8 +349,4 @@ export default function WorkplaceDecorum1() {
                         </tbody>
                     </table>
                 </div>
-                <PolicyEmail userData={userData?.user} policytitle={["Code of Discipline on Workplace Decorum 1 (IP-012)"]}/>
-            </section>
-        </div>
-    )
-}
+                */

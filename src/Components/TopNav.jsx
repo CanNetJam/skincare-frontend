@@ -7,7 +7,7 @@ import DropdownUser from './DropdownUser';
 
 function Navbar(props) {
     const navigate = useNavigate()
-    const { userData, setUserData } = useContext(UserContext)
+    const { userData, setUserData } = useContext(UserContext || null)
     const [ openMenu, setopenMenu ] = useState(false)
     const [ open, setOpen ] = useState(false)
     const [shop, setShop] = useState(false)

@@ -146,7 +146,7 @@ export default function LiveSessions() {
                             <li className='my-2'>Don’t use overdesigned earrings, it may cause distraction.</li>
                         </ol>
                     </div>
-                    <p className='italic font-semibold text-center col-span-2'>Note:    Failure to follow these rules will lead to disciplinary action.</p>
+                    <p className='italic font-semibold text-center sm:col-span-2'>Note:    Failure to follow these rules will lead to disciplinary action.</p>
                 </section>
 
                 <section className='container bg-gray-100 mx-auto sm:p-10 p-2 grid gap-2'>

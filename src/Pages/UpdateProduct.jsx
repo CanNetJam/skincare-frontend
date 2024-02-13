@@ -73,6 +73,17 @@ export default function UpdateProduct() {
         }
     })
     const [ updateIngList, setUpdateIngList ] = useState([])
+    const [ submitted, setSubmitted ] = useState(false)
+
+    useEffect(()=> {
+        const windowOpen = () => {   
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            })
+        }
+        windowOpen()
+    }, [submitted])
 
     useEffect(()=> {
         const getProducts = async () => {
@@ -84,7 +95,7 @@ export default function UpdateProduct() {
             }
         }
         getProducts()
-    }, [])
+    }, [submitted])
 
     async function submitHandler(e) {
         e.preventDefault()
@@ -223,7 +234,10 @@ export default function UpdateProduct() {
             })
             setNigstep("")
             setFile([])
-            CreatePhotoField.current.value = ""
+            if (CreatePhotoField.current.value!==null) {
+                CreatePhotoField.current.value = null
+            }
+            setSubmitted(!submitted)
             } catch (err) {
                 console.log(err)
             }
@@ -406,7 +420,7 @@ export default function UpdateProduct() {
                                     <div className="sm:col-span-1">
                                         <label className="block text-sm font-medium leading-6 text-gray-900">Stock</label>
                                         <div className="mt-2">
-                                            <input onChange={handleChange} value={product.stock} placeholder={0} type="number" name="stock" id="stock" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                            <input onChange={(e)=>setProduct({...product, stock: e.target.value})} value={product.stock} placeholder={'0'} type="text" name="stock" id="stock" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-1">

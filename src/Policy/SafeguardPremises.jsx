@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import img1 from '../assets/Policy/c1.png';
 import {UserContext} from "../App";
 import PolicyEmail from '../Components/PolicyEmail';
 import ImageZoom from '../Modals/ImageZoom';
+import PdfViewer from '../Components/PdfViewer';
+import pdf from '../assets/Policy/Safeguard.pdf'
 
 export default function SafeguardPremises() {
     const { userData, setUserData } = useContext(UserContext)
@@ -32,13 +33,12 @@ export default function SafeguardPremises() {
             </section>
             <br/>
             <section className='container bg-white mx-auto sm:p-10 p-2 grid gap-2 sm:rounded-[30px] rounded-[10px]'>
-                <div className='col-span-1 grid justify-center'>
-                    <img onClick={()=> {
-                            setIsZoom(true)
-                            setToZoom(img1)
-                            setZoomType("File")
-                        }} className='cursor-pointer' src={img1}/>
-                    <label className='text-center'>Page 1 of 1</label>
+                <div onClick={()=> {
+                        setIsZoom(true)
+                        setToZoom(pdf)
+                        setZoomType("File")
+                    }} className='cursor-pointer w-full grid justify-center'>
+                    <PdfViewer pdfFile={pdf} />
                 </div>
                 <PolicyEmail userData={userData?.user} policytitle={["Safeguarding Premises (IP-003)"]}/>
             </section>

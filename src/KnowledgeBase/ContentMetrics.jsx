@@ -34,7 +34,7 @@ export default function ContentMetrics() {
                         <p className='sm:text-xl text-base text-center'>This is our standard for creating Tiktok and Instagram contents.</p>
                     </div>
                     <br/>
-                    <div className='grid grid-cols-2 gap-6'>
+                    <div className='grid sm:grid-cols-2 gap-6'>
                         <div>
                             <h1 className='font-bold contentHeading my-4'>TIKTOK</h1>
                             <ul className='ml-4 list-disc sm:text-xl text-base'>
@@ -54,7 +54,7 @@ export default function ContentMetrics() {
                                 <li className='my-2'>Ask anyone to four-eye the captions and texts to avoid deleting and re-uploading due to mistakes. </li>
                             </ul>
                         </div>
-                        <p className='italic font-semibold col-span-2 text-center'>Note:    Failure to follow these rules will lead to disciplinary action.</p>
+                        <p className='italic font-semibold sm:col-span-2 text-center'>Note:    Failure to follow these rules will lead to disciplinary action.</p>
                     </div>
                     <br/>
                     <div className='grid justify-center'>
@@ -64,7 +64,8 @@ export default function ContentMetrics() {
                         <div className='grid justify-center'>
                             <img draggable={false} src={img1}/>
                         </div>
-                        <p className='text-center text-2xl'>
+                        <br/>
+                        <p className='text-center sm:text-2xl text-lg'>
                             INCENTIVE POSTINGS IN TIKTOK<br/>
                             100K VIEWS - <b>3,000 PHP</b><br/>
                             200K VIEWS - <b>5,000 PHP</b><br/>
