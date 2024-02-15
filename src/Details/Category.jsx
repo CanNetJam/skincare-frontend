@@ -165,16 +165,16 @@ export default function Category() {
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
                             </div>
-                            <div className='flex justify-between'>
-                                <p className='text-gray-700'>₱ {product.price}.00</p>
+                            <div className='sm:flex sm:justify-between grid gap-1'>
+                                <p className='text-gray-700'>₱{product.price}.00</p>
                                 <p className='text-gray-700'> 
-                                {product.stock!==0 ? 
-                                    <>
-                                        <b>{product.stock}</b> <span className='text-xs'>items left</span>
-                                    </>
+                                    {product.stock!==0 ? 
+                                        <>
+                                            <b>{product.stock}</b> <span className='text-xs'>items left</span>
+                                        </>
                                     : 
                                     <>
-                                        Out of stock.
+                                        <b>Out of stock.</b>
                                     </>}
                                 </p>
                             </div>
@@ -199,16 +199,16 @@ export default function Category() {
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
                             </div>
-                            <div className='flex justify-between'>
-                                <p className='text-gray-700'>₱ {product.price}.00</p>
+                            <div className='sm:flex sm:justify-between grid gap-1'>
+                                <p className='text-gray-700'>₱{product.price}.00</p>
                                 <p className='text-gray-700'> 
-                                {product.stock!==0 ? 
-                                    <>
-                                        <b>{product.stock}</b> <span className='text-xs'>items left</span>
-                                    </>
+                                    {product.stock!==0 ? 
+                                        <>
+                                            <b>{product.stock}</b> <span className='text-xs'>items left</span>
+                                        </>
                                     : 
                                     <>
-                                        Out of stock.
+                                        <b>Out of stock.</b>
                                     </>}
                                 </p>
                             </div>
@@ -233,16 +233,16 @@ export default function Category() {
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
                             </div>
-                            <div className='flex justify-between'>
-                                <p className='text-gray-700'>₱ {product.price}.00</p>
+                            <div className='sm:flex sm:justify-between grid gap-1'>
+                                <p className='text-gray-700'>₱{product.price}.00</p>
                                 <p className='text-gray-700'> 
-                                {product.stock!==0 ? 
-                                    <>
-                                        <b>{product.stock}</b> <span className='text-xs'>items left</span>
-                                    </>
+                                    {product.stock!==0 ? 
+                                        <>
+                                            <b>{product.stock}</b> <span className='text-xs'>items left</span>
+                                        </>
                                     : 
                                     <>
-                                        Out of stock.
+                                        <b>Out of stock.</b>
                                     </>}
                                 </p>
                             </div>
@@ -267,16 +267,16 @@ export default function Category() {
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
                             </div>
-                            <div className='flex justify-between'>
-                                <p className='text-gray-700'>₱ {product.price}.00</p>
+                            <div className='sm:flex sm:justify-between grid gap-1'>
+                                <p className='text-gray-700'>₱{product.price}.00</p>
                                 <p className='text-gray-700'> 
-                                {product.stock!==0 ? 
-                                    <>
-                                        <b>{product.stock}</b> <span className='text-xs'>items left</span>
-                                    </>
+                                    {product.stock!==0 ? 
+                                        <>
+                                            <b>{product.stock}</b> <span className='text-xs'>items left</span>
+                                        </>
                                     : 
                                     <>
-                                        Out of stock.
+                                        <b>Out of stock.</b>
                                     </>}
                                 </p>
                             </div>

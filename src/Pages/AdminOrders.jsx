@@ -82,7 +82,7 @@ export default function AdminOrders() {
             <Navbar/>
             <div className='pt-16 min-h-screen h-auto grid items-center'>
                 <div className='h-full py-2 w-full container mx-auto'>
-                <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Manage All Orders</h1>
+                    <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Manage All Orders</h1>
 
                     <ul className="relative sm:flex sm:flex-wrap grid grid-cols-2 gap-1 sm:grid-cols-3 text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
                         <li className="order-2 me-2">

@@ -9,21 +9,42 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Footer() {
     const [ email, setEmail ] = useState("")
 
+    function toastWarningNotification() {
+        toast.warn('Thankyou for the support but this email is already subscribed!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        })
+    }
+
+    function toastSuccessNotification() {
+        toast.success('Successfully subscribed to Klued newsletter!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        })
+    }
+
     async function submitHandler(e) {
         e.preventDefault()
         try {
-        const loadingNotif = async function myPromise() {
             const passEmail = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/emails/submit-email`, {email})
-            setEmail("")
-        }
-        toast.promise(
-            loadingNotif,
-            {
-                pending: 'Processing subscription...',
-                success: 'Successfully subscribed!',
-                error: 'Subscription failed!'
+            if (passEmail.data===false) {
+                setEmail("")
+                toastSuccessNotification()
+            } else if (passEmail.data===true) {
+                toastWarningNotification()
             }
-        )
         } catch (error) {
         console.log(error)
         }
@@ -117,6 +138,7 @@ export default function Footer() {
                     <h1 className='text-slate-400 text-sm'>© 2023 Klued. All rights reserved.</h1>
                 </div>
             </div>
+            <ToastContainer/>
         </div>
     )
 }

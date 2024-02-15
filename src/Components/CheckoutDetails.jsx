@@ -8,6 +8,7 @@ import img1 from '../assets/Compressed-Webp/Flash.webp';
 import img2 from '../assets/Compressed-Webp/J&T.webp';
 import img3 from '../assets/Compressed-Webp/visa.webp';
 import img4 from '../assets/Compressed-Webp/gcash.webp';
+import img5 from '../assets/Compressed-Webp/COD.webp';
 
 export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTotal}) {
     const navigate = useNavigate()
@@ -66,14 +67,13 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/submit-order/${userData.user._id}`, data, 
             { headers: { "Content-Type": "application/json", "auth-token": token } })
             
-            if (res.data) {
+            if (res.data===true) {
+                localStorage.setItem("items", JSON.stringify([]))
+                setUserData({...userData, cartNumber: 0})
+                navigate(`/orders/${userData.user._id}`)
+            } else {
                 window.location.href=res.data.data.attributes.checkout_url
             }
-            // if (res.data) {
-            //     localStorage.setItem("items", JSON.stringify([]))
-            //     setUserData({...userData, cartNumber: 0})
-            //     //navigate(`/orders/${userData.user._id}`)
-            // }
         }
         toast.promise(
             loadingNotif,
@@ -138,18 +138,18 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
                             <div className='grid sm:grid-cols-2 gap-4'>
                                 <div className='grid-cols-1'>
                                     <label htmlFor="barangay" className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Barangay</label>
-                                    <input onChange={(e)=> setBarangay(e.target.value)} value={barangay} type="text" name="barangay" id="barangay" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                    <input onChange={(e)=> setBarangay(e.target.value)} value={barangay!=='undefined' ? barangay : " "} type="text" name="barangay" id="barangay" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 </div>
                                 <div className='grid-cols-1'>
                                     <label htmlFor="city" className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">City</label>
-                                    <input onChange={(e)=> setCity(e.target.value)} value={city} type="text" name="city" id="city" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                    <input onChange={(e)=> setCity(e.target.value)} value={city!=='undefined' ? city : " "} type="text" name="city" id="city" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 </div>
                             </div>
 
                             <div className='grid sm:grid-cols-2 gap-4'>
                                 <div className='grid-cols-1'>
                                     <label htmlFor="province" className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Province</label>
-                                    <input onChange={(e)=> setProvince(e.target.value)} value={province} type="text" name="province" id="province" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+                                    <input onChange={(e)=> setProvince(e.target.value)} value={province!=='undefined' ? province : " "} type="text" name="province" id="province" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 </div>
                                 <div className='grid-cols-1'>
                                     <label htmlFor="region" className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Region</label>
@@ -189,8 +189,13 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
                                 <label htmlFor="bordered-radio-2" className="w-full py-4 ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300 cursor-pointer">GCash</label>
                                 <input onChange={()=>setPayment("Gcash")} id="bordered-radio-2" type="radio" name="bordered-radio" className="mr-2 w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
                             </div>
+                            <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+                                <img className="h-full w-10 object-contain cursor-pointer" src={img5} alt="Gcash logo" />
+                                <label htmlFor="bordered-radio-3" className="w-full py-4 ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300 cursor-pointer">Cash on Delivery</label>
+                                <input onChange={()=>setPayment("COD")} id="bordered-radio-3" type="radio" name="bordered-radio" className="mr-2 w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                            </div>
                         </div>
-                        <div className="justify-center hidden">
+                        <div className="flex justify-center">
                             <button disabled={delivery==="" || payment==="" ? true : false} type='submit' className={`${delivery==="" || payment==="" ? 'bg-gray-500': ' before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-2 w-auto sm:px-10 px-1 font-bold rounded-md`}>
                                 Checkout
                             </button>

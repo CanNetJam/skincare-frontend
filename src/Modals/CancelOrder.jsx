@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function CancelOrder({isEdit, setIsEdit, toEdit}) {
     const [reason, setReason] = useState("")
     const [specificReason, setSpecificReason] = useState("")
-    
+
     async function submitHandler(e) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {
@@ -15,6 +15,7 @@ export default function CancelOrder({isEdit, setIsEdit, toEdit}) {
             data.append("reason", reason!=="Others" ? reason : specificReason)
             data.append("paymentid", toEdit?.paymentid)
             data.append("amountpaid", toEdit?.netamount)
+            data.append("paymentoption", toEdit?.paymentoption)
             let token = localStorage.getItem("auth-token")
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/cancel-order/${toEdit._id}`, data, 
             { headers: { "Content-Type": "application/json", "auth-token": token } })
@@ -61,7 +62,7 @@ export default function CancelOrder({isEdit, setIsEdit, toEdit}) {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                             >
-                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white sm:p-6 p-2 text-left align-middle shadow-xl transition-all">
                                 <Dialog.Title as="h3" className="text-lg border-b pb-2 font-semibold leading-6 text-gray-900 flex items-center">
                                     Cancel Order 
                                 </Dialog.Title>
@@ -91,16 +92,24 @@ export default function CancelOrder({isEdit, setIsEdit, toEdit}) {
                                 <div className='border-2 border-red-400 rounded-xl p-4 relative my-4'>
                                     <h1 className='absolute -top-3 bg-white px-2 font-bold text-red-400'>Refund Details</h1>
                                     <div className='grid grid-cols-3 text-sm py-1'>
-                                        <label className='col-span-1 whitespace-nowrap'>Order total:</label>
-                                        <label className='col-span-2 text-right'>₱ {toEdit.amountpaid}.00</label>
+                                        <label className='col-span-2 whitespace-nowrap'>Order total:</label>
+                                        <label className='col-span-1 text-right'>₱ {toEdit.amountpaid}.00</label>
                                     </div>
                                     <div className='grid grid-cols-3 text-sm py-1'>
-                                        <label className='col-span-1 whitespace-nowrap'>Transaction fee:</label>
-                                        <label className='col-span-2 text-right'>₱ {toEdit.transactionfee}</label>
+                                        <label className='col-span-2 h-full whitespace-nowrap flex gap-1'>
+                                            Transaction fee:
+                                            <div className='relative h-full w-auto rounded-full cursor-pointer group grid items-center'>
+                                                <svg className='' fill='#60a5fa' xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2.033 16.01c.564-1.789 1.632-3.932 1.821-4.474.273-.787-.211-1.136-1.74.209l-.34-.64c1.744-1.897 5.335-2.326 4.113.613-.763 1.835-1.309 3.074-1.621 4.03-.455 1.393.694.828 1.819-.211.153.25.203.331.356.619-2.498 2.378-5.271 2.588-4.408-.146zm4.742-8.169c-.532.453-1.32.443-1.761-.022-.441-.465-.367-1.208.164-1.661.532-.453 1.32-.442 1.761.022.439.466.367 1.209-.164 1.661z"/></svg>
+                                                <div className='whitespace-normal absolute h-auto w-[250px] p-1 rounded-md top-6 sm:left-0 sm:translate-x-0 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-gray-100'>
+                                                    Paid for the 3rd party services used for the online payment.
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label className='col-span-1 text-right'>₱ {toEdit.transactionfee}</label>
                                     </div>
                                     <div className='grid grid-cols-3 text-sm py-1 border-t'>
-                                        <label className='col-span-1 whitespace-nowrap'>Refundable amount:</label>
-                                        <label className='col-span-2 text-right'>₱ {toEdit.netamount}</label>
+                                        <label className='col-span-2 whitespace-nowrap'>Refundable amount:</label>
+                                        <label className='col-span-1 text-right'>₱ {toEdit.netamount}</label>
                                     </div>
                                 </div>
                                 <form onSubmit={submitHandler}>

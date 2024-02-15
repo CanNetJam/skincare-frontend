@@ -68,7 +68,14 @@ export default function OrderDetails() {
                         </div>
                         <div className="col-span-1 grid grid-cols-5">
                             <p className="col-span-1 text-blue-400">Address:</p>
-                            <p className="col-span-4 sm:text-justify text-end">{orderData?.billingaddress?.street}, {orderData?.billingaddress?.barangay}, {orderData?.billingaddress?.city}, {orderData?.billingaddress?.province}, {orderData?.billingaddress?.region}, {orderData?.billingaddress?.postal}</p>
+                            <p className="col-span-4 sm:text-justify text-end">
+                                {orderData?.billingaddress?.street!=='undefined' ? orderData?.billingaddress?.street+", " : null}
+                                {orderData?.billingaddress?.barangay!=='undefined' ? orderData?.billingaddress?.barangay+", " : null} 
+                                {orderData?.billingaddress?.city!=='undefined' ? orderData?.billingaddress?.city+", " : null} 
+                                {orderData?.billingaddress?.province!=='undefined' ? orderData?.billingaddress?.province+", " : null} 
+                                {orderData?.billingaddress?.region!=='undefined' ? orderData?.billingaddress?.region+", " : null} 
+                                {orderData?.billingaddress?.postal+"."}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -135,7 +142,7 @@ export default function OrderDetails() {
                             </div>
                             <div className="flex justify-between py-1">
                                 <p>Paid at:</p>
-                                <p>{moment(orderData.paidat).format('MMM-DD-YYYY on h:mm A')}</p>
+                                <p>{orderData.paidat ? moment(orderData.paidat).format('MMM-DD-YYYY on h:mm A') : "Payment pending"}</p>
                             </div>
                             {orderData.billingstatus==="Refunded" ? 
                                 <div className="flex justify-between py-1">

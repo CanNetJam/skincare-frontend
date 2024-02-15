@@ -44,7 +44,7 @@ export default function EditOrder({isEdit, setIsEdit, toEdit}) {
             data.append("amountpaid", toEdit.amountpaid)
         }
         let token = localStorage.getItem("auth-token")
-        const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/update-order/${toEdit._id}`, data, 
+        const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/update-order/${toEdit._id}/${toEdit.paymentoption}`, data, 
         { headers: { "Content-Type": "application/json", "auth-token": token } })
         if (res.data===false) {
             toastErrorNotification()

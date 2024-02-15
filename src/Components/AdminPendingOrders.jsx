@@ -57,7 +57,7 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
     }, [orders])
 
     return (
-        <div className='h-full sm:w-auto w-screen pb-6 px-4'>
+        <div className='h-auto sm:w-auto w-screen pb-6 px-4'>
             {isEdit && (
                 <EditOrder isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit}/>
             )}  

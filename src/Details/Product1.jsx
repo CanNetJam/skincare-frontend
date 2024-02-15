@@ -175,7 +175,7 @@ export default function Product1() {
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
             <div className="h-full w-full sm:flex grid grid-cols-3 container max-w-6xl mx-auto gap-0">
-                <div className="min-h-[200vh] h-auto w-full col-span-2 sm:px-20 z-10 px-4 py-16">
+                <div className="bg-gray-50 backdrop-blur-xs bg-opacity-50 min-h-[200vh] h-auto w-full col-span-2 sm:px-20 z-10 px-4 py-16">
                     <div className="py-8">
                         <h1 className="subHeading">{productData.name}</h1>
                         <h1 className="smallText text-gray-700 my-4">₱ <b>{productData.price}.00</b></h1>
@@ -223,7 +223,7 @@ export default function Product1() {
                     <br/>
                     {productData.ingredients?.map((a, index)=> {
                         return (
-                            <div key={index} className="w-full grid justify-center my-8 bg-gray-50 backdrop-blur-sm bg-opacity-40 rounded-xl p-4">
+                            <div key={index} className="w-full grid justify-center my-8 rounded-xl p-4">
                                 <div className="flex justify-center">
                                     <img className='h-[25vh] sm:w-[250px] rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${a.photo}.jpg`}></img>
                                 </div>

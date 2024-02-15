@@ -333,11 +333,8 @@ export default function Cart({open, setOpen}) {
                                         if (userData.token!==undefined) {
                                             navigate('/cartdetails')
                                         }
-                                    }} disabled={userData.token!==undefined && cartData.length>0 && 
-                                        ((userData.user?.billingaddress?.street!=="" && userData.user?.billingaddress?.barangay!=="" && userData.user?.billingaddress?.city!=="" && userData.user?.billingaddress?.province!=="" && userData.user?.billingaddress?.region!=="" && userData.user?.billingaddress?.postal!=="") &&
-                                        (userData.user?.billingaddress?.street!==undefined && userData.user?.billingaddress?.barangay!==undefined && userData.user?.billingaddress?.city!==undefined && userData.user?.billingaddress?.province!==undefined && userData.user?.billingaddress?.region!==undefined && userData.user?.billingaddress?.postal!==undefined)) 
-                                        ? false : true} className={`${userData.token!==undefined && cartData.length>0 &&                                         ((userData.user?.billingaddress?.street!=="" && userData.user?.billingaddress?.barangay!=="" && userData.user?.billingaddress?.city!=="" && userData.user?.billingaddress?.province!=="" && userData.user?.billingaddress?.region!=="" && userData.user?.billingaddress?.postal!=="") &&
-                                        (userData.user?.billingaddress?.street!==undefined && userData.user?.billingaddress?.barangay!==undefined && userData.user?.billingaddress?.city!==undefined && userData.user?.billingaddress?.province!==undefined && userData.user?.billingaddress?.region!==undefined && userData.user?.billingaddress?.postal!==undefined)) ? 'bg-blue-500 hover:bg-blue-700' : 'bg-gray-500'} relative flex items-center justify-center rounded-md border border-transparent px-6 py-3 text-base font-medium text-white shadow-sm`}>
+                                    }} disabled={userData.token!==undefined && cartData.length>0 && ((userData.user?.billingaddress?.region!=="") && (userData.user?.billingaddress?.region!==undefined)) ? false : true} 
+                                        className={`${userData.token!==undefined && cartData.length>0 && ((userData.user?.billingaddress?.region!=="") && (userData.user?.billingaddress?.region!==undefined)) ? 'bg-blue-500 hover:bg-blue-700' : 'bg-gray-500'} relative flex items-center justify-center rounded-md border border-transparent px-6 py-3 text-base font-medium text-white shadow-sm`}>
                                         {userData.token===undefined ?
                                             <svg className='h-5 w-5' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill='white' d="M18 10v-4c0-3.313-2.687-6-6-6s-6 2.687-6 6v4h-3v14h18v-14h-3zm-10 0v-4c0-2.206 1.794-4 4-4s4 1.794 4 4v4h-8z"/></svg>
                                         :null}
@@ -345,22 +342,26 @@ export default function Cart({open, setOpen}) {
                                     </button>
                                 </div>
                                 <div className='flex justify-center item-center gap-2 py-2'>
-                                    {userData.token!==undefined ? 
+                                    {cartData.length>0 ? 
                                         <>
-                                            {(userData.user?.billingaddress?.street==="" && userData.user?.billingaddress?.barangay==="" && userData.user?.billingaddress?.city==="" && userData.user?.billingaddress?.province==="" && userData.user?.billingaddress?.region==="" && userData.user?.billingaddress?.postal==="") ||
-                                            (userData.user?.billingaddress?.street===undefined && userData.user?.billingaddress?.barangay===undefined && userData.user?.billingaddress?.city===undefined && userData.user?.billingaddress?.province===undefined && userData.user?.billingaddress?.region===undefined && userData.user?.billingaddress?.postal===undefined) ?
+                                            {userData.token!==undefined ? 
                                                 <>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                                    <label className='text-xs'>Please fill out billing address to continue. Go to <b>My Orders</b>, then head to <b>Delivery Details</b> tab. Click <Link to={`/orders/${userData.user?._id}`} className='cursor-pointer underline'>here</Link> to redirect.</label>
+                                                    {(userData.user?.billingaddress?.street==="" && userData.user?.billingaddress?.barangay==="" && userData.user?.billingaddress?.city==="" && userData.user?.billingaddress?.province==="" && userData.user?.billingaddress?.region==="" && userData.user?.billingaddress?.postal==="") ||
+                                                    (userData.user?.billingaddress?.street===undefined && userData.user?.billingaddress?.barangay===undefined && userData.user?.billingaddress?.city===undefined && userData.user?.billingaddress?.province===undefined && userData.user?.billingaddress?.region===undefined && userData.user?.billingaddress?.postal===undefined) ?
+                                                        <>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                                            <label className='text-xs'>Please fill out billing address to continue. Go to <b>My Orders</b>, then head to <b>Delivery Details</b> tab. Click <Link to={`/orders/${userData.user?._id}`} className='cursor-pointer underline'>here</Link> to redirect.</label>
+                                                        </>
+                                                    : null}
                                                 </>
-                                            : null}
+                                            :                                                
+                                                <>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                                    <label className='text-xs'>Please login to continue. Click <Link to={`/login`} className='cursor-pointer underline'>here</Link> to redirect.</label>
+                                                </>
+                                            }
                                         </>
-                                    :                                                
-                                        <>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                            <label className='text-xs'>Please login to continue. Click <Link to={`/login`} className='cursor-pointer underline'>here</Link> to redirect.</label>
-                                        </>
-                                    }
+                                    :null}
                                 </div>
                                 <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                                     <p>

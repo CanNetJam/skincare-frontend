@@ -17,8 +17,8 @@ export default function Features({packageData, packageItems}) {
                                 {packageItems.map((item, index)=> {
                                     return (
                                         <div className="relative bg-blue-100 rounded-xl sm:px-12 p-4 sm:shadow-xl shadow-md" key={index}>
-                                            <div className="text-base grid grid-cols-2 font-semibold leading-7 text-gray-900">
-                                                <div className="col-span-1 flex sm:h-[180px] sm:w-[220px] h-[150px] w-[150px] overflow-hidden items-center justify-center rounded-lg bg-indigo-600">
+                                            <div className="text-base grid grid-cols-2 gap-4 font-semibold leading-7 text-gray-900">
+                                                <div className="col-span-1 flex sm:h-[180px] h-[150px] w-full overflow-hidden items-center justify-center rounded-lg bg-white">
                                                     <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${item.displayimage}.jpg`}/>
                                                 </div>
                                                 <div className='col-span-1 grid w-full'>

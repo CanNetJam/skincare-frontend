@@ -141,8 +141,8 @@ export default function Packages() {
                                             <div className='min-h-[80px]'>
                                                 <p className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{pack.name}</p>
                                             </div>
-                                            <div className='flex justify-between'>
-                                                <p className='text-gray-700'>₱ {pack.origprice}.00</p>
+                                            <div className='sm:flex sm:justify-between grid gap-2'>
+                                                <p className='text-gray-700'>₱{pack.origprice}.00</p>
                                                 <p className='text-gray-700'>
                                                 {pack.stock!==0 ? 
                                                     <>

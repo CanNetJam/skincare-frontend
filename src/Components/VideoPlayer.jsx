@@ -281,24 +281,28 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                                     </div>
                                                                 )
                                                             })}
-                                                            {sentProductData.length>1 ? 
+                                                            {window.innerWidth >=639 ? 
                                                                 <>
-                                                                    {ref?.current?.scrollLeft>0 ? 
-                                                                        <div className="absolute top-1/2 left-0 -translate-y-1/2 z-10">
-                                                                            <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center" 
-                                                                                onClick={()=>scroll(-(ref?.current?.clientWidth))}>
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12zm7.58 0l5.988-5.995 1.414 1.416-4.574 4.579 4.574 4.59-1.414 1.416-5.988-6.006z"/></svg>
-                                                                            </button>
-                                                                        </div>
-                                                                    :null}
-                                                                    {ref?.current?.scrollLeft<(ref?.current?.scrollWidth - ref?.current?.clientWidth) ?
-                                                                        <div className="absolute top-1/2 right-0 -translate-y-1/2 z-10">
-                                                                            <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center" 
-                                                                                onClick={()=>scroll(ref?.current?.clientWidth)}>
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.568 18.005l-1.414-1.415 4.574-4.59-4.574-4.579 1.414-1.416 5.988 5.995-5.988 6.005z"/></svg>
-                                                                            </button>
-                                                                        </div>
-                                                                    :null}
+                                                                {sentProductData.length>1 ? 
+                                                                    <>
+                                                                        {ref?.current?.scrollLeft>0 ? 
+                                                                            <div className="absolute top-1/2 left-0 -translate-y-1/2 z-10">
+                                                                                <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center" 
+                                                                                    onClick={()=>scroll(-(ref?.current?.clientWidth))}>
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12zm7.58 0l5.988-5.995 1.414 1.416-4.574 4.579 4.574 4.59-1.414 1.416-5.988-6.006z"/></svg>
+                                                                                </button>
+                                                                            </div>
+                                                                        :null}
+                                                                        {ref?.current?.scrollLeft<(ref?.current?.scrollWidth - ref?.current?.clientWidth) ?
+                                                                            <div className="absolute top-1/2 right-0 -translate-y-1/2 z-10">
+                                                                                <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center" 
+                                                                                    onClick={()=>scroll(ref?.current?.clientWidth)}>
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.568 18.005l-1.414-1.415 4.574-4.59-4.574-4.579 1.414-1.416 5.988 5.995-5.988 6.005z"/></svg>
+                                                                                </button>
+                                                                            </div>
+                                                                        :null}
+                                                                    </>
+                                                                :null}
                                                                 </>
                                                             :null}
                                                         </div>

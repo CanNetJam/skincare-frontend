@@ -328,7 +328,7 @@ function Skin() {
             </div>
             </div>
 
-            <div className='grid-cols-2 grid sm:gap-2 container mx-auto sm:w-[75%] w-full sm:grid-cols-4 p-4 -mt-[50px] sm:-mt-[80px]'>
+            <div className='grid-cols-2 grid gap-2 container mx-auto sm:w-[75%] w-full sm:grid-cols-4 p-4 -mt-[50px] sm:-mt-[80px]'>
             
             <div className='group sm:h-[50vh] h-[30vh] [perspective:10000px]'>
                 <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white shadow-lg'>

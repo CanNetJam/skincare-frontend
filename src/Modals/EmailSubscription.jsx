@@ -83,8 +83,8 @@ export default function EmailSubscription({isOpen, setIsOpen}) {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                             >
-                            <Dialog.Panel className="h-auto w-full max-h-96 bg-white max-w-2xl transform overflow-hidden rounded-xl text-left align-middle shadow-xl transition-all grid sm:grid-cols-2">
-                                <div className='h-full sm:max-h-full max-h-24 w-full col-span-1'>
+                            <Dialog.Panel className="h-full w-full sm:max-h-96 max-h-[450px] bg-white max-w-2xl transform overflow-hidden rounded-xl text-left align-middle shadow-xl transition-all grid sm:grid-cols-2">
+                                <div className='h-full sm:max-h-full max-h-48 w-full col-span-1'>
                                     <img className='h-full w-full object-cover' src={importedImage}/>
                                 </div>
                                 <div className='col-span-1 sm:p-6 p-3'>
