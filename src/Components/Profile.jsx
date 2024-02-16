@@ -4,7 +4,7 @@ import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import moment from "moment";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { useLocation, useParams } from 'react-router';
@@ -289,7 +289,6 @@ const Profile = () => {
                 :null}
             </div>
             <Footer/>
-            <ToastContainer/>
         </>
     )
 }

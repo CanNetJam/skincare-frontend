@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import img2 from '../assets/Compressed-Webp/3-min.webp';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {

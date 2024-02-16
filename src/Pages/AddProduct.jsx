@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import ImagePreview from "../Components/ImagePreview";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddProduct() {
     const [ product, setProduct ] = useState({
@@ -677,7 +677,6 @@ export default function AddProduct() {
                 </div>
             </form>
             <Footer/>
-            <ToastContainer />
         </div>
     )
 }

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import CancelOrder from '../Modals/CancelOrder';
 import { Link } from 'react-router-dom';
 import PageButtons from './PageButtons';
 import EmptyContent from './EmptyContent';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function PendingOrders({orders, page, setPage, pages, pageEntries, total, setPageEntries, tab, isEdit, setIsEdit}) {
     const [ openPageCount, setOpenPageCount ] = useState(false)
@@ -166,7 +166,6 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                     </span>
                 </div>
             </nav>
-            <ToastContainer/>
         </div>
     )
 }

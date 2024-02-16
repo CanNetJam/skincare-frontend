@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddPackage() {
     const [ packageSet, setPackageSet ] = useState({
@@ -430,7 +430,6 @@ export default function AddPackage() {
                 </div>
             </form>
             <Footer/>
-            <ToastContainer />
         </div>
     )
 }

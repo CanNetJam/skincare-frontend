@@ -5,7 +5,6 @@ import photo1 from '../assets/1.jpg';
 import photo2 from '../assets/2.jpg';
 import photo3 from '../assets/14.jpg';
 import EmailSubscription from '../Modals/EmailSubscription';
-import { ToastContainer } from 'react-toastify';
 
 function AboutUs() {
     const [ isOpen, setIsOpen ] = useState(false)
@@ -185,7 +184,6 @@ function AboutUs() {
         <div>
             <Footer/>
         </div>
-        <ToastContainer/>
         </div>
     )
 }

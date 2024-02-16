@@ -8,15 +8,17 @@ import moment from "moment";
 export default function EditTicket({isEdit, setIsEdit, toEdit}) {
     const [status, setStatus] = useState(toEdit.status)
     const [reason, setReason] = useState("")
-
+    console.log(toEdit)
     async function submitHandler(e) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {
             const data = new FormData()
             data.append("status", status==="Approve" ? "Approved" : "Rejected")
             data.append("reason", reason)
-            data.append("amountpaid", toEdit?.orderid?.amountpaid)
+            data.append("orderid", toEdit?.orderid?._id)
+            data.append("netamount", toEdit?.orderid?.netamount)
             data.append("paymentid", toEdit?.orderid?.paymentid)
+            data.append("paymentoption", toEdit?.orderid?.paymentoption)
             let token = localStorage.getItem("auth-token")
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/tickets/ticket-response/${toEdit._id}`, data, 
             { headers: { "Content-Type": "application/json", "auth-token": token } })

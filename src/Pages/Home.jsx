@@ -7,7 +7,6 @@ import TiktokSlider from '../Components/TiktokSlider';
 import VideoPlayer from '../Components/VideoPlayer';
 import axios from "axios";
 import EmailSubscription from '../Modals/EmailSubscription';
-import { ToastContainer } from 'react-toastify';
 
 import video1 from '../assets/video1.mp4';
 import video2 from '../assets/video2.mp4';
@@ -244,7 +243,6 @@ function Home() {
             <div>
                 <Footer/>
             </div>
-            <ToastContainer/>
         </div>
     )
 }

@@ -30,7 +30,7 @@ export default function AdminTickets() {
             })
         }
         windowOpen()
-    }, [tab, pageEntries, page, tickets])
+    }, [tab, pageEntries, page])
 
     useEffect(()=> {
         const resetPage = () => {   

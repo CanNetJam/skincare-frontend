@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router';
 import axios from "axios";
 import AdminPendingOrders from '../Components/AdminPendingOrders';
@@ -33,7 +31,7 @@ export default function AdminOrders() {
             })
         }
         windowOpen()
-    }, [tab, pageEntries, page, orders])
+    }, [tab, pageEntries, page])
 
     useEffect(()=> {
         const resetPage = () => {   
@@ -133,7 +131,6 @@ export default function AdminOrders() {
                 </div>
             </div>
             <Footer/>
-            <ToastContainer/>
         </>
     )
 }

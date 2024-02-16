@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from "../App";
 import CheckoutDetails from '../Components/CheckoutDetails';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function CartDetails() {
-    const { userData, setUserData } = useContext(UserContext)
+    const { userData, setUserData } = useContext(UserContext || null)
     const [cartData, setCartData] = useState([])
     const [subTotal, setSubTotal] = useState(0)
     const [cartTotal, setCartTotal] = useState(0)

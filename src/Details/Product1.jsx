@@ -10,7 +10,7 @@ import Usage from '../Components/Usage';
 import OrderNow from '../Components/OrderNow';
 import { UserContext } from "../App";
 import EmailSubscription from '../Modals/EmailSubscription';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Product1() {
@@ -255,7 +255,6 @@ export default function Product1() {
             <Precautions />
             <OrderNow productlinks={productData?.productlinks}/>
             <Footer/>
-            <ToastContainer/>
         </>
     )
 }

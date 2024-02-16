@@ -3,8 +3,6 @@ import Footer from '../Components/Footer';
 import Navbar from '../Components/TopNav';
 import Category from "../Details/Category";
 import EmailSubscription from '../Modals/EmailSubscription';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function ProductDetails() {
     const [ cartNumber, setCartNumber ] = useState(0)
@@ -54,7 +52,6 @@ export default function ProductDetails() {
             <div>
                 <Footer/>
             </div>
-            <ToastContainer/>
         </div>
     )
 }

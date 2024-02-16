@@ -3,7 +3,6 @@ import { AiOutlinePlus, AiOutlineLine } from "react-icons/ai";
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import EmailSubscription from '../Modals/EmailSubscription';
-import { ToastContainer } from 'react-toastify';
 import BillingAddress from '../QuestionsTopic/BillingAddress';
 
 function Faq() {
@@ -386,7 +385,6 @@ function Faq() {
             <div>
                 <Footer/>
             </div>
-            <ToastContainer/>
         </div>
     )
 }

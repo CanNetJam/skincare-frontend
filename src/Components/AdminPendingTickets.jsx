@@ -3,8 +3,6 @@ import moment from "moment";
 import DateRangePickerComp from './DateRangePickerComp';
 import ImageZoom from '../Modals/ImageZoom';
 import EditTicket from '../Modals/EditTicket';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import PageButtons from './PageButtons';
 
 export default function AdminPendingTickets({tickets, page, setPage, status, setStatus, pages, pageEntries, total, setPageEntries, tab, setDateRange, isEdit, setIsEdit}) {
@@ -209,7 +207,6 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                     </span>
                 </div>
             </nav>
-            <ToastContainer/>
         </div>
     )
 }

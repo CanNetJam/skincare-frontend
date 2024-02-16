@@ -4,7 +4,7 @@ import Footer from '../Components/Footer';
 import { Link } from 'react-router-dom';
 import img2 from '../assets/3.jpg';
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function ForgotPassword() {
@@ -101,7 +101,6 @@ export default function ForgotPassword() {
                 </div>
             </div>
             <Footer/>
-            <ToastContainer/>
         </>
     )
 }

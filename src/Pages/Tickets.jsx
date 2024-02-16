@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router';
 import axios from "axios";
 import PendingTickets from '../Components/PendingTickets';
@@ -90,7 +88,6 @@ export default function Tickets() {
                 </div>
             </div>
             <Footer/>
-            <ToastContainer/>
         </>
     )
 }

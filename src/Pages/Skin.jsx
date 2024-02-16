@@ -8,7 +8,6 @@ import icon3 from '../assets/icons8-confident-96.png';
 import icon4 from '../assets/icons8-sprout-96.png';
 import img1 from '../assets/Compressed-Webp/2-min.webp';
 import EmailSubscription from '../Modals/EmailSubscription';
-import { ToastContainer } from 'react-toastify';
 
 function Skin() {
     const [opentab, setOpenTab] = useState("Normal")
@@ -400,7 +399,6 @@ function Skin() {
             <div>
                 <Footer/>
             </div>
-            <ToastContainer/>
         </div>
     )
 }

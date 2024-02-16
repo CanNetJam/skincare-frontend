@@ -20,7 +20,7 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                 //for(let i=0; i<a.items.length; i++) {
                     let itemsArray = []
                     for (let i=0; i<a.items.length; i++) {
-                        let itemPlusQuantity = a.items[i].item.name+"      x"+a.items[i].quantity+" pcs."
+                        let itemPlusQuantity = a.items[i].item.name+"      x"+a.items[i].quantity+` pc${a.items[i].quantity>1 ? 's' : ''}.`
                         itemsArray.push(itemPlusQuantity)
                     }
                     let obj = {
@@ -31,7 +31,7 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                         // price: a.items[i].price,
                         // amountpaid: a.amountpaid,
                         // amounttotal: a.amounttotal,
-                        Address: `${a.billingaddress.street}, ${a.billingaddress.barangay}, ${a.billingaddress.city}, ${a.billingaddress.province}, ${a.billingaddress.region}, ${a.billingaddress.postal}`,
+                        Address: `${a?.billingaddress?.street!=='Not applicable' ? a?.billingaddress?.street+", " : null} ${a?.billingaddress?.barangay!=='Not applicable' ? a?.billingaddress?.barangay+", " : null}  ${a?.billingaddress?.city!=='Not applicable' ? a?.billingaddress?.city+", " : null} ${a?.billingaddress?.province!=='Not applicable' ? a?.billingaddress?.province+", " : null} ${a?.billingaddress?.region!=='Not applicable' ? a?.billingaddress?.region+", " : null} ${a?.billingaddress?.postal}`,
                         // region: a.billingaddress.region, 
                         // province: a.billingaddress.province, 
                         // city: a.billingaddress.city, 

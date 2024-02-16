@@ -3,7 +3,7 @@ import axios from "axios"
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa6";
 import img1 from '../assets/Compressed-Webp/Klued-logo-min.webp';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Footer() {
@@ -138,7 +138,6 @@ export default function Footer() {
                     <h1 className='text-slate-400 text-sm'>© 2023 Klued. All rights reserved.</h1>
                 </div>
             </div>
-            <ToastContainer/>
         </div>
     )
 }

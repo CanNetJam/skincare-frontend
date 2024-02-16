@@ -63,6 +63,10 @@ export default function DeliveryDetails() {
     useEffect(() => {
         setFilteredRegions([])
         if (draftRegion!=="") {
+            setSelectedProvince(undefined)
+            setSelectedCity(undefined)
+            setSelectedBarangay(undefined) 
+
             const data = regions?.filter((item) => (item.regionName.toUpperCase()).includes(draftRegion.toUpperCase()))
             setSelectedRegion(data[0])
 
@@ -70,6 +74,9 @@ export default function DeliveryDetails() {
                 setSelectedRegion(data[0])
             } 
 
+            setDraftProvince("")
+            setDraftCity("")
+            setDraftBarangay("") 
         }
     }, [draftRegion, regions])
 
@@ -86,12 +93,16 @@ export default function DeliveryDetails() {
     useEffect(() => {
         setFilteredProvinces([])
         if (draftProvince!=="") {
+            setSelectedCity(undefined)
+            setSelectedBarangay(undefined)
+            
             const data = provinces?.filter((item) => (item.name.toUpperCase()).includes(draftProvince.toUpperCase()))
             setSelectedProvince(data[0])
 
             if (userData.user?.billingaddress?.province!==undefined) {
                 setSelectedProvince(data[0])
             } 
+
         }
     }, [draftProvince, provinces])
 
@@ -111,12 +122,14 @@ export default function DeliveryDetails() {
     useEffect(() => {
         setFilteredProvinces([])
         if (draftCity!=="") {
+            setSelectedBarangay(undefined)
             const data = cities?.filter((item) => (item.name.toUpperCase()).includes(draftCity.toUpperCase()))
             setSelectedCity(data[0])
 
             if (userData.user?.billingaddress?.city!==undefined) {
                 setSelectedCity(data[0])
             } 
+
         }
     }, [draftCity, cities])
 
@@ -125,11 +138,21 @@ export default function DeliveryDetails() {
             if (selectedCity!==undefined) {
                 const res1 = await axios.get(`https://psgc.gitlab.io/api/cities/${selectedCity?.code}/barangays/`)
                 setBarangay(res1.data)
+            } else {
+                if (selectedProvince!==undefined) {
+                    const res1 = await axios.get(`https://psgc.gitlab.io/api/provinces/${selectedProvince?.code}/barangays/`)
+                    setBarangay(res1.data)
+                } else {
+                    if (selectedRegion!==undefined) {
+                        const res1 = await axios.get(`https://psgc.gitlab.io/api/regions/${selectedRegion?.code}/barangays/`)
+                        setBarangay(res1.data)
+                    } 
+                }
             }
         }
         getLocations()
-    }, [selectedCity])
-
+    }, [selectedCity, selectedProvince, selectedRegion])
+    
     useEffect(() => {
         setFilteredProvinces([])
         if (draftBarangay!=="") {
@@ -214,11 +237,11 @@ export default function DeliveryDetails() {
                                 <p>No Data.</p>
                             :
                                 <p className='text-black'>
-                                    {userData.user?.billingaddress?.street!=='undefined' ? userData.user?.billingaddress?.street+", " : null}
-                                    {userData.user?.billingaddress?.barangay!=='undefined' ? userData.user?.billingaddress?.barangay+", " : null} 
-                                    {userData.user?.billingaddress?.city!=='undefined' ? userData.user?.billingaddress?.city+", " : null} 
-                                    {userData.user?.billingaddress?.province!=='undefined' ? userData.user?.billingaddress?.province+", " : null} 
-                                    {userData.user?.billingaddress?.region!=='undefined' ? userData.user?.billingaddress?.region+", " : null} 
+                                    {userData.user?.billingaddress?.street!=='Not applicable' ? userData.user?.billingaddress?.street+", " : null}
+                                    {userData.user?.billingaddress?.barangay!=='Not applicable' ? userData.user?.billingaddress?.barangay+", " : null} 
+                                    {userData.user?.billingaddress?.city!=='Not applicable' ? userData.user?.billingaddress?.city+", " : null} 
+                                    {userData.user?.billingaddress?.province!=='Not applicable' ? userData.user?.billingaddress?.province+", " : null} 
+                                    {userData.user?.billingaddress?.region!=='Not applicable' ? userData.user?.billingaddress?.region+", " : null} 
                                     {userData.user?.billingaddress?.postal+"."}
                                 </p>
                             }
@@ -242,7 +265,7 @@ export default function DeliveryDetails() {
 
                             <div className='relative pb-4'>
                                 <label className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Province:</label>
-                                <select value={draftProvince}
+                                <select required value={draftProvince}
                                         onChange={(e)=>{
                                             setDraftProvince(e.target.value)
                                         }} className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -250,12 +273,15 @@ export default function DeliveryDetails() {
                                     {provinces?.map((a, index)=> {
                                         return <option value={a.name} className="cursor-pointer hover:bg-gray-200" key={index}>{a.name}</option>
                                     })}
+                                    {provinces.length<1 && (
+                                        <option value="Not applicable">Not applicable</option>
+                                    )}
                                 </select>
                             </div>
 
                             <div className='relative pb-4'>
                                 <label className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">City:</label>
-                                <select value={draftCity}
+                                <select required value={draftCity}
                                         onChange={(e)=>{
                                             setDraftCity(e.target.value)
                                         }} className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -263,12 +289,15 @@ export default function DeliveryDetails() {
                                     {cities?.map((a, index)=> {
                                         return <option value={a.name} className="cursor-pointer hover:bg-gray-200" key={index}>{a.name}</option>
                                     })}
+                                    {cities.length<1 && (
+                                        <option value="Not applicable">Not applicable</option>
+                                    )}
                                 </select>
                             </div>
 
                             <div className='relative pb-4'>
                                 <label className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Barangay:</label>
-                                <select value={draftBarangay}
+                                <select required value={draftBarangay}
                                         onChange={(e)=>{
                                             setDraftBarangay(e.target.value)
                                         }} className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -276,6 +305,9 @@ export default function DeliveryDetails() {
                                     {barangay?.map((a, index)=> {
                                         return <option value={a.name} className="cursor-pointer hover:bg-gray-200" key={index}>{a.name}</option>
                                     })}
+                                    {barangay.length<1 && (
+                                        <option value="Not applicable">Not applicable</option>
+                                    )}
                                 </select>
                             </div>
 

@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect, lazy, Suspense } from 'react';
 import { Route, Routes, Navigate, HashRouter } from 'react-router-dom';
 import axios from "axios";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Home from './Pages/Home';
 import AboutUs from './Pages/AboutUs';
@@ -236,6 +238,7 @@ const App = () => {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </UserContext.Provider>
+            <ToastContainer/>
         </HashRouter>
     )
 }

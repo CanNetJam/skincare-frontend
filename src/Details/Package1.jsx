@@ -11,7 +11,6 @@ import MoreInfo from '../Components/MoreInfo';
 import Precautions from '../Components/Precautions';
 import Routines2 from '../Components/Routines2';
 import EmailSubscription from '../Modals/EmailSubscription';
-import { ToastContainer } from 'react-toastify';
 
 export default function Package1() {
     const location = useLocation()
@@ -74,7 +73,6 @@ export default function Package1() {
             <Precautions />
             <OrderNow productlinks={packageData?.packagelinks}/>
             <Footer/>
-            <ToastContainer/>
         </div>
     )
 }

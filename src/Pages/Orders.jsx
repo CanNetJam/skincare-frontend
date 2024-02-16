@@ -3,8 +3,6 @@ import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import PendingOrders from '../Components/PendingOrders';
 import DeliveryDetails from '../Components/DeliveryDetails';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router';
 import axios from "axios";
 
@@ -102,7 +100,6 @@ export default function Orders() {
                 </div>
             </div>
             <Footer/>
-            <ToastContainer/>
         </>
     )
 }

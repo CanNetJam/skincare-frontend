@@ -14,7 +14,7 @@ export default function CancelOrder({isEdit, setIsEdit, toEdit}) {
             const data = new FormData()
             data.append("reason", reason!=="Others" ? reason : specificReason)
             data.append("paymentid", toEdit?.paymentid)
-            data.append("amountpaid", toEdit?.netamount)
+            data.append("netamount", toEdit?.netamount)
             data.append("paymentoption", toEdit?.paymentoption)
             let token = localStorage.getItem("auth-token")
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/cancel-order/${toEdit._id}`, data, 

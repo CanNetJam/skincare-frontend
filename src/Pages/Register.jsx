@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
@@ -122,6 +122,9 @@ function Register() {
                                     {password!=="" && password.length<6 ?
                                         <p className="text-red-500 font-semibold w-full my-2 text-center">Password should be atlest 6 characters!</p>
                                     :null}
+                                    {password!=="" && password.length>16 ?
+                                        <p className="text-red-500 font-semibold w-full my-2 text-center">Password should not exceed 16 characters!</p>
+                                    :null}
                                 </div>
                                 <div>
                                     <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password:</label>
@@ -153,7 +156,7 @@ function Register() {
                                     </div>
                                 </div>
                                 <button disabled={
-                                    password!=="" && password.length>=6 && checkPassword!=="" && password===checkPassword && checked===true ? 
+                                    password!=="" && password.length>=6 && password.length>16 && checkPassword!=="" && password===checkPassword && checked===true ? 
                                     false : true
                                 } type="submit" className={`w-full text-white ${password!=="" && password.length>=6 && checkPassword!=="" && password===checkPassword && checked===true ? 'hover:bg-blue-600 bg-blue-500' : 'bg-gray-500'} focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>Create an account</button>
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
@@ -165,7 +168,6 @@ function Register() {
                 </div>
             </div>
             <Footer/>
-            <ToastContainer />
         </div>
     )
   }

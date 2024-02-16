@@ -97,7 +97,14 @@ export default function Settings() {
                     </div>
                     <form className="mt-4 space-y-4 lg:mt-5 md:space-y-5 sm:col-span-4" onSubmit={submitHandler}>
                         <div>
-                            <label htmlFor="old-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Old Password</label>
+                            <label htmlFor="old-password" className="flex justify-between mb-2 text-sm font-medium text-gray-900 dark:text-white">Old Password                         
+                                {correctPass===false ?
+                                    <div className="flex gap-1 items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                        <label className="font-semibold text-blue-500">Incorrect Password!</label>
+                                    </div> 
+                                :null}
+                            </label>
                             <div className="relative flex items-center">
                                 <input disabled={isVerified===true ? true : false} onChange={e => setPassword(e.target.value)} value={password} type={showPassword===false ? "password" : "text"} name="old-password" id="old-password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                 {showPassword===false ? 
@@ -107,16 +114,29 @@ export default function Settings() {
                                 }
                             </div>
                         </div>
-                        {correctPass===false ?
-                            <div className="flex gap-2 items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.31 7.526c-.099-.807.528-1.526 1.348-1.526.771 0 1.377.676 1.28 1.451l-.757 6.053c-.035.283-.276.496-.561.496s-.526-.213-.562-.496l-.748-5.978zm1.31 10.724c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                <label className="font-semibold">Incorrect Password!</label>
-                            </div> 
-                        :null}
                         {isVerified===true ?
                             <>
                                 <div>
-                                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
+                                    <label htmlFor="password" className="flex justify-between mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password
+                                        {samePassword===true ? 
+                                            <div className="flex gap-1 items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                                <label className="font-semibold text-blue-500">Your new password can not be the same with your old password!</label>
+                                            </div>
+                                        : null}
+                                        {newPassword.length<6 && newPassword.length>0 ? 
+                                            <div className="flex gap-1 items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                                <label className="font-semibold text-blue-500">Password should not be less than 6 characters!</label>
+                                            </div>
+                                        : null}
+                                        {newPassword.length>16 && newPassword.length>0 ? 
+                                            <div className="flex gap-1 items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                                <label className="font-semibold text-blue-500">Password should not exceed 16 characters!</label>
+                                            </div>
+                                        : null}
+                                    </label>
                                     <div className="relative flex items-center">
                                         <input onChange={e => setNewPassword(e.target.value)} value={newPassword} type={showNewPassword===false ? "password" : "text"} name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                         {showNewPassword===false ? 
@@ -126,14 +146,16 @@ export default function Settings() {
                                         }
                                     </div>
                                 </div>
-                                {samePassword===true ? 
-                                    <div className="flex gap-2 items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.31 7.526c-.099-.807.528-1.526 1.348-1.526.771 0 1.377.676 1.28 1.451l-.757 6.053c-.035.283-.276.496-.561.496s-.526-.213-.562-.496l-.748-5.978zm1.31 10.724c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                        <label className="font-semibold">Your new password can not be the same with your old password!</label>
-                                    </div>
-                                : null}
+
                                 <div>
-                                    <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
+                                    <label htmlFor="confirm-password" className="flex justify-between mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password
+                                        {isConfirmed===false ? 
+                                            <div className="flex gap-1 items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                                <label className="text-blue-500 font-semibold">New password does not match!</label>
+                                            </div>
+                                        : null}
+                                    </label>
                                     <div className="relative flex items-center">
                                         <input onChange={e => setConfirmPassword(e.target.value)} value={confirmPassword} type={showConfirmPassword===false ? "password" : "text"} name="confirm-password" id="confirm-password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
                                         {showConfirmPassword===false ? 
@@ -143,15 +165,20 @@ export default function Settings() {
                                         }
                                     </div>
                                 </div>
-                                {isConfirmed===false ? 
-                                    <div className="flex gap-2 items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.31 7.526c-.099-.807.528-1.526 1.348-1.526.771 0 1.377.676 1.28 1.451l-.757 6.053c-.035.283-.276.496-.561.496s-.526-.213-.562-.496l-.748-5.978zm1.31 10.724c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                        <label className="font-semibold">New password does not match!</label>
-                                    </div>
-                                : null}
+
                             </>
                         :null}
-                        <button type="submit" className="py-3 flex cursor-pointer items-center justify-center gap-2 rounded bg-blue-500 px-2 text-sm font-medium text-white hover:bg-opacity-80 sm:px-4">{isVerified===false ? "Verify password" : "Reset password"}</button>
+
+                        <button disabled={isVerified!==true ? false :
+                                    newPassword!=="" && newPassword.length>=6 && newPassword.length<16 && confirmPassword!=="" && isConfirmed===true ? 
+                                        false 
+                                    : 
+                                        true
+                                } type="submit" className={`${isVerified!==true ? 'cursor-pointer bg-blue-500 hover:bg-opacity-90' : 
+                                newPassword!=="" && newPassword.length>=6 && newPassword.length<16 && confirmPassword!=="" && isConfirmed===true ? 
+                                    'cursor-pointer bg-blue-500 hover:bg-opacity-90'
+                                : 
+                                    'bg-gray-400 text-gray-700'} px-2 text-sm font-medium text-white items-center justify-center gap-2 rounded py-3 flex sm:px-4`}>{isVerified===false ? "Verify password" : "Reset password"}</button>
                     </form>
                 </div>
             </div>

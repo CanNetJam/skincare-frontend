@@ -6,8 +6,6 @@ import Register from '../Modals/EmpRegister';
 import DeleteAccountModal from '../Modals/DeleteAccount';
 import EditAccount from '../Modals/EditAccount';
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import PageButtons from './PageButtons';
 
 export default function UserAccountsTable() {
@@ -292,7 +290,6 @@ export default function UserAccountsTable() {
                     setPageButtons={setPageButtons}
                 />
             </nav>
-            <ToastContainer/>
         </div>
     )
 }

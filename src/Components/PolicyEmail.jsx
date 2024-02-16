@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import moment from "moment";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function PolicyEmail({userData, policytitle}) {
     const [ checked, setChecked ] = useState(false)
@@ -76,7 +76,6 @@ export default function PolicyEmail({userData, policytitle}) {
                     </button>
                 </div>
             </form>
-            <ToastContainer/>
         </>
     )
 }
