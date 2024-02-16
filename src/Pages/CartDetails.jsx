@@ -335,7 +335,6 @@ function CartDetails() {
                     <CheckoutDetails cartData={cartData} cartTotal={cartTotal} shippingFee={shippingFee} subTotal={subTotal}/>
                 </div>
             </div>
-            <ToastContainer/>
         </div>
     )
 }
