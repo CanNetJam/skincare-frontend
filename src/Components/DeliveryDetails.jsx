@@ -63,9 +63,6 @@ export default function DeliveryDetails() {
     useEffect(() => {
         setFilteredRegions([])
         if (draftRegion!=="") {
-            setSelectedProvince(undefined)
-            setSelectedCity(undefined)
-            setSelectedBarangay(undefined) 
 
             const data = regions?.filter((item) => (item.regionName.toUpperCase()).includes(draftRegion.toUpperCase()))
             setSelectedRegion(data[0])
@@ -73,7 +70,9 @@ export default function DeliveryDetails() {
             if (userData.user?.billingaddress?.region!==undefined) {
                 setSelectedRegion(data[0])
             } 
-
+            setSelectedProvince(undefined)
+            setSelectedCity(undefined)
+            setSelectedCity(undefined)
             setDraftProvince("")
             setDraftCity("")
             setDraftBarangay("") 
@@ -93,9 +92,6 @@ export default function DeliveryDetails() {
     useEffect(() => {
         setFilteredProvinces([])
         if (draftProvince!=="") {
-            setSelectedCity(undefined)
-            setSelectedBarangay(undefined)
-            
             const data = provinces?.filter((item) => (item.name.toUpperCase()).includes(draftProvince.toUpperCase()))
             setSelectedProvince(data[0])
 
@@ -122,14 +118,12 @@ export default function DeliveryDetails() {
     useEffect(() => {
         setFilteredProvinces([])
         if (draftCity!=="") {
-            setSelectedBarangay(undefined)
             const data = cities?.filter((item) => (item.name.toUpperCase()).includes(draftCity.toUpperCase()))
             setSelectedCity(data[0])
 
             if (userData.user?.billingaddress?.city!==undefined) {
                 setSelectedCity(data[0])
             } 
-
         }
     }, [draftCity, cities])
 
@@ -164,7 +158,7 @@ export default function DeliveryDetails() {
             } 
         }
     }, [draftBarangay, barangay])
-    
+
     async function submitHandler(e) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {

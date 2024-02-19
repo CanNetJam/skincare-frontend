@@ -175,7 +175,6 @@ function Login() {
             </div>
         </div>
         <Footer/>
-        <ToastContainer/>
         </>
     )
 }

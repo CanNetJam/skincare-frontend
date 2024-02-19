@@ -8,7 +8,7 @@ import moment from "moment";
 export default function EditTicket({isEdit, setIsEdit, toEdit}) {
     const [status, setStatus] = useState(toEdit.status)
     const [reason, setReason] = useState("")
-    console.log(toEdit)
+
     async function submitHandler(e) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {

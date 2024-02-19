@@ -17,6 +17,8 @@ import LiveSessions from './LiveSessions';
 import DigitalMarketing1 from './DigitalMarketing1';
 import DigitalMarketing2 from './DigitalMarketing2';
 import DigitalMarketing3 from './DigitalMarketing3';
+import OrderIncome from './OrderIncome';
+import BoxWrap from './BoxWrap';
 
 export default function KBBody({openMenu, setOpenMenu, openTab}) {
     const [ openLink, setOpenLink ] = useState("Default")
@@ -51,9 +53,15 @@ export default function KBBody({openMenu, setOpenMenu, openTab}) {
             {openLink==="Floating Parcel (Product to Ship)" && (
                 <ProductsToShip />
             )}
+            {openLink==="Box Wrap" && (
+                <BoxWrap />
+            )}
 
             {openLink==="Customer Support" && (
                 <CustomerSupport />
+            )}
+            {openLink==="Order Income" && (
+                <OrderIncome />
             )}
 
             {openLink==="RTS (Undelivered Products)" && (

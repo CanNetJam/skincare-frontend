@@ -22,7 +22,7 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
                                 <li onClick={()=> setOpenLink("Packaging Rules")} className={openLink==="Packaging Rules" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Packaging Rules</li>
                                 <li onClick={()=> setOpenLink("Product Quality")} className={openLink==="Product Quality" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Product Quality</li>
                                 <li onClick={()=> setOpenLink("Product Inventory")} className={openLink==="Product Inventory" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Product Inventory</li>
-                                <li onClick={()=> setOpenLink("Floating Parcel (Product to Ship)")} className={openLink==="Floating Parcel (Product to Ship)" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Floating Parcel (Product to Ship)</li>
+                                <li onClick={()=> setOpenLink("Box Wrap")} className={openLink==="box Wrap" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Box Wrap</li>
                             </ul>
                         </section>
                     : null}
@@ -31,6 +31,7 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
                             <h1 className='subHeading text-white mb-6'>Contents</h1>
                             <ul className='text-gray-400 sm:ml-2 sm:text-base text-sm list-decimal px-4'>
                                 <li onClick={()=> setOpenLink("Customer Support")} className={openLink==="Customer Support" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Customer Support</li>
+                                <li onClick={()=> setOpenLink("Order Income")} className={openLink==="Order Income" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Order Income</li>
                             </ul>
                         </section>
                     }
@@ -38,6 +39,7 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
                         <section className='h-screen sm:px-8 px-2'>
                             <h1 className='subHeading text-white mb-6'>Contents</h1>
                             <ul className='text-gray-400 sm:ml-2 sm:text-base text-sm list-decimal px-4'>
+                                <li onClick={()=> setOpenLink("Floating Parcel (Product to Ship)")} className={openLink==="Floating Parcel (Product to Ship)" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Floating Parcel (Product to Ship)</li>
                                 <li onClick={()=> setOpenLink("RTS (Undelivered Products)")} className={openLink==="RTS (Undelivered Products)" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>RTS (Undelivered Products)</li>
                                 <li onClick={()=> setOpenLink("Customer Return/Refund")} className={openLink==="Customer Return/Refund" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Customer Return/<br/>Refund</li>
                             </ul>
