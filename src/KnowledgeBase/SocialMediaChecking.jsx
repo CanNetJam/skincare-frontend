@@ -11,7 +11,7 @@ export default function SocialMediaChecking() {
                 behavior: "smooth",
             })
         }
-        windowOpen()
+        windowOpen() 
     }, [])
 
     useEffect(() => {
