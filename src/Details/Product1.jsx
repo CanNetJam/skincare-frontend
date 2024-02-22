@@ -254,7 +254,7 @@ export default function Product1() {
                 </>
             :null}
             <Precautions />
-            <ProductReview id={id} secondid={location.state?.productid}/>
+            <ProductReview id={id} secondid={location.state?.productid} mode={"View"}/>
             <OrderNow productlinks={productData?.productlinks}/>
             <Footer/>
         </>

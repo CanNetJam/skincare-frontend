@@ -25,14 +25,16 @@ function CartDetails() {
     useEffect(()=> {
         const calculateShipping = () => { 
             let userRegion = userData.user?.billingaddress?.region.toUpperCase() 
-            if(userRegion==="REGION 1" || userRegion==="REGION 2" || userRegion==="REGION 3" || userRegion==="CORDILLERA ADMINISTRATIVE REGION" || userRegion==="NATIONAL CAPITAL REGION" || userRegion==="REGION IV-A" || userRegion==="REGION V") {
-                setShippingFee(85)
-            } else if (userRegion==="MIMAROPA REGION" || userRegion==="REGION VI" || userRegion==="REGION VIII" || userRegion==="REGION VII") {
-                setShippingFee(95)
+            if(userRegion==="NATIONAL CAPITAL REGION") {
+                setShippingFee(45)
+            } else if (userRegion==="MIMAROPA REGION" || userRegion==="REGION 1" || userRegion==="REGION 2" || userRegion==="REGION 3" || userRegion==="CORDILLERA ADMINISTRATIVE REGION" || userRegion==="REGION IV-A" || userRegion==="REGION V") {
+                setShippingFee(40)
+            } else if ( userRegion==="REGION VI" || userRegion==="REGION VIII" || userRegion==="REGION VII") {
+                setShippingFee(48)
             } else if (userRegion==="REGION IX" || userRegion==="REGION X" || userRegion==="REGION XI" || userRegion==="REGION XII" || userRegion==="REGION XIII" || userRegion==="BANGSAMORO AUTONOMOUS REGION IN MUSLIM MINDANAO") {
-                setShippingFee(105)
+                setShippingFee(50)
             } else {
-                setShippingFee(100)
+                setShippingFee(55)
             }
         }
         calculateShipping()

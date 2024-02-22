@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import UpdateIngredient from "../Modals/UpdateIngredient";
+import ProductReview from "../Components/ProductReview";
 
 export default function UpdateProduct() {
     const [ availableItems, setAvailableItems ] = useState([])
@@ -99,11 +100,9 @@ export default function UpdateProduct() {
 
     async function submitHandler(e) {
         e.preventDefault()
-
         const loadingNotif = async function myPromise() {
             try {
             const data = new FormData()
-            
             if (product.displayimage!==undefined) {
                 if (typeof product.displayimage!=="string"){
                     const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
@@ -775,6 +774,7 @@ export default function UpdateProduct() {
                                 </div>
                             </div>
                         </div>
+                        <ProductReview id={product._id} secondid={product._id} mode={"Edit"}/>
                         <div className="mt-6 flex items-center justify-center gap-x-6">
                             <button type="button" className="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
                             <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update Product</button>

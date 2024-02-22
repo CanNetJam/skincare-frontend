@@ -19,7 +19,7 @@ export default function DoDonts({proddo, proddont}) {
                                 <>
                                     {proddo.map((a, index)=> {
                                         return (
-                                            <div className="grid grid-cols-5 gap-4 py-2">
+                                            <div key={index} className="grid grid-cols-5 gap-4 py-2">
                                                 <div className="flex justify-center">
                                                     {index===0 && (
                                                         <PiNumberCircleOneFill className="text-blue-400 h-[50px] w-[100px]"/>
@@ -57,7 +57,7 @@ export default function DoDonts({proddo, proddont}) {
                                 <>
                                     {proddont?.map((a, index)=> {
                                         return (
-                                            <div className="grid grid-cols-5 gap-4 py-2">
+                                            <div key={index} className="grid grid-cols-5 gap-4 py-2">
                                                 <div className="flex justify-center">
                                                     {index===0 && (
                                                         <PiNumberCircleOneFill className="text-blue-400 h-[50px] w-[100px]"/>

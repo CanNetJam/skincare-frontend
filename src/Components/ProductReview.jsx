@@ -4,7 +4,8 @@ import PageButtons from './PageButtons';
 import axios from 'axios';
 import ReadMore from './ReadMore';
 
-export default function ProductReview({id, secondid}) {
+export default function ProductReview({id, secondid, mode}) {
+    
     const ratings = [1,2,3,4,5]
     const [ reviews, setReviews ] = useState([])
     const [ allReviews, setAllReviews ] = useState([])
@@ -86,15 +87,17 @@ export default function ProductReview({id, secondid}) {
                         for (let i=0; i<summary.length; i++){
                             total = summary[i] + total
                         }
-                        return total/summary.length
+                        return total
                     }
                     if (summary.length===1) {
                         total = summary[0]
-                        return total/summary.length
+                        return total
                     }
-                    return total/summary.length
+                    return total
                 }
                 computeSum()
+                
+                total = total===0 ? total : total/summary.length
                 setAverage(total)
             } catch (error) {
                 console.error('Error computing data:', error);
@@ -147,7 +150,7 @@ export default function ProductReview({id, secondid}) {
                     <div className='grid lg:grid-cols-4 grid-cols-2 gap-6'>
                         <div className='sm:h-[45vh] sm:col-span-1 col-span-2 border shadow-sm rounded-md grid gap-4 p-6 bg-white'>
                             <h3 className='font-bold text-blue-400'>Overall rating</h3>
-                            <p className='text-6xl text-center text-gray-600'><b className='text-blue-500'>{average%total===0 ? average.toFixed(1) : average}</b>/5</p>
+                            <p className='text-6xl text-center text-gray-600'><b className='text-blue-500'>{average!==0 ? average%total!==0 ? average.toFixed(1) :average : average}</b>/5</p>
                             <div className='flex w-full gap-2 justify-center items-center'>
                                 {ratings.map((a, index)=> {
                                     return (
@@ -161,6 +164,7 @@ export default function ProductReview({id, secondid}) {
                                     )
                                 })}
                             </div>
+                            
                             <p className='text-center'><span className='font-semibold'>{reviews.length}</span> total reviews</p>
                         </div>
 
@@ -356,7 +360,7 @@ export default function ProductReview({id, secondid}) {
                                             </div>
                                         </div>
                                         <div className='sm:col-span-4 sm:border-l sm:border-t-0 border-l-0 border-t sm:p-4 py-2'>
-                                            <div className='sm:flex grid sm:gap-8 gap-2 items-center mb-2'>
+                                            <div className='sm:flex grid sm:gap-8 gap-2 items-center mb-2 relative'>
                                                 <div className='flex w-auto gap-2 items-center'>
                                                     {ratings.map((b, index)=> {
                                                         return (
@@ -370,6 +374,9 @@ export default function ProductReview({id, secondid}) {
                                                         )
                                                     })}
                                                 </div>
+                                                {mode==="Edit" ?
+                                                    <button className='absolute top-0 right-0 border border-red-400 hover:bg-red-400 hover:text-white w-[100px] rounded-md text-red-400 font-bold'>Delete</button>
+                                                :null}
                                                 {a.recommended===true ? 
                                                     <div className='flex items-center gap-1 sm:text-sm text-xs bg-green-400 py-1 px-2 rounded-full text-white font-semibold h-auto'><svg className='h-5 w-5' fill='white' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.998 2.005c5.517 0 9.997 4.48 9.997 9.997 0 5.518-4.48 9.998-9.997 9.998-5.518 0-9.998-4.48-9.998-9.998 0-5.517 4.48-9.997 9.998-9.997zm-5.049 10.386 3.851 3.43c.142.128.321.19.499.19.202 0 .405-.081.552-.242l5.953-6.509c.131-.143.196-.323.196-.502 0-.41-.331-.747-.748-.747-.204 0-.405.082-.554.243l-5.453 5.962-3.298-2.938c-.144-.127-.321-.19-.499-.19-.415 0-.748.335-.748.746 0 .205.084.409.249.557z"/></svg>Will recommend this product!</div>
                                                 :null}

@@ -150,7 +150,7 @@ export default function Packages() {
                                                     </>
                                                     : 
                                                     <>
-                                                        Out of stock.
+                                                        <b>Out of stock.</b>
                                                     </>}
                                                 </p>
                                             </div>
