@@ -12,6 +12,7 @@ import { UserContext } from "../App";
 import EmailSubscription from '../Modals/EmailSubscription';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ProductReview from "../Components/ProductReview";
 
 export default function Product1() {
     const { userData, setUserData } = useContext(UserContext)
@@ -253,6 +254,7 @@ export default function Product1() {
                 </>
             :null}
             <Precautions />
+            <ProductReview id={id} secondid={location.state?.productid}/>
             <OrderNow productlinks={productData?.productlinks}/>
             <Footer/>
         </>

@@ -4,6 +4,7 @@ import DateRangePickerComp from './DateRangePickerComp';
 import ImageZoom from '../Modals/ImageZoom';
 import EditTicket from '../Modals/EditTicket';
 import PageButtons from './PageButtons';
+import ReadMore from './ReadMore';
 
 export default function AdminPendingTickets({tickets, page, setPage, status, setStatus, pages, pageEntries, total, setPageEntries, tab, setDateRange, isEdit, setIsEdit}) {
     const [ openPageCount, setOpenPageCount ] = useState(false)
@@ -12,8 +13,6 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
     const [ zoomId, setZoomId] = useState("")
     const [ zoomType, setZoomType] = useState("")
     const [ isZoom, setIsZoom ] = useState(false)
-    const [ showMore, setShowMore ] = useState(false)
-    const [ showMoreId, setShowMoreId ] = useState("")
     const [ pageButtons, setPageButtons] = useState([])
     const [ displayedPages, setDisplayedPages ] = useState(5)
 
@@ -95,20 +94,11 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                 <b>Submitted on</b>: {moment(a.createdAt).format('MMM-DD-YYYY on h:mm A')}<br/>
                                                 <b>Reason</b>: <span className='text-red-400 font-semibold'>{a.mainreason}</span><br/>
                                                 <b>Description</b>:<br/>
-                                                <span className={`${showMore===true && showMoreId===a._id ? 'line-clamp-none' : 'line-clamp-3'} whitespace-pre-line px-2`}>
-                                                    {a.description}
-                                                </span>
-                                                {showMore!==true || showMoreId!==a._id ? 
-                                                    <b onClick={()=>{
-                                                        setShowMoreId(a._id)
-                                                        setShowMore(true)
-                                                        }} className='cursor-pointer px-2'>Read more</b> 
-                                                :null}
-                                                {showMore===true && showMoreId===a._id ? 
-                                                    <b onClick={()=>{
-                                                        setShowMore(false)
-                                                        }} className='cursor-pointer px-2'>Read less</b> 
-                                                :null}
+                                                {a?.description?.length>100 ? 
+                                                    <ReadMore text={a.description}/>
+                                                : 
+                                                    <p>{a.description}</p>
+                                                }
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className='h-40 w-40 rounded-md overflow-hidden'>

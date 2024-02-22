@@ -38,7 +38,7 @@ export default function CancelOrder({isEdit, setIsEdit, toEdit}) {
     return (
         <>
             <Transition appear show={isEdit} as={Fragment}>
-                <Dialog as="div" className="relative z-50" onClose={()=>setIsEdit(false)}>
+                <Dialog as="div" className="relative z-50" onClose={()=>""}>
                     <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"

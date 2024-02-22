@@ -11,6 +11,7 @@ export default function Cart({open, setOpen}) {
     const { userData, setUserData } = useContext(UserContext)
     const [ cartData, setCartData ] = useState([])
     const [ cartTotal, setCartTotal ] = useState(0)
+    const [ exceed, setExceed ] = useState(false)
 
     useEffect(() => {
         const fetchCartData = async () => {
@@ -26,33 +27,48 @@ export default function Cart({open, setOpen}) {
 
     useEffect(() => {
         const computeTotal = async () => {
-        try {
-            let summary = []
+            try {
+                let a = false
+                function checkExceed(){
+                    for (let i=0; i<cartData.length; i++){
+                        if (cartData[i].quantity>cartData[i].product.stock){
+                            return a=true
+                        }
+                    }
+                }
+                checkExceed()
+                if (a===false) {
+                    setExceed(false)
+                } else if (a===true) {
+                    setExceed(true)
+                }
 
-            cartData.map((a)=> {
-                let haha = Number(a.product?.price ? a.product.price : a.product.origprice) * Number(a.quantity)
-                summary.push(haha)
-            })
+                let summary = []
 
-            let total = 0
-            function computeSum(){
-                if (summary.length>1) {
-                    for (let i=0; i<summary.length; i++){
-                    total = summary[i] + total
+                cartData.map((a)=> {
+                    let haha = Number(a.product?.price ? a.product.price : a.product.origprice) * Number(a.quantity)
+                    summary.push(haha)
+                })
+
+                let total = 0
+                function computeSum(){
+                    if (summary.length>1) {
+                        for (let i=0; i<summary.length; i++){
+                        total = summary[i] + total
+                        }
+                        return total
+                    }
+                    if (summary.length===1) {
+                        total = summary[0]
+                        return total
                     }
                     return total
                 }
-                if (summary.length===1) {
-                    total = summary[0]
-                    return total
-                }
-                return total
+                computeSum()
+                setCartTotal(total)
+            } catch (error) {
+                console.error('Error computing data:', error);
             }
-            computeSum()
-            setCartTotal(total)
-        } catch (error) {
-            console.error('Error computing data:', error);
-        }
         }
         computeTotal()
     }, [cartData])
@@ -305,7 +321,7 @@ export default function Cart({open, setOpen}) {
                                                                     <path stroke="currentColor" d="M1 1h16"/>
                                                                 </svg>
                                                             </button>
-                                                            <input readOnly value={product.quantity} type="text" id={`counter-input`+product.product._id} data-input-counter className="col-span-2 flex-shrink-0 text-gray-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center" />
+                                                            <input readOnly value={product.quantity} type="text" id={`counter-input`+product.product._id} data-input-counter className={`${product.quantity>product.product.stock ? 'text-red-600 font-semibold' : null} col-span-2 flex-shrink-0 text-gray-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center`}/>
                                                             <button onClick={()=>handleAddQuantity(product)} disabled={product.product?.stock>product.quantity ? false : true} type="button" id="increment-button" data-input-counter-increment="counter-input" className="col-span-1 flex-shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
                                                                 <svg className="w-2.5 h-2.5 text-gray-900 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                                                     <path stroke="currentColor" d="M9 1v16M1 9h16"/>
@@ -333,8 +349,8 @@ export default function Cart({open, setOpen}) {
                                         if (userData.token!==undefined) {
                                             navigate('/cartdetails')
                                         }
-                                    }} disabled={userData.token!==undefined && cartData.length>0 && ((userData.user?.billingaddress?.region!=="") && (userData.user?.billingaddress?.region!==undefined)) ? false : true} 
-                                        className={`${userData.token!==undefined && cartData.length>0 && ((userData.user?.billingaddress?.region!=="") && (userData.user?.billingaddress?.region!==undefined)) ? 'bg-blue-500 hover:bg-blue-700' : 'bg-gray-500'} relative flex items-center justify-center rounded-md border border-transparent px-6 py-3 text-base font-medium text-white shadow-sm`}>
+                                    }} disabled={userData.token!==undefined && cartData.length>0 && ((userData.user?.billingaddress?.region!=="") && (userData.user?.billingaddress?.region!==undefined)) && exceed===false ? false : true} 
+                                        className={`${userData.token!==undefined && cartData.length>0 && ((userData.user?.billingaddress?.region!=="") && (userData.user?.billingaddress?.region!==undefined)) && exceed===false ? 'bg-blue-500 hover:bg-blue-700' : 'bg-gray-500'} relative flex items-center justify-center rounded-md border border-transparent px-6 py-3 text-base font-medium text-white shadow-sm`}>
                                         {userData.token===undefined ?
                                             <svg className='h-5 w-5' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill='white' d="M18 10v-4c0-3.313-2.687-6-6-6s-6 2.687-6 6v4h-3v14h18v-14h-3zm-10 0v-4c0-2.206 1.794-4 4-4s4 1.794 4 4v4h-8z"/></svg>
                                         :null}
@@ -353,6 +369,12 @@ export default function Cart({open, setOpen}) {
                                                             <label className='text-xs'>Please fill out billing address to continue. Go to <b>My Orders</b>, then head to <b>Delivery Details</b> tab. Click <Link to={`/orders/${userData.user?._id}`} className='cursor-pointer underline'>here</Link> to redirect.</label>
                                                         </>
                                                     : null}
+                                                    {exceed===true ? 
+                                                        <>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                                            <label className='text-xs'>An item on your cart has exceeeded the allowed quantity.</label>   
+                                                        </>
+                                                    :null}
                                                 </>
                                             :                                                
                                                 <>

@@ -11,13 +11,14 @@ import MoreInfo from '../Components/MoreInfo';
 import Precautions from '../Components/Precautions';
 import Routines2 from '../Components/Routines2';
 import EmailSubscription from '../Modals/EmailSubscription';
+import ProductReview from '../Components/ProductReview';
 
 export default function Package1() {
     const location = useLocation()
     const {id} = useParams()
     const [ packageData, setPackageData ] = useState({})
     const [ isOpen, setIsOpen ] = useState(false)
-    
+
     useEffect(()=> {
         const windowOpen = () => {   
             window.scrollTo({
@@ -49,7 +50,7 @@ export default function Package1() {
         const getProduct = async () => {
             try {
                 const packageSet = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/package/get-package`, {params: {
-                    packageid: id ? id : location.state.packageid
+                    packageid: id ? id : location.state?.packageid
                 }})
                 setPackageData(packageSet.data)
             } catch (err) {
@@ -71,6 +72,7 @@ export default function Package1() {
             <Features packageData={packageData} packageItems={packageData.items ? packageData.items : []}/>
             <Routines2 packageData={packageData} morning={packageData?.routines?.morning ? packageData.routines.morning : []} night={packageData?.routines?.night ? packageData.routines.night : []}/>
             <Precautions />
+            <ProductReview id={id} secondid={location.state?.packageid}/>
             <OrderNow productlinks={packageData?.packagelinks}/>
             <Footer/>
         </div>

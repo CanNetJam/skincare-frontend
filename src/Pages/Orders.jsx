@@ -15,6 +15,7 @@ export default function Orders() {
     const [ pageEntries, setPageEntries ] = useState(10)
     const [ total, setTotal ] = useState(0)
     const [ isEdit, setIsEdit ] = useState(false)
+    const [ isReview, setIsReview ] = useState(false)
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -53,7 +54,7 @@ export default function Orders() {
             }
         }
         getOrders()
-    }, [tab, page, pageEntries, isEdit])
+    }, [tab, page, pageEntries, isEdit, isReview])
 
     return (
         <>
@@ -92,6 +93,8 @@ export default function Orders() {
                             tab={tab}
                             isEdit={isEdit}
                             setIsEdit={setIsEdit}
+                            isReview={isReview}
+                            setIsReview={setIsReview}
                         />
                     : null}
                     {tab==="Delivery Details" ? 

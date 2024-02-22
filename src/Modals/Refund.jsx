@@ -1,9 +1,10 @@
-import { useState, Fragment, useContext, useRef } from 'react';
+import { useState, Fragment, useContext } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import axios from "axios";
 import { UserContext } from "../App";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SingleImagePreview from '../Components/SingleImagePreview';
 
 export default function Refund({isEdit, setIsEdit, toEdit}) {
     const { userData, setUserData } = useContext(UserContext)
@@ -145,7 +146,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
     return (
         <>
             <Transition appear show={isEdit} as={Fragment}>
-                <Dialog as="div" className="relative z-50" onClose={()=>setIsEdit(false)}>
+                <Dialog as="div" className="relative z-50" onClose={()=>""}>
                     <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -198,11 +199,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                                                         </div>
                                                         <input required onChange={e=> {handleFileUpload(e, 'waybill')}} id="dropzone-file1" name="dropzone-file1" type="file" className="opacity-0" />
 
-                                                        {file1[0]!==undefined ? 
-                                                            <img className="absolute inset-0 h-full w-full object-cover" src={URL.createObjectURL(file1[0])}></img>
-                                                        :
-                                                            null
-                                                        }
+                                                        <SingleImagePreview file={file1}/>
                                                     </label>
                                                 </div> 
                                             </div>
@@ -219,11 +216,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                                                         </div>
                                                         <input required onChange={e=> {handleFileUpload(e, 'product1')}} id="dropzone-file2" name="dropzone-file2" type="file" className="opacity-0" />
 
-                                                        {file2[0]!==undefined ? 
-                                                            <img className="absolute inset-0 h-full w-full object-cover" src={URL.createObjectURL(file2[0])}></img>
-                                                        :
-                                                            null
-                                                        }
+                                                        <SingleImagePreview file={file2}/>
                                                     </label>
                                                 </div> 
                                             </div>
@@ -239,11 +232,8 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                                                             <p className="text-xs text-center text-gray-500 dark:text-gray-400">SVG, PNG or JPG (MAX. 3Mb)</p>
                                                         </div>
                                                         <input required onChange={e=> {handleFileUpload(e, 'product2')}} id="dropzone-file3" name="dropzone-file3" type="file" className="opacity-0" />
-                                                        {file3[0]!==undefined ? 
-                                                            <img className="absolute inset-0 h-full w-full object-cover" src={URL.createObjectURL(file3[0])}></img>
-                                                        :
-                                                            null
-                                                        }
+                                                        
+                                                        <SingleImagePreview file={file3}/>
                                                     </label>
                                                 </div> 
                                             </div>

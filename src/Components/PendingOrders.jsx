@@ -3,32 +3,22 @@ import CancelOrder from '../Modals/CancelOrder';
 import { Link } from 'react-router-dom';
 import PageButtons from './PageButtons';
 import EmptyContent from './EmptyContent';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Review from '../Modals/Review';
 
-export default function PendingOrders({orders, page, setPage, pages, pageEntries, total, setPageEntries, tab, isEdit, setIsEdit}) {
+export default function PendingOrders({orders, page, setPage, pages, pageEntries, total, setPageEntries, tab, isEdit, setIsEdit, isReview, setIsReview}) {
     const [ openPageCount, setOpenPageCount ] = useState(false)
     const [ toEdit, setToEdit ] = useState("")
     const [ pageButtons, setPageButtons] = useState([])
     const [ displayedPages, setDisplayedPages ] = useState(5)
-
-    function toastInfoNotification2() {
-        toast.info(`Coming soon!`, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        })
-    }
+    const [ toReview, setToReview ] = useState("")
 
     return (
         <div className='h-auto sm:w-auto w-screen pb-6 px-4'>
             {isEdit && (
                 <CancelOrder isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit}/>
+            )} 
+            {isReview && (
+                <Review isReview={isReview} setIsReview={setIsReview} toReview={toReview}/>
             )} 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -67,7 +57,9 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                                                                     <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${b.item.displayimage}.jpg`}></img>
                                                                 </div>
                                                                 <label className='col-span-3'>{b.item.name}</label>
-                                                                <label className='col-span-1 border-l px-2 flex items-center'>{b.quantity}pc(s)</label>
+                                                                <label className='col-span-1 border-l px-2 grid text-center'>{b.quantity}pc(s) <br/>
+
+                                                                </label>
                                                             </div>
                                                         )
                                                     })}
@@ -108,7 +100,14 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                                                         :null}
                                                     </>
                                                 :
-                                                    <button onClick={()=>toastInfoNotification2()} className="font-medium text-blue-500 dark:text-blue-400 hover:underline">Review</button>
+                                                    <>
+                                                        {a.reviewed===false ? 
+                                                            <button onClick={()=>{
+                                                                setIsReview(true)
+                                                                setToReview(a)
+                                                            }} className="font-medium text-blue-500 dark:text-blue-400 hover:underline">Review</button>
+                                                        :null}
+                                                    </>
                                                 }
                                             </td>
                                         </tr>
