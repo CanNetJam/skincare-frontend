@@ -40,7 +40,7 @@ export default function OrderDetails() {
         }
         getOrder()
     }, [])
-
+    console.log(orderData)
     return (
         <div>
             <Navbar/>
@@ -138,13 +138,21 @@ export default function OrderDetails() {
                                 <p>Paid through:</p>
                                 <p>{orderData.paymentoption}</p>
                             </div>
-                            <div className="flex justify-between py-1">
-                                <p>Paid at:</p>
-                                <p>{orderData.paidat ? moment(orderData.paidat).format('MMM-DD-YYYY on h:mm A') : "Payment pending"}</p>
-                            </div>
+                            {orderData.billingstatus!=="Refunded" && orderData.billingstatus!=="Cancelled" ?
+                                <div className="flex justify-between py-1">
+                                    <p>Paid at:</p>
+                                    <p>{orderData.paidat ? moment(orderData.paidat).format('MMM-DD-YYYY on h:mm A') : "Payment pending"}</p>
+                                </div>
+                            : null}
                             {orderData.billingstatus==="Refunded" ? 
                                 <div className="flex justify-between py-1">
                                     <p>Refunded at:</p>
+                                    <p>{moment(orderData?.refundedat).format('MMM-DD-YYYY on h:mm A')}</p>
+                                </div>
+                            :null}
+                            {orderData.billingstatus==="Cancelled" ? 
+                                <div className="flex justify-between py-1">
+                                    <p>Cancelled at:</p>
                                     <p>{moment(orderData?.refundedat).format('MMM-DD-YYYY on h:mm A')}</p>
                                 </div>
                             :null}

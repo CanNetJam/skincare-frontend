@@ -88,7 +88,7 @@ function CartDetails() {
         }
         }
         computeTotal()
-    }, [cartData])
+    }, [cartData, shippingFee])
 
     const handleAddQuantity = async (pack) => {
         try {

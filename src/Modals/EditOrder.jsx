@@ -39,7 +39,7 @@ export default function EditOrder({isEdit, setIsEdit, toEdit}) {
         const data = new FormData()
         data.append("tracking", tracking)
         data.append("status", status)
-        if (status==="Returned to Seller") {
+        if (status==="Returned to Seller" || status==="Cancel Order") {
             data.append("paymentid", toEdit.paymentid)
             data.append("netamount", toEdit?.netamount)
         }
@@ -112,16 +112,17 @@ export default function EditOrder({isEdit, setIsEdit, toEdit}) {
                                 <form onSubmit={submitHandler}>
                                     <div className='grid grid-cols-3 text-sm py-1'>
                                         <label className='col-span-1'>Tracking number:</label>
-                                        <input required={status!=="Seller Processing" ? true : false} onChange={e => setTracking(e.target.value)} value={tracking} type="text" className="col-span-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                                        <input required={status==="Seller Processing" || status==="Cancel Order"? false : true} onChange={e => setTracking(e.target.value)} value={tracking} type="text" className="col-span-2 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                                     </div>
                                     <div className="grid grid-cols-3 text-sm py-2 items-center">
                                         <label className='col-span-1'>Order status: </label>
-                                        <select required onChange={e=>setStatus(e.target.value)} name="type" value={status} className="col-span-2 py-1 block w-auto rounded-md border-0 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
+                                        <select required onChange={e=>setStatus(e.target.value)} name="type" value={status} className="font-bold col-span-2 py-1 block w-auto rounded-md border-0 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 text-gray-900 dark:text-white cursor-pointer">
                                             <option value="" disabled>Select Status</option>
                                             <option>Seller Processing</option>
                                             <option>In Transit</option>
                                             <option>Delivered</option>
                                             <option>Returned to Seller</option>
+                                            <option>Cancel Order</option>
                                         </select>
                                     </div>
 
