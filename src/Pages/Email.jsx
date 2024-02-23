@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import axios from "axios";
 import moment from "moment";
 import { addDays } from 'date-fns';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
-import { CSVLink } from "react-csv";
+import { utils, writeFile } from 'xlsx';
 import PageButtons from '../Components/PageButtons';
 
 export default function Email() {
@@ -24,6 +24,16 @@ export default function Email() {
     const [ search, setSearch ] = useState("")
     const [ pageButtons, setPageButtons] = useState([])
     const [ displayedPages, setDisplayedPages ] = useState(5)
+
+    const exportFile = useCallback(() => {
+        /* generate worksheet from state */
+        const ws = utils.json_to_sheet(emailData.length>0 ? emailData : [])
+        /* create workbook and append worksheet */
+        const wb = utils.book_new();
+        utils.book_append_sheet(wb, ws, "Email List")
+        /* export to XLSX */
+        writeFile(wb, `Email-Subscriptions(${moment(Date.now()).format('MM-DD-YYYY')}).xlsx`)
+    }, [emails])
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -90,11 +100,9 @@ export default function Email() {
                 </div> 
             
                 <div className="flex relative gap-2 flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-end pb-4">
-                    <CSVLink 
-                        filename={`Email-Subscriptions(${moment(Date.now()).format('MM-DD-YYYY')}).csv`}     
-                        data={emailData.length>0 ? emailData : []}>
-                        <button className='mt-1 w-full bg-blue-500 px-4 py-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md'>Export to Excel</button>
-                    </CSVLink>
+                    <button onClick={()=>exportFile()} className='mt-1 w-full bg-blue-500 px-4 py-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md'>
+                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" ><path fill='white' d="M16 2v7h-2v-5h-12v16h12v-5h2v7h-16v-20h16zm2 9v-4l6 5-6 5v-4h-10v-2h10z"/></svg>
+                    </button>
                     <div className='flex items-center justify-center h-full '>
                         <button onClick={()=> menu===false ? setMenu(true) : setMenu(false)} id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
                             <svg className="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

@@ -15,19 +15,20 @@ export default function Cart({open, setOpen}) {
 
     useEffect(() => {
         const fetchCartData = async () => {
-        try {
-            let localData = JSON.parse(localStorage.getItem("items")) || []
-            setCartData(localData)
-        } catch (error) {
-            console.error('Error fetching cart data:', error)
-        }
+            try {
+                let localData = JSON.parse(localStorage.getItem("items")) || []
+                setCartData(localData)
+            } catch (error) {
+                console.error('Error fetching cart data:', error)
+            }
         }
         fetchCartData()
-    }, [open])
+    }, [open, userData])
 
     useEffect(() => {
         const computeTotal = async () => {
             try {
+                
                 let a = false
                 function checkExceed(){
                     for (let i=0; i<cartData.length; i++){
@@ -46,10 +47,10 @@ export default function Cart({open, setOpen}) {
                 let summary = []
 
                 cartData.map((a)=> {
-                    let haha = Number(a.product?.price ? a.product.price : a.product.origprice) * Number(a.quantity)
+                    let haha = a.product?.price ? a.product.price : a.product.origprice * a.quantity
                     summary.push(haha)
                 })
-
+                
                 let total = 0
                 function computeSum(){
                     if (summary.length>1) {

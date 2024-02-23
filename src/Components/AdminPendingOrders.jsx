@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { CSVLink } from "react-csv";
+import React, { useState, useEffect, useCallback } from 'react';
 import moment from "moment";
 import DateRangePickerComp from './DateRangePickerComp';
 import EditOrder from '../Modals/EditOrder';
 import { Link } from 'react-router-dom';
 import PageButtons from './PageButtons';
+import { utils, writeFile } from 'xlsx';
 
 export default function AdminPendingOrders({orders, page, setPage, pages, pageEntries, total, setPageEntries, tab, deliveryType, setDeliveryType, setDateRange, isEdit, setIsEdit, deliveryStatus, setDeliveryStatus}) {
     const [ openPageCount, setOpenPageCount ] = useState(false)
@@ -12,6 +12,16 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
     const [ toEdit, setToEdit ] = useState("")
     const [ pageButtons, setPageButtons] = useState([])
     const [ displayedPages, setDisplayedPages ] = useState(5)
+
+    const exportFile = useCallback(() => {
+        /* generate worksheet from state */
+        const ws = utils.json_to_sheet(convertedOrders)
+        /* create workbook and append worksheet */
+        const wb = utils.book_new();
+        utils.book_append_sheet(wb, ws, "Order Template")
+        /* export to XLSX */
+        writeFile(wb, `All ${tab} Orders (${moment(Date.now()).format('MM-DD-YYYY')}).xlsx`)
+    }, [convertedOrders])
 
     useEffect(()=>{
         const convertOrders = () => {
@@ -23,30 +33,31 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                         let itemPlusQuantity = a.items[i].item.name+" x"+a.items[i].quantity+` pc${a.items[i].quantity>1 ? 's' : ''}.`
                         itemsArray.push(itemPlusQuantity)
                     }
+
                     let obj = {
                         Customer_order_number: a._id,
-                        Consignee_name: a.owner,
+                        '*Consignee_name': a.owner,
                         // item: a.items[i].item.name,
                         // quantity: a.items[i].quantity,
                         // price: a.items[i].price,
                         // amountpaid: a.amountpaid,
                         // amounttotal: a.amounttotal,
-                        Address: `${a?.billingaddress?.street!=='Not applicable' ? a?.billingaddress?.street : ""} ${a?.billingaddress?.barangay!=='Not applicable' ? a?.billingaddress?.barangay : ""}  ${a?.billingaddress?.city!=='Not applicable' ? a?.billingaddress?.city : ""} ${a?.billingaddress?.province!=='Not applicable' ? a?.billingaddress?.province : ""} ${a?.billingaddress?.region!=='Not applicable' ? a?.billingaddress?.region : ""} ${a?.billingaddress?.postal}`,
+                        '*Address': `${a?.billingaddress?.street!=='Not applicable' ? a?.billingaddress?.street : ""} ${a?.billingaddress?.barangay!=='Not applicable' ? a?.billingaddress?.barangay : ""}  ${a?.billingaddress?.city!=='Not applicable' ? a?.billingaddress?.city : ""} ${a?.billingaddress?.province!=='Not applicable' ? a?.billingaddress?.province : ""} ${a?.billingaddress?.region!=='Not applicable' ? a?.billingaddress?.region : ""} ${a?.billingaddress?.postal}`,
                         // region: a.billingaddress.region, 
                         // province: a.billingaddress.province, 
                         // city: a.billingaddress.city, 
                         // barangay: a.billingaddress.barangay, 
                         // postal: a.billingaddress.postal,
                         // street: a.billingaddress.street,
-                        Phone_number: a.phone,
+                        '*Phone_number': a.phone,
                         Phone_number2: null,
                         COD: a.paymentoption==="COD" ? a.amountpaid : 0,
                         Item_type: null,
-                        Weight_kg: 0.5,
-                        Length: 1,
-                        Width: 1,
-                        Height: 1,
-                        Remark: itemsArray,
+                        '*Weight_kg': 0.5,
+                        '*Length': 1,
+                        '*Width': 1,
+                        '*Height': 1,
+                        Remark: itemsArray.toString(),
                         // owner: a.owner.substring(0, 4) + '*'.repeat(a.owner.length-4),
                     }
                     setConvertedOrders(prev=>prev.concat([obj]))
@@ -132,13 +143,9 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                 </div>
                 {tab==="Pending Orders" && deliveryStatus==="Seller Processing" ? 
                     <div className='w-full flex sm:justify-end'>
-                        <CSVLink 
-                            filename={`All ${tab} Orders (${moment(Date.now()).format('MM-DD-YYYY')}).csv`}     
-                            data={orders.length>0 ? convertedOrders : []}>
-                            <button className='mt-1 w-full bg-blue-500 px-4 py-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md'>
-                                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" ><path fill='white' d="M16 2v7h-2v-5h-12v16h12v-5h2v7h-16v-20h16zm2 9v-4l6 5-6 5v-4h-10v-2h10z"/></svg>
-                            </button>
-                        </CSVLink>
+                        <button onClick={()=>exportFile()} className='mt-1 w-full bg-blue-500 px-4 py-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md'>
+                            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" ><path fill='white' d="M16 2v7h-2v-5h-12v16h12v-5h2v7h-16v-20h16zm2 9v-4l6 5-6 5v-4h-10v-2h10z"/></svg>
+                        </button>
                     </div>
                 :null}
             </div>

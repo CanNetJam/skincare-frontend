@@ -102,7 +102,7 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
 
                     <form onSubmit={submitHandler}>
                         <p className="text-xl font-semibold">Payment Details</p>
-                        <p className="text-gray-400">Complete your order by providing your payment details.</p>
+                        <p className="text-gray-700">Complete your order by providing your payment details.</p>
                         <div className='grid gap-4 py-8 border-b-2'>
                             <div className='grid sm:grid-cols-2 gap-4'>
                                 <div className='grid-cols-1'>
@@ -160,7 +160,7 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
                         <br/>
 
                         <p className="text-xl font-semibold">Delivery Options</p>
-                        <p className="text-gray-400">Select your prefered method of shipping.</p>
+                        <p className="text-gray-700">Select your prefered method of shipping.</p>
                         <div className='grid py-8 sm:grid-cols-2 gap-4 border-b-2'>
                             <div className="relative">
                                 <input onChange={()=>setDelivery("Flash Express")} checked={delivery==="Flash Express" ? true : false} className="peer hidden" id="radio_1" type="radio" name="radio" />
@@ -176,9 +176,10 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
                         </div>
                         <br/>
 
-                        <p className="text-xl font-semibold">Payment Method</p>
-                        <p className="text-gray-400">Decide how you would like to pay your order.</p>
-                        <div className='grid sm:grid-cols-2 gap-4 py-8'>
+                        <p className="text-xl font-semibold">Payment Method </p>
+                        <p className="text-gray-700">Decide how you would like to pay your order.</p>
+
+                        <div className='grid sm:grid-cols-2 gap-4 py-4'>
                             <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
                                 <img className="h-10 w-10 object-contain cursor-pointer" src={img3} alt="Visa/Mastercard logo" />
                                 <label htmlFor="bordered-radio-1" className="w-full py-4 ms-2 text-sm font-semibold text-gray-900 dark:text-gray-300 cursor-pointer">Credit / Debit Card</label>
@@ -195,10 +196,22 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
                                 <input onChange={()=>setPayment("COD")} id="bordered-radio-3" type="radio" name="bordered-radio" className="mr-2 w-4 h-4 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
                             </div>
                         </div>
-                        <div className="flex justify-center">
-                            <button disabled={delivery==="" || payment==="" ? true : false} type='submit' className={`${delivery==="" || payment==="" ? 'bg-gray-500': ' before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-2 w-auto sm:px-10 px-1 font-bold rounded-md`}>
-                                Checkout
-                            </button>
+                        {payment==="Credit / Debit Card" || payment==="Gcash" ? 
+                            <p className='text-xs text-justify text-gray-600 py-2'>
+                                <b>Notice</b>: Online payments will be processed by third party services. Using it will allow them to cut a percentage of your order payment for the transaction fee. This will not affect the price of your order. Transaction fees are non-refundable.
+                            </p>
+                        :null}
+                        <div className="grid justify-center border-t-2 border-gray-200">
+                            <div className='flex gap-2 py-3 items-center'>
+                                <svg className='sm:h-5 sm:w-5 sm:max-h-8 h-auto w-auto max-h-[40px]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                <label className='text-xs'>Please review your checkout details and ensure that you entered the proper information.</label>   
+                            </div>
+                            <br/>
+                            <div className="flex justify-center">
+                                <button disabled={delivery==="" || payment==="" ? true : false} type='submit' className={`${delivery==="" || payment==="" ? 'bg-gray-500': ' before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-2 w-auto sm:px-10 px-6 font-bold rounded-md`}>
+                                    Checkout
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

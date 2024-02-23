@@ -3,9 +3,9 @@ import moment from "moment";
 import PageButtons from './PageButtons';
 import axios from 'axios';
 import ReadMore from './ReadMore';
+import DeleteComment from '../Modals/DeleteComment';
 
 export default function ProductReview({id, secondid, mode}) {
-    
     const ratings = [1,2,3,4,5]
     const [ reviews, setReviews ] = useState([])
     const [ allReviews, setAllReviews ] = useState([])
@@ -27,6 +27,8 @@ export default function ProductReview({id, secondid, mode}) {
     const [ filterBy, setFilterBy ] = useState("")
     const [ toUpvote, setToUpvote ] = useState(false)
     const [ mostUpvote, setMostUpvote ] = useState(undefined)
+    const [ isDelete, setIsDelete ] = useState(false)
+    const [ toDelete, setToDelete ] = useState("")
 
     useEffect(()=> {
         const resetPage = () => {   
@@ -71,7 +73,7 @@ export default function ProductReview({id, secondid, mode}) {
         return ()=> {
             isCancelled = true
         }
-    }, [ page, pageEntries, sortBy, filterBy, toUpvote ])
+    }, [ page, pageEntries, sortBy, filterBy, toUpvote, isDelete ])
 
     useEffect(() => {
         const computeTotal = async () => {
@@ -142,6 +144,9 @@ export default function ProductReview({id, secondid, mode}) {
 
     return (
         <div className='h-auto w-full bg-gray-100'>
+            {isDelete && (
+                <DeleteComment isDelete={isDelete} setIsDelete={setIsDelete} toDelete={toDelete} setToDelete={setToDelete}/>
+            )} 
             <div className='container mx-auto max-w-6xl grid gap-8 py-16 px-4'>
                 <section className='grid gap-2 h-auto'>
                     <div>
@@ -213,8 +218,8 @@ export default function ProductReview({id, secondid, mode}) {
                             {mostUpvote!==undefined ? 
                                 <div className='w-full h-auto border shadow-sm bg-white grid sm:grid-cols-5 gap-2 p-2 rounded-md'>
                                     <div className='sm:col-span-1 w-full flex sm:flex-col justify-between h-auto'>
-                                        <div className='grid gap-4 items-center'>
-                                            <div className='h-10 w-10 flex justify-center'>
+                                        <div className='grid gap-2 justify-center items-center'>
+                                            <div className='h-10 w-full flex justify-center'>
                                                 {mostUpvote.userid?.displayimage ? 
                                                     <span className="h-10 w-10 cursor-pointer overflow-hidden rounded-full">
                                                         <img className='w-full h-full rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${mostUpvote.userid?.displayimage}.jpg`}></img>
@@ -282,20 +287,19 @@ export default function ProductReview({id, secondid, mode}) {
                             <div className='group'>
                                 <div className="relative cursor-pointer bg-blue-300 text-sm font-bold whitespace-nowrap py-2 px-4 min-w-[150px] flex justify-center items-center">
                                     {sortBy!== "" ? 
-                                        <>
+                                        <div className='text-gray-800'>
                                             {sortBy}
-                                            <svg onClick={()=>setSortBy("")} className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill='white' d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
-                                        </>
+                                        </div>
                                     : 
                                         <>
                                             <svg xmlns="http://www.w3.org/2000/svg" className='h-5 w-5' viewBox="0 0 24 24"><path d="M12 0l8 10h-16l8-10zm8 14h-16l8 10 8-10z"/></svg> Sort
                                         </>
                                     }
                                     <div className="absolute left-0 top-9 w-full bg-white border shadow-md text-black z-10 hidden group-hover:block">
-                                        <label onClick={()=>setSortBy("Newest first")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        <label onClick={()=>setSortBy("Newest first")} className={`${sortBy==="Newest first" ? 'text-blue-500' : null} cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100`}>
                                             Newest first
                                         </label>
-                                        <label onClick={()=>setSortBy("Oldest first")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        <label onClick={()=>setSortBy("Oldest first")} className={`${sortBy==="Oldest first" ? 'text-blue-500' : null} cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100`}>
                                             Oldest first
                                         </label>
                                     </div>
@@ -303,31 +307,33 @@ export default function ProductReview({id, secondid, mode}) {
                             </div>
 
                             <div className='group'>
-                                <div className="relative cursor-pointer bg-blue-300 text-sm font-bold whitespace-nowrap py-2 px-4 min-w-[50px] flex justify-center items-center">
+                                <div className="relative cursor-pointer bg-blue-300 text-sm font-bold whitespace-nowrap py-2 px-4 w-[80px] flex justify-center items-center">
                                     {filterBy!== "" ? 
-                                        <>
-                                            {filterBy} <svg fill='#facc15' className='h-4 w-4' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z"/></svg>
+                                        <div className='flex gap-2'>
+                                            <div className='flex items-center text-gray-800'>
+                                                {filterBy} <svg fill='#facc15' className='h-4 w-4' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z"/></svg>
+                                            </div>
                                             <svg onClick={()=>setFilterBy("")} className='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill='white' d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
-                                        </>
+                                        </div>
                                     : 
                                         <>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className='h-5 w-5' viewBox="0 0 24 24"><path d="M19.479 2l-7.479 12.543v5.924l-1-.6v-5.324l-7.479-12.543h15.958zm3.521-2h-23l9 15.094v5.906l5 3v-8.906l9-15.094z"/></svg> Filter
+                                            <svg xmlns="http://www.w3.org/2000/svg" className='h-4 w-4' viewBox="0 0 24 24"><path d="M19.479 2l-7.479 12.543v5.924l-1-.6v-5.324l-7.479-12.543h15.958zm3.521-2h-23l9 15.094v5.906l5 3v-8.906l9-15.094z"/></svg> Filter
                                         </>
                                     }
                                     <div className="absolute left-0 top-9 w-full bg-white border shadow-md text-black z-10 hidden group-hover:block">
-                                        <label onClick={()=>setFilterBy("5")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        <label onClick={()=>setFilterBy("5")} className={`${filterBy==="5" ? 'text-blue-500' : null} cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100`}>
                                             5 <svg fill='#facc15' className='h-4 w-4' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z"/></svg>
                                         </label>
-                                        <label onClick={()=>setFilterBy("4")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        <label onClick={()=>setFilterBy("4")} className={`${filterBy==="4" ? 'text-blue-500' : null} cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100`}>
                                             4 <svg fill='#facc15' className='h-4 w-4' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z"/></svg>
                                         </label>
-                                        <label onClick={()=>setFilterBy("3")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        <label onClick={()=>setFilterBy("3")} className={`${filterBy==="3" ? 'text-blue-500' : null} cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100`}>
                                             3 <svg fill='#facc15' className='h-4 w-4' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z"/></svg>
                                         </label>
-                                        <label onClick={()=>setFilterBy("2")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        <label onClick={()=>setFilterBy("2")} className={`${filterBy==="2" ? 'text-blue-500' : null} cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100`}>
                                             2 <svg fill='#facc15' className='h-4 w-4' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z"/></svg>
                                         </label>
-                                        <label onClick={()=>setFilterBy("1")} className="cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100" >
+                                        <label onClick={()=>setFilterBy("1")} className={`${filterBy==="1" ? 'text-blue-500' : null} cursor-pointer flex justify-center items-center py-2 hover:bg-gray-100`}>
                                             1 <svg fill='#facc15' className='h-4 w-4' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.322 2.923c.126-.259.39-.423.678-.423.289 0 .552.164.678.423.974 1.998 2.65 5.44 2.65 5.44s3.811.524 6.022.829c.403.055.65.396.65.747 0 .19-.072.383-.231.536-1.61 1.538-4.382 4.191-4.382 4.191s.677 3.767 1.069 5.952c.083.462-.275.882-.742.882-.122 0-.244-.029-.355-.089-1.968-1.048-5.359-2.851-5.359-2.851s-3.391 1.803-5.359 2.851c-.111.06-.234.089-.356.089-.465 0-.825-.421-.741-.882.393-2.185 1.07-5.952 1.07-5.952s-2.773-2.653-4.382-4.191c-.16-.153-.232-.346-.232-.535 0-.352.249-.694.651-.748 2.211-.305 6.021-.829 6.021-.829s1.677-3.442 2.65-5.44z"/></svg>
                                         </label>
                                     </div>
@@ -375,7 +381,10 @@ export default function ProductReview({id, secondid, mode}) {
                                                     })}
                                                 </div>
                                                 {mode==="Edit" ?
-                                                    <button className='absolute top-0 right-0 border border-red-400 hover:bg-red-400 hover:text-white w-[100px] rounded-md text-red-400 font-bold'>Delete</button>
+                                                    <button onClick={()=>{
+                                                        setIsDelete(true)
+                                                        setToDelete(a)
+                                                        }} className='absolute top-0 right-0 border border-red-400 hover:bg-red-400 hover:text-white w-[100px] rounded-md text-red-400 font-bold'>Delete</button>
                                                 :null}
                                                 {a.recommended===true ? 
                                                     <div className='flex items-center gap-1 sm:text-sm text-xs bg-green-400 py-1 px-2 rounded-full text-white font-semibold h-auto'><svg className='h-5 w-5' fill='white' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.998 2.005c5.517 0 9.997 4.48 9.997 9.997 0 5.518-4.48 9.998-9.997 9.998-5.518 0-9.998-4.48-9.998-9.998 0-5.517 4.48-9.997 9.998-9.997zm-5.049 10.386 3.851 3.43c.142.128.321.19.499.19.202 0 .405-.081.552-.242l5.953-6.509c.131-.143.196-.323.196-.502 0-.41-.331-.747-.748-.747-.204 0-.405.082-.554.243l-5.453 5.962-3.298-2.938c-.144-.127-.321-.19-.499-.19-.415 0-.748.335-.748.746 0 .205.084.409.249.557z"/></svg>Will recommend this product!</div>

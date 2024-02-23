@@ -9,7 +9,7 @@ export default function ReadMore(text) {
     return (
         <p>
             {expand==false ? resultString+"...": resultString}
-            <button className="text-blue-400 font-bold cursor-pointer" onClick={()=> {
+            <button className="text-blue-400 text-sm font-bold cursor-pointer" onClick={()=> {
                 if (expand===false) {
                     setExpand(true) 
                     setWord("less")

@@ -40,7 +40,7 @@ export default function OrderDetails() {
         }
         getOrder()
     }, [])
-    console.log(orderData)
+
     return (
         <div>
             <Navbar/>
@@ -127,8 +127,20 @@ export default function OrderDetails() {
                                 </tbody>
                             </table>
                         </div>
-                        <div className="w-full border-t flex justify-end px-2 py-3">
+                        <div className="w-full border-t flex justify-end px-2 py-3 bg-gray-200">
                             <p><span className="font-bold mr-10">Total:</span>₱{orderData.amounttotal}.00</p>
+                        </div>
+                        <div className="sm:flex sm:justify-between grid gap-2 my-4">
+                            <div className="sm:flex grid sm:gap-2">
+                                <p><b>Order placed on:</b></p>
+                                <p>{moment(orderData?.createdAt).format('MMM-DD-YYYY on h:mm A')}</p>
+                            </div>
+                            {orderData?.deliveredat ? 
+                                <div className="sm:flex grid sm:gap-2">
+                                    <p><b>Order delivered on:</b></p>
+                                    <p>{moment(orderData?.deliveredat).format('MMM-DD-YYYY on h:mm A')}</p>
+                                </div>
+                            :null}
                         </div>
                     </div>
                     <div className="sm:col-span-1 h-auto w-full bg-gray-50 rounded-md p-6">

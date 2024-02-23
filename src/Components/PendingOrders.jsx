@@ -101,7 +101,7 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                                                     </>
                                                 :
                                                     <>
-                                                        {a.reviewed===false ? 
+                                                        {a.reviewed===false && a.deliverystatus==="Delivered" ? 
                                                             <button onClick={()=>{
                                                                 setIsReview(true)
                                                                 setToReview(a)
