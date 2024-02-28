@@ -189,7 +189,7 @@ export default function Email() {
                             <th scope="col" className="px-6 py-3">
                                 Date
                             </th>
-                            {userData.user.type==="Super Admin" ? 
+                            {userData.user?.type==="Super Admin" ? 
                                 <th scope="col" className="px-6 py-3">
                                     Action
                                 </th>
@@ -217,7 +217,7 @@ export default function Email() {
                                             <td className="px-6 py-4">
                                                 {moment(a.createdAt).format('MM-DD-YYYY')}
                                             </td>
-                                            {userData.user.type==="Super Admin" ?
+                                            {userData.user?.type==="Super Admin" ?
                                                 <td className="px-6 py-4">
                                                     <button onClick={()=>{
                                                         setIsDelete(true)

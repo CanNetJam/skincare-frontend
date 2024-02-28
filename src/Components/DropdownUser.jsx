@@ -94,7 +94,7 @@ const DropdownUser = ({forwardUserData}) => {
             >
                 <ul className="flex flex-col border-b border-stroke dark:border-strokedark">
                 
-                {userData.user.type==="Super Admin" || userData.user.type==="Store Admin" ? 
+                {userData.user?.type==="Super Admin" || userData.user?.type==="Store Admin" ? 
                     <li>
                             <div onClick={()=>{
                                 setShop(!shop)
@@ -146,7 +146,7 @@ const DropdownUser = ({forwardUserData}) => {
                             </div>
                     </li>
                 : null}
-                {userData.user.type==="Super Admin" || userData.user.type==="Sales Admin" ? 
+                {userData.user?.type==="Super Admin" || userData.user?.type==="Sales Admin" ? 
                     <li>
                             <div onClick={()=>{
                                 setTransactions(!transactions)
@@ -180,7 +180,7 @@ const DropdownUser = ({forwardUserData}) => {
                             </div>
                     </li>
                 : null}
-                {userData.user.type==="Super Admin" || userData.user.type==="General Admin" ? 
+                {userData.user?.type==="Super Admin" || userData.user?.type==="General Admin" ? 
                     <li>
                             <div onClick={()=>{
                                 setUsers(!users)
@@ -216,7 +216,7 @@ const DropdownUser = ({forwardUserData}) => {
                     </li>
                 : null}
 
-                {userData.user?.access?.length!==0 && userData.user.type!=="Customer" ? 
+                {userData.user?.access?.length!==0 && userData.user?.type!=="Customer" ? 
                     <li>
                         <Link
                             to="/knowledge-base"
@@ -228,7 +228,7 @@ const DropdownUser = ({forwardUserData}) => {
                     </li>
                 :null}
                 
-                {userData.user.type!=="Customer" ? 
+                {userData.user?.type!=="Customer" ? 
                     <li>
                         <Link
                             to="/internal-policy"
@@ -240,7 +240,7 @@ const DropdownUser = ({forwardUserData}) => {
                     </li>
                 :null}
 
-                {userData.user.type==="Customer" ?
+                {userData.user?.type==="Customer" ?
                     <>
                         <li>
                             <Link to={`/orders/${userData.user._id}`} state={{profileid: userData.user._id}} className="px-6 py-2 hover:bg-gray-100 flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">

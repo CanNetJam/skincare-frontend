@@ -172,7 +172,7 @@ export default function Category() {
                                 {product.price!==product.disprice ? 
                                     <div className='grid'>
                                         <p className='text-gray-900 text-lg font-bold'>₱{(product.price).toFixed(2)}</p>
-                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{product.disprice.toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{(product?.disprice).toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
                                     </div>
                                 :
                                     <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>
@@ -216,7 +216,7 @@ export default function Category() {
                                 {product.price!==product.disprice ? 
                                     <div className='grid'>
                                         <p className='text-gray-900 text-lg font-bold'>₱{(product.price).toFixed(2)}</p>
-                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{product.disprice.toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{(product?.disprice).toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
                                     </div>
                                 :
                                     <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>
@@ -260,7 +260,7 @@ export default function Category() {
                                 {product.price!==product.disprice ? 
                                     <div className='grid'>
                                         <p className='text-gray-900 text-lg font-bold'>₱{(product.price).toFixed(2)}</p>
-                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{product.disprice.toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{(product?.disprice).toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
                                     </div>
                                 :
                                     <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>
@@ -304,7 +304,7 @@ export default function Category() {
                                 {product.price!==product.disprice ? 
                                     <div className='grid'>
                                         <p className='text-gray-900 text-lg font-bold'>₱{(product.price).toFixed(2)}</p>
-                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{product.disprice.toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{(product?.disprice).toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
                                     </div>
                                 :
                                     <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>

@@ -54,7 +54,8 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
                                                 <b className='whitespace-nowrap'>Order Id</b>: {a.orderid._id}<br/>
                                                 <b>Submitted on</b>: {moment(a.createdAt).format('MMM-DD-YYYY on h:mm A')}<br/>
                                                 <b>Items:</b> <br/>
-                                                <b>Item:</b> <span>{a.item.name+"  "+a.item.quantity+"pcs"}</span>
+                                                {console.log(a)}
+                                                <b>Item:</b> <span>{a?.item?.name+"  "+a.item.quantity+"pcs"}</span>
                                                 <br/>
                                                 <br/>
                                                 <b>Reason</b>: <span className='text-red-400 font-semibold'>{a.mainreason}</span><br/>

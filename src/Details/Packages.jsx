@@ -147,11 +147,11 @@ export default function Packages() {
                                             <div className='sm:flex sm:justify-between items-end grid gap-2'>
                                                 {pack.origprice!==pack.disprice ? 
                                                     <div className='grid'>
-                                                        <p className='text-gray-900 text-lg font-bold'>₱{pack.origprice.toFixed(2)}</p>
-                                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{pack.disprice.toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                                        <p className='text-gray-900 text-lg font-bold'>₱{(pack?.origprice).toFixed(2)}</p>
+                                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{(pack?.disprice).toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
                                                     </div>
                                                 :
-                                                    <p className='text-gray-900 font-bold'>₱{pack.origprice.toFixed(2)}</p>
+                                                    <p className='text-gray-900 font-bold'>₱{(pack?.origprice).toFixed(2)}</p>
                                                 }
                                                 <p className='text-gray-700'>
                                                     {pack.stock!==0 ? 

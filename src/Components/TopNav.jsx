@@ -157,7 +157,7 @@ function Navbar(props) {
                             <label className='border-t-2 mb-6'></label>
                             {userData?.user!==undefined ?
                                 <>
-                                {userData.user.type==="Super Admin" || userData.user.type==="Store Admin" ? 
+                                {userData.user?.type==="Super Admin" || userData.user?.type==="Store Admin" ? 
                                     <>
                                         <button onClick={()=>{
                                             setShop(!shop)
@@ -202,7 +202,7 @@ function Navbar(props) {
                                         :null}
                                     </>
                                 : null}
-                                {userData.user.type==="Super Admin" || userData.user.type==="Sales Admin" ? 
+                                {userData.user?.type==="Super Admin" || userData.user?.type==="Sales Admin" ? 
                                     <>
                                         <button onClick={()=>{
                                             setTransactions(!transactions)
@@ -233,7 +233,7 @@ function Navbar(props) {
                                         :null}
                                     </>
                                 : null}
-                                {userData.user.type==="Super Admin" || userData.user.type==="General Admin" ? 
+                                {userData.user?.type==="Super Admin" || userData.user?.type==="General Admin" ? 
                                     <>
                                         <button onClick={()=>{
                                             setTransactions(false)
@@ -265,7 +265,7 @@ function Navbar(props) {
                                     </>
                                 : null}
 
-                                {userData.user?.access?.length!==0 && userData.user.type!=="Customer" ?
+                                {userData.user?.access?.length!==0 && userData.user?.type!=="Customer" ?
                                     <Link
                                     className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                                     to="/knowledge-base"
@@ -274,7 +274,7 @@ function Navbar(props) {
                                     Knowledge Base
                                     </Link>
                                 :null}
-                                {userData.user.type!=="Customer" ? 
+                                {userData.user?.type!=="Customer" ? 
                                     <Link
                                     className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                                     to="/internal-policy"
@@ -283,7 +283,7 @@ function Navbar(props) {
                                     Internal Policy
                                     </Link>
                                 :null}
-                                {userData.user.type==="Customer" ? 
+                                {userData.user?.type==="Customer" ? 
                                     <>
                                         <Link to={`/orders/${userData.user._id}`} state={{profileid: userData.user._id}} className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M24 3l-.743 2h-1.929l-3.474 12h-13.239l-4.615-11h16.812l-.564 2h-13.24l2.937 7h10.428l3.432-12h4.195zm-15.5 15c-.828 0-1.5.672-1.5 1.5 0 .829.672 1.5 1.5 1.5s1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm6.9-7-1.9 7c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5z"/></svg>
