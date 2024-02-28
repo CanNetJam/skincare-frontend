@@ -9,8 +9,13 @@ function CartDetails() {
     const { userData, setUserData } = useContext(UserContext || null)
     const [cartData, setCartData] = useState([])
     const [subTotal, setSubTotal] = useState(0)
+    const [initalTotal, setInitialTotal] = useState(0)
     const [cartTotal, setCartTotal] = useState(0)
     const [shippingFee, setShippingFee] = useState(0)
+    const [ exceed, setExceed ] = useState(false)
+    const [ collapse, setCollapse ] = useState(true)
+    const [ currentVoucher, setCurrentVoucher ] = useState("")
+    const [ discount, setDiscount ] = useState(0)
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -55,13 +60,28 @@ function CartDetails() {
     useEffect(() => {
         const computeTotal = async () => {
         try {
-            let summary = []
+            let a = false
+            function checkExceed(){
+                for (let i=0; i<cartData.length; i++){
+                    if (cartData[i].quantity<cartData[i].product.stock){
+                        if (cartData[i].quantity>4){
+                            return a=true
+                        }
+                    }
+                }
+            }
+            checkExceed()
+            if (a===false) {
+                setExceed(false)
+            } else if (a===true) {
+                setExceed(true)
+            }
 
+            let summary = []
             cartData.map((a)=> {
                 let haha = Number(a.product?.price ? a.product.price : a.product.origprice) * Number(a.quantity)
                 summary.push(haha)
             })
-
             let total = 0
             function computeSum(){
                 if (summary.length>1) {
@@ -81,14 +101,28 @@ function CartDetails() {
                 setCartTotal(0)
             } else {
                 setSubTotal(total)
-                setCartTotal(total+shippingFee)
+                if (currentVoucher!=="") {
+                    if (currentVoucher.type==="Discount") {
+                        if (currentVoucher.minimum>total+shippingFee) {
+                            setInitialTotal(total+shippingFee)
+                            setCartTotal(total+shippingFee)
+                        } else {
+                            let discount = ((total+shippingFee)*(currentVoucher?.amount/100)).toFixed(2)
+                            setCartTotal((total+shippingFee)-discount)
+                            setDiscount(discount)
+                            setInitialTotal(total+shippingFee)
+                        }
+                    }
+                } else {
+                    setCartTotal(total+shippingFee)
+                }
             }
         } catch (error) {
             console.error('Error computing data:', error);
         }
         }
         computeTotal()
-    }, [cartData, shippingFee])
+    }, [cartData, shippingFee, currentVoucher])
 
     const handleAddQuantity = async (pack) => {
         try {
@@ -263,78 +297,109 @@ function CartDetails() {
         <div className='bg-gray-100'>
             <div className="container mx-auto grid lg:grid-cols-2 gap-4 h-auto p-4 sm:p-8">
                 
-                <div className='sm:order-2 order-1'>
-                    <header className="text-center my-4">
+                <div className='sm:sticky sm:top-0 sm:min-h-96 sm:h-min sm:order-2 order-1'>
+                    <header className="text-center mb-4">
                         <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Order Summary</h1>
                     </header>
-                    {cartData.length>0 ? 
-                        <ul>
-                        {cartData.map((item, index) => (
-                            <li key={index} className="border-b border-gray-200 py-4 grid grid-cols-3 items-center gap-4">
-                                <div className='col-span-2 flex items-center gap-4'>
-                                <img className='h-24 w-24 rounded-lg' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${item.product.displayimage}.jpg`}/>
-                                <div>
-                                    <h3 className="text-sm font-semibold text-gray-900">{item.product.name}</h3>
-                                    <dl className="flex gap-2 text-xs text-gray-600">
-                                        <dt className="inline">Price:</dt>
-                                        <dd className="inline">₱ {item.product?.price ? item.product.price : item.product.origprice}.00</dd>
-                                    </dl>
-                                    <p className='py-2'><b>{item.product.stock}</b> <span className='text-xs'>items left</span></p>
-                                </div>
-                                </div>
+                    {collapse===true ? 
+                        <>
+                            <button onClick={()=>setCollapse(!collapse)} className='bg-white border rounded-lg w-full flex justify-between items-center px-4 py-2 my-4 hover:bg-slate-50 shadow-sm'>
+                                <label className='font-bold'>Hide order items</label>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M0 16.67l2.829 2.83 9.175-9.339 9.167 9.339 2.829-2.83-11.996-12.17z"/></svg>
+                            </button>
+                            {cartData.length>0 ? 
+                                <ul>
+                                {cartData.map((item, index) => (
+                                    <li key={index} className="border-b border-gray-200 py-4 grid grid-cols-3 items-center gap-4">
+                                        <div className='col-span-2 flex items-center gap-4'>
+                                        <img className='h-24 w-24 rounded-lg' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${item.product.displayimage}.jpg`}/>
+                                        <div>
+                                            <h3 className="text-sm font-semibold text-gray-900">{item.product.name}</h3>
+                                            <dl className="flex gap-2 text-xs text-gray-600">
+                                                <dt className="inline">Price:</dt>
+                                                <dd className="inline">₱ {item.product?.price ? item.product.price.toFixed(2) : item.product.origprice.toFixed(2) }</dd>
+                                            </dl>
+                                            <p className='py-2'><b>{item.product.stock}</b> <span className='text-xs'>items left</span></p>
+                                        </div>
+                                        </div>
 
-                                <div className='col-span-1 grid gap-2 items-center justify-center min-w-lg'>
-                                <label htmlFor="quantity-input" className="block text-sm text-center font-medium text-gray-900 dark:text-white">Quantity:</label>
-                                <div className="flex items-center text-center gap-2">
-                                    <div className="relative flex items-center justify-center max-w-[8rem]">
-                                        <button onClick={()=>{
-                                                        if (item.quantity>1) {
-                                                            handleSubtractQuantity(item)
-                                                        } else {
-                                                            handleRemoveItem(item.product, item.quantity)
-                                                        }
-                                                    }} type="button" id="decrement-button" data-input-counter-decrement="quantity-input" className={`${item.quantity>1 ? 'hover:bg-gray-200 dark:hover:bg-gray-600' : null}bg-gray-100 dark:bg-gray-700  dark:border-gray-600  border border-gray-300 rounded-s-lg p-2 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none`}>
-                                            <svg className="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                                <path stroke="currentColor" d="M1 1h16"/>
-                                            </svg>
-                                        </button>
-                                        <input readOnly value={item.quantity} type="number" id={`quantity-input`+item.product?._id} data-input-counter aria-describedby="helper-text-explanation" className="bg-gray-50 border-x-0 border-gray-300 h-8 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-center" placeholder="99" required/>
-                                        <button onClick={()=>handleAddQuantity(item)} disabled={item.quantity<item.product.stock ? false : true} type="button" id="increment-button" data-input-counter-increment="quantity-input" className={`${item.quantity<item.product.stock ? 'hover:bg-gray-200' : null} bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 border border-gray-300 rounded-e-lg p-2 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none`}>
-                                            <svg className="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                                <path stroke="currentColor" d="M9 1v16M1 9h16"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
+                                        <div className='col-span-1 grid gap-2 items-center justify-center min-w-lg'>
+                                        <label htmlFor="quantity-input" className="block text-sm text-center font-medium text-gray-900 dark:text-white">Quantity:</label>
+                                        <div className="flex items-center text-center gap-2">
+                                            <div className="relative flex items-center justify-center max-w-[8rem]">
+                                                <button onClick={()=>{
+                                                                if (item.quantity>1) {
+                                                                    handleSubtractQuantity(item)
+                                                                } else {
+                                                                    handleRemoveItem(item.product, item.quantity)
+                                                                }
+                                                            }} type="button" id="decrement-button" data-input-counter-decrement="quantity-input" className={`${item.quantity>1 ? 'hover:bg-gray-200 dark:hover:bg-gray-600' : null}bg-gray-100 dark:bg-gray-700  dark:border-gray-600  border border-gray-300 rounded-s-lg p-2 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none`}>
+                                                    <svg className="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                                        <path stroke="currentColor" d="M1 1h16"/>
+                                                    </svg>
+                                                </button>
+                                                <input readOnly value={item.quantity} type="number" id={`quantity-input`+item.product?._id} data-input-counter aria-describedby="helper-text-explanation" className={`${item.quantity>item.product.stock || item.quantity>4 ? 'text-red-600 font-semibold' : null} col-span-2 flex-shrink-0 text-gray-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[3rem] text-center`} placeholder="99" required/>
+                                                <button onClick={()=>handleAddQuantity(item)} disabled={item.quantity<item.product.stock ? item.quantity<4 ? false : true : true} type="button" id="increment-button" data-input-counter-increment="quantity-input" className={`${item.quantity<item.product.stock ? 'hover:bg-gray-200' : null} bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 border border-gray-300 rounded-e-lg p-2 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none`}>
+                                                    <svg className="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                                        <path stroke="currentColor" d="M9 1v16M1 9h16"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
 
-                                </div>
-                            </li>
-                        ))}
-                        </ul>
-                    :null}
+                                        </div>
+                                    </li>
+                                ))}
+                                </ul>
+                            :null}
+                        </>
+                    :<button onClick={()=>setCollapse(!collapse)} className='bg-white border rounded-lg w-full flex justify-between items-center px-4 py-2 my-4 hover:bg-slate-50 shadow-sm'>
+                        <label className='font-bold'>View order items</label>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>
+                    </button>}
                     <div className="flex justify-end border-t border-slate-500 pt-8">
-                        <div className="w-auto space-y-4">
-                            <dl className="space-y-0.5 text-sm text-gray-700">
-                                <div className="flex gap-6 justify-between text-sm ">
+                        <div className="w-full space-y-4">
+                            {currentVoucher.minimum>cartTotal ?
+                                <div className='flex gap-1 justify-center'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                    <label className='text-sm text-center'>Your voucher does not meet the minimum amount of <b>₱{currentVoucher.minimum}.00</b>. It will not be used for this purchase.</label>   
+                                </div>
+                            :null}
+                            <dl className="space-y-0.5 text-gray-700">
+                                <div className="flex gap-6 justify-between">
                                     <dt>Subtotal: </dt>
-                                    <dd className='font-bold text-black'>₱ <b>{subTotal}.00</b></dd>
+                                    <dd className='font-bold text-black'>₱ <b>{subTotal.toFixed(2)}</b></dd>
                                 </div>
                                 {cartData.length>0 ? 
-                                    <div className="flex gap-6 justify-between text-sm ">
+                                    <div className="flex gap-6 justify-between">
                                         <dt>Shipping: </dt>
-                                        <dd className='font-bold text-black'>₱ <b>{shippingFee}.00</b></dd>
+                                        <dd className='font-bold text-black'>₱ <b>{shippingFee.toFixed(2)}</b></dd>
                                     </div>
                                 :null}
-                                <div className="flex gap-6 border-t py-2 justify-between !text-base font-medium">
-                                    <dt>Total: </dt>
-                                    <dd className='font-bold text-black'>₱ <b>{cartTotal}.00</b></dd>
+                                {discount!==0 && currentVoucher.minimum<cartTotal ? 
+                                    <div className="flex gap-6 justify-between">
+                                        <dt>Discount: <span className='text-blue-500 font-bold'>{currentVoucher.amount}%</span></dt>
+                                        <dd className='font-bold text-blue-500'>- ₱ <b>{discount}</b></dd>
+                                    </div>
+                                :null}
+                                <div className="border-t-2 py-2 !text-base font-medium">
+                                    {discount!==0 && currentVoucher.minimum<cartTotal ?
+                                        <div className='flex justify-between '>
+                                            <dt></dt>
+                                            <dd className='font-bold text-black relative'>₱ <b>{initalTotal.toFixed(2)}</b><div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></dd>
+                                        </div> 
+                                    :null}
+                                    <div className='flex justify-between'>
+                                        <dt>Total: </dt>
+                                        <dd className='font-bold text-blue-500 text-lg'>₱ <b>{cartTotal.toFixed(2)}</b></dd>
+                                    </div>
                                 </div>
                             </dl>
                         </div>
                     </div>
                 </div>
                 <div className='sm:order-1 order-2'>
-                    <CheckoutDetails cartData={cartData} cartTotal={cartTotal} shippingFee={shippingFee} subTotal={subTotal}/>
+                    <CheckoutDetails cartData={cartData} cartTotal={cartTotal} shippingFee={shippingFee} subTotal={subTotal} exceed={exceed} currentVoucher={currentVoucher} setCurrentVoucher={setCurrentVoucher}/>
                 </div>
             </div>
         </div>

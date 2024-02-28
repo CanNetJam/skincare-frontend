@@ -94,9 +94,8 @@ const DropdownUser = ({forwardUserData}) => {
             >
                 <ul className="flex flex-col border-b border-stroke dark:border-strokedark">
                 
-                {userData.user.type==="Super Admin" || userData.user.type==="Admin" ? 
-                    <>
-                        <li>
+                {userData.user.type==="Super Admin" || userData.user.type==="Store Admin" ? 
+                    <li>
                             <div onClick={()=>{
                                 setShop(!shop)
                                 setTransactions(false)
@@ -145,8 +144,10 @@ const DropdownUser = ({forwardUserData}) => {
                                     </ul>
                                 :null}
                             </div>
-                        </li>
-                        <li>
+                    </li>
+                : null}
+                {userData.user.type==="Super Admin" || userData.user.type==="Sales Admin" ? 
+                    <li>
                             <div onClick={()=>{
                                 setTransactions(!transactions)
                                 setShop(false)
@@ -177,9 +178,10 @@ const DropdownUser = ({forwardUserData}) => {
                                     </ul>
                                 :null}
                             </div>
-                        </li>
-
-                        <li>
+                    </li>
+                : null}
+                {userData.user.type==="Super Admin" || userData.user.type==="General Admin" ? 
+                    <li>
                             <div onClick={()=>{
                                 setUsers(!users)
                                 setTransactions(false)
@@ -211,8 +213,7 @@ const DropdownUser = ({forwardUserData}) => {
                                     </ul>
                                 :null}
                             </div>
-                        </li>
-                    </>
+                    </li>
                 : null}
 
                 {userData.user?.access?.length!==0 && userData.user.type!=="Customer" ? 

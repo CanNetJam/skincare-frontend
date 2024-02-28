@@ -14,6 +14,7 @@ export default function OrderDetails() {
     const [ orderData, setOrderData ] = useState({})
     const [ isEdit, setIsEdit ] = useState(false)
     const [ toEdit, setToEdit ] = useState("")
+    const [ itemToFocus, setItemToFocus] = useState("")
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -39,13 +40,13 @@ export default function OrderDetails() {
             }
         }
         getOrder()
-    }, [])
+    }, [isEdit])
 
     return (
         <div>
             <Navbar/>
             {isEdit && (
-                <Refund isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit}/>
+                <Refund isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit} itemToFocus={itemToFocus}/>
             )} 
             <div className="container mx-auto min-h-screen pt-16 py-4 sm:px-0 px-4 grid gap-4">
                 <h3 className='font-bold lg:text-4xl text-3xl lg:py-2 py-1 text-center'>Order Details<br/><label className={orderData.deliverystatus==="Delivered" ? `bg-green-400 text-white rounded-full px-4 text-2xl` : orderData.deliverystatus==="Cancelled" ? `bg-red-400 text-white rounded-full px-4 text-2xl` : 'bg-blue-400 text-white rounded-full px-4 text-2xl'}>{orderData.deliverystatus}</label></h3>
@@ -105,6 +106,11 @@ export default function OrderDetails() {
                                         <th scope="col" className="px-2 py-3">
                                             Subtotal
                                         </th>
+                                        {userData?.user?._id===orderData.userid && orderData.deliverystatus==="Delivered" ? 
+                                            <th scope="col" className="px-2 py-3">
+                                                Action
+                                            </th>
+                                        :null}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -119,8 +125,23 @@ export default function OrderDetails() {
                                                 </td>
                                                 <td className="px-6 py-3 text-blue-400 w-auto text-center">{a.item.name}</td>
                                                 <td className="px-2 py-3 text-center">{a.quantity} pc(s)</td>
-                                                <td className="px-2 py-3 text-center">₱{a.price}.00</td>
-                                                <td className="px-2 py-3 text-center">₱{a.quantity*a.price}.00</td>
+                                                <td className="px-2 py-3 text-center">₱{a.price.toFixed(2)}</td>
+                                                <td className="px-2 py-3 text-center">₱{(a.quantity*a.price).toFixed(2)}</td>
+                                                {userData?.user?._id===orderData.userid && orderData.deliverystatus==="Delivered" ? 
+                                                    <td className="px-2 py-3">
+                                                        {a.withticket===false ? 
+                                                            <button className="relative text-center font-semibold py-1 w-auto sm:px-4 px-2 rounded-xl bg-slate-900 text-slate-50 hover:bg-slate-800" onClick={()=>{
+                                                                        setToEdit(orderData)
+                                                                        setItemToFocus(a)
+                                                                        setIsEdit(true)
+                                                                    }}>
+                                                                Refund
+                                                            </button>
+                                                        :
+                                                            <span className="font-bold">With Ticket</span>
+                                                        }
+                                                    </td>
+                                                :null}
                                             </tr>
                                         )
                                     })}
@@ -128,7 +149,7 @@ export default function OrderDetails() {
                             </table>
                         </div>
                         <div className="w-full border-t flex justify-end px-2 py-3 bg-gray-200">
-                            <p><span className="font-bold mr-10">Total:</span>₱{orderData.amounttotal}.00</p>
+                            <p><span className="font-bold mr-10">Total:</span>₱{orderData?.amounttotal!==undefined ? (orderData?.amounttotal).toFixed(2) : '--'}</p>
                         </div>
                         <div className="sm:flex sm:justify-between grid gap-2 my-4">
                             <div className="sm:flex grid sm:gap-2">
@@ -172,36 +193,23 @@ export default function OrderDetails() {
                         <div className="p-4 border-t">
                             <div className="flex justify-between py-1">
                                 <p>Items subtotal:</p>
-                                <p>₱{orderData.amounttotal}.00</p>
+                                <p>₱{orderData?.amounttotal!==undefined ? (orderData?.amounttotal).toFixed(2) : '--'}</p>
                             </div>
                             <div className="flex justify-between py-1">
                                 <p>Shipping fee:</p>
-                                <p>₱{orderData?.shippingfee}.00</p>
+                                <p>₱{orderData?.shippingfee!==undefined ? (orderData?.shippingfee).toFixed(2) : '--'}</p>
                             </div>
                             <div className="flex justify-between py-1">
-                                <p>Voucher:</p>
-                                <p>--</p>
+                                <p>Voucher: <span className="text-blue-400 font-bold">{orderData.discountid!=='' && orderData.discountid ? orderData.discount+'%': ''}</span></p>
+                                <p>{orderData.discountid!=='' && orderData.discountid ? `- ₱${((orderData.amounttotal+orderData.shippingfee)*(orderData?.discount/100)).toFixed(2)}`: '--'}</p>
                             </div>
                             <div className="flex justify-between py-1">
                                 <p><b>Total amount:</b></p>
-                                <p>₱{orderData.amountpaid}.00</p>
+                                <p>₱{orderData?.amountpaid!==undefined ? (orderData?.amountpaid).toFixed(2) : '--'}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                {userData?.user?._id===orderData.userid ? 
-                    <>
-                        {orderData.deliverystatus==="Delivered" && orderData.refundedat===undefined ?
-                            <div className="h-auto w-full bg-gray-50 rounded-md p-4 grid sm:flex sm:justify-between">
-                                <h4 className="my-2 sm:text-xl text-lg"> Is there something wrong with your order? Submit a ticket now.</h4>
-                                <button onClick={()=>{
-                                    setToEdit(orderData)
-                                    setIsEdit(true)
-                                    }} className="relative text-center font-semibold py-1 w-auto sm:px-12 px-1 rounded-xl bg-slate-900 text-slate-50 hover:bg-slate-800">Return/Refund</button>
-                            </div>
-                        :null}
-                    </>
-                :null}
             </div>
             <Footer/>
         </div>

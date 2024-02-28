@@ -152,12 +152,25 @@ const App = () => {
         return children
     }
 
-    const SuperAdminRoute = ( children ) => {
+    const StoreAdminRoute = ( children ) => {
         let type = localStorage.getItem("user-type")
-        if (type==="Super Admin") {
+        if (type==="Store Admin" || type==="Super Admin") {
             return children
         }
-        if (type==="Admin") {
+        return <Navigate  to="/" />
+    }
+
+    const SalesAdminRoute = ( children ) => {
+        let type = localStorage.getItem("user-type")
+        if (type==="Sales Admin" || type==="Super Admin") {
+            return children
+        }
+        return <Navigate  to="/" />
+    }
+
+    const GeneralAdminRoute = ( children ) => {
+        let type = localStorage.getItem("user-type")
+        if (type==="General Admin" || type==="Super Admin") {
             return children
         }
         return <Navigate  to="/" />
@@ -225,15 +238,15 @@ const App = () => {
                         )
                     } />
 
-                    <Route path="/emails" element={SuperAdminRoute(<Suspense fallback={<Loading />}><Email /></Suspense>)} />
-                    <Route path="/add-product" element={SuperAdminRoute(<Suspense fallback={<Loading />}><AddProduct /></Suspense>)} />
-                    <Route path="/add-package" element={SuperAdminRoute(<Suspense fallback={<Loading />}><AddPackage /></Suspense>)} />
-                    <Route path="/user-accounts" element={SuperAdminRoute(<Suspense fallback={<Loading />}><UserAccounts /></Suspense>) } />
-                    <Route path="/update-product" element={SuperAdminRoute(<Suspense fallback={<Loading />}><UpdateProduct /></Suspense>)} />
-                    <Route path="/update-package" element={SuperAdminRoute(<Suspense fallback={<Loading />}><UpdatePackage /></Suspense>)} />
+                    <Route path="/emails" element={GeneralAdminRoute(<Suspense fallback={<Loading />}><Email /></Suspense>)} />
+                    <Route path="/add-product" element={StoreAdminRoute(<Suspense fallback={<Loading />}><AddProduct /></Suspense>)} />
+                    <Route path="/add-package" element={StoreAdminRoute(<Suspense fallback={<Loading />}><AddPackage /></Suspense>)} />
+                    <Route path="/user-accounts" element={GeneralAdminRoute(<Suspense fallback={<Loading />}><UserAccounts /></Suspense>) } />
+                    <Route path="/update-product" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdateProduct /></Suspense>)} />
+                    <Route path="/update-package" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdatePackage /></Suspense>)} />
 
-                    <Route path="/all-orders" element={SuperAdminRoute(<Suspense fallback={<Loading />}><AdminOrders /></Suspense>)} />
-                    <Route path="/all-tickets" element={SuperAdminRoute(<Suspense fallback={<Loading />}><AdminTickets /></Suspense>)} />
+                    <Route path="/all-orders" element={SalesAdminRoute(<Suspense fallback={<Loading />}><AdminOrders /></Suspense>)} />
+                    <Route path="/all-tickets" element={SalesAdminRoute(<Suspense fallback={<Loading />}><AdminTickets /></Suspense>)} />
 
                     <Route path="*" element={<NotFound />} />
                 </Routes>

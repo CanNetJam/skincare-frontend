@@ -23,17 +23,18 @@ export default function Cart({open, setOpen}) {
             }
         }
         fetchCartData()
-    }, [open, userData])
+    }, [open])
 
     useEffect(() => {
         const computeTotal = async () => {
             try {
-                
                 let a = false
                 function checkExceed(){
                     for (let i=0; i<cartData.length; i++){
-                        if (cartData[i].quantity>cartData[i].product.stock){
-                            return a=true
+                        if (cartData[i].quantity<cartData[i].product.stock){
+                            if (cartData[i].quantity>4){
+                                return a=true
+                            }
                         }
                     }
                 }
@@ -45,12 +46,11 @@ export default function Cart({open, setOpen}) {
                 }
 
                 let summary = []
-
                 cartData.map((a)=> {
-                    let haha = a.product?.price ? a.product.price : a.product.origprice * a.quantity
+                    let haha = Number(a.product?.price ? a.product.price : a.product.origprice) * Number(a.quantity)
                     summary.push(haha)
                 })
-                
+
                 let total = 0
                 function computeSum(){
                     if (summary.length>1) {
@@ -241,7 +241,7 @@ export default function Cart({open, setOpen}) {
             toastSuccessNotification(prop1.name)
         }
     }
-  
+
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={setOpen}>
@@ -301,7 +301,7 @@ export default function Cart({open, setOpen}) {
                                                     <Link to={product?.type==="single" ? `/details/product/${product.product?._id}` : `/details/package/${product.product?._id}`} className='font-semibold hover:underline'>
                                                         {product.product?.name}
                                                     </Link>
-                                                    <p className="ml-4">₱{product.product?.price ? product.product.price : product.product?.origprice}.00</p>
+                                                    <p className="ml-4">₱{product.product?.price ? (product.product.price).toFixed(2) : (product.product?.origprice).toFixed(2)}</p>
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-1 items-end justify-between text-sm py-2">
@@ -322,8 +322,8 @@ export default function Cart({open, setOpen}) {
                                                                     <path stroke="currentColor" d="M1 1h16"/>
                                                                 </svg>
                                                             </button>
-                                                            <input readOnly value={product.quantity} type="text" id={`counter-input`+product.product._id} data-input-counter className={`${product.quantity>product.product.stock ? 'text-red-600 font-semibold' : null} col-span-2 flex-shrink-0 text-gray-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center`}/>
-                                                            <button onClick={()=>handleAddQuantity(product)} disabled={product.product?.stock>product.quantity ? false : true} type="button" id="increment-button" data-input-counter-increment="counter-input" className="col-span-1 flex-shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                                            <input readOnly value={product.quantity} type="text" id={`counter-input`+product.product._id} data-input-counter className={`${product.quantity>product.product.stock || product.quantity>4 ? 'text-red-600 font-semibold' : null} col-span-2 flex-shrink-0 text-gray-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center`}/>
+                                                            <button onClick={()=>handleAddQuantity(product)} disabled={product.product?.stock>product.quantity ? product.quantity<4 ? false : true : true} type="button" id="increment-button" data-input-counter-increment="counter-input" className="col-span-1 flex-shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
                                                                 <svg className="w-2.5 h-2.5 text-gray-900 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                                                     <path stroke="currentColor" d="M9 1v16M1 9h16"/>
                                                                 </svg>
@@ -342,7 +342,7 @@ export default function Cart({open, setOpen}) {
                                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                                 <div className="flex justify-between text-base font-medium text-gray-900">
                                     <p>Subtotal</p>
-                                    <p>₱ <b>{cartTotal}.00</b></p>
+                                    <p>₱ <b>{cartTotal.toFixed(2)}</b></p>
                                 </div>
                                 <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                 <div className="mt-6 w-full flex justify-center">
@@ -373,7 +373,7 @@ export default function Cart({open, setOpen}) {
                                                     {exceed===true ? 
                                                         <>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                                            <label className='text-xs'>An item on your cart has exceeeded the allowed quantity.</label>   
+                                                            <label className='text-xs'>An item on your cart has exceeded the allowed quantity.</label>   
                                                         </>
                                                     :null}
                                                 </>

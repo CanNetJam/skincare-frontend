@@ -18,6 +18,7 @@ function Register() {
     const [ checked, setChecked ] = useState(false)
     const [ showPassword, setShowPassword ] = useState(false)
     const [ showConfirmPassword, setShowConfirmPassword ] = useState(false)
+    const [ subscribe, setSubscribe ] = useState(true)
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -66,6 +67,9 @@ function Register() {
         data.append("password", password)
         data.append("type", type)
         const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/register`, data, { headers: { "Content-Type": "application/json" } })
+        if (subscribe===true) {
+            await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/emails/submit-email`, {email})
+        }
         if (res.data===false) {
             toastErrorNotification()
         }
@@ -79,6 +83,7 @@ function Register() {
             setCheckPassword("")
             setType("Customer")
             setChecked(false)
+            setSubscribe(true)
         }
     }
 
@@ -140,7 +145,13 @@ function Register() {
                                         <p className="text-red-500 font-semibold w-full my-2 text-center">Password does not match!</p>
                                     :null}
                                 </div>
-
+                                <div className='flex justify-center items-center'>
+                                    <label className="inline-flex items-center mb-5 cursor-pointer">
+                                        <input type="checkbox" checked={subscribe===true ? true : false} onChange={()=>setSubscribe(!subscribe)} value={subscribe} className="sr-only peer"/>
+                                        <div className="relative w-10 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                        <span className="ms-3 sm:text-sm text-xs font-bold text-gray-900 dark:text-gray-300">Recieve discounts and newsletter through email</span>
+                                    </label>
+                                </div>
                                 <div className="flex items-start">
                                     <div className="flex items-center h-5">
                                         <input id="terms" onChange={()=> {

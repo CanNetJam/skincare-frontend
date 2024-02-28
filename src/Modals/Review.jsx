@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SingleImagePreview from '../Components/SingleImagePreview';
 
-export default function Review({isReview, setIsReview, toReview}) {
+export default function Review({isReview, setIsReview, toReview, itemToReview, setItemToReview}) {
     const ratings = [1, 2, 3, 4, 5]
     const { userData, setUserData } = useContext(UserContext)
     const [rating, setRating] = useState("")
@@ -43,6 +43,7 @@ export default function Review({isReview, setIsReview, toReview}) {
             data.append("description", description)
             data.append("rating", rating)
             data.append("recommend", recommend)
+            data.append("itemtoreview", JSON.stringify(itemToReview))
             let token = localStorage.getItem("auth-token")
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/reviews/submit-review`, data, 
             { headers: { "Content-Type": "application/json", "auth-token": token } })
@@ -143,8 +144,8 @@ export default function Review({isReview, setIsReview, toReview}) {
                                     <div className="grid text-sm py-2 items-center">
                                         <div className='grid grid-cols-2 gap-2'>
                                             <b className='col-span-2 text-base'>Product Rating: </b>
-                                            <div htmlFor="dropzone-file" className="col-span-2 sm:col-span-1 relative overflow-hidden flex gap-1.5 items-center justify-center w-full">
-                                                <input required onChange={()=>""} value={rating} id="dropzone-file" className="absolute inset-0 -z-10 opacity-0"></input>
+                                            <div className="col-span-2 sm:col-span-1 relative overflow-hidden flex gap-1.5 items-center justify-center w-full">
+                                                <input required onChange={()=>""} value={rating} className="absolute inset-0 -z-10 opacity-0"></input>
                                                 {ratings.map((a, index)=> {
                                                     return (
                                                         <label type="button" className='cursor-pointer rounded-full bg-gray-100 hover:shadow-sm' key={index} onMouseEnter={() => setHoverRating(a)} onMouseLeave={() => setHoverRating(0)} onClick={()=> {

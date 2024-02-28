@@ -15,6 +15,7 @@ export default function UpdateProduct() {
         maindesc: "",
         stock: "",
         price: "",
+        disprice: "",
         category: "",
         productlinks: {
             shopee: "",
@@ -75,6 +76,7 @@ export default function UpdateProduct() {
     })
     const [ updateIngList, setUpdateIngList ] = useState([])
     const [ submitted, setSubmitted ] = useState(false)
+    const [ percentage, setPercentage ] = useState(false)
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -173,7 +175,8 @@ export default function UpdateProduct() {
             data.append("name", product.name)
             data.append("maindesc", product.maindesc)
             data.append("stock", product.stock)
-            data.append("price", product.price)
+            data.append("price", percentage===false ? product.price : product.disprice*(product.price/100))
+            data.append("disprice", product.disprice)
             data.append("usage", product.usage)
             data.append("extra", product.extra)
             data.append("category", product.category)
@@ -184,7 +187,7 @@ export default function UpdateProduct() {
             data.append("routines", JSON.stringify(product.routines))
             data.append("do", JSON.stringify(product.do))
             data.append("dont", JSON.stringify(product.dont))
-            
+
             const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/product/update-product`, data, { headers: { "Content-Type": "application/json" } })
             console.log(res.data)
             
@@ -193,6 +196,7 @@ export default function UpdateProduct() {
                 maindesc: "",
                 stock: "",
                 price: "",
+                disprice: "",
                 category: "",
                 productlinks: {
                     shopee: "",
@@ -237,6 +241,7 @@ export default function UpdateProduct() {
                 CreatePhotoField.current.value = null
             }
             setSubmitted(!submitted)
+            setPercentage(false)
             } catch (err) {
                 console.log(err)
             }
@@ -404,7 +409,7 @@ export default function UpdateProduct() {
                                             </div>
                                         :null}
                                     </div>
-                                    <div className="sm:col-span-3">
+                                    <div className="sm:col-span-2">
                                         <label className="block text-sm font-medium leading-6 text-gray-900">Product Name</label>
                                         <div className="mt-2">
                                             <input onChange={handleChange} value={product.name} type="text" name="name" id="product-name" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
@@ -413,7 +418,20 @@ export default function UpdateProduct() {
                                     <div className="sm:col-span-1">
                                         <label className="block text-sm font-medium leading-6 text-gray-900">Price</label>
                                         <div className="mt-2">
-                                            <input onChange={handleChange} value={product.price} placeholder={0} type="number" name="price" id="price" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                            <input required onChange={handleChange} value={product.disprice} placeholder={0} type="number" name="disprice" id="disprice" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-1">
+                                        <label className="block text-sm font-medium leading-6 text-gray-900">Discounted Price</label>
+                                        <div className="mt-2 relative ">
+                                            <input onChange={handleChange} value={product.price} placeholder={0} type="text" name="price" id="price" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                            <button onClick={()=>{
+                                                if (percentage===false){
+                                                    setPercentage(true)
+                                                } else if (percentage===true){
+                                                    setPercentage(false)
+                                                }
+                                            }} type='button' className="absolute top-1/2 -translate-y-1/2 right-5 bg-blue-500 hover:bg-blue-400 rounded-lg px-1 text-white">{percentage===true ? '%' : '.00'}</button>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-1">
@@ -774,12 +792,15 @@ export default function UpdateProduct() {
                                 </div>
                             </div>
                         </div>
-                        <ProductReview id={product._id} secondid={product._id} mode={"Edit"}/>
                         <div className="mt-6 flex items-center justify-center gap-x-6">
                             <button type="button" className="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
                             <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update Product</button>
                         </div>
                     </form>
+                    <br/>
+                    {product?._id!=="" ? 
+                        <ProductReview id={product._id} secondid={product._id} mode={"Edit"}/>
+                    :null}
                 </div>
             </div>
             <Footer/>

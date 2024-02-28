@@ -12,6 +12,7 @@ export default function AddProduct() {
         maindesc: "",
         stock: "",
         price: "",
+        disprice: "",
         category: "",
         links: {
             shopee: "",
@@ -164,6 +165,7 @@ export default function AddProduct() {
             data.append("stock", product.stock)
             data.append("displayimage", uploadedProductPhoto)
             data.append("price", product.price)
+            data.append("disprice", product.disprice)
             data.append("usage", product.usage)
             data.append("extra", product.extra)
             data.append("category", product.category)
@@ -183,6 +185,7 @@ export default function AddProduct() {
                 maindesc: "",
                 stock: "",
                 price: "",
+                disprice: "",
                 category: "",
                 links: {
                     shopee: "",
@@ -297,7 +300,6 @@ export default function AddProduct() {
         }
     }
 
-
     return (
         <div className="h-screen w-full">
             <Navbar/>
@@ -308,7 +310,7 @@ export default function AddProduct() {
                         <p className="mt-1 text-sm leading-6 text-gray-600">This data will be displayed on the website after submission.</p>
 
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                            <div className="sm:col-span-3">
+                            <div className="sm:col-span-2">
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Product Name</label>
                                 <div className="mt-2">
                                     <input onChange={handleChange} value={product.name} type="text" name="name" id="product-name" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
@@ -316,6 +318,12 @@ export default function AddProduct() {
                             </div>
                             <div className="sm:col-span-1">
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Price</label>
+                                <div className="mt-2">
+                                    <input onChange={handleChange} value={product.disprice} placeholder={0} type="number" name="disprice" id="disprice" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                </div>
+                            </div>
+                            <div className="sm:col-span-1">
+                                <label className="block text-sm font-medium leading-6 text-gray-900">Discounted Price</label>
                                 <div className="mt-2">
                                     <input onChange={handleChange} value={product.price} placeholder={0} type="number" name="price" id="price" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                 </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
 import axios from "axios";
 import moment from "moment";
 import { addDays } from 'date-fns';
@@ -6,8 +6,11 @@ import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import { utils, writeFile } from 'xlsx';
 import PageButtons from '../Components/PageButtons';
+import DeleteEmail from '../Modals/DeleteEmail';
+import {UserContext} from "../App";
 
 export default function Email() {
+    const { userData, setUserData } = useContext(UserContext)
     const [ menu, setMenu ] = useState(false)
     const [ emails, setEmails] = useState([])
     const [ range, setRange ] = useState("Last year")
@@ -24,6 +27,8 @@ export default function Email() {
     const [ search, setSearch ] = useState("")
     const [ pageButtons, setPageButtons] = useState([])
     const [ displayedPages, setDisplayedPages ] = useState(5)
+    const [ isDelete, setIsDelete ] = useState(false)
+    const [ toDelete, setToDelete ] = useState("")
 
     const exportFile = useCallback(() => {
         /* generate worksheet from state */
@@ -82,11 +87,14 @@ export default function Email() {
         return ()=> {
             isCancelled = true
         }
-    }, [dateRange, page, pageEntries, search])
+    }, [dateRange, page, pageEntries, search, isDelete])
 
     return (
         <>
         <Navbar/>
+        {isDelete && (
+            <DeleteEmail isDelete={isDelete} setIsDelete={setIsDelete} toDelete={toDelete} setToDelete={setToDelete}/>
+        )} 
         <div className='min-h-screen h-auto pt-16 w-full container mx-auto sm:p-10 p-4'>
             <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Email Subscriptions</h1>
             <div className='grid sm:flex sm:justify-between'>
@@ -181,6 +189,11 @@ export default function Email() {
                             <th scope="col" className="px-6 py-3">
                                 Date
                             </th>
+                            {userData.user.type==="Super Admin" ? 
+                                <th scope="col" className="px-6 py-3">
+                                    Action
+                                </th>
+                            :null}
                         </tr>
                     </thead>
                     <tbody>
@@ -204,6 +217,16 @@ export default function Email() {
                                             <td className="px-6 py-4">
                                                 {moment(a.createdAt).format('MM-DD-YYYY')}
                                             </td>
+                                            {userData.user.type==="Super Admin" ?
+                                                <td className="px-6 py-4">
+                                                    <button onClick={()=>{
+                                                        setIsDelete(true)
+                                                        setToDelete(a)
+                                                        }} className='h-full cursor-pointer text-red-400 hover:text-red-500'>
+                                                            Delete
+                                                    </button>
+                                                </td>
+                                            :null}
                                         </tr>
                                     )
                                 })}

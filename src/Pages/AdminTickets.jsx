@@ -14,7 +14,7 @@ export default function AdminTickets() {
     const [ pages, setPages ] = useState(0)
     const [ pageEntries, setPageEntries ] = useState(5)
     const [ total, setTotal ] = useState(0)
-    const [ status, setStatus ] = useState("Pending")
+    const [ status, setStatus ] = useState("Investigating")
     const [ dateRange, setDateRange] = useState({
         startDate: addDays(new Date(), -7),
         endDate: new Date
@@ -85,7 +85,7 @@ export default function AdminTickets() {
                         <li className="order-2 me-2">
                             <button onClick={()=> {
                                 setTab("Pending Tickets")
-                                setStatus("Pending")
+                                setStatus("Investigating")
                                 setPage(0)
                             }} aria-current="page" className={`${tab==="Pending Tickets" ? 'text-blue-600 bg-gray-100' : null} inline-block sm:p-4 p-2 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500`}>Pending Tickets</button>
                         </li>

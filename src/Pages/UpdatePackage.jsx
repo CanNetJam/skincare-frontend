@@ -34,6 +34,18 @@ export default function UpdatePackage() {
     const [ availableProductItems, setAvailableProductItems ] = useState([])
     const [ word, setWord ] = useState("")
     const CreatePhotoField = useRef()
+    const [ percentage, setPercentage ] = useState(false)
+    const [ submitted, setSubmitted ] = useState(false)
+
+    useEffect(()=> {
+        const windowOpen = () => {   
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            })
+        }
+        windowOpen()
+    }, [submitted])
 
     useEffect(()=> {
         const getProducts = async () => {
@@ -45,7 +57,7 @@ export default function UpdatePackage() {
             }
         }
         getProducts()
-    }, [])
+    }, [submitted])
 
     useEffect(()=> {
         const getProducts = async () => {
@@ -57,7 +69,7 @@ export default function UpdatePackage() {
             }
         }
         getProducts()
-    }, [])
+    }, [submitted])
 
     async function submitHandler(e) {
         e.preventDefault()
@@ -112,14 +124,13 @@ export default function UpdatePackage() {
                 data.append("maindesc", packageSet.maindesc)
                 data.append("moredesc", packageSet.moredesc)
                 data.append("stock", packageSet.stock)
-                data.append("origprice", packageSet.origprice)
+                data.append("origprice", percentage===false ? packageSet.origprice :packageSet.disprice*(packageSet.origprice/100))
                 data.append("disprice", packageSet.disprice)
                 data.append("items", JSON.stringify(packageSet.items))
                 data.append("shopeelink", packageSet.packagelinks.shopee)
                 data.append("tiktoklink", packageSet.packagelinks.tiktok)
                 data.append("lazadalink", packageSet.packagelinks.lazada)
                 data.append("routines", JSON.stringify(packageSet.routines))
-                
                 const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/package/update-package`, data, { headers: { "Content-Type": "application/json" } })
                 console.log(res.data)
                 
@@ -147,10 +158,11 @@ export default function UpdatePackage() {
                 setMorstep("")
                 setNigstep("")
                 setWord("")
-
+                setPercentage(false)
                 setMorstep("")
                 setNigstep("")
                 CreatePhotoField.current.value = ""
+                setSubmitted(!submitted)
             } catch (err) {
                 console.log(err)
             }
@@ -195,8 +207,8 @@ export default function UpdatePackage() {
     
     const filteredProducts = 
     word === '' ? 
-    availableItems
-    : availableItems.filter((product) =>
+    availableProductItems
+    : availableProductItems.filter((product) =>
         product.name
             .toLowerCase()
             .replace(/\s+/g, '')
@@ -324,13 +336,20 @@ export default function UpdatePackage() {
                                     <div className="sm:col-span-1">
                                         <label className="block text-sm font-medium leading-6 text-gray-900">Original Price</label>
                                         <div className="mt-2">
-                                            <input onChange={handleChange} value={packageSet.origprice} placeholder={0} type="number" name="origprice" id="origprice" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                            <input onChange={handleChange} value={packageSet.disprice} placeholder={0} type="number" name="disprice" id="disprice" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-1">
                                         <label className="block text-sm font-medium leading-6 text-gray-900">Discounted Price</label>
-                                        <div className="mt-2">
-                                            <input onChange={handleChange} value={packageSet.disprice} placeholder={0} type="number" name="disprice" id="disprice" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                        <div className="mt-2 relative">
+                                            <input onChange={handleChange} value={packageSet.origprice} placeholder={0} type="text" name="origprice" id="origprice" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                            <button onClick={()=>{
+                                                if (percentage===false){
+                                                    setPercentage(true)
+                                                } else if (percentage===true){
+                                                    setPercentage(false)
+                                                }
+                                            }} type='button' className="absolute top-1/2 -translate-y-1/2 right-5 bg-blue-500 hover:bg-blue-400 rounded-lg px-1 text-white">{percentage===true ? '%' : '.00'}</button>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-1">
@@ -381,7 +400,7 @@ export default function UpdatePackage() {
                                             
                                             {word!=="" ?
                                                 <div className="grid gap-2 absolute bg-slate-100 h-auto max-h-[150px] w-full overflow-y-scroll rounded-b-xl no-scrollbar">
-                                                    {availableProductItems.map((a, index)=> {
+                                                    {filteredProducts.map((a, index)=> {
                                                         return <label onClick={()=>{
                                                             setPackageSet({...packageSet, items: packageSet.items.concat([a])})
                                                             setWord("")

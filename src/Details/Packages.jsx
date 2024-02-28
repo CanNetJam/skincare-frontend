@@ -135,23 +135,32 @@ export default function Packages() {
                                 {packages.map((pack)=> {
                                     return (
                                         <div key={pack._id}  className="group flex-shrink-0 relative">
-                                            <Link to={`/details/package/${pack._id}`} state={{packageid: pack._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-56">
+                                            <Link to={`/details/package/${pack._id}`} state={{packageid: pack._id}} className="relative h-32 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                                 <img className='rounded-md' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${pack.displayimage}.jpg`}/>
                                             </Link>
+                                            {pack.origprice!==pack.disprice ? 
+                                                <div className='bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-0 px-4 rounded-l-lg right-0 group-hover:opacity-90'>{100-(Math.floor((pack.origprice/pack.disprice)*100))}% Off!</div>
+                                            :null}
                                             <div className='min-h-[80px]'>
                                                 <p className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{pack.name}</p>
                                             </div>
-                                            <div className='sm:flex sm:justify-between grid gap-2'>
-                                                <p className='text-gray-700'>₱{pack.origprice}.00</p>
+                                            <div className='sm:flex sm:justify-between items-end grid gap-2'>
+                                                {pack.origprice!==pack.disprice ? 
+                                                    <div className='grid'>
+                                                        <p className='text-gray-900 text-lg font-bold'>₱{pack.origprice.toFixed(2)}</p>
+                                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{pack.disprice.toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                                    </div>
+                                                :
+                                                    <p className='text-gray-900 font-bold'>₱{pack.origprice.toFixed(2)}</p>
+                                                }
                                                 <p className='text-gray-700'>
-                                                {pack.stock!==0 ? 
-                                                    <>
-                                                        <b>{pack.stock}</b> <span className='text-xs'>items left</span>
-                                                    </>
-                                                    : 
-                                                    <>
+                                                    {pack.stock!==0 ? 
+                                                        <>
+                                                            <b>{pack.stock}</b> <span className='text-xs'>items left</span>
+                                                        </>
+                                                        : 
                                                         <b>Out of stock.</b>
-                                                    </>}
+                                                    }
                                                 </p>
                                             </div>
                                             <button onClick={()=>handleAddToCart(pack)} disabled={pack.stock<1 ? true : false} className={`${pack.stock<1 ? null : 'hover:bg-black'} my-2 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-8 py-2 text-sm font-medium text-white focus:outline-none`}>Add to Cart</button>

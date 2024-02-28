@@ -19,6 +19,7 @@ import DigitalMarketing2 from './DigitalMarketing2';
 import DigitalMarketing3 from './DigitalMarketing3';
 import OrderIncome from './OrderIncome';
 import BoxWrap from './BoxWrap';
+import AuditPosting from './AuditPosting';
 
 export default function KBBody({openMenu, setOpenMenu, openTab}) {
     const [ openLink, setOpenLink ] = useState("Default")
@@ -62,6 +63,9 @@ export default function KBBody({openMenu, setOpenMenu, openTab}) {
             )}
             {openLink==="Order Income" && (
                 <OrderIncome />
+            )}
+            {openLink==="Audit Posting" && (
+                <AuditPosting />
             )}
 
             {openLink==="RTS (Undelivered Products)" && (

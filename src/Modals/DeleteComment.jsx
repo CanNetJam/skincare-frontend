@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import moment from "moment";
 
 export default function DeleteComment({isDelete, setIsDelete, toDelete, setToDelete}) {
-    console.log(toDelete)
+
     function toastErrorNotification() {
         toast.error('Delete comment error!', {
           position: "top-right",

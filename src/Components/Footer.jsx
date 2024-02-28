@@ -46,7 +46,7 @@ export default function Footer() {
                 toastWarningNotification()
             }
         } catch (error) {
-        console.log(error)
+            console.log(error)
         }
     }
 
@@ -87,7 +87,6 @@ export default function Footer() {
                         <li><Link to="/understandingyourskin" className='hover:text-slate-200'>Understanding your Skin</Link></li>
                         <li><Link to="/aboutus" className='hover:text-slate-200'>About Us</Link></li>
                         <li><Link to="/faqs" className='hover:text-slate-200'>FAQs</Link></li>
-                        <li><Link to="/knowledge-base" className='hover:text-slate-200'>Employee Portal</Link></li>
                         </ul>
                     </div>
                     <div>

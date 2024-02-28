@@ -32,6 +32,7 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
                             <ul className='text-gray-400 sm:ml-2 sm:text-base text-sm list-decimal px-4'>
                                 <li onClick={()=> setOpenLink("Customer Support")} className={openLink==="Customer Support" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Customer Support</li>
                                 <li onClick={()=> setOpenLink("Order Income")} className={openLink==="Order Income" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Order Income</li>
+                                <li onClick={()=> setOpenLink("Audit Posting")} className={openLink==="Order Income" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Video Posting Audit</li>
                             </ul>
                         </section>
                     }

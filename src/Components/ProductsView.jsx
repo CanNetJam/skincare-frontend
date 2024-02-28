@@ -9,8 +9,6 @@ import photo6 from '../assets/9.jpg';
 import photo7 from '../assets/10.jpg';
 import photo8 from '../assets/11.jpg';
 
-
-
 function ProductsView() {
   return (
     <section className='pb-6'>

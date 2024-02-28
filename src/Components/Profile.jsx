@@ -9,6 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { useLocation, useParams } from 'react-router';
 import Settings from './ChangePassword';
+import PendingOrders from './PendingOrders';
+import DeliveryDetails from './DeliveryDetails';
 
 const Profile = () => {
     const location = useLocation()
@@ -22,6 +24,43 @@ const Profile = () => {
     const CreatePhotoField = useRef()
     const [ profileData, setProfileData ] = useState({})
     const {id} = useParams()
+    const [ tab, setTab ] = useState("Pending Orders")
+    const [ orders, setOrders ] = useState([])
+    const [ page, setPage ] = useState(0)
+    const [ pages, setPages ] = useState(0)
+    const [ pageEntries, setPageEntries ] = useState(10)
+    const [ total, setTotal ] = useState(0)
+    const [ isEdit, setIsEdit ] = useState(false)
+    const [ isReview, setIsReview ] = useState(false)
+
+    useEffect(()=> {
+        const resetPage = () => {   
+            setPage(0)
+        }
+        resetPage()
+    }, [pageEntries])
+
+    useEffect(()=> {
+        const getOrders = async () => {   
+            try {
+                let token = localStorage.getItem("auth-token")
+                const res = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/${id}/${tab}`, 
+                { headers: { "Content-Type": "application/json", "auth-token": token }, params: {
+                    page: page,
+                    limit: pageEntries
+                }})
+
+                if (res.data) {
+                    setOrders(res.data.sortedOrders)
+                    setPages(res.data.totalOrders)
+                    setTotal(res.data.total)
+                }
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getOrders()
+    }, [tab, page, pageEntries, isEdit, isReview])
 
     useEffect(()=> {
         const getProfile = async () => {
@@ -39,7 +78,6 @@ const Profile = () => {
 
     async function submitHandler(e) {
         e.preventDefault()
-
         const loadingNotif = async function myPromise() {
             const data = new FormData()
             let profileImage = ""
@@ -286,6 +324,52 @@ const Profile = () => {
                 </div>
                 {userData?.user?._id===profileData?._id ? 
                     <Settings/>
+                :null}
+                <br/>
+                {userData?.user?.type==="Admin" || userData?.user?.type==="Super Admin" ? 
+                    <>
+                        {profileData.type==="Customer" ? 
+                            <div className='pt-16 bg-white px-4 min-h-screen h-auto grid items-center'>
+                                <div className='h-full py-2 w-full container mx-auto'>
+                                <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Manage your Orders</h1>
+                
+                                    <ul className="sm:flex sm:flex-wrap grid grid-cols-3 sm:text-sm text-xs font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                                        <li className="">
+                                            <button onClick={()=> {
+                                                setTab("Pending Orders")
+                                                setPage(0)
+                                            }} aria-current="page" className={`${tab==="Pending Orders" ? 'text-blue-600 bg-gray-100' : null} inline-block sm:p-4 p-2 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500`}>Pending Orders</button>
+                                        </li>
+                                        <li className="">
+                                            <button onClick={()=> {
+                                                setTab("Purchase History")
+                                                setPage(0)
+                                            }} aria-current="page" className={`${tab==="Purchase History" ? 'text-blue-600 bg-gray-100' : null} inline-block sm:p-4 p-2 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500`}>Purchase History</button>
+                                        </li>
+                                    </ul>
+                                    <br/>
+                                    {tab==="Pending Orders" || tab==="Purchase History" ?
+                                        <PendingOrders 
+                                            orders={orders} 
+                                            page={page}
+                                            setPage={setPage}
+                                            pages={pages}
+                                            pageEntries={pageEntries}
+                                            setPageEntries={setPageEntries}
+                                            total={total}
+                                            tab={tab}
+                                            isEdit={isEdit}
+                                            setIsEdit={setIsEdit}
+                                            isReview={isReview}
+                                            setIsReview={setIsReview}
+                                        />
+                                    : null}
+                                </div>
+                            </div>
+                        :
+                            <span className='w-full flex justify-center'>Does not have orders.</span>
+                        }
+                    </>
                 :null}
             </div>
             <Footer/>

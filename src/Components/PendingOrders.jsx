@@ -1,16 +1,127 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import CancelOrder from '../Modals/CancelOrder';
 import { Link } from 'react-router-dom';
 import PageButtons from './PageButtons';
 import EmptyContent from './EmptyContent';
 import Review from '../Modals/Review';
+import { UserContext } from "../App";
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 export default function PendingOrders({orders, page, setPage, pages, pageEntries, total, setPageEntries, tab, isEdit, setIsEdit, isReview, setIsReview}) {
+    let navigate = useNavigate()
+    const { userData, setUserData } = useContext(UserContext)
     const [ openPageCount, setOpenPageCount ] = useState(false)
     const [ toEdit, setToEdit ] = useState("")
     const [ pageButtons, setPageButtons] = useState([])
     const [ displayedPages, setDisplayedPages ] = useState(5)
     const [ toReview, setToReview ] = useState("")
+    const [ itemToReview, setItemToReview ] = useState("")
+    const [ quantity, setQuantity ] = useState(1)
+
+    function toastSuccessNotification(props) {
+        toast.success(`Added ${props} to your cart.`, {
+          position: "top-left",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+    }
+
+    function toastErrorNotification() {
+        toast.error('An error happened while adding an item to your cart.', {
+          position: "top-left",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+    }
+
+    const handleAddToCart = async (pack) => {
+        try {
+            let cart = localStorage.getItem("items")
+            const obj = {
+                type:  pack.type,
+                product: {
+                    _id: pack.item._id,
+                    name: pack.item.name,
+                    displayimage: pack.item.displayimage,
+                    price: pack.type==="single" ? pack.item.price : pack.item.origprice,
+                    stock: pack.item.stock,
+                },
+                quantity: quantity
+            }
+
+            if (userData.user) {
+                let token = localStorage.getItem("auth-token")
+                const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/update-add-cart/${userData?.user?._id}`, obj,
+                { headers: { "Content-Type": "application/json", "auth-token": token } })
+                if (res.data===true) {
+                    toastSuccessNotification(pack.item.name) 
+                } else {
+                    toastErrorNotification()
+                }
+            }
+            
+            if ( cart === null) {
+                localStorage.setItem("items", JSON.stringify([obj]))
+                setUserData({...userData, cartNumber: userData.cartNumber+1})
+                if (!userData.user) {
+                    toastSuccessNotification(obj.product.name)
+                }
+            }
+            if (cart !== null) {
+                let currentCart = JSON.parse(localStorage.getItem("items"))
+                let dupe = false
+
+                function duplicateCheck() {
+                    currentCart.map((a, index )=> {
+                        if (a.product._id === pack.item._id){
+                            currentCart[index] = {
+                                type:  pack.type,
+                                product: {
+                                    _id: pack.item._id,
+                                    name: pack.item.name,
+                                    displayimage: pack.item.displayimage,
+                                    price: pack.type==="single" ? pack.item.price : pack.item.origprice,
+                                    stock: pack.item.stock,
+                                },
+                                quantity: a.quantity+1
+                            }
+                            setUserData({...userData, cartNumber: userData.cartNumber+1})
+                            if (!userData.user) {
+                                toastSuccessNotification(obj.product.name)
+                            }
+                            dupe = true
+                            return dupe
+                        }
+                        return dupe
+                    })
+                }
+
+                duplicateCheck()
+                if (dupe===false) {
+                    currentCart.push(obj)
+                    setUserData({...userData, cartNumber: userData.cartNumber+1})
+                    if (!userData.user) {
+                        toastSuccessNotification(obj.product.name)
+                    }
+                }
+                localStorage.setItem("items", JSON.stringify(currentCart))
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className='h-auto sm:w-auto w-screen pb-6 px-4'>
@@ -18,7 +129,7 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                 <CancelOrder isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit}/>
             )} 
             {isReview && (
-                <Review isReview={isReview} setIsReview={setIsReview} toReview={toReview}/>
+                <Review isReview={isReview} setIsReview={setIsReview} toReview={toReview} itemToReview={itemToReview} setItemToReview={setItemToReview}/>
             )} 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -46,8 +157,7 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                             <>
                                 {orders.map((a, index)=> {
                                     return (
-                                        <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            
+                                        <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 z-0">    
                                             <td scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white">
                                                 <div className='min-w-[300px] grid gap-2'>
                                                     {a.items.map((b, index)=>{
@@ -58,30 +168,39 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                                                                 </div>
                                                                 <label className='col-span-3'>{b.item.name}</label>
                                                                 <label className='col-span-1 border-l px-2 grid text-center'>{b.quantity}pc(s) <br/>
-
+                                                                    {b.reviewed===false && a.deliverystatus==="Delivered" ? 
+                                                                        <button onClick={()=>{
+                                                                            setIsReview(true)
+                                                                            setToReview(a)
+                                                                            setItemToReview(b)
+                                                                        }} className="font-semibold text-blue-500 dark:text-blue-400 hover:underline">Review</button>
+                                                                    :null}
                                                                 </label>
                                                             </div>
                                                         )
                                                     })}
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/order-details/${a._id}`)} className="cursor-pointer px-6 py-4">
                                                 <div className='grid gap-2'>
-                                                    <label className='font-semibold'>₱{a.amountpaid}.00</label>
+                                                    <label className='font-semibold'>₱{a.amountpaid.toFixed(2)}</label>
                                                     <label>{a.paymentoption}</label>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/order-details/${a._id}`)} className="cursor-pointer px-6 py-4">
                                                 <div className='grid gap-2'>
                                                     <span className={`${a.deliverystatus==="Seller Processing" || a.deliverystatus==="In Transit" ? `text-blue-500` : a.deliverystatus==="Cancelled" ?  'text-red-500': a.deliverystatus==="Delivered" ?  'text-green-500': `text-yellow-500` } font-semibold`}>{a.deliverystatus}</span>
                                                     <label>{a.deliveryoption}</label>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/order-details/${a._id}`)} className="cursor-pointer px-6 py-4">
                                                 <div className='grid gap-2'>
                                                     <label className='whitespace-nowrap'><b>Order Id</b>: {a._id}</label>
                                                     {a.trackingnumber ? 
                                                         <label className='whitespace-nowrap'><b>Tracking</b>: <a href={`https://www.flashexpress.ph/fle/tracking?se=${a.trackingnumber}`} target='_blank' className='hover:underline cursor-pointer'>{a.trackingnumber}</a></label>
+                                                    :null}
+                                                    {a.deliverystatus==="Cancelled" ?
+                                                        <p><b>Cancel reason:</b> {a.cancelreason}</p>
                                                     :null}
                                                 </div>
                                             </td>
@@ -90,25 +209,30 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                                                 {a.deliverystatus==="In Transit" || a.deliverystatus==="Delivered" ?
                                                     <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><a href={`https://www.flashexpress.ph/fle/tracking?se=${a?.trackingnumber}`} target='_blank' className='hover:underline cursor-pointer'>View Pickup Details</a></button>
                                                 :null}
-                                                {tab==="Pending Orders" ?
+                                                {a.userid===userData.user._id ? 
                                                     <>
-                                                        {a.deliverystatus==="Seller Processing" ? 
-                                                            <button onClick={()=>{
-                                                                setIsEdit(true)
-                                                                setToEdit(a)
-                                                            }} className="font-medium text-red-500 dark:text-red-400 hover:underline">Cancel</button>
-                                                        :null}
+                                                        {tab==="Pending Orders" ?
+                                                            <>
+                                                                {a.deliverystatus==="Seller Processing" ? 
+                                                                    <button onClick={()=>{
+                                                                        setIsEdit(true)
+                                                                        setToEdit(a)
+                                                                    }} className="z-30 font-medium text-red-500 dark:text-red-400 hover:underline">Cancel</button>
+                                                                :null}
+                                                            </>
+                                                        :
+                                                            <>
+                                                                <button onClick={()=>{
+                                                                    a.items.map((b)=> {
+                                                                        handleAddToCart(b)
+                                                                    })
+                                                                }} className="font-medium text-blue-500 dark:text-blue-400 hover:underline">
+                                                                    Order Again
+                                                                </button>
+                                                            </>
+                                                        }
                                                     </>
-                                                :
-                                                    <>
-                                                        {a.reviewed===false && a.deliverystatus==="Delivered" ? 
-                                                            <button onClick={()=>{
-                                                                setIsReview(true)
-                                                                setToReview(a)
-                                                            }} className="font-medium text-blue-500 dark:text-blue-400 hover:underline">Review</button>
-                                                        :null}
-                                                    </>
-                                                }
+                                                :null}
                                             </td>
                                         </tr>
                                     )

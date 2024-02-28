@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import moment from "moment";
 
 export default function EditTicket({isEdit, setIsEdit, toEdit}) {
-    const [status, setStatus] = useState(toEdit.status)
+    const [status, setStatus] = useState("")
     const [reason, setReason] = useState("")
 
     async function submitHandler(e) {
@@ -16,7 +16,7 @@ export default function EditTicket({isEdit, setIsEdit, toEdit}) {
             data.append("status", status==="Approve" ? "Approved" : "Rejected")
             data.append("reason", reason)
             data.append("orderid", toEdit?.orderid?._id)
-            data.append("netamount", toEdit?.orderid?.netamount)
+            data.append("netamount", (toEdit?.item?.price*toEdit.item.quantity)-toEdit.transactionfee)
             data.append("paymentid", toEdit?.orderid?.paymentid)
             data.append("paymentoption", toEdit?.orderid?.paymentoption)
             let token = localStorage.getItem("auth-token")
@@ -68,6 +68,38 @@ export default function EditTicket({isEdit, setIsEdit, toEdit}) {
                                 <Dialog.Title as="h3" className="text-lg pb-2 font-semibold leading-6 text-gray-900 flex justify-center items-center">
                                     {toEdit.type}
                                 </Dialog.Title>
+                                <div className='border-2 border-yellow-400 rounded-xl p-4 relative my-4'>
+                                    <h1 className='absolute -top-3 bg-white px-2 font-bold text-yellow-400'>Order Details</h1>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Order ID:</label>
+                                        <label className='col-span-2 text-right'>{toEdit.orderid._id}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Ordered on:</label>
+                                        <label className='col-span-2 text-right'>{moment(toEdit.orderid.createdAt).format('MMM-DD-YYYY on h:mm A')}</label>
+                                    </div>
+
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Amount total:</label>
+                                        <label className='col-span-2 text-right'>₱{toEdit.orderid.amounttotal.toFixed(2)}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Amount Paid:</label>
+                                        <label className='col-span-2 text-right'>₱{toEdit.orderid.amountpaid.toFixed(2)}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Billing status:</label>
+                                        <label className='col-span-2 text-right'>{toEdit.orderid.billingstatus}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Payed through:</label>
+                                        <label className='col-span-2 text-right'>{toEdit.orderid.paymentoption}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Payed on:</label>
+                                        <label className='col-span-2 text-right'>{moment(toEdit.orderid.paidat).format('MMM-DD-YYYY on h:mm A')}</label>
+                                    </div>
+                                </div>
                                 <div className='border-2 border-blue-400 rounded-xl p-4 relative my-4'>
                                     <h1 className='absolute -top-3 bg-white px-2 font-bold text-blue-400'>Ticket Details</h1>
                                     <div className='grid grid-cols-3 text-sm py-1'>
@@ -77,6 +109,14 @@ export default function EditTicket({isEdit, setIsEdit, toEdit}) {
                                     <div className='grid grid-cols-3 text-sm py-1'>
                                         <label className='col-span-1'>Submitted by:</label>
                                         <label className='col-span-2 text-right'>{toEdit.owner}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Item to refund:</label>
+                                        <label className='col-span-2 text-right'>{toEdit.item.name}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Quantity of items to refund:</label>
+                                        <label className='col-span-2 text-right'>{toEdit.item.quantity} pcs.</label>
                                     </div>
                                     <div className='grid grid-cols-3 text-sm py-1'>
                                         <label className='col-span-1'>Reason:</label>
@@ -100,45 +140,18 @@ export default function EditTicket({isEdit, setIsEdit, toEdit}) {
                                             <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${toEdit?.productimage2}.jpg`}></img>
                                         </div>
                                     </div>
-                                </div>
-                                <div className='border-2 border-yellow-400 rounded-xl p-4 relative my-4'>
-                                    <h1 className='absolute -top-3 bg-white px-2 font-bold text-yellow-400'>Order Details</h1>
-                                    <div className='grid grid-cols-3 text-sm py-1'>
-                                        <label className='col-span-1'>Order ID:</label>
-                                        <label className='col-span-2 text-right'>{toEdit.orderid._id}</label>
-                                    </div>
-                                    <div className='grid grid-cols-3 text-sm py-1'>
-                                        <label className='col-span-1'>Ordered on:</label>
-                                        <label className='col-span-2 text-right'>{moment(toEdit.orderid.createdAt).format('MMM-DD-YYYY on h:mm A')}</label>
-                                    </div>
 
-                                    <div className='grid grid-cols-3 text-sm py-1'>
-                                        <label className='col-span-1'>Amount total:</label>
-                                        <label className='col-span-2 text-right'>₱{toEdit.orderid.amounttotal}.00</label>
-                                    </div>
-                                    <div className='grid grid-cols-3 text-sm py-1'>
-                                        <label className='col-span-1'>Amount Paid:</label>
-                                        <label className='col-span-2 text-right'>₱{toEdit.orderid.amountpaid}.00</label>
-                                    </div>
-                                    <div className='grid grid-cols-3 text-sm py-1'>
-                                        <label className='col-span-1'>Billing status:</label>
-                                        <label className='col-span-2 text-right'>{toEdit.orderid.billingstatus}</label>
-                                    </div>
-                                    <div className='grid grid-cols-3 text-sm py-1'>
-                                        <label className='col-span-1'>Payed through:</label>
-                                        <label className='col-span-2 text-right'>{toEdit.orderid.paymentoption}</label>
-                                    </div>
-                                    <div className='grid grid-cols-3 text-sm py-1'>
-                                        <label className='col-span-1'>Payed on:</label>
-                                        <label className='col-span-2 text-right'>{moment(toEdit.orderid.paidat).format('MMM-DD-YYYY on h:mm A')}</label>
+                                    <div className='grid grid-cols-3 text-lg py-1'>
+                                        <label className='col-span-1 font-bold'>Amount refundable:</label>
+                                        <label className='col-span-2 text-right'>₱{(toEdit?.item?.price*toEdit.item.quantity).toFixed(2)} - ₱{(toEdit.transactionfee).toFixed(2)} = <span className='font-bold'>₱{((toEdit?.item?.price*toEdit.item.quantity)-toEdit.transactionfee).toFixed(2)}</span></label>
                                     </div>
                                 </div>
+
                                 <form onSubmit={submitHandler}>
                                     <div className="grid grid-cols-3 text-sm py-2 items-center">
                                         <label className='col-span-1'>Select response: </label>
                                         <select required onChange={e=>setStatus(e.target.value)} name="type" value={status} className="col-span-2 py-1 block w-full rounded-md border-0 shadow-sm sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
                                             <option value="" disabled>Select response:</option>
-                                            <option>Pending</option>
                                             <option>Approve</option>
                                             <option>Reject</option>
                                         </select>

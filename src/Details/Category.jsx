@@ -156,17 +156,27 @@ export default function Category() {
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
                     {cleanseList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
-                            <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-56">
+                            <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <img
                                     src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
                                     className="rounded-md"
                                 />
                             </Link>
+                            {product.price!==product.disprice ? 
+                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-0 px-4 rounded-l-lg right-0'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
+                            : null}
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
                             </div>
-                            <div className='sm:flex sm:justify-between grid gap-1'>
-                                <p className='text-gray-700'>₱{product.price}.00</p>
+                            <div className='sm:flex sm:justify-between items-end grid gap-1'>
+                                {product.price!==product.disprice ? 
+                                    <div className='grid'>
+                                        <p className='text-gray-900 text-lg font-bold'>₱{(product.price).toFixed(2)}</p>
+                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{product.disprice.toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                    </div>
+                                :
+                                    <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>
+                                }
                                 <p className='text-gray-700'> 
                                     {product.stock!==0 ? 
                                         <>
@@ -190,17 +200,27 @@ export default function Category() {
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
                     {tonerList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
-                            <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-56">
+                            <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <img
                                     src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
                                     className="rounded-md"
                                 />
                             </Link>
+                            {product.price!==product.disprice ? 
+                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-0 px-4 rounded-l-lg right-0'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
+                            : null}
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
                             </div>
-                            <div className='sm:flex sm:justify-between grid gap-1'>
-                                <p className='text-gray-700'>₱{product.price}.00</p>
+                            <div className='sm:flex sm:justify-between items-end grid gap-1'>
+                                {product.price!==product.disprice ? 
+                                    <div className='grid'>
+                                        <p className='text-gray-900 text-lg font-bold'>₱{(product.price).toFixed(2)}</p>
+                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{product.disprice.toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                    </div>
+                                :
+                                    <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>
+                                }
                                 <p className='text-gray-700'> 
                                     {product.stock!==0 ? 
                                         <>
@@ -224,17 +244,27 @@ export default function Category() {
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
                     {serumList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
-                            <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-56">
+                            <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <img
                                     src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
                                     className="rounded-md"
                                 />
                             </Link>
+                            {product.price!==product.disprice ? 
+                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-0 px-4 rounded-l-lg right-0'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
+                            : null}
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
                             </div>
-                            <div className='sm:flex sm:justify-between grid gap-1'>
-                                <p className='text-gray-700'>₱{product.price}.00</p>
+                            <div className='sm:flex sm:justify-between items-end grid gap-1'>
+                                {product.price!==product.disprice ? 
+                                    <div className='grid'>
+                                        <p className='text-gray-900 text-lg font-bold'>₱{(product.price).toFixed(2)}</p>
+                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{product.disprice.toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                    </div>
+                                :
+                                    <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>
+                                }
                                 <p className='text-gray-700'> 
                                     {product.stock!==0 ? 
                                         <>
@@ -258,17 +288,27 @@ export default function Category() {
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
                     {moistList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
-                            <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-56">
+                            <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <img
                                     src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
                                     className="rounded-md"
                                 />
                             </Link>
+                            {product.price!==product.disprice ? 
+                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-0 px-4 rounded-l-lg right-0'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
+                            : null}
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
                             </div>
-                            <div className='sm:flex sm:justify-between grid gap-1'>
-                                <p className='text-gray-700'>₱{product.price}.00</p>
+                            <div className='sm:flex sm:justify-between items-end grid gap-1'>
+                                {product.price!==product.disprice ? 
+                                    <div className='grid'>
+                                        <p className='text-gray-900 text-lg font-bold'>₱{(product.price).toFixed(2)}</p>
+                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{product.disprice.toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                    </div>
+                                :
+                                    <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>
+                                }
                                 <p className='text-gray-700'> 
                                     {product.stock!==0 ? 
                                         <>

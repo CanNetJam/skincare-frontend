@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SingleImagePreview from '../Components/SingleImagePreview';
 
-export default function Refund({isEdit, setIsEdit, toEdit}) {
+export default function Refund({isEdit, setIsEdit, toEdit, itemToFocus}) {
     const { userData, setUserData } = useContext(UserContext)
     const [mainReason, setMainReason] = useState("")
     const [description, setDescription] = useState("")
@@ -14,6 +14,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
     const [ file2, setFile2 ] = useState([])
     const [ file3, setFile3 ] = useState([])
     const [ loading, setLoading ] = useState(false)
+    const [itemFocusPieces, setItemFocusPieces] = useState("")
 
     async function submitHandler(e) {
         e.preventDefault()
@@ -73,6 +74,9 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
             data.append("mainreason", mainReason)
             data.append("description", description)
             data.append("type", "Return/Refund")
+            data.append("item", JSON.stringify(itemToFocus))
+            data.append("itemquantity", itemFocusPieces)
+            data.append("transactionfee", toEdit.transactionfee ? toEdit.transactionfee : 0)
             let token = localStorage.getItem("auth-token")
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/tickets/submit-ticket`, data, 
             { headers: { "Content-Type": "application/json", "auth-token": token } })
@@ -173,10 +177,26 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                             <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                 <Dialog.Title as="h3" className="sm:flex grid text-lg border-b pb-2 font-semibold leading-6 text-gray-900 items-center">
                                     Return/Refund for Order: <span className='text-blue-400'>{toEdit._id}</span>
+                                    
                                 </Dialog.Title>
+                                <div className='grid sm:flex justify-between items-center py-4'>
+                                    <div>
+                                        <b>Item:</b>{itemToFocus.item.name}
+                                    </div>
+                                    <div>
+                                        <b>Quantity:</b>{itemToFocus.quantity}pcs.
+                                    </div>
+                                </div>
                                 <form onSubmit={submitHandler}>
-                                    <div className="grid grid-cols-2 text-sm py-2 items-center">
-                                        <select required onChange={e=>setMainReason(e.target.value)} name="type" value={mainReason} className="sm:col-span-2 py-2 block w-full rounded-md border-1 shadow-sm sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
+                                    <div className="grid grid-cols-2 gap-2 text-sm py-2 items-center">
+                                        <select required onChange={e=>setItemFocusPieces(e.target.value)} name="quantity" value={itemFocusPieces} className="col-span-1 py-2 block w-full rounded-md border-1 shadow-sm sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
+                                            <option value="" disabled>Select quantity</option>
+                                            <option value={1}>1 pc.</option>
+                                            {itemToFocus.quantity>1 ? <option value={2}>2 pcs.</option> : null}
+                                            {itemToFocus.quantity>2 ? <option value={3}>3 pcs.</option> : null}
+                                            {itemToFocus.quantity>3 ? <option value={4}>4 pcs.</option> : null}
+                                        </select>
+                                        <select required onChange={e=>setMainReason(e.target.value)} name="type" value={mainReason} className="col-span-1 py-2 block w-full rounded-md border-1 shadow-sm sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
                                             <option value="" disabled>Select your reason</option>
                                             <option>Damaged item</option>
                                             <option>Wrong item</option>
@@ -184,7 +204,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                                             <option>Missing item</option>
                                             <option>Item did not arrive</option>
                                         </select>
-                                        <br/>
+
                                         <div className='col-span-2 grid sm:grid-cols-3 gap-2 pt-2'>
                                             <div>
                                                 <label>Image 1: (<b>Waybill</b>)</label>

@@ -199,7 +199,7 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className='grid gap-2'>
-                                                    <label className='font-semibold'>₱{a.amountpaid}.00</label>
+                                                    <label className='font-semibold'>₱{a.amountpaid.toFixed(2)}</label>
                                                     <label>{a.paymentoption}</label>
                                                 </div>
                                             </td>

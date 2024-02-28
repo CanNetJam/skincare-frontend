@@ -140,9 +140,11 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
                                         <select required onChange={e=>setType(e.target.value)} name="type" value={type} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
                                             <option value="" disabled>Account Type</option>
                                             {userData.user?.type==="Super Admin" ? <option>Super Admin</option> : null}
-                                            <option>Admin</option>
+                                            {userData.user?.type==="Super Admin" ? <option>Store Admin</option> : null}
+                                            {userData.user?.type==="Super Admin" ? <option>Sales Admin</option> : null}
+                                            {userData.user?.type==="Super Admin" ? <option>General Admin</option> : null}
+                                            <option>Klued Staff</option>
                                             <option>Customer</option>
-                                            <option>Staff</option>
                                         </select>
                                     </div>
                                     <div className='sm:col-span-2 col-span-4'>

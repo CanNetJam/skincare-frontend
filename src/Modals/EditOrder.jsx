@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function EditOrder({isEdit, setIsEdit, toEdit}) {
     const [tracking, setTracking] = useState(toEdit?.trackingnumber ? toEdit.trackingnumber : "")
     const [status, setStatus] = useState(toEdit.deliverystatus)
+    const [reason, setReason] = useState("")
 
     function toastErrorNotification() {
         toast.error('Updating order issue!', {
@@ -44,6 +45,7 @@ export default function EditOrder({isEdit, setIsEdit, toEdit}) {
             data.append("netamount", toEdit?.netamount)
         }
         data.append("paymentoption", toEdit?.paymentoption)
+        data.append("reason", reason)
         let token = localStorage.getItem("auth-token")
         const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/update-order/${toEdit._id}`, data, 
         { headers: { "Content-Type": "application/json", "auth-token": token } })
@@ -99,7 +101,7 @@ export default function EditOrder({isEdit, setIsEdit, toEdit}) {
                                 </div>
                                 <div className='grid grid-cols-3 text-sm py-1'>
                                     <label className='col-span-1'>Total amount paid:</label>
-                                    <label className='col-span-2 text-right'>₱ {toEdit.amountpaid}.00</label>
+                                    <label className='col-span-2 text-right'>₱ {toEdit.amountpaid.toFixed(2)}</label>
                                 </div>
                                 <div className='grid grid-cols-3 text-sm py-1'>
                                     <label className='col-span-1'>Payment option:</label>
@@ -125,9 +127,21 @@ export default function EditOrder({isEdit, setIsEdit, toEdit}) {
                                             <option>Cancel Order</option>
                                         </select>
                                     </div>
+                                    {status==="Cancel Order" ?
+                                        <div className='pb-4 grid gap-2 px-4'>
+                                            <div className="flex items-center">
+                                                <input onChange={()=>setReason("Billing address out of reach")} id="default-radio-1" type="radio" value="" name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                                                <label htmfor="default-radio-1" className="text-sm font-medium text-gray-900 dark:text-gray-300">Billing address out of reach.</label>
+                                            </div>
+                                            <div className="flex items-center">
+                                                <input onChange={()=>setReason("Item is out of stock")} id="default-radio-2" type="radio" value="" name="default-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                                                <label htmfor="default-radio-2" className="text-sm font-medium text-gray-900 dark:text-gray-300">Item is out of stock.</label>
+                                            </div>
+                                        </div>
+                                    :null}
 
                                     <div className='col-span-4 flex gap-2 justify-center border-t items-center py-2'>
-                                        <button type="submit" className={`w-auto text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>Confirm</button>
+                                        <button type="submit" disabled={status==="Cancel Order" && reason==="" ? true : false} className={`${status==="Cancel Order" && reason==="" ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'} w-auto text-white  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>Confirm</button>
                                         <button onClick={()=>setIsEdit(false)} type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                     </div>
                                 </form>

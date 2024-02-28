@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from "axios";
 import moment from "moment";
 import { addDays } from 'date-fns';
@@ -7,8 +7,12 @@ import DeleteAccountModal from '../Modals/DeleteAccount';
 import EditAccount from '../Modals/EditAccount';
 import { IoPersonCircleOutline } from "react-icons/io5";
 import PageButtons from './PageButtons';
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
 
 export default function UserAccountsTable() {
+    const { userData, setUserData } = useContext(UserContext)
+    let navigate = useNavigate()
     const [ isOpen, setIsOpen ] = useState(false)
     const [ isDelete, setIsDelete ] = useState(false)
     const [ toDelete, setToDelete ] = useState("")
@@ -29,6 +33,7 @@ export default function UserAccountsTable() {
     const [ displayedPages, setDisplayedPages ] = useState(10)
     const [ openPageCount, setOpenPageCount ] = useState(false)
     const [ userType, setUserType ] = useState("")
+    const [ search, setSearch ] = useState("")
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -41,6 +46,7 @@ export default function UserAccountsTable() {
     }, [page, pageEntries, accounts])
     
     useEffect(() => {
+        let isCancelled = false
         const getAccounts = async () => {
             try {
                 let token = localStorage.getItem("auth-token")
@@ -50,7 +56,8 @@ export default function UserAccountsTable() {
                     startDate: dateRange.startDate,
                     endDate: dateRange.endDate,
                     page: page,
-                    limit: pageEntries
+                    limit: pageEntries,
+                    searchString: search
                 }, 
                 headers: {"auth-token": token}})
                 setAccounts(getAccounts.data.sortedAccounts)
@@ -60,8 +67,11 @@ export default function UserAccountsTable() {
                 console.log(err)
             }
         }
-        getAccounts()
-    }, [dateRange, page, pageEntries, isDelete, userType])
+        if (search.length === 0 || search.length > 2) getAccounts()
+        return ()=> {
+            isCancelled = true
+        }
+    }, [dateRange, page, pageEntries, isDelete, userType, search])
 
     return (
         <div className='h-auto w-full my-16 sm:p-10 py-4 px-4'>
@@ -83,6 +93,13 @@ export default function UserAccountsTable() {
                     <button onClick={()=>setIsOpen(true)} className="mt-1 w-full bg-blue-500 p-2 text-sm font-bold uppercase tracking-wide pl-8 text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md">Add Account</button>
                 </div> 
                 <div className='flex gap-2'>
+                    <div className="relative h-full">
+                        <label htmlFor="table-search" className="sr-only">Search</label>
+                        <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                            <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
+                        </div>
+                        <input onChange={(e)=>setSearch(e.target.value)} type="text" id="table-search" className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search name, email or number..."/>
+                    </div> 
                     <div className='group'>
                         <div className="relative bg-blue-400 text-white text-sm font-bold whitespace-nowrap py-2 px-4 min-w-[150px] flex justify-center items-center rounded-md">
                             {userType!== "" ? 
@@ -199,13 +216,13 @@ export default function UserAccountsTable() {
                                 {accounts.map((a, index)=> {
                                     return (
                                         <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <td className="px-2 py-4">
+                                            <td onClick={()=>navigate(`/accounts/profile/${a._id}`)} className="px-2 py-4 cursor-pointer">
                                                 <b>{(pageEntries*page)+(index+1)}</b>
                                             </td>
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th onClick={()=>navigate(`/accounts/profile/${a._id}`)} scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {a.type}
                                             </th>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/accounts/profile/${a._id}`)} className="px-6 py-4 cursor-pointer">
                                                 {a?.displayimage ? 
                                                     <div className="h-12 w-12 overflow-hidden rounded-full">
                                                         <img className='h-full w-full rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.displayimage}.jpg`}></img>
@@ -214,32 +231,52 @@ export default function UserAccountsTable() {
                                                     <IoPersonCircleOutline className='h-12 w-12'/>
                                                 }
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/accounts/profile/${a._id}`)} className="px-6 py-4 cursor-pointer">
                                                 {a.firstname+" "+a.lastname}
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/accounts/profile/${a._id}`)} className="px-6 py-4 cursor-pointer">
                                                 {a.job}<br/>
                                                 {a.department ? `(${a.department})`:null}
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/accounts/profile/${a._id}`)} className="px-6 py-4 cursor-pointer">
                                                 {a.email}<br/>
                                                 {a.phone}
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/accounts/profile/${a._id}`)} className="px-6 py-4 cursor-pointer">
                                                 {moment(a.createdAt).format('MM-DD-YYYY')}
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/accounts/profile/${a._id}`)} className="px-6 py-4 cursor-pointer">
                                                 {a.verified===true? <span className='font-semibold text-green-500'>Active</span> : <span className='font-semibold text-red-500'>Inactive</span>}
                                             </td>
                                             <td className="px-6 py-4 flex justify-center items-center gap-2">
-                                                <button onClick={()=>{
-                                                    setIsEdit(true)
-                                                    setToEdit(a)
-                                                    }}className='h-full cursor-pointer hover:text-blue-400'>Edit</button>
-                                                <button onClick={()=>{
-                                                    setIsDelete(true)
-                                                    setToDelete(a)
-                                                    }} className='h-full cursor-pointer hover:text-blue-400'>Delete</button>
+                                                {a?.type==="Super Admin" ? 
+                                                    <>
+                                                    {userData.user.type==="Super Admin" ?
+                                                        <>
+                                                        <button onClick={()=>{
+                                                            setIsEdit(true)
+                                                            setToEdit(a)
+                                                            }}className='h-full cursor-pointer hover:text-blue-400'>Edit</button>
+                                                        <button onClick={()=>{
+                                                            setIsDelete(true)
+                                                            setToDelete(a)
+                                                            }} className='h-full cursor-pointer hover:text-blue-400'>Delete</button>
+                                                        </>
+                                                    :null}
+                                                    </>
+                                                :
+                                                    <>
+                                                    <button onClick={()=>{
+                                                        setIsEdit(true)
+                                                        setToEdit(a)
+                                                        }}className='h-full cursor-pointer hover:text-blue-400'>Edit</button>
+                                                    <button onClick={()=>{
+                                                        setIsDelete(true)
+                                                        setToDelete(a)
+                                                        }} className='h-full cursor-pointer hover:text-blue-400'>Delete</button>
+                                                    </>
+                                                }
+
                                             </td>
                                         </tr>
                                     )

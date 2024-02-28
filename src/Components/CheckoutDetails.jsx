@@ -10,7 +10,7 @@ import img3 from '../assets/Compressed-Webp/visa.webp';
 import img4 from '../assets/Compressed-Webp/gcash.webp';
 import img5 from '../assets/Compressed-Webp/COD.webp';
 
-export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTotal}) {
+export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTotal, exceed, currentVoucher, setCurrentVoucher}) {
     const navigate = useNavigate()
     const { userData, setUserData } = useContext(UserContext)
     const [ firstname, setFirstName ] = useState("")
@@ -25,6 +25,7 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
     const [ street, setStreet ] = useState("")
     const [ delivery, setDelivery ] = useState("Flash Express")
     const [ payment, setPayment ] = useState("")
+    const [ voucher, setVoucher ] = useState("")
 
     useEffect(()=> {
         const setDrafts = async () => {
@@ -63,6 +64,8 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
             data.append("amounttotal", cartTotal)
             data.append("subtotal", subTotal)
             data.append("shippingfee", shippingFee)
+            data.append("discount", currentVoucher.amount!==undefined ? currentVoucher.amount : 0)
+            data.append("discountid", currentVoucher._id!==undefined ? currentVoucher._id : "")
             
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/submit-order/${userData.user._id}`, data, 
             { headers: { "Content-Type": "application/json", "auth-token": token } })
@@ -83,6 +86,64 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
                 error: 'Order processing failed!'
             }
         )
+    }
+
+    function toastErrorNotification() {
+        toast.error('Voucher code does not exist', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    function toastWarningNotification(props) {
+        toast.warn(props, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    function toastSuccessNotification() {
+        toast.success('Your voucher is available', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        })
+    }
+
+    async function submitVoucher(e) {
+        e.preventDefault()
+        const data = new FormData()
+        let token = localStorage.getItem("auth-token")
+        data.append("voucher", voucher)
+        const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/vouchers/submit-voucher/${userData.user._id}`, data, 
+        { headers: { "Content-Type": "application/json", "auth-token": token } })
+        if (res.data===false) {
+            toastErrorNotification()
+        } else if (res.data==="Sorry, voucher already expired.") {
+            toastWarningNotification(res.data)
+        } else if (res.data==="Sorry, voucher is already used.") {
+            toastWarningNotification(res.data)
+        }else {
+            setCurrentVoucher(res.data[0])
+            toastSuccessNotification()
+        }
     }
 
     return (
@@ -201,14 +262,33 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
                                 <b>Notice</b>: Online payments will be processed by third party services. Using it will allow them to cut a percentage of your order payment for the transaction fee. This will not affect the price of your order. Transaction fees are non-refundable.
                             </p>
                         :null}
-                        <div className="grid justify-center border-t-2 border-gray-200">
-                            <div className='flex gap-2 py-3 items-center'>
-                                <svg className='sm:h-5 sm:w-5 sm:max-h-8 h-auto w-auto max-h-[40px]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                <label className='text-xs'>Please review your checkout details and ensure that you entered the proper information.</label>   
+                        <br/>
+
+                        <p className="text-xl font-semibold">Promo Code</p>
+                        <p className="text-gray-700">Do you have any vouchers? Use it here to gain massive discounts!</p>
+                        <div className='flex gap-2 justify-center items-center py-6'>
+                            <div className='grid-cols-1'>
+                                <label htmlFor="voucher" className="mb-2 text-sm font-semibold text-gray-900 dark:text-white hidden">Voucher</label>
+                                <input onChange={(e)=> setVoucher(e.target.value)} value={voucher} type="text" name="voucher" id="voucher" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                             </div>
+                            <button onClick={(e)=>submitVoucher(e)} disabled={voucher==="" ? true : false} type='button' className={`${voucher==="" ? 'bg-gray-500': ' before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-2 w-auto sm:px-10 px-6 font-bold rounded-md`}>
+                                Apply
+                            </button>
+                        </div>
+
+                        <div className="grid justify-center border-t-2 border-gray-200">
+                            <div className='flex gap-2 py-3  items-center'>
+                                <label className='text-xs text-gray-700'>Please review your checkout details and ensure that you entered the proper information.</label>   
+                            </div>
+                            {exceed===true ? 
+                                <div className='flex gap-1 justify-center items-center'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                    <label className='text-sm'>An item on your cart has exceeeded the allowed quantity. Please reduce its quantity.</label>   
+                                </div>
+                            :null}
                             <br/>
                             <div className="flex justify-center">
-                                <button disabled={delivery==="" || payment==="" ? true : false} type='submit' className={`${delivery==="" || payment==="" ? 'bg-gray-500': ' before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-2 w-auto sm:px-10 px-6 font-bold rounded-md`}>
+                                <button disabled={delivery==="" || payment==="" || exceed===true ? true : false} type='submit' className={`${delivery==="" || payment==="" ? 'bg-gray-500': ' before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-2 w-auto sm:px-10 px-6 font-bold rounded-md`}>
                                     Checkout
                                 </button>
                             </div>
