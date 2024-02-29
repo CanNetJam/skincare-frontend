@@ -31,13 +31,17 @@ export default function Cart({open, setOpen}) {
                 let a = false
                 function checkExceed(){
                     for (let i=0; i<cartData.length; i++){
+
                         if (cartData[i].quantity<cartData[i].product.stock){
                             if (cartData[i].quantity>4){
                                 return a=true
                             }
+                        } else {
+                            return a=true
                         }
                     }
                 }
+
                 checkExceed()
                 if (a===false) {
                     setExceed(false)
@@ -241,7 +245,7 @@ export default function Cart({open, setOpen}) {
             toastSuccessNotification(prop1.name)
         }
     }
-
+    
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={setOpen}>
