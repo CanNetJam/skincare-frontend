@@ -227,7 +227,7 @@ export default function Product1() {
                                 </div>
                             </div>
                             <div className="sm:col-span-2 h-full w-full">
-                                <button onClick={()=>handleAddToCart(productData)} disabled={quantity<productData.stock ? false : true} className={`${quantity>productData.stock ? 'bg-gray-900 text-gray-400' : 'bg-blue-400 before:bg-yellow-200 before:-z-10 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden relative'} text-center py-1 h-full w-full sm:px-3 px-1 font-bold rounded-lg `}>
+                                <button onClick={()=>handleAddToCart(productData)} disabled={quantity<=productData.stock ? false : true} className={`${quantity>productData.stock ? 'bg-gray-900 text-gray-400' : 'bg-blue-400 before:bg-yellow-200 before:-z-10 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden relative'} text-center py-1 h-full w-full sm:px-3 px-1 font-bold rounded-lg `}>
                                     Add to Cart
                                 </button>
                             </div>

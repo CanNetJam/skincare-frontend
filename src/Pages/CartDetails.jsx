@@ -103,14 +103,15 @@ function CartDetails() {
                 setSubTotal(total)
                 if (currentVoucher!=="") {
                     if (currentVoucher.type==="Discount") {
-                        if (currentVoucher.minimum>total+shippingFee) {
+                        if (currentVoucher.minimum>total) {
                             setInitialTotal(total+shippingFee)
                             setCartTotal(total+shippingFee)
                         } else {
-                            let discount = ((total+shippingFee)*(currentVoucher?.amount/100)).toFixed(2)
-                            setCartTotal((total+shippingFee)-discount)
+                            let discount = ((total)*(currentVoucher?.amount/100)).toFixed(2)
+                            console.log(discount)
                             setDiscount(discount)
                             setInitialTotal(total+shippingFee)
+                            setCartTotal((total-discount)+shippingFee)
                         }
                     }
                 } else {
