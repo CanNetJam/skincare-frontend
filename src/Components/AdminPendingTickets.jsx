@@ -5,6 +5,7 @@ import ImageZoom from '../Modals/ImageZoom';
 import EditTicket from '../Modals/EditTicket';
 import PageButtons from './PageButtons';
 import ReadMore from './ReadMore';
+import { Link } from 'react-router-dom';
 
 export default function AdminPendingTickets({tickets, page, setPage, status, setStatus, pages, pageEntries, total, setPageEntries, tab, setDateRange, isEdit, setIsEdit}) {
     const [ openPageCount, setOpenPageCount ] = useState(false)
@@ -84,7 +85,7 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                 <b>{(pageEntries*page)+(index+1)}</b>
                                             </td>
                                             <td scope="row" className="px-6 py-4">
-                                            <label className={`${a.expiresAt>new Date().toISOString() ? 'text-green-400' : 'text-red-400'} text-lg w-full text-justify font-bold`}>{a.expiresAt>new Date().toISOString() ? 'Open' : 'Closed'}</label><br/>
+                                            <label className={`${a.expiresAt>new Date().toISOString() && a.status==="Investigating" ? 'text-green-400' : 'text-red-400'} text-lg w-full text-justify font-bold`}>{a.expiresAt>new Date().toISOString() && a.status==="Investigating" ? 'Open' : 'Closed'}</label><br/>
                                                 {tab==="Pending Tickets" ? 
                                                     <div className='whitespace-nowrap'>
                                                         <b>Status</b>: <span className={`${a.status==="Investigating" ? 'text-blue-400' : a.status==="Approved" ? 'text-green-400' : 'text-red-400'} font-semibold`}>{a.status}</span><br/>
@@ -136,15 +137,9 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 grid w-auto justify-center items-center">
-                                                {tab==="Pending Tickets" ? 
-                                                    <button onClick={()=>{
-                                                        setIsEdit(true)
-                                                        setToEdit(a)
-                                                    }} className="font-medium text-blue-400 dark:text-blue-200 hover:underline whitespace-nowrap">Respond</button>
-                                                :null}
+                                            <td className="whitespace-nowrap px-6 py-4 grid w-auto justify-center items-center">
                                                 {tab!=="Pending Tickets" ? 
-                                                    <div>
+                                                    <div className='text-center'>
                                                         
                                                         <b>Status</b>: <span className={`${a.status==="Investigating" ? 'text-blue-400' : a.status==="Approved" ? 'text-green-400' : 'text-red-400'} font-semibold whitespace-nowrap`}>{a.status}</span><br/>
                                                         {a.status==="Rejected" ? 
@@ -154,6 +149,15 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                     :null}
                                                     </div>
                                                 :null}
+                                                <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><Link to={`/order-details/${a.orderid._id}`} className='hover:underline cursor-pointer'>View Order Details</Link></button>
+                                                <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><Link to={`/ticket-details/${a._id}`} className='hover:underline cursor-pointer'>View Ticket Details</Link></button>
+                                                {tab==="Pending Tickets" && a.expiresAt>new Date().toISOString() && a.status==="Investigating" ? 
+                                                    <button onClick={()=>{
+                                                        setIsEdit(true)
+                                                        setToEdit(a)
+                                                    }} className="font-medium text-blue-500 dark:text-blue-200 hover:underline whitespace-nowrap">Respond</button>
+                                                :null}
+
                                             </td>
                                         </tr>
                                     )

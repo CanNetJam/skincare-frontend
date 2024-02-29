@@ -27,6 +27,7 @@ const Profile = lazy(() => import('./Components/Profile'));
 const Settings = lazy(() => import('./Components/Settings'));
 const Orders = lazy(() => import('./Pages/Orders'));
 const OrderDetails = lazy(() => import('./Pages/OrderDetails'));
+const TicketDetails = lazy(() => import('./Pages/TicketDetails'));
 const Register = lazy(() => import('./Pages/Register'));
 const ForgotPassword = lazy(() => import('./Pages/ForgotPassword'));
 const CartDetails = lazy(() => import('./Pages/CartDetails'));
@@ -200,6 +201,12 @@ const App = () => {
                     <Route path="/order-details/:id" element={
                         <Suspense fallback={<Loading />}>
                             <OrderDetails />
+                        </Suspense>
+                    } />
+
+                    <Route path="/ticket-details/:id" element={
+                        <Suspense fallback={<Loading />}>
+                            <TicketDetails />
                         </Suspense>
                     } />
 

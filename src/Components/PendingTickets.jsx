@@ -98,7 +98,7 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className=''>
-                                                    <label className={`${a.expiresAt>new Date().toISOString() && a.status==="Investigating" ? 'text-green-400' : 'text-red-400'} text-lg w-full text-justify font-bold`}>{a.expiresAt>new Date().toISOString() && a.status==="Investigating" ? 'Open' : 'Closed'}</label><br/>
+                                                    <label className={`${a.expiresAt>new Date().toISOString() && a.status==="Investigating" ? 'text-green-400' : 'text-red-400'} text-lg w-full text-justify font-bold`}>{a.expiresAt>new Date().toISOString() && a.status==="Investigating"  ? 'Open' : 'Closed'}</label><br/>
                                                     <b>Status</b>: <span className={`${a.status==="Investigating" ? 'text-blue-400' : a.status==="Approved" ? 'text-green-400' : 'text-red-400'} font-semibold`}>{a.status}</span><br/>
                                                     {a.status==="Rejected" ? 
                                                         <>
@@ -112,6 +112,7 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap grid w-auto justify-center items-center">
                                                 <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><Link to={`/order-details/${a.orderid._id}`} className='hover:underline cursor-pointer'>View Order Details</Link></button>
+                                                <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><Link to={`/ticket-details/${a._id}`} className='hover:underline cursor-pointer'>View Ticket Details</Link></button>
                                             </td>
                                         </tr>
                                     )

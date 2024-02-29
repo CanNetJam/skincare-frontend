@@ -6,6 +6,7 @@ import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
 import moment from "moment";
 import Refund from "../Modals/Refund";
+import { Link } from 'react-router-dom';
 
 export default function OrderDetails() {
     const { userData, setUserData } = useContext(UserContext)
@@ -57,7 +58,7 @@ export default function OrderDetails() {
                             <p className="col-span-1 text-blue-400">Name:</p>
                             <p className="col-span-4 sm:text-start text-end">{orderData.owner}</p>
                             <p className="col-span-1 text-blue-400">ID:</p>
-                            <p className="col-span-4 sm:text-start text-end">{orderData.userid}</p>
+                            <Link to={`/accounts/profile/${orderData.userid}`} className="hover:text-blue-400 hover:underline">{orderData.userid}</Link>
                         </div>
                         <div className="col-span-1 grid grid-cols-5">
                             <p className="col-span-1 text-blue-400">Email:</p>
@@ -82,7 +83,7 @@ export default function OrderDetails() {
                     <div className="sm:col-span-2 h-auto w-full bg-gray-50 rounded-md p-6">
                         <div className="grid sm:flex sm:justify-between">
                             <h4 className="font-semibold sm:text-xl text-lg">Order Details</h4>
-                            <h4 className="font-semibold sm:text-xl text-sm py-2">Order Id: <label className="text-blue-400">{orderData._id}</label></h4>
+                            <h4 className="font-semibold sm:text-xl text-sm">Order Id: <label className="text-blue-400">{orderData._id}</label></h4>
                         </div>
                         <div className="py-4 sm:w-full w-[80vw] sm:overflow-hidden overflow-x-auto">
                             <table className="w-full">

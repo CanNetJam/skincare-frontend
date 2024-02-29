@@ -2,11 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import moment from "moment";
 import DateRangePickerComp from './DateRangePickerComp';
 import EditOrder from '../Modals/EditOrder';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PageButtons from './PageButtons';
 import { utils, writeFile } from 'xlsx';
 
 export default function AdminPendingOrders({orders, page, setPage, pages, pageEntries, total, setPageEntries, tab, deliveryType, setDeliveryType, setDateRange, isEdit, setIsEdit, deliveryStatus, setDeliveryStatus}) {
+    let navigate = useNavigate()
     const [ openPageCount, setOpenPageCount ] = useState(false)
     const [ convertedOrders, setConvertedOrders ] = useState([])
     const [ toEdit, setToEdit ] = useState("")
@@ -179,10 +180,10 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                                 {orders.map((a, index)=> {
                                     return (
                                         <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/order-details/${a._id}`)} className="cursor-pointer px-6 py-4">
                                                 <b>{(pageEntries*page)+(index+1)}</b>
                                             </td>
-                                            <td scope="row" className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/order-details/${a._id}`)} scope="row" className="cursor-pointer px-6 py-4">
                                                 <div className='min-w-[300px] grid gap-2'>
                                                     {a.items.map((b, index)=>{
                                                         return (
@@ -197,19 +198,19 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                                                     })}
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/order-details/${a._id}`)} className="cursor-pointer px-6 py-4">
                                                 <div className='grid gap-2'>
                                                     <label className='font-semibold'>₱{a.amountpaid.toFixed(2)}</label>
                                                     <label>{a.paymentoption}</label>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/order-details/${a._id}`)} className="cursor-pointer px-6 py-4">
                                                 <div className='grid gap-2'>
                                                     <label className={`${a.deliverystatus==="Seller Processing" || a.deliverystatus==="In Transit" ? `text-blue-500` : a.deliverystatus==="Cancelled" ?  'text-red-500': a.deliverystatus==="Delivered" ?  'text-green-500': `text-yellow-500` } font-semibold`}>{a.deliverystatus}</label>
                                                     <label>{a.deliveryoption}</label>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td onClick={()=>navigate(`/order-details/${a._id}`)} className="cursor-pointer px-6 py-4">
                                                 <b className='whitespace-nowrap'>Tracking</b>: {a?.trackingnumber ? a.trackingnumber : <i>None</i>}<br/>
                                                 <b className='whitespace-nowrap'>Order Id</b>:{a._id}
                                             </td>
