@@ -191,6 +191,7 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                             <div className="col-span-2 mb-2 grid items-center">
                                 <p>Status: {toEdit?.verified===true? <span className='font-semibold text-green-500'>Active</span> : <span className='font-semibold text-red-500'>Inactive</span>}</p>
                             </div>
+                            {type!=="Customer" ? 
                             <div className="col-span-2 flex justify-end mb-2">
                                 <select required onChange={e=>setType(e.target.value)} name="type" value={type} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
                                     <option value="" disabled>Account Type</option>
@@ -202,6 +203,7 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                                     <option>Customer</option>
                                 </select>
                             </div>
+                            :<div></div>}
                             <div className='sm:col-span-2 col-span-4'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name:</label>
                                 <input required onChange={e => setFirstName(e.target.value)} value={firstname} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Juan, Pedro..." />
@@ -210,6 +212,8 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name:</label>
                                 <input required onChange={e => setLastName(e.target.value)} value={lastname} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Dela Cruz, Garcia..." />
                             </div>
+                            {type!=="Customer" ? 
+                            <>
                             <div className='sm:col-span-2 col-span-4'>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department:</label>
                                 <select onChange={e=>setDepartment(e.target.value)} name="department" value={department} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
@@ -253,6 +257,8 @@ export default function EditAccount({isEdit, setIsEdit, toEdit, dateRange, setDa
                                     </li>
                                 </ul>
                             </div>
+                            </>
+                            :null}
                             <div className='sm:col-span-2 col-span-4'>
                                 <label htmlFor="number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact number:</label>
                                 <input onChange={e => setNumber(e.target.value)} value={number} type="text" name="number" id="number" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="09029374987" />
