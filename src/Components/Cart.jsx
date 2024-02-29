@@ -31,8 +31,7 @@ export default function Cart({open, setOpen}) {
                 let a = false
                 function checkExceed(){
                     for (let i=0; i<cartData.length; i++){
-
-                        if (cartData[i].quantity<cartData[i].product.stock){
+                        if (cartData[i].quantity<=cartData[i].product.stock){
                             if (cartData[i].quantity>4){
                                 return a=true
                             }

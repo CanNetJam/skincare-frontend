@@ -163,7 +163,7 @@ export default function Category() {
                                 />
                             </Link>
                             {product.price!==product.disprice ? 
-                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-0 px-4 rounded-l-lg right-0'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
+                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-2 px-4 rounded-l-lg -right-2'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
                             : null}
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
@@ -177,7 +177,7 @@ export default function Category() {
                                 :
                                     <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>
                                 }
-                                <p className='text-gray-700'> 
+                                <p className='text-gray-700 text-sm'> 
                                     {product.stock!==0 ? 
                                         <>
                                             <b>{product.stock}</b> <span className='text-xs'>items left</span>
@@ -207,7 +207,7 @@ export default function Category() {
                                 />
                             </Link>
                             {product.price!==product.disprice ? 
-                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-0 px-4 rounded-l-lg right-0'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
+                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-2 px-4 rounded-l-lg -right-2'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
                             : null}
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
@@ -221,7 +221,7 @@ export default function Category() {
                                 :
                                     <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>
                                 }
-                                <p className='text-gray-700'> 
+                                <p className='text-gray-700 text-sm'> 
                                     {product.stock!==0 ? 
                                         <>
                                             <b>{product.stock}</b> <span className='text-xs'>items left</span>
@@ -251,7 +251,7 @@ export default function Category() {
                                 />
                             </Link>
                             {product.price!==product.disprice ? 
-                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-0 px-4 rounded-l-lg right-0'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
+                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-2 px-4 rounded-l-lg -right-2'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
                             : null}
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
@@ -265,7 +265,7 @@ export default function Category() {
                                 :
                                     <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>
                                 }
-                                <p className='text-gray-700'> 
+                                <p className='text-gray-700 text-sm'> 
                                     {product.stock!==0 ? 
                                         <>
                                             <b>{product.stock}</b> <span className='text-xs'>items left</span>
@@ -288,19 +288,21 @@ export default function Category() {
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
                     {moistList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
-                            <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
-                                <img
-                                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
-                                    className="rounded-md"
-                                />
+                            <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-24 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
+                                <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
+                                    <img
+                                        src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
+                                        className="h-full w-full object-contain"
+                                    />
+                                </div>
                             </Link>
                             {product.price!==product.disprice ? 
-                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-0 px-4 rounded-l-lg right-0'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
+                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-2 px-4 rounded-l-lg -right-2'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
                             : null}
                             <div className='min-h-[80px]'>
                                 <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{product.name}</h3>
                             </div>
-                            <div className='sm:flex sm:justify-between items-end grid gap-1'>
+                            <div className='min-h-[50px] sm:flex sm:justify-between items-end grid gap-1'>
                                 {product.price!==product.disprice ? 
                                     <div className='grid'>
                                         <p className='text-gray-900 text-lg font-bold'>₱{(product.price).toFixed(2)}</p>
@@ -309,7 +311,7 @@ export default function Category() {
                                 :
                                     <p className='text-gray-900 font-bold'>₱{(product.price).toFixed(2)}</p>
                                 }
-                                <p className='text-gray-700'> 
+                                <p className='text-gray-700 text-sm'> 
                                     {product.stock!==0 ? 
                                         <>
                                             <b>{product.stock}</b> <span className='text-xs'>items left</span>

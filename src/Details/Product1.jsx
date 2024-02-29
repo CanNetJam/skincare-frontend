@@ -178,8 +178,23 @@ export default function Product1() {
             <div className="h-full w-full sm:flex grid grid-cols-3 container max-w-6xl mx-auto gap-0">
                 <div className="bg-gray-50 backdrop-blur-xs bg-opacity-50 min-h-[200vh] h-auto w-full col-span-2 sm:px-20 z-10 px-4 py-16">
                     <div className="py-8">
-                        <h1 className="subHeading">{productData.name}</h1>
-                        <h1 className="smallText text-gray-700 my-4">₱ <b>{productData.price}.00</b></h1>
+                        <h1 className="subHeading relative">{productData.name}
+                            {productData?.price!==productData?.disprice ?
+                                <div className='absolute h-16 w-16 top-0 right-0 -rotate-[25deg]'>
+                                    <img src='https://www.svgrepo.com/show/227966/sale.svg'/>
+                                </div>
+                            :null}
+                        </h1>
+                        <div className='flex gap-2 py-4'>
+                            {productData?.price!==productData?.disprice ? 
+                                <>
+                                    <p className='text-gray-800 text-2xl font-bold'>₱{productData?.price ? (productData.price).toFixed(2) : 0}</p>
+                                    <div className='text-gray-600 text-sm flex items-center justify-center relative max-w-[55px]'>₱{productData?.disprice ? (productData?.disprice).toFixed(2) : 0} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                </>
+                            : 
+                                <p className='text-gray-800 text-2xl font-bold'>₱{productData?.disprice ? (productData.disprice).toFixed(2) : 0}</p>
+                            }
+                        </div>
                         <p className="miniText whitespace-pre-wrap break-normal text-justify">{productData.maindesc}</p>
                     </div>
                     <div>
