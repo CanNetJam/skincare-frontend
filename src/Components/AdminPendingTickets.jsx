@@ -85,12 +85,9 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                 <b>{(pageEntries*page)+(index+1)}</b>
                                             </td>
                                             <td scope="row" className="px-6 py-4">
-                                            <label className={`${a.expiresAt>new Date().toISOString() && a.status==="Investigating" ? 'text-green-400' : 'text-red-400'} text-lg w-full text-justify font-bold`}>{a.expiresAt>new Date().toISOString() && a.status==="Investigating" ? 'Open' : 'Closed'}</label><br/>
-                                                {tab==="Pending Tickets" ? 
-                                                    <div className='whitespace-nowrap'>
-                                                        <b>Status</b>: <span className={`${a.status==="Investigating" ? 'text-blue-400' : a.status==="Approved" ? 'text-green-400' : 'text-red-400'} font-semibold`}>{a.status}</span><br/>
-                                                    </div>
-                                                :null}
+                                                
+                                                <label className={`${a.expiresAt>new Date().toISOString() && a.open===true ? 'text-green-400' : 'text-red-400'} text-lg w-full text-justify font-bold`}>{a.expiresAt>new Date().toISOString() && a?.open===true ? 'Open' : 'Closed'}</label><br/>
+                                                <b>Status</b>: <span className={`${a.status==="Investigating" ? 'text-blue-400' : a.status==="Approved" ? 'text-green-400' : 'text-red-400'} font-semibold whitespace-nowrap`}>{a.status}</span><br/>
                                                 <b className='whitespace-nowrap'>Ticket Id</b>: {a._id}<br/>
                                                 <b className='whitespace-nowrap'>Order Id</b>: {a.orderid._id}<br/>
                                                 <b>Submitted on</b>: {moment(a.createdAt).format('MMM-DD-YYYY on h:mm A')}<br/>
@@ -140,8 +137,6 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                             <td className="whitespace-nowrap px-6 py-4 grid w-auto justify-center items-center">
                                                 {tab!=="Pending Tickets" ? 
                                                     <div className='text-center'>
-                                                        
-                                                        <b>Status</b>: <span className={`${a.status==="Investigating" ? 'text-blue-400' : a.status==="Approved" ? 'text-green-400' : 'text-red-400'} font-semibold whitespace-nowrap`}>{a.status}</span><br/>
                                                         {a.status==="Rejected" ? 
                                                         <>
                                                             <b>Response</b>: <span className='text-blue-400 font-semibold'>{a.response}</span>

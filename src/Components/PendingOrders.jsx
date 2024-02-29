@@ -96,7 +96,7 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                                 },
                                 quantity: a.quantity+1
                             }
-                            setUserData({...userData, cartNumber: userData.cartNumber+1})
+                            
                             if (!userData.user) {
                                 toastSuccessNotification(obj.product.name)
                             }
@@ -110,7 +110,6 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                 duplicateCheck()
                 if (dupe===false) {
                     currentCart.push(obj)
-                    setUserData({...userData, cartNumber: userData.cartNumber+1})
                     if (!userData.user) {
                         toastSuccessNotification(obj.product.name)
                     }
@@ -120,8 +119,9 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
         } catch (error) {
             console.log(error)
         }
+        
     }
-
+    
     return (
         <div className='h-auto sm:w-auto w-screen pb-6 px-4'>
             {isEdit && (
@@ -222,11 +222,12 @@ export default function PendingOrders({orders, page, setPage, pages, pageEntries
                                                         :
                                                             <>
                                                                 <button onClick={()=>{
-                                                                    a.items.map((b)=> {
+                                                                    a.items.map((b)=>{
                                                                         handleAddToCart(b)
                                                                     })
+                                                                    setUserData({...userData, cartNumber: userData.cartNumber+a.items.length})
                                                                 }} className="font-medium text-blue-500 dark:text-blue-400 hover:underline">
-                                                                    Order Again
+                                                                    Buy Again
                                                                 </button>
                                                             </>
                                                         }

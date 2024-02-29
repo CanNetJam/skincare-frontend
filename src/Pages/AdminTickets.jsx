@@ -41,7 +41,6 @@ export default function AdminTickets() {
 
     useEffect(()=> {
         let isCancelled = false
-        
         const getTickets = async () => {   
             try {
                 let token = localStorage.getItem("auth-token")

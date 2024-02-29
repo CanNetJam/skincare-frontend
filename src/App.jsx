@@ -56,7 +56,7 @@ const App = () => {
         user: undefined,
         cartNumber: 0
     })
-
+    
     useEffect(() => {
         const isLoggedIn = async () => {
             let token = localStorage.getItem("auth-token")
