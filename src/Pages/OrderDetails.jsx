@@ -16,6 +16,7 @@ export default function OrderDetails() {
     const [ isEdit, setIsEdit ] = useState(false)
     const [ toEdit, setToEdit ] = useState("")
     const [ itemToFocus, setItemToFocus] = useState("")
+    const [ itemsToFocus, setItemsToFocus] = useState([])
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -42,6 +43,35 @@ export default function OrderDetails() {
         }
         getOrder()
     }, [isEdit])
+
+    function handleCheckbox(props) {
+        let dupe = false
+        function haha () {
+            if (itemsToFocus.length===0) {
+                setItemsToFocus(prev=>prev.concat([JSON.parse(props).item._id]))
+
+            } else if (itemsToFocus.length>0) {
+                for (let i = 0 ; i < itemsToFocus.length ; i++) {
+                    if (JSON.parse(props).item._id!==itemsToFocus[i].item._id) {
+                        dupe = false
+                    } else {
+
+                        dupe = true
+                        return dupe
+                    }
+                }
+                return dupe
+            }
+        }
+
+        dupe = haha()
+        if (dupe===true) {
+            const filteredItems = itemsToFocus.filter((a)=> a.item._id!==JSON.parse(props))
+            setItemsToFocus(filteredItems)
+        } else if (dupe===false) {
+            setItemsToFocus(prev=>prev.concat([JSON.parse(props)]))
+        } 
+    }
 
     return (
         <div>
@@ -118,7 +148,10 @@ export default function OrderDetails() {
                                     {orderData?.items?.map((a, index)=> {
                                         return (
                                             <tr key={index}>
-                                                <td className="px-2 py-3 text-center">{index+1}</td>
+                                                <td className="px-2 py-3 text-center">
+                                                    {index+1}<br/>
+                                                    <input hidden onChange={(e)=>{handleCheckbox(e.target.value)}} type="checkbox" value={JSON.stringify(a)} name="items" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                </td>
                                                 <td className="px-2 py-3">
                                                     <div className='flex h-[50px] w-[50px] items-center justify-center border overflow-hidden rounded-md'>
                                                         <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.item.displayimage}.jpg`}></img>

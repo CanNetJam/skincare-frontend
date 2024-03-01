@@ -134,7 +134,7 @@ export default function Footer() {
                     <a href='https://www.instagram.com/klued_/' target='_blank' className='cursor-pointer hover:text-slate-300'><FaInstagram size='28px'/></a>
                 </div>
                 <div className='flex justify-center items-center'>
-                    <h1 className='text-slate-400 text-sm'>© 2023 Klued. All rights reserved.</h1>
+                    <h1 className='text-slate-400 text-sm'>© 2024 Klued. All rights reserved.</h1>
                 </div>
             </div>
         </div>

@@ -134,20 +134,20 @@ export default function Hero({packageData}) {
                         <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
                             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl relative">
                                 {packageData?.name}
-                                {packageData?.price!==packageData?.disprice ?
+                                {packageData?.origprice!==packageData?.disprice ?
                                     <div className='absolute h-16 w-16 top-0 right-0 -rotate-[25deg]'>
                                         <img src='https://www.svgrepo.com/show/227966/sale.svg'/>
                                     </div>
                                 :null}
                             </h2>
                             <div>
-                            {packageData?.price!==packageData?.disprice ?
+                            {packageData?.origprice!==packageData?.disprice ?
                                 <div className='flex justify-center gap-2 py-2'>
                                     <p className='text-white text-2xl font-semibold'>₱{packageData.origprice ? (packageData?.origprice).toFixed(2) : 0}</p>
-                                    <div className='text-gray-300 text-sm flex items-center justify-center relative max-w-[55px]'>₱{packageData.disprice ? (packageData?.disprice).toFixed(2) : 0} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                    <div className='text-gray-400 text-sm flex items-center justify-center relative max-w-[55px]'>₱{packageData.disprice ? (packageData?.disprice).toFixed(2) : 0} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
                                 </div>
                             :
-                                <p className='text-gray-800 text-2xl font-bold'>₱{packageData?.disprice ? (packageData.disprice).toFixed(2) : 0}</p>
+                                <p className='text-gray-200 text-2xl font-bold'>₱{packageData?.disprice ? (packageData.disprice).toFixed(2) : 0}</p>
                             }
                             </div>
                             <p className="mt-6 miniText text-gray-300 whitespace-pre-wrap break-normal">
