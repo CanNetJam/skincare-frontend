@@ -104,7 +104,7 @@ export default function Email() {
         return ()=> {
             isCancelled = true
         }
-    }, [dateRange, page, pageEntries, search, isDelete, accountsToSend])
+    }, [dateRange, page, pageEntries, search, isDelete])
 
     function handleCheckbox(item) {
         let theItem
@@ -328,12 +328,12 @@ export default function Email() {
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Email
-                            </th>
+                            </th> 
                             <th scope="col" className="px-6 py-3 text-center">
                                 Subscribed on
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
-                                Voucher sent on
+                                Last voucher sent on
                             </th>
                             {userData.user?.type==="Super Admin" ? 
                                 <th scope="col" className="px-6 py-3">
