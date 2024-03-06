@@ -10,6 +10,7 @@ export default function TicketDetails() {
     const location = useLocation()
     const {id} = useParams()
     const [ ticketData, setTicketData ] = useState({})
+    const [ ticketTotal, setTicketTotal ] = useState(0)
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -36,6 +37,39 @@ export default function TicketDetails() {
         }
         getTicket()
     }, [])
+
+    useEffect(() => {
+        const computeTotal = async () => {
+            try {
+
+                let summary = []
+                ticketData?.items?.map((a)=> {
+                    let haha = Number(a.price) * Number(a.quantity)
+                    summary.push(haha)
+                })
+
+                let total = 0
+                function computeSum(){
+                    if (summary.length>1) {
+                        for (let i=0; i<summary.length; i++){
+                        total = summary[i] + total
+                        }
+                        return total
+                    }
+                    if (summary.length===1) {
+                        total = summary[0]
+                        return total
+                    }
+                    return total
+                }
+                computeSum()
+                setTicketTotal(total)
+            } catch (error) {
+                console.error('Error computing data:', error);
+            }
+        }
+        computeTotal()
+    }, [ticketData])
 
     return (
         <div>
@@ -99,12 +133,16 @@ export default function TicketDetails() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td className="px-6 py-3 text-blue-400 w-auto text-center">{ticketData?.item?.name}</td>
-                                        <td className="px-2 py-3 text-center">{ticketData?.item?.quantity} pc(s)</td>
-                                        <td className="px-2 py-3 text-center">₱{ticketData?.item?.price.toFixed(2)}</td>
-                                        <td className="px-2 py-3 text-center">₱{(ticketData?.item?.quantity*ticketData?.item?.price).toFixed(2)}</td>
-                                    </tr>
+                                    {ticketData?.items?.map((a)=>{
+                                        return (
+                                            <tr key={a._id}>
+                                                <td className="px-6 py-3 text-blue-400 w-auto text-center">{a.name}</td>
+                                                <td className="px-2 py-3 text-center">{a.quantity} pc(s)</td>
+                                                <td className="px-2 py-3 text-center">₱{a.price.toFixed(2)}</td>
+                                                <td className="px-2 py-3 text-center">₱{(a.quantity*a.price).toFixed(2)}</td>
+                                            </tr>
+                                        )
+                                    })}
                                 </tbody>
                             </table>
                         </div>
@@ -149,15 +187,15 @@ export default function TicketDetails() {
                         <div className="p-4 border-t">
                             <div className="flex justify-between py-1">
                                 <p>Item subtotal:</p>
-                                <p>₱{(ticketData?.item?.quantity*ticketData?.item?.price).toFixed(2)}</p>
+                                <p>₱{ticketTotal.toFixed(2)}</p>
                             </div>
                             <div className="flex justify-between py-1">
                                 <p>Transaction fee:</p>
-                                <p>{ticketData?.transactionfee!==0 ? '- ₱'+(ticketData?.transactionfee) : '--'}</p>
+                                <p>{ticketData?.transactionfee!==0 ? '- ₱'+(ticketData?.transactionfee)?.toFixed(2) : '--'}</p>
                             </div>
                             <div className="flex justify-between py-1">
                                 <p><b>Refund total:</b></p>
-                                <p className="font-bold text-blue-500 text-lg">₱{((ticketData?.item?.quantity*ticketData?.item?.price)-ticketData?.transactionfee).toFixed(2)}</p>
+                                <p className="font-bold text-blue-500 text-lg">₱{(ticketTotal-ticketData?.transactionfee).toFixed(2)}</p>
                             </div>
                         </div>
                     </div>

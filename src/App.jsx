@@ -24,7 +24,6 @@ import RefundPolicy from './Pages/RefundPolicy';
 // import OrderDetails from './Pages/OrderDetails';
 
 const Profile = lazy(() => import('./Components/Profile'));
-const Settings = lazy(() => import('./Components/Settings'));
 const Orders = lazy(() => import('./Pages/Orders'));
 const OrderDetails = lazy(() => import('./Pages/OrderDetails'));
 const TicketDetails = lazy(() => import('./Pages/TicketDetails'));
@@ -35,8 +34,6 @@ const CartDetails = lazy(() => import('./Pages/CartDetails'));
 const KnowledgeBase = lazy(() => import('./Pages/KnowledgeBase'));
 const Policy = lazy(() => import('./Pages/Policy'));
 
-const AddProduct = lazy(() => import('./Pages/AddProduct'));
-const AddPackage = lazy(() => import('./Pages/AddPackage'));
 const UserAccounts = lazy(() => import('./Pages/UserAccounts'));
 const UpdateProduct = lazy(() => import('./Pages/UpdateProduct'));
 const UpdatePackage = lazy(() => import('./Pages/UpdatePackage'));
@@ -196,7 +193,6 @@ const App = () => {
                     <Route path="/cartdetails" element={<Suspense fallback={<Loading />}><CartDetails /></Suspense>} />
                     <Route path="/forget-password" element={<Suspense fallback={<Loading />}><ForgotPassword /></Suspense>} />
                     <Route path="/accounts/profile/:id" element={<Suspense fallback={<Loading />}><Profile /></Suspense>} />
-                    <Route path="/settings" element={<Suspense fallback={<Loading />}><Settings /></Suspense>} />
 
                     <Route path="/order-details/:id" element={
                         <Suspense fallback={<Loading />}>
@@ -246,8 +242,6 @@ const App = () => {
                     } />
 
                     <Route path="/emails" element={GeneralAdminRoute(<Suspense fallback={<Loading />}><Email /></Suspense>)} />
-                    <Route path="/add-product" element={StoreAdminRoute(<Suspense fallback={<Loading />}><AddProduct /></Suspense>)} />
-                    <Route path="/add-package" element={StoreAdminRoute(<Suspense fallback={<Loading />}><AddPackage /></Suspense>)} />
                     <Route path="/user-accounts" element={GeneralAdminRoute(<Suspense fallback={<Loading />}><UserAccounts /></Suspense>) } />
                     <Route path="/update-product" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdateProduct /></Suspense>)} />
                     <Route path="/update-package" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdatePackage /></Suspense>)} />

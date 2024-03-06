@@ -15,8 +15,6 @@ export default function OrderDetails() {
     const [ orderData, setOrderData ] = useState({})
     const [ isEdit, setIsEdit ] = useState(false)
     const [ toEdit, setToEdit ] = useState("")
-    const [ itemToFocus, setItemToFocus] = useState("")
-    const [ itemsToFocus, setItemsToFocus] = useState([])
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -43,41 +41,12 @@ export default function OrderDetails() {
         }
         getOrder()
     }, [isEdit])
-
-    function handleCheckbox(props) {
-        let dupe = false
-        function haha () {
-            if (itemsToFocus.length===0) {
-                setItemsToFocus(prev=>prev.concat([JSON.parse(props).item._id]))
-
-            } else if (itemsToFocus.length>0) {
-                for (let i = 0 ; i < itemsToFocus.length ; i++) {
-                    if (JSON.parse(props).item._id!==itemsToFocus[i].item._id) {
-                        dupe = false
-                    } else {
-
-                        dupe = true
-                        return dupe
-                    }
-                }
-                return dupe
-            }
-        }
-
-        dupe = haha()
-        if (dupe===true) {
-            const filteredItems = itemsToFocus.filter((a)=> a.item._id!==JSON.parse(props))
-            setItemsToFocus(filteredItems)
-        } else if (dupe===false) {
-            setItemsToFocus(prev=>prev.concat([JSON.parse(props)]))
-        } 
-    }
-
+    
     return (
         <div>
             <Navbar/>
             {isEdit && (
-                <Refund isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit} itemToFocus={itemToFocus}/>
+                <Refund isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit}/>
             )} 
             <div className="container mx-auto min-h-screen pt-16 py-4 sm:px-0 px-4 grid gap-4">
                 <h3 className='font-bold lg:text-4xl text-3xl lg:py-2 py-1 text-center'>Order Details<br/><label className={orderData.deliverystatus==="Delivered" ? `bg-green-400 text-white rounded-full px-4 text-2xl` : orderData.deliverystatus==="Cancelled" ? `bg-red-400 text-white rounded-full px-4 text-2xl` : 'bg-blue-400 text-white rounded-full px-4 text-2xl'}>{orderData.deliverystatus}</label></h3>
@@ -137,11 +106,6 @@ export default function OrderDetails() {
                                         <th scope="col" className="px-2 py-3">
                                             Subtotal
                                         </th>
-                                        {userData?.user?._id===orderData.userid && orderData.deliverystatus==="Delivered" ? 
-                                            <th scope="col" className="px-2 py-3">
-                                                Action
-                                            </th>
-                                        :null}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -150,7 +114,6 @@ export default function OrderDetails() {
                                             <tr key={index}>
                                                 <td className="px-2 py-3 text-center">
                                                     {index+1}<br/>
-                                                    <input hidden onChange={(e)=>{handleCheckbox(e.target.value)}} type="checkbox" value={JSON.stringify(a)} name="items" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
                                                 </td>
                                                 <td className="px-2 py-3">
                                                     <div className='flex h-[50px] w-[50px] items-center justify-center border overflow-hidden rounded-md'>
@@ -161,21 +124,6 @@ export default function OrderDetails() {
                                                 <td className="px-2 py-3 text-center">{a.quantity} pc(s)</td>
                                                 <td className="px-2 py-3 text-center">₱{a.price.toFixed(2)}</td>
                                                 <td className="px-2 py-3 text-center">₱{(a.quantity*a.price).toFixed(2)}</td>
-                                                {userData?.user?._id===orderData.userid && orderData.deliverystatus==="Delivered" ? 
-                                                    <td className="px-2 py-3">
-                                                        {a.withticket===false ? 
-                                                            <button className="relative text-center font-semibold py-1 w-auto sm:px-4 px-2 rounded-xl bg-slate-900 text-slate-50 hover:bg-slate-800" onClick={()=>{
-                                                                        setToEdit(orderData)
-                                                                        setItemToFocus(a)
-                                                                        setIsEdit(true)
-                                                                    }}>
-                                                                Refund
-                                                            </button>
-                                                        :
-                                                            <span className="font-bold">With Ticket</span>
-                                                        }
-                                                    </td>
-                                                :null}
                                             </tr>
                                         )
                                     })}
@@ -243,6 +191,30 @@ export default function OrderDetails() {
                             </div>
                         </div>
                     </div>
+
+                    {userData?.user?._id===orderData.userid ? 
+                        <>
+                            {orderData.reviewed===false ?
+                                <div className='sm:col-span-3'>
+                                    {orderData.deliverystatus==="Delivered" && orderData.refundedat===undefined ?
+                                        <div className="h-auto w-full bg-gray-50 rounded-md p-4 grid sm:flex sm:justify-between">
+                                            <h4 className="my-2 sm:text-xl text-lg"> Is there something wrong with your order? Submit a ticket now.</h4>
+                                            <button onClick={()=>{
+                                                setToEdit(orderData)
+                                                setIsEdit(true)
+                                                }} className="relative text-center font-semibold py-1 w-auto sm:px-12 px-1 rounded-xl bg-slate-900 text-slate-50 hover:bg-slate-800">Return/Refund</button>
+                                        </div>
+                                    :null}
+                                </div>
+                            :
+                                <div className="sm:col-span-3 h-auto w-full bg-gray-50 rounded-md p-4 grid sm:flex sm:justify-between">
+                                    <h4 className="my-2 sm:text-xl text-lg">Already sumbitted a ticket.</h4>
+                                    <Link to={`/ticket-details/${orderData.ticketid}`} className="relative h-auto flex items-center text-center font-semibold py-1 w-auto sm:px-12 px-1 rounded-xl bg-slate-900 text-slate-50 hover:bg-slate-800">View Ticket</Link>
+                                </div>
+
+                            }
+                        </>
+                    :null}
                 </div>
             </div>
             <Footer/>

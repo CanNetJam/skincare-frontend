@@ -157,10 +157,12 @@ export default function Category() {
                     {cleanseList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
                             <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
-                                <img
-                                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
-                                    className="rounded-md"
-                                />
+                                <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
+                                    <img
+                                        src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
+                                        className="h-full w-full object-cover"
+                                    />
+                                </div>
                             </Link>
                             {product.price!==product.disprice ? 
                                 <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-2 px-4 rounded-l-lg -right-2'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
@@ -201,10 +203,12 @@ export default function Category() {
                     {tonerList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
                             <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
-                                <img
-                                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
-                                    className="rounded-md"
-                                />
+                                <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
+                                    <img
+                                        src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
+                                        className="h-full w-full object-cover"
+                                    />
+                                </div>
                             </Link>
                             {product.price!==product.disprice ? 
                                 <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-2 px-4 rounded-l-lg -right-2'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
@@ -245,10 +249,12 @@ export default function Category() {
                     {serumList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
                             <Link to={`/details/product/${product._id}`} state={{productid: product._id}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
-                                <img
-                                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
-                                    className="rounded-md"
-                                />
+                                <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
+                                    <img
+                                        src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
+                                        className="h-full w-full object-cover"
+                                    />
+                                </div>
                             </Link>
                             {product.price!==product.disprice ? 
                                 <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-2 px-4 rounded-l-lg -right-2'>{100-(Math.round((product.price/product.disprice)*100))}% Off!</div>
@@ -292,7 +298,7 @@ export default function Category() {
                                 <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
                                     <img
                                         src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
-                                        className="h-full w-full object-contain"
+                                        className="h-full w-full object-cover"
                                     />
                                 </div>
                             </Link>

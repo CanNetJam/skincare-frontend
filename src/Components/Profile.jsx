@@ -323,7 +323,7 @@ const Profile = () => {
                     </div>
                 </div>
                 {userData?.user?._id===profileData?._id ? 
-                    <Settings/>
+                    <Settings profileData={profileData}/>
                 :null}
                 <br/>
                 {userData?.user?.type==="Admin" || userData?.user?.type==="Super Admin" ? 

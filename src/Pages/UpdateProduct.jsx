@@ -1,93 +1,19 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../Components/TopNav';
 import Footer from '../Components/Footer';
-import UpdateIngredient from "../Modals/UpdateIngredient";
-import ProductReview from "../Components/ProductReview";
+import EditProduct from "../Modals/EditProduct";
+import AddProduct from "../Modals/AddProduct";
 
 export default function UpdateProduct() {
     const [ availableItems, setAvailableItems ] = useState([])
-    const [ product, setProduct ] = useState({
-        _id: "",
-        name: "",
-        maindesc: "",
-        stock: "",
-        price: "",
-        disprice: "",
-        category: "",
-        productlinks: {
-            shopee: "",
-            tiktok: "",
-            lazada: "",
-        },
-        ingredients: [],
-        do: [],
-        dont: [],
-        morroutine: [],
-        nigroutine: [],
-        routines: [], 
-        usage: "",
-        extra: "",
-        moreimage: [],
-        prodfaq: []
-    })
-    const [ tempRoutine, setTempRoutine ] = useState("")
-    const [ ingredient, setIngredient ] = useState({
-        name: "",
-        desc: "",
-        photo: ""
-    })
-    const [ dos, setDos ] = useState({
-        title: "",
-        desc: ""
-    })
-    const [ donts, setDonts ] = useState({
-        title: "",
-        desc: ""
-    })
-    const [ skinType, setSkinType ] = useState("")
-    const [ morrout, setMorrout ] = useState({
-        skintype: "",
-        steps: []
-    })
-    const [ morstep, setMorstep ] = useState("")
-    const [ nigrout, setNigrout ] = useState({
-        skintype: "",
-        steps: []
-    })
-    const [ routine, setRoutine ] = useState({
-        skintype: "",
-        morning: [],
-        night: []
-    })
-    const [ nigstep, setNigstep ] = useState("")
-    const [ file, setFile ] = useState([])
-    const CreatePhotoField = useRef()
-    const [ isOpen, setIsOpen ] = useState(false)
-    const [ updateIng, setUpdateIng ] = useState({
-        index: "",
-        data: {
-            name: "",
-            desc: "",
-            photo: ""
-        }
-    })
-    const [ updateIngList, setUpdateIngList ] = useState([])
     const [ submitted, setSubmitted ] = useState(false)
-    const [ percentage, setPercentage ] = useState(false)
-
-    useEffect(()=> {
-        const windowOpen = () => {   
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-            })
-        }
-        windowOpen()
-    }, [submitted])
-
+    const [ isDelete, setIsDelete ] = useState(false)
+    const [ toDelete, setToDelete ] = useState("")
+    const [ isEdit, setIsEdit ] = useState(false)
+    const [ toEdit, setToEdit ] = useState("")
+    const [ isAdd, setIsAdd ] = useState(false)
+    
     useEffect(()=> {
         const getProducts = async () => {
             try {
@@ -100,206 +26,100 @@ export default function UpdateProduct() {
         getProducts()
     }, [submitted])
 
-    async function submitHandler(e) {
-        e.preventDefault()
-        const loadingNotif = async function myPromise() {
-            try {
-            const data = new FormData()
-            if (product.displayimage!==undefined) {
-                if (typeof product.displayimage!=="string"){
-                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                    const image = new FormData()
-                    image.append("file", product.displayimage)
-                    image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                    image.append("signature", signatureResponse.data.signature)
-                    image.append("timestamp", signatureResponse.data.timestamp)
-
-                    const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                    headers: { "Content-Type": "multipart/form-data" },
-                    // onUploadProgress: function (e) {
-                    //     console.log(e.loaded / e.total)
-                    // }
-                    })
-                    let cloud_image = cloudinaryResponse.data.public_id
-                    data.append("displayimage", cloud_image)
-                }
-            }
-
-            if (product.moreimage[0]!==undefined) {
-                for (let i =0; i <product.moreimage.length; i++) {
-                    if (typeof product.moreimage[i]!=="string") {
-                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-                        const image = new FormData()
-                        image.append("file", product.moreimage[i])
-                        image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                        image.append("signature", signatureResponse.data.signature)
-                        image.append("timestamp", signatureResponse.data.timestamp)
-
-                        const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                        headers: { "Content-Type": "multipart/form-data" }})
-
-                        let cloud_image = cloudinaryResponse.data.public_id
-                        data.append("moreimage[]", cloud_image)
-                    } else if (typeof product.moreimage[i]==="string") {
-                        data.append("moreimage[]", product.moreimage[i])
-                    }
-                }
-            }
-
-            if (product.ingredients[0]!==undefined) {
-                for (let i=0; i<product.ingredients.length; i++) {
-                    if (typeof product.ingredients[i].photo!=="string") {
-                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                        const image = new FormData()
-                        image.append("file", product.ingredients[i].photo)
-                        image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                        image.append("signature", signatureResponse.data.signature)
-                        image.append("timestamp", signatureResponse.data.timestamp)
-
-                        const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                        headers: { "Content-Type": "multipart/form-data" },
-                        // onUploadProgress: function (e) {
-                        //     console.log(e.loaded / e.total)
-                        // }
-                        })
-                        let cloud_image = cloudinaryResponse.data.public_id
-                        data.append("ingphoto[]", cloud_image)
-                    } else if (typeof product.ingredients[i].photo==="string") {
-                        data.append("ingphoto[]", product.ingredients[i].photo)
-                    }
-                }
-            }
-            data.append("_id", product._id)
-            data.append("name", product.name)
-            data.append("maindesc", product.maindesc)
-            data.append("stock", product.stock)
-            data.append("price", percentage===false ? product.price : product.disprice*(product.price/100))
-            data.append("disprice", product.disprice)
-            data.append("usage", product.usage)
-            data.append("extra", product.extra)
-            data.append("category", product.category)
-            data.append("shopeelink", product.productlinks.shopee)
-            data.append("tiktoklink", product.productlinks.tiktok)
-            data.append("lazadalink", product.productlinks.lazada)
-            data.append("ingredients", JSON.stringify(product.ingredients))
-            data.append("routines", JSON.stringify(product.routines))
-            data.append("do", JSON.stringify(product.do))
-            data.append("dont", JSON.stringify(product.dont))
-
-            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/product/update-product`, data, { headers: { "Content-Type": "application/json" } })
-            console.log(res.data)
-            
-            setProduct({
-                name: "",
-                maindesc: "",
-                stock: "",
-                price: "",
-                disprice: "",
-                category: "",
-                productlinks: {
-                    shopee: "",
-                    tiktok: "",
-                    lazada: "",
-                },
-                ingredients: [],
-                do: [],
-                dont: [],
-                morroutine: [],
-                nigroutine: [],
-                routines: [], 
-                usage: "",
-                extra: "",
-                moreimage: []
-            })
-            setIngredient({
-                name: "",
-                desc: "",
-                photo: ""
-            })
-            setDos("")
-            setDonts("")
-            setSkinType("")
-            setMorrout({
-                skintype: "",
-                steps: []
-            })
-            setMorstep("")
-            setNigrout({
-                skintype: "",
-                steps: []
-            })
-            setRoutine({
-                skintype: "",
-                morning: [],
-                night: []
-            })
-            setNigstep("")
-            setFile([])
-            if (CreatePhotoField.current.value!==null) {
-                CreatePhotoField.current.value = null
-            }
-            setSubmitted(!submitted)
-            setPercentage(false)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        toast.promise(
-            loadingNotif,
-            {
-            pending: 'Updating product data...',
-            success: 'Product data updated.',
-            error: 'Product update failed!'
-            }
-        )
-    }
-
-    const handleChange = (e) => {
-        const {name, value} = e.target
-        setProduct((prev)=> {
-            return {...prev, [name]: value}
-        })
-    }
-
-    function removeDo(props) {
-        let list = product.do
-        list.splice(props, 1)
-        setProduct({...product, do: list})
-    }
-    
-    function removeDont(props) {
-        let list = product.dont
-        list.splice(props, 1)
-        setProduct({...product, dont: list})
-    }
-
-    function removeMorstep(props) {
-        let list = morrout.steps
-        list.splice(props, 1)
-        setMorrout({...product, steps: list})
-    }
-
-    function removeNigstep(props) {
-        let list = nigrout.steps
-        list.splice(props, 1)
-        setNigrout({...product, steps: list})
-    }
-
-    function removeRoutine(props) {
-        let list = product.routines
-        list.splice(props, 1)
-        setProduct({...product, routines: list})
-    }
-
     return (
         <div className="h-screen w-full">
-            <Navbar/>
-            {isOpen && (
-                <UpdateIngredient isOpen={isOpen} setIsOpen={setIsOpen} updateIng={updateIng} setUpdateIng={setUpdateIng} setUpdateIngList={setUpdateIngList} product={product} setProduct={setProduct}/>
-            )}  
-            <div className="container mx-auto my-16 grid grid-cols-4">
+            <Navbar/> 
+            {isEdit===true ?
+                <EditProduct isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit} submitted={submitted} setSubmitted={setSubmitted}/>
+            :null}
+            {isAdd===true ?
+                <AddProduct isAdd={isAdd} setIsAdd={setIsAdd}/>
+            :null}
+            <div className="container mx-auto my-16 grid">
+                <h1 className="font-bold contentSubHeading text-center py-6">My Products</h1>
+                <br/>
+                <div className="w-full flex justify-end items-center">
+                    <button onClick={()=>setIsAdd(true)} className="px-4 mt-1 w-full bg-blue-500 p-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md">
+                        Add Product
+                    </button>
+                </div>
+                <div className="relative w-auto overflow-x-auto shadow-md sm:rounded-lg p-4">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" className="px-2 py-3">
+                                    No.
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Image
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Product Name
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Price
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Stock
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {availableItems[0]!==undefined ? 
+                                <>
+                                    {availableItems.map((a, index)=> {
+                                        return (
+                                            <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <td className="px-2 py-4">
+                                                    <b>{(index+1)}</b>
+                                                </td>
+                                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    <div className="h-36 w-28 overflow-hidden rounded-md">
+                                                        <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.displayimage}.jpg`}></img>
+                                                    </div>
+                                                </th>
+                                                <td className="px-6 py-4">
+                                                    {a?.name}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    Original: ₱{a.disprice?.toFixed(2)}<br/>
+                                                    Discounted: ₱{a.price?.toFixed(2)}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <b>{a.stock}</b> items left
+                                                </td>
+                                                <td >
+                                                    <div className="flex justify-center items-center h-full">
+                                                        <button onClick={()=>{
+                                                            setIsEdit(true)
+                                                            setToEdit(a)
+                                                            }}className='h-full cursor-pointer text-blue-500 hover:text-blue-400'>
+                                                            Edit
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
+                                </>
+                            :null}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <Footer/>
+        </div>
+    )
+}
+/*
+                                                        <button onClick={()=>{
+                                                            setIsDelete(true)
+                                                            setToDelete(a)
+                                                            }} className='h-full cursor-pointer text-red-500 hover:text-red-400'>Delete</button>
+
                 <div className="col-span-1 p-6 overflow-hidden">
                     <h1 className="font-bold contentSubHeading">Select product to edit</h1>
                     <div className="grid gap-2 w-full rounded-md text-gray-900 sm:max-w-xs sm:text-sm sm:leading-6">
@@ -468,25 +288,6 @@ export default function UpdateProduct() {
                                         <label className="block text-sm font-medium leading-6 text-gray-900">Specific Precautions</label>
                                         <div className="mt-2">
                                             <textarea onChange={handleChange} rows={3} value={product.extra} type="text" name="extra" id="product-extra" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                        </div>
-                                    </div>
-
-                                    <div className="sm:col-span-2">
-                                        <label className="block text-sm font-medium leading-6 text-gray-900">Shopee link</label>
-                                        <div className="mt-2 w-full">
-                                            <input required onChange={e => setProduct({...product, productlinks: {...product.productlinks, shopee: e.target.value}})} value={product.productlinks?.shopee} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2">
-                                        <label className="block text-sm font-medium leading-6 text-gray-900">Tiktok link</label>
-                                        <div className="mt-2 w-full">
-                                            <input required onChange={e => setProduct({...product, productlinks: {...product.productlinks, tiktok: e.target.value}})} value={product.productlinks?.tiktok} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2">
-                                        <label className="block text-sm font-medium leading-6 text-gray-900">Lazada link</label>
-                                        <div className="mt-2 w-full">
-                                            <input required onChange={e => setProduct({...product, productlinks: {...product.productlinks, lazada: e.target.value}})} value={product.productlinks?.lazada} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                         </div>
                                     </div>
 
@@ -802,8 +603,4 @@ export default function UpdateProduct() {
                         <ProductReview id={product._id} secondid={product._id} mode={"Edit"}/>
                     :null}
                 </div>
-            </div>
-            <Footer/>
-        </div>
-    )
-}
+                */

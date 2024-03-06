@@ -8,6 +8,8 @@ import { utils, writeFile } from 'xlsx';
 import PageButtons from '../Components/PageButtons';
 import DeleteEmail from '../Modals/DeleteEmail';
 import {UserContext} from "../App";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Email() {
     const { userData, setUserData } = useContext(UserContext)
@@ -29,6 +31,9 @@ export default function Email() {
     const [ displayedPages, setDisplayedPages ] = useState(5)
     const [ isDelete, setIsDelete ] = useState(false)
     const [ toDelete, setToDelete ] = useState("")
+    const [ accountsToSend, setAccountsToSend] = useState([])
+    const [ discount, setDiscount ] = useState(0)
+    const [ minimum, setMinimum ] = useState(0)
 
     const exportFile = useCallback(() => {
         /* generate worksheet from state */
@@ -48,7 +53,7 @@ export default function Email() {
             })
         }
         windowOpen()
-    }, [pageEntries, page, emails])
+    }, [pageEntries, page])
 
     useEffect(()=> {
         const resetPage = () => {   
@@ -56,6 +61,13 @@ export default function Email() {
         }
         resetPage()
     }, [pageEntries, search])
+
+    useEffect(()=> {
+        const resetPage = () => {   
+            setAccountsToSend([])
+        }
+        resetPage()
+    }, [pageEntries, page, search])
 
     useEffect(() => {
         let isCancelled = false
@@ -76,7 +88,12 @@ export default function Email() {
                         setEmailData(prev=>prev.concat([{ email: getEmails.data.sortedEmails[i].email }]))
                     }
                 }
-                setEmails(getEmails.data.sortedEmails)
+                setEmails(
+                    getEmails.data.sortedEmails.map((email, index) => {
+                        return { ...email, checked: false };
+                    })
+                )
+                //setEmails(getEmails.data.sortedEmails)
                 setPages(getEmails.data.totalEmails)
                 setTotal(getEmails.data.total)
             } catch (err) {
@@ -87,7 +104,114 @@ export default function Email() {
         return ()=> {
             isCancelled = true
         }
-    }, [dateRange, page, pageEntries, search, isDelete])
+    }, [dateRange, page, pageEntries, search, isDelete, accountsToSend])
+
+    function handleCheckbox(item) {
+        let theItem
+        if (typeof item==="string"){
+            theItem = JSON.parse(item)
+        } else {
+            theItem = item
+        }
+
+        setEmails(prev =>
+            prev.map(function (email) {
+                if (email._id===theItem._id) {
+                    return { 
+                        ...email, checked: true
+                    }
+                }
+                return email
+            })
+        )
+
+        let dupe = false
+        function haha () {
+            if (accountsToSend.length===0) {
+                setAccountsToSend(prev=>prev.concat([theItem]))
+
+            } else if (accountsToSend.length>0) {
+                for (let i = 0 ; i < accountsToSend.length ; i++) {
+                    if (theItem._id!==accountsToSend[i]._id) {
+                        dupe = false
+                    } else {
+
+                        dupe = true
+                        return dupe
+                    }
+                }
+                return dupe
+            }
+        }
+
+        dupe = haha()
+        if (dupe===true) {
+            const filteredItems = accountsToSend.filter((a)=> a._id!==theItem._id)
+            setAccountsToSend(filteredItems)
+
+            setEmails(prev =>
+                prev.map(function (email) {
+                    if (email._id===theItem._id) {
+                        return { 
+                            ...email, checked: false
+                        }
+                    }
+                    return email
+                })
+            )
+        } else if (dupe===false) {
+            setAccountsToSend(prev=>prev.concat([theItem]))
+        } 
+    }
+    
+    function toastErrorNotification(props) {
+        toast.error(`Can not send a voucher to ${props} because it is an invalid email address.`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    async function handleDiscount(e) {
+        e.preventDefault()
+        const loadingNotif = async function myPromise() {
+            try {
+                const data = new FormData()
+                data.append("discount", discount)
+                data.append("minimum", minimum)
+                data.append("emails", JSON.stringify(accountsToSend))
+                let token = localStorage.getItem("auth-token")
+                const generateVoucher = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/vouchers/generate-vouchers`, data, { headers: { "Content-Type": "application/json", "auth-token": token } })
+                if (generateVoucher.data===true) {
+                    for (let i=0; i<accountsToSend.length; i++){
+                        handleCheckbox(accountsToSend[i])
+                    }
+                    setAccountsToSend([])
+                    setDiscount(0)
+                } 
+            } catch (err) {
+                toastErrorNotification(err.response.data.rejected[0])
+                for (let i=0; i<accountsToSend.length; i++){
+                    handleCheckbox(accountsToSend[i])
+                }
+                setAccountsToSend([])
+                setDiscount(0)
+            }
+        }
+        toast.promise(
+            loadingNotif,
+            {
+                pending: 'Generating vouchers...',
+                success: 'Vouchers sent.',
+                error: 'Vouchers encountered an issue!'
+            }
+        )
+    }
 
     return (
         <>
@@ -108,8 +232,8 @@ export default function Email() {
                 </div> 
             
                 <div className="flex relative gap-2 flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-end pb-4">
-                    <button onClick={()=>exportFile()} className='mt-1 w-full bg-blue-500 px-4 py-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md'>
-                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" ><path fill='white' d="M16 2v7h-2v-5h-12v16h12v-5h2v7h-16v-20h16zm2 9v-4l6 5-6 5v-4h-10v-2h10z"/></svg>
+                    <button onClick={()=>exportFile()} className='mt-1 w-full bg-blue-500 px-4 py-1 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md'>
+                        <svg className='h-6 w-6' xmlns="http://www.w3.org/2000/svg" ><path fill='white' d="M16 2v7h-2v-5h-12v16h12v-5h2v7h-16v-20h16zm2 9v-4l6 5-6 5v-4h-10v-2h10z"/></svg>
                     </button>
                     <div className='flex items-center justify-center h-full '>
                         <button onClick={()=> menu===false ? setMenu(true) : setMenu(false)} id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
@@ -170,6 +294,31 @@ export default function Email() {
                     :null}
                 </div>
             </div>
+            {accountsToSend.length>0 ?
+                <div className='sm:flex grid px-8 justify-between items-center bg-gray-50 min-h-[3.5rem] w-full rounded-md my-4 shadow-md'>
+                    <div className='flex gap-4 items-center'>
+                        <div>Selected {accountsToSend.length} out of {pageEntries>emails.length ? total : pageEntries}</div>
+                        <button onClick={()=>{
+                            setAccountsToSend(emails)
+                            setEmails(prev =>
+                                prev.map(function (email) {
+                                    return { 
+                                        ...email, checked: true
+                                    }
+                                })
+                            )
+                        }} className='bg-blue-400 before:bg-yellow-200 before:-z-10 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden relative text-center py-1 h-auto w-min whitespace-nowrap sm:px-3 px-1 font-bold rounded-lg'>Select All</button>
+                    </div>
+
+                    <form onSubmit={(e)=>handleDiscount(e)} className='sm:flex grid gap-2 items-center whitespace-nowrap'>
+                        <label htmlFor='percentage'>Enter percentage:</label>
+                        <input required onChange={(e)=>setDiscount(e.target.value)} value={discount} type='number' name="percentage" id="percentage" className="w-16 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                        <label htmlFor='minimum'>Minimum:</label>
+                        <input required onChange={(e)=>setMinimum(e.target.value)} value={minimum} type='number' name="minimum" id="minimum" className="w-16 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                        <button  className='bg-blue-400 before:bg-yellow-200 before:-z-10 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden relative text-center py-1 h-auto w-min whitespace-nowrap sm:px-3 px-1 font-bold rounded-lg'>Send Voucher</button>
+                    </form>
+                </div>
+            :null}
             <div className="relative w-full overflow-x-auto shadow-md sm:rounded-lg p-4">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -180,14 +329,11 @@ export default function Email() {
                             <th scope="col" className="px-6 py-3">
                                 Email
                             </th>
-                            <th scope="col" className="px-6 py-3">
-                                Time
+                            <th scope="col" className="px-6 py-3 text-center">
+                                Subscribed on
                             </th>
-                            <th scope="col" className="px-6 py-3">
-                                Day
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Date
+                            <th scope="col" className="px-6 py-3 text-center">
+                                Voucher sent on
                             </th>
                             {userData.user?.type==="Super Admin" ? 
                                 <th scope="col" className="px-6 py-3">
@@ -201,21 +347,23 @@ export default function Email() {
                             <>
                                 {emails.map((a, index)=> {
                                     return (
-                                        <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <td className="px-2 py-4">
+                                        <tr key={a._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <td className="px-2 py-4 flex gap-2 items-center">
+                                                {userData?.user?.type==="Super Admin" ? 
+                                                    <input checked={a.checked===true ? true : false} onChange={(e)=>{handleCheckbox(e.target.value)}} type="checkbox" value={JSON.stringify(a)} name="accounts" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                :null}
                                                 <b>{(pageEntries*page)+(index+1)}</b>
                                             </td>
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {a.email}
                                             </th>
-                                            <td className="px-6 py-4">
-                                                {moment(a.createdAt).format('LT')}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {moment(a.createdAt).format('dddd')}
-                                            </td>
-                                            <td className="px-6 py-4">
+                                            <td className="px-6 py-4 text-center">
+                                                {moment(a.createdAt).format('dddd')} ({moment(a.createdAt).format('LT')})<br/>
                                                 {moment(a.createdAt).format('MM-DD-YYYY')}
+                                            </td>
+                                            <td className="px-6 py-4 text-center">
+                                                {a?.sentAt ? moment(a.sentAt).format('MM-DD-YYYY') : null}<br/>
+                                                {a?.sentAt ? moment(a.sentAt).startOf().fromNow() : 'New member'}
                                             </td>
                                             {userData.user?.type==="Super Admin" ?
                                                 <td className="px-6 py-4">

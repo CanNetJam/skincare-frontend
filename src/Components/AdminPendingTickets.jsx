@@ -92,10 +92,14 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                 <b className='whitespace-nowrap'>Order Id</b>: {a.orderid._id}<br/>
                                                 <b>Submitted on</b>: {moment(a.createdAt).format('MMM-DD-YYYY on h:mm A')}<br/>
                                                 <br/>
-                                                <b>Item:</b> <span>{a.item.name+"  "+a.item.quantity+"pcs"}</span>
+                                                <br/>
+                                                <b>Items:</b> 
+                                                <ul className='list-disc ml-6'>
+                                                    {a.items.map((b)=> {
+                                                        return <li className='py-1' key={b._id}>{b?.name+"  "+b.quantity+"pcs"}</li>
+                                                    })}
+                                                </ul>
                                                 
-                                                <br/>
-                                                <br/>
                                                 <b>Reason</b>: <span className='text-red-400 font-semibold'>{a.mainreason}</span><br/>
                                                 <b>Description</b>:<br/>
                                                 {a?.description?.length>100 ? 

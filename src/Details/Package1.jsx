@@ -73,7 +73,6 @@ export default function Package1() {
             <Routines2 packageData={packageData} morning={packageData?.routines?.morning ? packageData.routines.morning : []} night={packageData?.routines?.night ? packageData.routines.night : []}/>
             <Precautions />
             <ProductReview id={id} secondid={location.state?.packageid} mode={"View"}/>
-            <OrderNow productlinks={packageData?.packagelinks}/>
             <Footer/>
         </div>
     )

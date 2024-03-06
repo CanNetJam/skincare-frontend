@@ -16,6 +16,7 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
     const [ pageButtons, setPageButtons] = useState([])
     const [ displayedPages, setDisplayedPages ] = useState(5)
     const [ zoomType, setZoomType] = useState("")
+    console.log(tickets)
 
     return (
         <div className='h-full sm:w-auto w-screen pb-6 px-4'>
@@ -51,13 +52,17 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
                                     return (
                                         <tr key={a._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <td scope="row" className="px-6 py-4">
-                                                <b className='whitespace-nowrap'>Order Id</b>: {a.orderid._id}<br/>
+                                                <b className='whitespace-nowrap'>Order Id</b>: {a.orderid?._id}<br/>
                                                 <b>Submitted on</b>: {moment(a.createdAt).format('MMM-DD-YYYY on h:mm A')}<br/>
-                                                <b>Items:</b> <br/>
-                                                {console.log(a)}
-                                                <b>Item:</b> <span>{a?.item?.name+"  "+a.item.quantity+"pcs"}</span>
                                                 <br/>
                                                 <br/>
+                                                <b>Items:</b> 
+                                                <ul className='list-disc ml-6'>
+                                                    {a.items.map((b)=> {
+                                                        return <li className='py-1' key={b._id}>{b?.name+"  "+b.quantity+"pcs"}</li>
+                                                    })}
+                                                </ul>
+                                                
                                                 <b>Reason</b>: <span className='text-red-400 font-semibold'>{a.mainreason}</span><br/>
                                                 <b>Description</b>:<br/>
                                                 {a?.description?.length>100 ? 

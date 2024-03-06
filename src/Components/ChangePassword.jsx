@@ -4,7 +4,7 @@ import { UserContext } from "../App";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Settings() {
+export default function Settings({profileData}) {
     const { userData, setUserData } = useContext(UserContext)
     const [ password, setPassword ] = useState("")
     const [ isVerified, setIsVerified ] = useState(false)
@@ -85,9 +85,30 @@ export default function Settings() {
         }
     }
 
+    async function handleDeactivate(e) {
+        e.preventDefault()
+        const loadingNotif = async function myPromise() {
+            try {
+                const data = new FormData()
+                let token = localStorage.getItem("auth-token")
+                await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/deactivate-account/${userData.user._id}`, data, { headers: { "Content-Type": "application/json", "auth-token": token } })
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        toast.promise(
+            loadingNotif,
+            {
+                pending: 'Deactivating account...',
+                success: 'Successfully deactivated your account.',
+                error: 'Deactivation error!'
+            }
+        )
+    }
+
     return (
         <div>
-            <div className="flex flex-col container mx-auto px-4 py-4 justify-center sm:px-10 h-auto w-full lg:py-0">
+            <div className="flex flex-col gap-5 container mx-auto px-4 py-4 justify-center sm:px-10 h-auto w-full lg:py-0">
                 <div className="w-full grid sm:grid-cols-6 p-6 bg-white rounded-lg shadow dark:border md:mt-0 dark:bg-gray-800 dark:border-gray-700 sm:p-8">
                     <div className="sm:col-span-2">
                         <h2 className="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-xl dark:text-white">
@@ -170,16 +191,23 @@ export default function Settings() {
                         :null}
 
                         <button disabled={isVerified!==true ? false :
-                                    newPassword!=="" && newPassword.length>=6 && newPassword.length<16 && confirmPassword!=="" && isConfirmed===true ? 
-                                        false 
-                                    : 
-                                        true
-                                } type="submit" className={`${isVerified!==true ? 'cursor-pointer bg-blue-500 hover:bg-opacity-90' : 
                                 newPassword!=="" && newPassword.length>=6 && newPassword.length<16 && confirmPassword!=="" && isConfirmed===true ? 
-                                    'cursor-pointer bg-blue-500 hover:bg-opacity-90'
+                                    false 
                                 : 
-                                    'bg-gray-400 text-gray-700'} px-2 text-sm font-medium text-white items-center justify-center gap-2 rounded py-3 flex sm:px-4`}>{isVerified===false ? "Verify password" : "Reset password"}</button>
+                                    true
+                            } type="submit" className={`${isVerified!==true ? 'cursor-pointer bg-blue-500 hover:bg-opacity-90' : 
+                            newPassword!=="" && newPassword.length>=6 && newPassword.length<16 && confirmPassword!=="" && isConfirmed===true ? 
+                                'cursor-pointer bg-blue-500 hover:bg-opacity-90'
+                            : 
+                                'bg-gray-400 text-gray-700'} px-2 text-sm font-medium text-white items-center justify-center gap-2 rounded py-3 flex sm:px-4`}>{isVerified===false ? "Verify password" : "Reset password"}</button>
                     </form>
+                </div>
+
+                <div className="w-full text-md grid p-6 bg-white rounded-lg shadow dark:border md:mt-0 dark:bg-gray-800 dark:border-gray-700 sm:p-8">
+                    <div className="h-auto w-full grid sm:flex sm:justify-between">
+                        <h4 className="my-2 font-bold text-lg">{profileData.deactivated===true ? 'Activate my Account' : 'Deactivate my Account'}</h4>
+                        <button onClick={(e)=>handleDeactivate(e)} className="relative text-center font-semibold py-1 w-auto sm:px-12 px-1 rounded-xl bg-slate-900 text-slate-50 hover:bg-slate-800">{profileData.deactivated===true ? 'Activate' : 'Deactivate'}</button>
+                    </div>
                 </div>
             </div>
         </div>

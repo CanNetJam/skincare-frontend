@@ -127,7 +127,7 @@ export default function Routines({routines}) {
                                 <p className="smallText text-justify"></p>
                             </div>
                             <div className="sm:flex grid">
-                                <div className="w-full bg-yellow-300 sm:rounded-l-lg rounded-t-lg text-black block px-10 pb-8">
+                                <div className="w-full bg-yellow-300 sm:rounded-l-lg sm:rounded-t-none rounded-t-lg text-black block px-10 pb-8">
                                     <div className="flex justify-center p-6">
                                         <h3 className="font-bold text-2xl">Morning Routine</h3>
                                     </div>
@@ -156,7 +156,7 @@ export default function Routines({routines}) {
                                     :null}
                                 </div>
 
-                                <div className="w-full bg-black sm:rounded-r-lg rounded-b-lg text-white block px-10 pb-8">
+                                <div className="w-full bg-black sm:rounded-r-lg sm:rounded-b-none rounded-b-lg text-white block px-10 pb-8">
                                     <div className="flex justify-center p-6">
                                         <h3 className="font-bold text-2xl">Evening Routine</h3>
                                     </div>

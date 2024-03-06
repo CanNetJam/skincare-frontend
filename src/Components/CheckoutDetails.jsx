@@ -140,6 +140,8 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
             toastWarningNotification(res.data)
         } else if (res.data==="Sorry, voucher is already used.") {
             toastWarningNotification(res.data)
+        } else if (res.data==="Sorry, but you can not use vouchers not registered to your account.") {
+            toastWarningNotification(res.data)
         }else {
             setCurrentVoucher(res.data[0])
             toastSuccessNotification()

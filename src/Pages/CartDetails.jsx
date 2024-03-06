@@ -108,7 +108,6 @@ function CartDetails() {
                             setCartTotal(total+shippingFee)
                         } else {
                             let discount = ((total)*(currentVoucher?.amount/100)).toFixed(2)
-                            console.log(discount)
                             setDiscount(discount)
                             setInitialTotal(total+shippingFee)
                             setCartTotal((total-discount)+shippingFee)
@@ -274,14 +273,15 @@ function CartDetails() {
 
     async function handleRemoveItem(prop1, prop2) {
         if (userData.user) {
-        let token = localStorage.getItem("auth-token")
-        const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/update-remove-cart-item/${userData?.user?._id}`, prop1, 
-        { headers: { "Content-Type": "application/json", "auth-token": token } })
-        if (res.data===true) {
-            toastSuccessNotification(prop1.name) 
-        } else {
-            toastErrorNotification()
-        }
+            let token = localStorage.getItem("auth-token")
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/accounts/update-remove-cart-item/${userData?.user?._id}`, prop1, 
+            { headers: { "Content-Type": "application/json", "auth-token": token } })
+
+            if (res.data===true) {
+                toastSuccessNotification(prop1.name) 
+            } else {
+                toastErrorNotification()
+            }
         }
 
         let currentCart = JSON.parse(localStorage.getItem("items"))
@@ -360,7 +360,7 @@ function CartDetails() {
                     </button>}
                     <div className="flex justify-end border-t border-slate-500 pt-8">
                         <div className="w-full space-y-4">
-                            {currentVoucher.minimum>cartTotal ?
+                            {currentVoucher.minimum>initalTotal ?
                                 <div className='flex gap-1 justify-center'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
                                     <label className='text-sm text-center'>Your voucher does not meet the minimum amount of <b>₱{currentVoucher.minimum}.00</b>. It will not be used for this purchase.</label>   
@@ -377,14 +377,14 @@ function CartDetails() {
                                         <dd className='font-bold text-black'>₱ <b>{shippingFee.toFixed(2)}</b></dd>
                                     </div>
                                 :null}
-                                {discount!==0 && currentVoucher.minimum<cartTotal ? 
+                                {discount!==0 && currentVoucher.minimum<initalTotal ? 
                                     <div className="flex gap-6 justify-between">
                                         <dt>Discount: <span className='text-blue-500 font-bold'>{currentVoucher.amount}%</span></dt>
                                         <dd className='font-bold text-blue-500'>- ₱ <b>{discount}</b></dd>
                                     </div>
                                 :null}
                                 <div className="border-t-2 py-2 !text-base font-medium">
-                                    {discount!==0 && currentVoucher.minimum<cartTotal ?
+                                    {discount!==0 && currentVoucher.minimum<initalTotal ?
                                         <div className='flex justify-between '>
                                             <dt></dt>
                                             <dd className='font-bold text-black relative'>₱ <b>{initalTotal.toFixed(2)}</b><div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></dd>

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SingleImagePreview from '../Components/SingleImagePreview';
 
-export default function Refund({isEdit, setIsEdit, toEdit, itemToFocus}) {
+export default function Refund({isEdit, setIsEdit, toEdit}) {
     const { userData, setUserData } = useContext(UserContext)
     const [mainReason, setMainReason] = useState("")
     const [description, setDescription] = useState("")
@@ -14,7 +14,7 @@ export default function Refund({isEdit, setIsEdit, toEdit, itemToFocus}) {
     const [ file2, setFile2 ] = useState([])
     const [ file3, setFile3 ] = useState([])
     const [ loading, setLoading ] = useState(false)
-    const [itemFocusPieces, setItemFocusPieces] = useState("")
+    const [ itemsToFocus, setItemsToFocus] = useState([])
 
     async function submitHandler(e) {
         e.preventDefault()
@@ -74,8 +74,7 @@ export default function Refund({isEdit, setIsEdit, toEdit, itemToFocus}) {
             data.append("mainreason", mainReason)
             data.append("description", description)
             data.append("type", "Return/Refund")
-            data.append("item", JSON.stringify(itemToFocus))
-            data.append("itemquantity", itemFocusPieces)
+            data.append("items", JSON.stringify(itemsToFocus))
             data.append("transactionfee", toEdit.transactionfee ? toEdit.transactionfee : 0)
             let token = localStorage.getItem("auth-token")
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/tickets/submit-ticket`, data, 
@@ -147,6 +146,85 @@ export default function Refund({isEdit, setIsEdit, toEdit, itemToFocus}) {
         }
     }
 
+    function handleCheckbox(item) {
+        let theItem
+        if (typeof item==="string"){
+            theItem = JSON.parse(item)
+        } else {
+            theItem = item
+        }
+
+        let dupe = false
+        function haha () {
+            if (itemsToFocus.length===0) {
+                setItemsToFocus(prev=>prev.concat([theItem]))
+
+            } else if (itemsToFocus.length>0) {
+                for (let i = 0 ; i < itemsToFocus.length ; i++) {
+                    if (theItem.item._id!==itemsToFocus[i].item._id) {
+                        dupe = false
+                    } else {
+
+                        dupe = true
+                        return dupe
+                    }
+                }
+                return dupe
+            }
+        }
+
+        dupe = haha()
+        if (dupe===true) {
+            const filteredItems = itemsToFocus.filter((a)=> a.item._id!==theItem.item._id)
+            setItemsToFocus(filteredItems)
+        } else if (dupe===false) {
+            setItemsToFocus(prev=>prev.concat([theItem]))
+        } 
+    }
+
+    function handleSelect(item, quantity) {
+        let theItem
+        if (typeof item==="string"){
+            theItem = JSON.parse(item)
+        } else {
+            theItem = item
+        }
+
+        let dupe = false
+        let position
+        function haha () {
+            if (itemsToFocus.length===0) {
+                return dupe
+            } else if (itemsToFocus.length>0) {
+                for (let i = 0 ; i < itemsToFocus.length ; i++) {
+                    if (theItem.item._id!==itemsToFocus[i].item._id) {
+                        dupe = false
+                    } else {
+                        dupe = true
+                        position = i
+                        
+                        return dupe
+                    }
+                }
+                return dupe
+            }
+        }
+        
+        dupe = haha()
+        if (dupe===true) {
+            setItemsToFocus(prev =>
+                prev.map(function (item) {
+                    if (item.item._id == theItem.item._id) {
+                        return { 
+                            ...item, quantity: Number(quantity)
+                        }
+                    }
+                    return item
+                })
+            )
+        }
+    }
+
     return (
         <>
             <Transition appear show={isEdit} as={Fragment}>
@@ -177,26 +255,72 @@ export default function Refund({isEdit, setIsEdit, toEdit, itemToFocus}) {
                             <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                 <Dialog.Title as="h3" className="sm:flex grid text-lg border-b pb-2 font-semibold leading-6 text-gray-900 items-center">
                                     Return/Refund for Order: <span className='text-blue-400'>{toEdit._id}</span>
-                                    
                                 </Dialog.Title>
-                                <div className='grid sm:flex justify-between items-center py-4'>
-                                    <div>
-                                        <b>Item:</b>{itemToFocus.item.name}
-                                    </div>
-                                    <div>
-                                        <b>Quantity:</b>{itemToFocus.quantity}pcs.
-                                    </div>
-                                </div>
+                                <br/>
+                                <p><b className='text-blue-400'>Step 1: </b> Select item(s) to refund.</p>
+                                <table className="w-full border text-gray-700 text-sm">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" className="px-2 py-3">
+                                                No
+                                            </th>
+                                            <th scope="col" className="px-2 py-3">
+                                                Quantity
+                                            </th>
+                                            <th scope="col" className="px-6 py-3">
+                                                Item Details
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {toEdit?.items?.map((a, index)=> {
+                                            return (
+                                                <tr key={index}>
+                                                    <td className="px-2 py-3 text-center">
+                                                        {index+1}<br/>
+                                                        <input required={true} onChange={(e)=>{handleCheckbox(e.target.value)}} type="checkbox" value={JSON.stringify(a)} name="items" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                    </td>
+                                                    <td className="px-2 py-3 text-center">
+                                                        {itemsToFocus?.map((b, index)=> {
+                                                            return (
+                                                                <div key={b._id}>
+                                                                    {a.item._id===b.item._id ?
+                                                                        <>
+                                                                            <select onChange={(e)=>{handleSelect(a, e.target.value)}} value={itemsToFocus[index].quantity} required name="quantity" className="text-gray-700 py-2 w-min rounded-md border-1 shadow-md sm:text-sm text-sm sm:leading-6 font-medium dark:text-white cursor-pointer">
+                                                                                <option value="" disabled>Select</option>
+                                                                                <option value={1}>1 pc.</option>
+                                                                                {a.quantity>1 ? <option value={2}>2 pcs.</option> : null}
+                                                                                {a.quantity>2 ? <option value={3}>3 pcs.</option> : null}
+                                                                                {a.quantity>3 ? <option value={4}>4 pcs.</option> : null}
+                                                                            </select>
+                                                                        </>
+                                                                    :null}
+                                                                </div>
+                                                            )
+                                                        })}
+                                                        
+                                                    </td>
+                                                    <td className="sm:px-6 py-3 w-auto">
+                                                        <div className='flex gap-2'>
+                                                            <div className='flex flex-shrink-0 h-[50px] w-[50px] items-center justify-center border overflow-hidden rounded-md'>
+                                                                <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.item.displayimage}.jpg`}></img>
+                                                            </div>
+                                                            <div>
+                                                                {a.item.name} {a.quantity} pc(s)<br/>
+                                                                <b>₱{(a.quantity*a.price).toFixed(2)}</b><br/>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <p><b className='text-blue-400'>Step 2: </b> Select your reason why you will refund the item(s).</p>
                                 <form onSubmit={submitHandler}>
-                                    <div className="grid grid-cols-2 gap-2 text-sm py-2 items-center">
-                                        <select required onChange={e=>setItemFocusPieces(e.target.value)} name="quantity" value={itemFocusPieces} className="col-span-1 py-2 block w-full rounded-md border-1 shadow-sm sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
-                                            <option value="" disabled>Select quantity</option>
-                                            <option value={1}>1 pc.</option>
-                                            {itemToFocus.quantity>1 ? <option value={2}>2 pcs.</option> : null}
-                                            {itemToFocus.quantity>2 ? <option value={3}>3 pcs.</option> : null}
-                                            {itemToFocus.quantity>3 ? <option value={4}>4 pcs.</option> : null}
-                                        </select>
-                                        <select required onChange={e=>setMainReason(e.target.value)} name="type" value={mainReason} className="col-span-1 py-2 block w-full rounded-md border-1 shadow-sm sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
+                                    <div className="grid grid-cols-2 mb-10 gap-2 text-sm py-2 items-center">
+                                        <select required onChange={e=>setMainReason(e.target.value)} name="type" value={mainReason} className="text-gray-700 col-span-1 py-2 block w-full rounded-md border-1 shadow-md sm:text-sm text-sm sm:leading-6 font-medium dark:text-white cursor-pointer">
                                             <option value="" disabled>Select your reason</option>
                                             <option>Damaged item</option>
                                             <option>Wrong item</option>
@@ -204,8 +328,9 @@ export default function Refund({isEdit, setIsEdit, toEdit, itemToFocus}) {
                                             <option>Missing item</option>
                                             <option>Item did not arrive</option>
                                         </select>
-
-                                        <div className='col-span-2 grid sm:grid-cols-3 gap-2 pt-2'>
+                                        <p className='col-span-2 text-base'><b className='text-blue-400'>Step 3: </b> Provide explanation and proof for validation.</p>
+                                        <div className='col-span-2 grid sm:grid-cols-3 gap-2 pt-2 text-gray-700'>
+                                        
                                             <div>
                                                 <label>Image 1: (<b>Waybill</b>)</label>
                                                 <div className="flex items-center justify-center w-full">

@@ -1,4 +1,4 @@
-import { useState, Fragment,  } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import axios from "axios";
 import { toast } from 'react-toastify';
@@ -8,6 +8,7 @@ import moment from "moment";
 export default function EditTicket({isEdit, setIsEdit, toEdit}) {
     const [status, setStatus] = useState("")
     const [reason, setReason] = useState("")
+    const [ ticketTotal, setTicketTotal ] = useState(0)
 
     async function submitHandler(e) {
         e.preventDefault()
@@ -16,7 +17,7 @@ export default function EditTicket({isEdit, setIsEdit, toEdit}) {
             data.append("status", status==="Approve" ? "Approved" : "Rejected")
             data.append("reason", reason)
             data.append("orderid", toEdit?.orderid?._id)
-            data.append("netamount", (toEdit?.item?.price*toEdit.item.quantity)-toEdit.transactionfee)
+            data.append("netamount", (ticketTotal)-toEdit.transactionfee)
             data.append("paymentid", toEdit?.orderid?.paymentid)
             data.append("paymentoption", toEdit?.orderid?.paymentoption)
             let token = localStorage.getItem("auth-token")
@@ -36,6 +37,39 @@ export default function EditTicket({isEdit, setIsEdit, toEdit}) {
             }
         )
     }
+
+    useEffect(() => {
+        const computeTotal = async () => {
+            try {
+
+                let summary = []
+                toEdit?.items?.map((a)=> {
+                    let haha = Number(a.price) * Number(a.quantity)
+                    summary.push(haha)
+                })
+
+                let total = 0
+                function computeSum(){
+                    if (summary.length>1) {
+                        for (let i=0; i<summary.length; i++){
+                        total = summary[i] + total
+                        }
+                        return total
+                    }
+                    if (summary.length===1) {
+                        total = summary[0]
+                        return total
+                    }
+                    return total
+                }
+                computeSum()
+                setTicketTotal(total)
+            } catch (error) {
+                console.error('Error computing data:', error);
+            }
+        }
+        computeTotal()
+    }, [toEdit])
 
     return (
         <>
@@ -84,6 +118,14 @@ export default function EditTicket({isEdit, setIsEdit, toEdit}) {
                                         <label className='col-span-2 text-right'>₱{toEdit.orderid.amounttotal.toFixed(2)}</label>
                                     </div>
                                     <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Shipping fee:</label>
+                                        <label className='col-span-2 text-right'>₱{toEdit?.orderid.shippingfee?.toFixed(2)}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                        <label className='col-span-1'>Transaction fee:</label>
+                                        <label className='col-span-2 text-right'>₱{toEdit?.orderid.transactionfee?.toFixed(2)}</label>
+                                    </div>
+                                    <div className='grid grid-cols-3 text-sm py-1'>
                                         <label className='col-span-1'>Amount Paid:</label>
                                         <label className='col-span-2 text-right'>₱{toEdit.orderid.amountpaid.toFixed(2)}</label>
                                     </div>
@@ -110,13 +152,20 @@ export default function EditTicket({isEdit, setIsEdit, toEdit}) {
                                         <label className='col-span-1'>Submitted by:</label>
                                         <label className='col-span-2 text-right'>{toEdit.owner}</label>
                                     </div>
-                                    <div className='grid grid-cols-3 text-sm py-1'>
+                                    <div className='grid text-sm py-1'>  
                                         <label className='col-span-1'>Item to refund:</label>
-                                        <label className='col-span-2 text-right'>{toEdit.item.name}</label>
+                                        {toEdit?.items?.map((a)=>{
+                                            return (
+                                                <div key={a._id} className='flex justify-between'>
+                                                    <label >{a.name}</label>
+                                                    <label>{a.quantity} pc(s).</label>
+                                                </div>
+                                            )
+                                        })}
                                     </div>
-                                    <div className='grid grid-cols-3 text-sm py-1'>
-                                        <label className='col-span-1'>Quantity of items to refund:</label>
-                                        <label className='col-span-2 text-right'>{toEdit.item.quantity} pcs.</label>
+                                    <div className='grid grid-cols-3 text-base py-1'>
+                                        <label className='col-span-1 font-bold'>Amount refundable:</label>
+                                        <label className='col-span-2 text-right'>₱{(ticketTotal)?.toFixed(2)} - ₱{(toEdit.transactionfee).toFixed(2)} = <span className='font-bold'>₱{(ticketTotal-toEdit.transactionfee).toFixed(2)}</span></label>
                                     </div>
                                     <div className='grid grid-cols-3 text-sm py-1'>
                                         <label className='col-span-1'>Reason:</label>
@@ -139,11 +188,6 @@ export default function EditTicket({isEdit, setIsEdit, toEdit}) {
                                             <label>Parcel Image 2:</label>
                                             <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${toEdit?.productimage2}.jpg`}></img>
                                         </div>
-                                    </div>
-
-                                    <div className='grid grid-cols-3 text-lg py-1'>
-                                        <label className='col-span-1 font-bold'>Amount refundable:</label>
-                                        <label className='col-span-2 text-right'>₱{(toEdit?.item?.price*toEdit.item.quantity).toFixed(2)} - ₱{(toEdit.transactionfee).toFixed(2)} = <span className='font-bold'>₱{((toEdit?.item?.price*toEdit.item.quantity)-toEdit.transactionfee).toFixed(2)}</span></label>
                                     </div>
                                 </div>
 
