@@ -37,7 +37,7 @@ export default function FloatingVideo({videos, floatingVideo, setFloatingVideo})
                                 </div>
                                 <video
                                     onClick={handleVideo}
-                                    className="bg-red-500 h-full w-full object-cover"
+                                    className="bg-gray-400 h-full w-full object-cover"
                                     loop
                                     autoPlay={true}
                                     ref={vidRef}

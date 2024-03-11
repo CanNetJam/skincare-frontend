@@ -147,7 +147,7 @@ export default function Vouchers({openVouchers, setOpenVouchers}) {
                                                             <div className='bg-white p-4 my-4'>
                                                                 <p className='text-4xl font-bold text-center py-2'>{a.encryptedvoucher} </p>
                                                                 <div className='grid justify-center text-gray-700'>
-                                                                    <p className='text-center'>{a.discounttype==="Percentage" ? '₱'+(a.amount).toFixed(2)+" off" : a.amount+'% off'} </p>
+                                                                    <p className='text-center'>{a.discounttype==="Flat" ? '₱'+(a.amount).toFixed(2)+" off" : a.amount+'% off'} </p>
                                                                     <p className='text-center'>Atleast {'₱'+(a.minimum).toFixed(2)} spent </p>
                                                                 </div>
                                                             </div>

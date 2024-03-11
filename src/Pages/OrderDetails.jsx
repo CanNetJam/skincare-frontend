@@ -201,7 +201,7 @@ export default function OrderDetails() {
                             </div>
                             <div className="flex justify-between py-1">
                                 <p><b>Total amount:</b></p>
-                                <p>₱{orderData?.amountpaid!==undefined ? (orderData?.amountpaid).toFixed(2) : '--'}</p>
+                                <p className="text-lg font-semibold">₱{orderData?.amountpaid!==undefined ? (orderData?.amountpaid).toFixed(2) : '--'}</p>
                             </div>
                         </div>
                     </div>

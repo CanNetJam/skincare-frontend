@@ -103,7 +103,9 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
         const getProducts = async () => {
             try {
                 const products = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/product/get-all-products`)
-                setAvailableItems(products.data)
+                
+                const haha = products.data.filter((a)=> a._id!==toEdit._id)
+                setAvailableItems(haha)
             } catch (err) {
                 console.log(err)
             }
@@ -897,40 +899,41 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                         }} disabled={morrout.steps[0]===undefined || nigrout.steps[0]===undefined || morrout.skintype==="" ? true : false} type="button" className={`rounded-md max-w-[col-span-1] bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${morrout.steps[0]===undefined || nigrout.steps[0]===undefined || morrout.skintype==="" ? null : 'hover:bg-indigo-500'} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Update Routine</button>
                                                     </div>
                                                 </div>
-                                                
-                                                <div className="sm:col-span-3">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Package Items</label>
-                                                    <div className="mt-2 relative">
-                                                        <input onChange={e=>{
-                                                            setWord(e.target.value)
-                                                        }} value={word} type="text" name="word" id="word" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                                        
-                                                        {word!=="" ?
-                                                            <div className="grid gap-2 absolute bg-slate-100 h-auto max-h-[150px] w-full overflow-y-scroll rounded-b-xl no-scrollbar">
-                                                                {filteredProducts.map((a, index)=> {
-                                                                    return <label onClick={()=>{
-                                                                        setProduct({...product, relatedproducts: product.relatedproducts.concat([a])})
-                                                                        setWord("")
-                                                                    }} className="h-auto w-auto p-2 cursor-pointer hover:bg-gray-200" key={index}>{a.name}</label>
+                                                <div className="sm:col-span-6 sm:grid-cols-6 sm:grid sm:gap-4 border border-black rounded-lg p-8">
+                                                    <div className="sm:col-span-3">
+                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Variations </label>
+                                                        <div className="mt-2 relative">
+                                                            <input onChange={e=>{
+                                                                setWord(e.target.value)
+                                                            }} value={word} type="text" name="word" id="word" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                            
+                                                            {word!=="" ?
+                                                                <div className="grid gap-2 absolute bg-slate-100 h-auto max-h-[150px] w-full overflow-y-scroll rounded-b-xl no-scrollbar">
+                                                                    {filteredProducts.map((a, index)=> {
+                                                                        return <label onClick={()=>{
+                                                                            setProduct({...product, relatedproducts: product.relatedproducts.concat([a])})
+                                                                            setWord("")
+                                                                        }} className="h-auto w-auto p-2 cursor-pointer hover:bg-gray-200" key={index}>{a.name}</label>
+                                                                    })}
+                                                                </div>
+                                                            :null}
+                                                        </div>
+                                                    </div>
+                                                    <div className="sm:col-span-3">
+                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Products List</label>
+                                                        {product.relatedproducts[0]!==undefined ?
+                                                            <div className="mt-2 grid gap-2">
+                                                                {product.relatedproducts.map((a, index)=> {
+                                                                    return (
+                                                                        <div className="bg-blue-300 w-auto p-2 rounded-lg relative" key={index}>
+                                                                            <label onClick={()=>removeItem(a)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
+                                                                            <label>{a.name}</label>
+                                                                        </div>
+                                                                    )
                                                                 })}
                                                             </div>
-                                                        :null}
+                                                        :<span>No items yet</span>}
                                                     </div>
-                                                </div>
-                                                <div className="sm:col-span-3">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Products List</label>
-                                                    {product.relatedproducts[0]!==undefined ?
-                                                        <div className="grid gap-2">
-                                                            {product.relatedproducts.map((a, index)=> {
-                                                                return (
-                                                                    <div className="bg-blue-300 w-auto p-2 rounded-lg relative" key={index}>
-                                                                        <label onClick={()=>removeItem(a)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
-                                                                        <label>{a.name}</label>
-                                                                    </div>
-                                                                )
-                                                            })}
-                                                        </div>
-                                                    :<span>No items yet</span>}
                                                 </div>
                                             </div>
                                         </div>
@@ -940,7 +943,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                         <button onClick={()=>setIsEdit(false)} type="button" className="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
                                     </div>
                                 </form>
-
+                                <br/>
                                 <br/>
                                 {product?._id!=="" ? 
                                     <>

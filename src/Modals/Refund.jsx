@@ -278,7 +278,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                                                 <tr key={index}>
                                                     <td className="px-2 py-3 text-center">
                                                         {index+1}<br/>
-                                                        <input required={true} onChange={(e)=>{handleCheckbox(e.target.value)}} type="checkbox" value={JSON.stringify(a)} name="items" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                        <input required onChange={(e)=>{handleCheckbox(e.target.value)}} type="checkbox" value={JSON.stringify(a)} name="items" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
                                                     </td>
                                                     <td className="px-2 py-3 text-center">
                                                         {itemsToFocus?.map((b, index)=> {
@@ -391,7 +391,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                                         </div>
                                     </div>
                                     <div className='col-span-4 flex gap-2 justify-center border-t items-center py-2'>
-                                        <button disabled={loading===true ? true : false} type="submit" className={`w-auto flex gap-1 text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>
+                                        <button disabled={loading===true || itemsToFocus?.length<1 ? true : false} type="submit" className={`${loading===true || itemsToFocus?.length<1 ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'} w-auto flex gap-1 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>
                                             {loading===true ? 
                                                 <div role="status">
                                                     <svg aria-hidden="true" className="w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
