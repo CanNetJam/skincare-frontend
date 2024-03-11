@@ -14,6 +14,7 @@ import Attendance from './Attendance';
 import WorkplaceDecorum1 from './WorkplaceDecorum1';
 import WorkplaceDecorum2 from './WorkplaceDecorum2';
 import Fragile from './Fragile';
+import Laptop from './Laptop';
 
 export default function PBody({openMenu, setOpenMenu, openTab}) {
     const [ openLink, setOpenLink ] = useState("Loitering")
@@ -51,6 +52,9 @@ export default function PBody({openMenu, setOpenMenu, openTab}) {
             )}
             {openLink==="Fragile" && (
                 <Fragile/>
+            )}
+            {openLink==="Laptop" && (
+                <Laptop/>
             )}
 
             {openLink==="Code of Discipline" && (
