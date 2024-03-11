@@ -6,7 +6,7 @@ export default function Usage({usage, extra, moreimage}) {
     return (
         <>
             <div className="min-h-screen h-auto w-full items-center py-8 px-4 bg-blue-300">
-                <div className="container mx-auto h-auto max-w-6xl rounded-lg bg-white lg:flex sm:grid sm:grid-cols-3 grid">
+                <div className="container mx-auto h-auto max-w-6xl rounded-lg overflow-hidden bg-white lg:flex sm:grid sm:grid-cols-3 grid">
 
                     <div className="sm:grid flex h-full w-full">
                         <div className="sm:h-[45vh] min-h-[30vh] h-auto sm:w-full w-1/2 sm:p-8 p-6">

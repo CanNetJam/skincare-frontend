@@ -200,6 +200,19 @@ export default function AddPackage({isAdd, setIsAdd}) {
             theme: "light",
         })
     }
+    
+    function toastError2Notif() {
+        toast.error('Please select jpeg, png, and webp/svg picture formats only.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
 
     const handleFileUpload = (e) => {
         let file = e.target.files[0];
@@ -210,7 +223,12 @@ export default function AddPackage({isAdd, setIsAdd}) {
             toastErrorNotif()
             return
         } else {
-            setProductImage(productImage.concat([e.target.files[0]]))
+            if (fileType==="image/jpeg" || fileType==="image/png" || fileType==="image/webp" || fileType==="image/svg+xml") {
+                setProductImage(productImage.concat([e.target.files[0]]))
+            } else {
+                toastError2Notif()
+                return
+            }
         }
     }
 

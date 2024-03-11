@@ -238,7 +238,7 @@ export default function ProductReview({id, secondid, relatedproducts, mode}) {
                                                 }
                                             </div>
                                             <div className='grid'>
-                                                <b>{mostUpvote.userid.firstname}</b>
+                                                <b className='text-center w-full line-clamp-3'>{mostUpvote.userid.firstname}</b>
                                             </div>
                                         </div>
                                         <div className='h-full w-auto flex sm:items-end items-center'>

@@ -162,7 +162,18 @@ export default function Vouchers({openVouchers, setOpenVouchers}) {
                                                                         <Link target="_blank" to={`/order-details/${a.orderid}`} className="text-blue-400 hover:underline">{a.orderid}</Link>
                                                                     </div>
                                                                 </div>
-                                                            :null}
+                                                            :
+                                                                <div>
+                                                                    <div>
+                                                                        <b>Used by:</b> <br/>
+                                                                        None.
+                                                                    </div>
+                                                                    <div>
+                                                                        <b>Used on Order:</b> <br/>
+                                                                        None.
+                                                                    </div>
+                                                                </div>
+                                                            }
                                                         </div>
                                                     )
                                                 })}

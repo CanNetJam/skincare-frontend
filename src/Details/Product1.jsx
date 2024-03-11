@@ -32,8 +32,8 @@ export default function Product1() {
           x: 0, y: 0
         },
         controlledPosition: {
-          x: window.innerWidth>640 ? window.innerWidth-250 : window.innerWidth-125, 
-          y: window.innerWidth>640 ? window.innerHeight-350 : window.innerHeight-200
+          x: window.innerWidth>640 ? window.innerWidth-225 : window.innerWidth-125, 
+          y: window.innerWidth>640 ? window.innerHeight-400 : window.innerHeight-275
         }
     })
     
@@ -205,7 +205,7 @@ export default function Product1() {
                     <div className="py-8">
                         <h1 className="subHeading relative">{productData.name}
                             {productData?.price!==productData?.disprice ?
-                                <div className='absolute h-16 w-16 top-0 right-0 -rotate-[25deg]'>
+                                <div className='absolute h-16 w-16 top-0 -right-8 -rotate-[25deg]'>
                                     <img src='https://www.svgrepo.com/show/227966/sale.svg'/>
                                 </div>
                             :null}
@@ -262,12 +262,12 @@ export default function Product1() {
                     <br/>
                     {productData?.relatedproducts?.length>0 ? 
                         <>
-                            <h3 className="font-bold">Variations</h3>
+                            <h3 className="font-bold text-xl mb-2">Variations:</h3>
                             <div className="grid sm:grid-cols-3 grid-cols-2 gap-2 h-auto w-full ">
                                 
                                 {productData.relatedproducts.map((a)=> {
                                     return (
-                                        <div key={a._id} className="group relative text-xs rounded-md overflow-hidden">
+                                        <div key={a._id} className="border group relative text-xs rounded-md overflow-hidden">
                                             <div className="sm:h-32 h-24 w-full flex justify-center">
                                                 <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${a.displayimage}.jpg`}></img> 
                                             </div>
@@ -318,7 +318,7 @@ export default function Product1() {
             {floatingVideo===true ? 
                 <div className="fixed top-0 z-50 pointer-events-none" style={{height: '100vh', width: '100vw', padding: '0'}}>
                     <Draggable nodeRef={nodeRef} bounds="parent" position={state.controlledPosition} {...dragHandlers}>
-                        <div ref={nodeRef} className="h-min w-min pointer-events-auto shadow-md">
+                        <div ref={nodeRef} className="h-min w-min pointer-events-auto">
                             <FloatingVideo floatingVideo={floatingVideo} setFloatingVideo={setFloatingVideo} videos={productData?.videos ? productData?.videos : []}/>
                         </div>
                     </Draggable>
