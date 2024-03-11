@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useLocation, useParams } from 'react-router';
 import axios from "axios";
 import Routines from "../Components/Routines";
@@ -13,6 +13,9 @@ import EmailSubscription from '../Modals/EmailSubscription';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductReview from "../Components/ProductReview";
+import FloatingVideo from "../Components/FloatingVideo";
+import Draggable from 'react-draggable';
+import { Link } from 'react-router-dom';
 
 export default function Product1() {
     const { userData, setUserData } = useContext(UserContext)
@@ -21,6 +24,28 @@ export default function Product1() {
     const [ productData, setProductData ] = useState({})
     const [ quantity, setQuantity ] = useState(1)
     const [ isOpen, setIsOpen ] = useState(false)
+    const [ floatingVideo, setFloatingVideo ] = useState(true)
+    const nodeRef = useRef(null)
+    const [ state, setState ] = useState({
+        activeDrags: 0,
+        deltaPosition: {
+          x: 0, y: 0
+        },
+        controlledPosition: {
+          x: window.innerWidth>640 ? window.innerWidth-250 : window.innerWidth-125, 
+          y: window.innerWidth>640 ? window.innerHeight-350 : window.innerHeight-200
+        }
+    })
+    
+    let  onStart = () => {
+      setState({activeDrags: ++state.activeDrags});
+    }
+
+    let  onStop = () => {
+      setState({activeDrags: --state.activeDrags});
+    }
+
+    const dragHandlers = {onStart: onStart, onStop: onStop};
     
     useEffect(()=> {
         const windowOpen = () => {   
@@ -168,7 +193,7 @@ export default function Product1() {
     }
 
     return (
-        <>
+        <div>
             <div>
                 <Navbar/>
             </div>
@@ -231,8 +256,38 @@ export default function Product1() {
                                     Add to Cart
                                 </button>
                             </div>
+
                         </div>
                     </div>
+                    <br/>
+                    {productData?.relatedproducts?.length>0 ? 
+                        <>
+                            <h3 className="font-bold">Variations</h3>
+                            <div className="grid sm:grid-cols-3 grid-cols-2 gap-2 h-auto w-full ">
+                                
+                                {productData.relatedproducts.map((a)=> {
+                                    return (
+                                        <div key={a._id} className="group relative text-xs rounded-md overflow-hidden">
+                                            <div className="sm:h-32 h-24 w-full flex justify-center">
+                                                <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${a.displayimage}.jpg`}></img> 
+                                            </div>
+                                            <div className='hidden h-full group-hover:justify-center group-hover:items-center group-hover:block group-hover:bg-gray-100 group-hover:backdrop-blur-xs group-hover:bg-opacity-20 absolute inset-0'>
+                                                <p className="w-full font-bold py-1 text-center">{a.name}</p>
+                                                <div className="absolute top-2/3 -translate-y-1/3 left-1/2 -translate-x-1/2 grid sm:gap-1 gap-0.5">
+                                                    <Link target="_blank" to={`/details/product/${a._id}`} state={{productid: a._id}} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent hover:bg-gray-800 text-white bg-black focus:outline-none">Learn More</Link>
+                                                    {a.stock>0 ? 
+                                                        <button onClick={()=>handleAddToCart(a)} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent hover:bg-gray-800 text-white bg-black focus:outline-none">Add to Cart</button>
+                                                    :
+                                                        <button disabled={true} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent bg-gray-800 text-white focus:outline-none">Out of Stock</button>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </>
+                    :null}
                     <br/>
                     <br/>
                     <div className="flex justify-center"><h3 className="subHeading">Key Ingredients</h3></div>
@@ -259,6 +314,17 @@ export default function Product1() {
                     :null}
                 </div>
             </div>
+
+            {floatingVideo===true ? 
+                <div className="fixed top-0 z-50 pointer-events-none" style={{height: '100vh', width: '100vw', padding: '0'}}>
+                    <Draggable nodeRef={nodeRef} bounds="parent" position={state.controlledPosition} {...dragHandlers}>
+                        <div ref={nodeRef} className="h-min w-min pointer-events-auto shadow-md">
+                            <FloatingVideo floatingVideo={floatingVideo} setFloatingVideo={setFloatingVideo} videos={productData?.videos ? productData?.videos : []}/>
+                        </div>
+                    </Draggable>
+                </div>
+            :null}
+            
             <Usage usage={productData?.usage} extra={productData?.extra} moreimage={productData?.moreimage ? productData.moreimage : []}/>
             <Routines routines={productData?.routines}/>
             {productData?.do ?
@@ -269,8 +335,8 @@ export default function Product1() {
                 </>
             :null}
             <Precautions />
-            <ProductReview id={id} secondid={location.state?.productid} mode={"View"}/>
+            <ProductReview id={id} secondid={location.state?.productid} relatedproducts={productData?.relatedproducts!==undefined ? productData.relatedproducts : []} mode={"View"}/>
             <Footer/>
-        </>
+        </div>
     )
 }

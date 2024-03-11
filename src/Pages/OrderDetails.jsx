@@ -41,7 +41,7 @@ export default function OrderDetails() {
         }
         getOrder()
     }, [isEdit])
-    
+
     return (
         <div>
             <Navbar/>
@@ -182,8 +182,22 @@ export default function OrderDetails() {
                                 <p>₱{orderData?.shippingfee!==undefined ? (orderData?.shippingfee).toFixed(2) : '--'}</p>
                             </div>
                             <div className="flex justify-between py-1">
-                                <p>Voucher: <span className="text-blue-400 font-bold">{orderData.discountid!=='' && orderData.discountid ? orderData.discount+'%': ''}</span></p>
-                                <p>{orderData.discountid!=='' && orderData.discountid ? `- ₱${((orderData.amounttotal+orderData.shippingfee)*(orderData?.discount/100)).toFixed(2)}`: '--'}</p>
+                                <p>Voucher: 
+                                    <span className="text-blue-500 font-bold">
+                                        {orderData.discountid!=='' && orderData.discountid ? 
+                                            orderData.discounttype==="Percentage" ?
+                                                orderData.discountcode +" (" +orderData.discount+'%)'
+                                            : orderData.discountcode +" (" +'₱'+orderData.discount+")"
+                                        : ''}
+                                    </span>
+                                </p>
+                                <p>
+                                    {orderData.discountid!=='' && orderData.discountid ? 
+                                        orderData.discounttype==="Percentage" ?
+                                        `- ₱${((orderData.amounttotal)*(orderData?.discount/100)).toFixed(2)}`
+                                        : `- ₱${(orderData.discount).toFixed(2)}`
+                                    : '--'}
+                                </p>
                             </div>
                             <div className="flex justify-between py-1">
                                 <p><b>Total amount:</b></p>
@@ -211,7 +225,6 @@ export default function OrderDetails() {
                                     <h4 className="my-2 sm:text-xl text-lg">Already sumbitted a ticket.</h4>
                                     <Link to={`/ticket-details/${orderData.ticketid}`} className="relative h-auto flex items-center text-center font-semibold py-1 w-auto sm:px-12 px-1 rounded-xl bg-slate-900 text-slate-50 hover:bg-slate-800">View Ticket</Link>
                                 </div>
-
                             }
                         </>
                     :null}

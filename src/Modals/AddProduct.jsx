@@ -26,7 +26,8 @@ export default function AddProduct({isAdd, setIsAdd}) {
         routines: [], 
         usage: "",
         extra: "",
-        moreimage: []
+        moreimage: [],
+        videos: []
     })
     const [ prodIngredients, setProdIngredients ] = useState([])
     const [ prodIngredients2, setProdIngredients2 ] = useState([])
@@ -65,7 +66,9 @@ export default function AddProduct({isAdd, setIsAdd}) {
     const CreateProductImageField = useRef()
     const [ productMoreImage, setProductMoreImage ] = useState([])
     const CreateProductMoreImageField = useRef()
-    const [ variation, setVariation ] = useState([])
+
+    const VideosField = useRef()
+    const [ productVideos, setProductVideos ] = useState([])
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -158,6 +161,24 @@ export default function AddProduct({isAdd, setIsAdd}) {
                     data.append("ingphoto[]", cloud_image)
                 }
                 setProduct({...product, ingredients: prodIngredients2})
+            }
+
+            if (productVideos.length>0) {
+                for (let i=0; i<productVideos.length; i++) {
+                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
+
+                    const image = new FormData()
+                    image.append("file", productVideos[i])
+                    image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
+                    image.append("signature", signatureResponse.data.signature)
+                    image.append("timestamp", signatureResponse.data.timestamp)
+
+                    const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
+                    headers: { "Content-Type": "multipart/form-data" }})
+
+                    let cloud_video = cloudinaryResponse.data.public_id
+                    data.append("prodvid[]", cloud_video)
+                }
             }
             
             data.append("name", product.name)
@@ -301,6 +322,51 @@ export default function AddProduct({isAdd, setIsAdd}) {
         }
     }
 
+    function toastError1Notif() {
+        toast.error('File size too large, please select a file that is lower than 15 mb.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    function toastError2Notif() {
+        toast.error('Please select mp4 video formats only.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    const handleVideoUpload = (e) => {
+        let file = e.target.files[0];
+        let fileType = file.type; 
+        let fileSize = file.size; 
+        if (fileSize > 15 * 1000000) {
+            toastError1Notif()
+            VideosField.current.value=""
+            return
+        } else {
+            if (fileType==="video/mp4") {
+                setProductVideos([file])
+            } else {
+                toastError2Notif()
+                VideosField.current.value=""
+                return
+            }
+        }
+    }
+
     return (
         <>
             <Transition appear show={isAdd} as={Fragment}>
@@ -375,29 +441,39 @@ export default function AddProduct({isAdd, setIsAdd}) {
                                                         <option>Sunscreen</option>
                                                     </select>
                                                 </div>
-                                                <div className="sm:col-span-4">
+
+                                                <div className="sm:col-span-2">
+                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Product Image</label>
+                                                    <input required ref={CreateProductImageField} onChange={e => setProductImage(productImage.concat([e.target.files[0]]))} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
+                                                </div>
+                                                <div className="sm:col-span-2">
+                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Additonal Images</label>
+                                                    <input required multiple ref={CreateProductMoreImageField} onChange={handleFileUpload} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
+                                                </div>
+                                                <div className="sm:col-span-2">
+                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Product Video</label>
+                                                    <input required ref={VideosField} onChange={(e)=>handleVideoUpload(e)} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
+                                                </div>
+
+                                                <div className="sm:col-span-3">
                                                     <label className="block text-sm font-medium leading-6 text-gray-900">Product Description</label>
                                                     <div className="mt-2 w-full">
                                                         <textarea onChange={handleChange} value={product.maindesc} rows={5} id="maindesc" name="maindesc" type="text" required className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
-                                                <div className="sm:col-span-2 ">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Product Image</label>
-                                                    <input required ref={CreateProductImageField} onChange={e => setProductImage(productImage.concat([e.target.files[0]]))} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
-                                                    <br/>
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Additonal Images</label>
-                                                    <input required multiple ref={CreateProductMoreImageField} onChange={handleFileUpload} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
-                                                </div>
-                                                <div className="sm:col-span-3">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">How to Use</label>
-                                                    <div className="mt-2">
-                                                        <textarea onChange={handleChange} rows={3} value={product.usage} type="text" name="usage" id="product-usage" required className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                <div className="sm:col-span-3 grid grid-cols-2 gap-6">
+                                                    <div>
+                                                        <label className="block text-sm font-medium leading-6 text-gray-900">How to Use</label>
+                                                        <div className="mt-2">
+                                                            <textarea onChange={handleChange} rows={5} value={product.usage} type="text" name="usage" id="product-usage" required className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="sm:col-span-3">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Specific Precautions</label>
-                                                    <div className="mt-2">
-                                                        <textarea onChange={handleChange} rows={3} value={product.extra} type="text" name="extra" id="product-extra" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+
+                                                    <div>
+                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Specific Precautions</label>
+                                                        <div className="mt-2">
+                                                            <textarea onChange={handleChange} rows={5} value={product.extra} type="text" name="extra" id="product-extra" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -408,7 +484,7 @@ export default function AddProduct({isAdd, setIsAdd}) {
                                                             <input onChange={e => setIngredient({...ingredient, name: e.target.value})} value={ingredient.name} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                         </div>
                                                         <label className="block text-sm font-medium leading-6 text-white">Ingredient name</label>
-                                                        <input ref={CreatePhotoField} onChange={fileChange} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
+                                                            <input ref={CreatePhotoField} onChange={fileChange} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
                                                         <br/>
                                                         <label className="block text-sm font-medium leading-6 text-gray-900">Description</label>
                                                         <div className="mt-2 w-full">

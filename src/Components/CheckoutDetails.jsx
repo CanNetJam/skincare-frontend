@@ -42,7 +42,7 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
         }
         setDrafts()
     }, [userData])
-
+    
     async function submitHandler(e) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {
@@ -64,9 +64,11 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
             data.append("amounttotal", cartTotal)
             data.append("subtotal", subTotal)
             data.append("shippingfee", shippingFee)
-            data.append("discount", currentVoucher.amount!==undefined ? currentVoucher.amount : 0)
-            data.append("discountid", currentVoucher._id!==undefined ? currentVoucher._id : "")
-            
+            data.append("discount", currentVoucher.amount!==undefined ? currentVoucher.minimum<cartTotal ? currentVoucher.amount : 0 : 0)
+            data.append("discountid", currentVoucher._id!==undefined ? currentVoucher.minimum<cartTotal ? currentVoucher._id : '' : '')
+            data.append("discounttype", currentVoucher.amount!==undefined ? currentVoucher.minimum<cartTotal ? currentVoucher.discounttype : '': '')
+            data.append("discountcode", currentVoucher.amount!==undefined ? currentVoucher.minimum<cartTotal ? currentVoucher.encryptedvoucher : '': '')
+
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/orders/submit-order/${userData.user._id}`, data, 
             { headers: { "Content-Type": "application/json", "auth-token": token } })
             
@@ -147,7 +149,7 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
             toastSuccessNotification()
         }
     }
-
+    
     return (
         <>
             <div className="grid">

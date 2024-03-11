@@ -18,7 +18,7 @@ export default function Usage({usage, extra, moreimage}) {
                         </div>
                         {moreimage[0]!==undefined ? 
                             <div className="sm:h-[45vh] min-h-[30vh] h-auto sm:w-full w-1/2 flex">
-                                <img className='w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${moreimage[0]}.jpg`}></img>
+                                <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${moreimage[0]}.jpg`}></img>
                             </div>
                         :null} 
                     </div>

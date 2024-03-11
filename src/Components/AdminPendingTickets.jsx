@@ -148,7 +148,8 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                     :null}
                                                     </div>
                                                 :null}
-                                                <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><Link to={`/order-details/${a.orderid._id}`} className='hover:underline cursor-pointer'>View Order Details</Link></button>
+                                                {console.log(a.orderid)}
+                                                <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><Link to={`/order-details/${a.orderid?._id}`} className='hover:underline cursor-pointer'>View Order Details</Link></button>
                                                 <button className="font-medium text-blue-500 dark:text-blue-400 hover:underline"><Link to={`/ticket-details/${a._id}`} className='hover:underline cursor-pointer'>View Ticket Details</Link></button>
                                                 {tab==="Pending Tickets" && a.expiresAt>new Date().toISOString() && a.status==="Investigating" ? 
                                                     <button onClick={()=>{

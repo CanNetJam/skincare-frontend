@@ -103,14 +103,26 @@ function CartDetails() {
                 setSubTotal(total)
                 if (currentVoucher!=="") {
                     if (currentVoucher.type==="Discount") {
-                        if (currentVoucher.minimum>total) {
-                            setInitialTotal(total+shippingFee)
-                            setCartTotal(total+shippingFee)
-                        } else {
-                            let discount = ((total)*(currentVoucher?.amount/100)).toFixed(2)
-                            setDiscount(discount)
-                            setInitialTotal(total+shippingFee)
-                            setCartTotal((total-discount)+shippingFee)
+                        if (currentVoucher.discounttype==="Percentage") {
+                            if (currentVoucher.minimum>total) {
+                                setInitialTotal(total+shippingFee)
+                                setCartTotal(total+shippingFee)
+                            } else {
+                                let discount = ((total)*(currentVoucher?.amount/100)).toFixed(2)
+                                setDiscount(discount)
+                                setInitialTotal(total+shippingFee)
+                                setCartTotal((total-discount)+shippingFee)
+                            }
+                        } else if (currentVoucher.discounttype==="Flat") {
+                            if (currentVoucher.minimum>total) {
+                                setInitialTotal(total+shippingFee)
+                                setCartTotal(total+shippingFee)
+                            } else {
+                                let discount = (currentVoucher?.amount).toFixed(2)
+                                setDiscount(discount)
+                                setInitialTotal(total+shippingFee)
+                                setCartTotal((total-discount)+shippingFee)
+                            }
                         }
                     }
                 } else {
@@ -371,16 +383,17 @@ function CartDetails() {
                                     <dt>Subtotal: </dt>
                                     <dd className='font-bold text-black'>₱ <b>{subTotal.toFixed(2)}</b></dd>
                                 </div>
+                                {discount!==0 && currentVoucher.minimum<initalTotal ? 
+                                    <div className="flex gap-6 justify-between">
+                                        <dt>Discount: <span className='text-blue-500 font-bold'>{currentVoucher.discounttype==="Percentage" ? currentVoucher.amount+'%' : ' ₱'+(currentVoucher.amount).toFixed(2)}</span></dt>
+                                        <dd className='font-bold text-blue-500'>- ₱ <b>{discount}</b></dd>
+                                    </div>
+                                :null}
+                                
                                 {cartData.length>0 ? 
                                     <div className="flex gap-6 justify-between">
                                         <dt>Shipping: </dt>
                                         <dd className='font-bold text-black'>₱ <b>{shippingFee.toFixed(2)}</b></dd>
-                                    </div>
-                                :null}
-                                {discount!==0 && currentVoucher.minimum<initalTotal ? 
-                                    <div className="flex gap-6 justify-between">
-                                        <dt>Discount: <span className='text-blue-500 font-bold'>{currentVoucher.amount}%</span></dt>
-                                        <dd className='font-bold text-blue-500'>- ₱ <b>{discount}</b></dd>
                                     </div>
                                 :null}
                                 <div className="border-t-2 py-2 !text-base font-medium">

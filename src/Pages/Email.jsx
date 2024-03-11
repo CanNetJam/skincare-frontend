@@ -10,6 +10,7 @@ import DeleteEmail from '../Modals/DeleteEmail';
 import {UserContext} from "../App";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Vouchers from '../Modals/Vouchers';
 
 export default function Email() {
     const { userData, setUserData } = useContext(UserContext)
@@ -34,6 +35,8 @@ export default function Email() {
     const [ accountsToSend, setAccountsToSend] = useState([])
     const [ discount, setDiscount ] = useState(0)
     const [ minimum, setMinimum ] = useState(0)
+    const [ percentage, setPercentage ] = useState(true)
+    const [ openVouchers, setOpenVouchers ] = useState(false)
 
     const exportFile = useCallback(() => {
         /* generate worksheet from state */
@@ -184,6 +187,7 @@ export default function Email() {
                 const data = new FormData()
                 data.append("discount", discount)
                 data.append("minimum", minimum)
+                data.append("percentage", percentage)
                 data.append("emails", JSON.stringify(accountsToSend))
                 let token = localStorage.getItem("auth-token")
                 const generateVoucher = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/vouchers/generate-vouchers`, data, { headers: { "Content-Type": "application/json", "auth-token": token } })
@@ -193,6 +197,7 @@ export default function Email() {
                     }
                     setAccountsToSend([])
                     setDiscount(0)
+                    setMinimum(0)
                 } 
             } catch (err) {
                 toastErrorNotification(err.response.data.rejected[0])
@@ -201,6 +206,7 @@ export default function Email() {
                 }
                 setAccountsToSend([])
                 setDiscount(0)
+                setMinimum(0)
             }
         }
         toast.promise(
@@ -219,6 +225,9 @@ export default function Email() {
         {isDelete && (
             <DeleteEmail isDelete={isDelete} setIsDelete={setIsDelete} toDelete={toDelete} setToDelete={setToDelete}/>
         )} 
+        {openVouchers===true && (
+            <Vouchers openVouchers={openVouchers} setOpenVouchers={setOpenVouchers}/>
+        )} 
         <div className='min-h-screen h-auto pt-16 w-full container mx-auto sm:p-10 p-4'>
             <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Email Subscriptions</h1>
             <div className='grid sm:flex sm:justify-between'>
@@ -230,6 +239,10 @@ export default function Email() {
                     </div>
                     <input onChange={(e)=>setSearch(e.target.value)} type="text" id="table-search" className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search email..."/>
                 </div> 
+
+                <div>
+                    <button onClick={()=>setOpenVouchers(!openVouchers)} className="mt-1 w-full bg-blue-500 p-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md">Voucher List</button>
+                </div>
             
                 <div className="flex relative gap-2 flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-end pb-4">
                     <button onClick={()=>exportFile()} className='mt-1 w-full bg-blue-500 px-4 py-1 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md'>
@@ -311,8 +324,18 @@ export default function Email() {
                     </div>
 
                     <form onSubmit={(e)=>handleDiscount(e)} className='sm:flex grid gap-2 items-center whitespace-nowrap'>
-                        <label htmlFor='percentage'>Enter percentage:</label>
-                        <input required onChange={(e)=>setDiscount(e.target.value)} value={discount} type='number' name="percentage" id="percentage" className="w-16 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                        <div className="relative">
+                            <label htmlFor='percentage'>Enter {percentage===true ? 'percentage' : 'amount'}: </label>
+                            <input required onChange={(e)=>setDiscount(e.target.value)} value={discount} type='number' name="percentage" id="percentage" className="w-24 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                            <button onClick={()=>{
+                                if (percentage===false){
+                                    setPercentage(true)
+                                } else if (percentage===true){
+                                    setPercentage(false)
+                                }
+                            }} type='button' className="absolute top-1/2 -translate-y-1/2 right-2 bg-blue-500 hover:bg-blue-400 rounded-lg px-1 text-white">{percentage===true ? '%' : '.00'}</button>
+                        </div>
+
                         <label htmlFor='minimum'>Minimum:</label>
                         <input required onChange={(e)=>setMinimum(e.target.value)} value={minimum} type='number' name="minimum" id="minimum" className="w-16 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                         <button  className='bg-blue-400 before:bg-yellow-200 before:-z-10 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden relative text-center py-1 h-auto w-min whitespace-nowrap sm:px-3 px-1 font-bold rounded-lg'>Send Voucher</button>

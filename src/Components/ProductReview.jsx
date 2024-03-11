@@ -5,7 +5,7 @@ import axios from 'axios';
 import ReadMore from './ReadMore';
 import DeleteComment from '../Modals/DeleteComment';
 
-export default function ProductReview({id, secondid, mode}) {
+export default function ProductReview({id, secondid, relatedproducts, mode}) {
     const ratings = [1,2,3,4,5]
     const [ reviews, setReviews ] = useState([])
     const [ allReviews, setAllReviews ] = useState([])
@@ -41,8 +41,16 @@ export default function ProductReview({id, secondid, mode}) {
         let isCancelled = false
         const getReviews = async () => {   
             try {
+                let productlist = []
+                productlist.push(id ? id : secondid)
+                if (relatedproducts.length>0) {
+                    for (let i=0; i<relatedproducts.length; i++) {
+                        productlist.push(relatedproducts[i])
+                    }
+                }
+
                 let token = localStorage.getItem("auth-token")
-                const res = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/reviews/${id ? id : secondid}`, 
+                const res = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/reviews/get-reviews`,
                 { 
                     headers: { "Content-Type": "application/json", "auth-token": token }, 
                     params: {
@@ -50,6 +58,7 @@ export default function ProductReview({id, secondid, mode}) {
                         filterBy: filterBy,
                         page: page,
                         limit: pageEntries,
+                        productlist: productlist
                     }
                 })
 
@@ -73,7 +82,7 @@ export default function ProductReview({id, secondid, mode}) {
         return ()=> {
             isCancelled = true
         }
-    }, [ page, pageEntries, sortBy, filterBy, toUpvote, isDelete ])
+    }, [ page, pageEntries, sortBy, filterBy, toUpvote, isDelete, relatedproducts ])
 
     useEffect(() => {
         const computeTotal = async () => {
