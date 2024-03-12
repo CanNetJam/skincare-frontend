@@ -33,7 +33,7 @@ export default function Product1() {
         },
         controlledPosition: {
           x: window.innerWidth>640 ? window.innerWidth-225 : window.innerWidth-125, 
-          y: window.innerWidth>640 ? window.innerHeight-400 : window.innerHeight-275
+          y: window.innerWidth>640 ? window.innerHeight-380 : window.innerHeight-275
         }
     })
     

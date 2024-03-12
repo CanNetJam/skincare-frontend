@@ -39,6 +39,11 @@ export default function Laptop() {
                     }} className='cursor-pointer w-full grid justify-center'>
                     <PdfViewer pdfFile={pdf} />
                 </div>
+                <br/>
+                <div className='container mx-auto w-2xl'>
+                    <p className='text-center font-bold text-lg'>Proper storage of any cables:</p>
+                    <iframe className='h-96 w-full' src="https://drive.google.com/file/d/1VL9lp0mO9h4qvAcnaGWIkMu2A0bm_jDD/preview" allow="autoplay"></iframe>
+                </div>
                 <PolicyEmail userData={userData?.user} policytitle={["Auditing of Klued Laptops (IP-015)"]}/>
             </section>
         </div>

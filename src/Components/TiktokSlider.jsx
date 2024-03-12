@@ -33,7 +33,7 @@ export default function TiktokSlider({videos, videoPlayer, setVideoPlayer, setPa
                                         setVideoPlayer(true)
                                     }}
                                 >
-                                    <source src={video.video} type="video/mp4" />
+                                    <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_65/${video.source}.mp4`} type="video/mp4" />
                                 </video>
                             </div>
                         )
@@ -62,10 +62,6 @@ export default function TiktokSlider({videos, videoPlayer, setVideoPlayer, setPa
                             </>
                         :null}
                     </>
-                :null}
-                
-                {videoPlayer===true ? 
-                    null
                 :null}
             </div>
         </div>

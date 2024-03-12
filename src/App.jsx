@@ -37,6 +37,7 @@ const Policy = lazy(() => import('./Pages/Policy'));
 const UserAccounts = lazy(() => import('./Pages/UserAccounts'));
 const UpdateProduct = lazy(() => import('./Pages/UpdateProduct'));
 const UpdatePackage = lazy(() => import('./Pages/UpdatePackage'));
+const UpdateVideos = lazy(() => import('./Pages/UpdateVideos'));
 const Email = lazy(() => import('./Pages/Email'));
 const EmailVerification = lazy(() => import('./Pages/EmailVerification'));
 const AdminOrders = lazy(() => import('./Pages/AdminOrders'));
@@ -245,6 +246,7 @@ const App = () => {
                     <Route path="/user-accounts" element={GeneralAdminRoute(<Suspense fallback={<Loading />}><UserAccounts /></Suspense>) } />
                     <Route path="/update-product" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdateProduct /></Suspense>)} />
                     <Route path="/update-package" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdatePackage /></Suspense>)} />
+                    <Route path="/update-videos" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdateVideos /></Suspense>)} />
 
                     <Route path="/all-orders" element={SalesAdminRoute(<Suspense fallback={<Loading />}><AdminOrders /></Suspense>)} />
                     <Route path="/all-tickets" element={SalesAdminRoute(<Suspense fallback={<Loading />}><AdminTickets /></Suspense>)} />

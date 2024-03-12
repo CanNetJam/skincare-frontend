@@ -209,7 +209,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                     className="h-full w-full object-cover"
                                                     preload="metadata"
                                                 >
-                                                    <source src={video.video} type="video/mp4" />
+                                                    <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_30/${video.source}.mp4`} type="video/mp4" />
                                                 </video>
                                             </div>
                                             )
@@ -230,7 +230,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                         className="h-full w-full object-cover"
                                                         preload="metadata"
                                                     >
-                                                        <source src={video.video} type="video/mp4" />
+                                                        <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_30/${video.source}.mp4`} type="video/mp4" />
                                                     </video>
                                                 </div>
                                                 )
@@ -255,26 +255,34 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                             onTimeUpdate={(e) => {
                                                 setProgress(((e.target.currentTime / e.target.duration)*100).toFixed())
                                             }}
-                                            src={video.video}
+                                            src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_75/${video.source}.mp4`}
                                             type="video/mp4"
                                         />
 
                                         <div className='absolute bottom-4'>
                                             <div className='h-50 sm:w-[350px] w-screen relative'>
-                                                    {sentProductData.length>0 ? 
+                                                    {video?.items.length>0 ? 
                                                         <div ref={ref} id='items' className="px-6 flex w-auto overflow-x-auto no-scrollbar scroll-smooth gap-4">
-                                                            {sentProductData.map((a, index)=> {
+                                                            {video?.items.map((a, index)=> {
                                                                 return (
                                                                     <div key={index} className='col-span 1 h-42 sm:w-[300px] w-full flex-shrink-0 bg-gray-100 rounded-md p-2'>
                                                                         <div className='grid grid-cols-3 gap-2'>
-                                                                            <div className='col-span-1 h-full w-full'>
+                                                                            <div className='col-span-1 h-24 w-24'>
                                                                                 <img className='rounded-md h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a?.displayimage}.jpg`}/>
                                                                             </div>
                                                                             <div className='col-span-2 grid gap-1'>
-                                                                                <Link target='_blank' to={a?.price ? `/details/product/${a?._id}` : `/details/package/${a?._id}`} className='font-semibold hover:underline line-clamp-2'>{a?.name}</Link>
-                                                                                <p className="tinyText">₱ {a?.price ? a?.price : a?.origprice}.00</p>
-                                                                                <div className='h-auto w-full flex items-end'>
-                                                                                    <button onClick={()=>handleAddToCart(a)} disabled={a.stock<1 ? true : false} className={`${a.stock<1 ? 'bg-gray-400' : 'before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-white transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-1 h-full w-full sm:px-3 px-1 font-bold rounded-lg `}>{a.stock<1 ? "Out of Stock" : "Add to Cart"}</button>
+                                                                                <Link target='_blank' to={`/details/product/${a?._id}`} className='font-semibold hover:underline line-clamp-2'>{a?.name}</Link>
+                                                                                {console.log(a)}
+                                                                                <div className='h-full w-full grid grid-cols-3 gap-0'>
+                                                                                    <a href={a?.productlinks?.shopee} target="_blank" className="sm:h-12 sm:w-12 h-10 w-10 overflow-hidden rounded-xl sm:p-2 p-0 cursor-pointer">
+                                                                                        <img className='h-full w-full object-contain' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopee_logo.svg/1200px-Shopee_logo.svg.png"></img>
+                                                                                    </a>
+                                                                                    <a href={a?.productlinks?.lazada} target="_blank" className="sm:h-12 sm:w-12 h-10 w-10 overflow-hidden rounded-xl sm:p-1.5 p-0 cursor-pointer">
+                                                                                        <img className='h-full w-full object-contain' src="https://w7.pngwing.com/pngs/331/607/png-transparent-lazada-logo-thumbnail.png"></img>
+                                                                                    </a>
+                                                                                    <a href={a?.productlinks?.tiktok} target='_blank' className="sm:h-12 sm:w-12 h-10 w-10 overflow-hidden rounded-xl sm:p-4 p-0 cursor-pointer">
+                                                                                        <img className='h-full w-full object-contain' src="https://static-00.iconduck.com/assets.00/tiktok-icon-1890x2048-ihin0vop.png"></img>
+                                                                                    </a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -283,7 +291,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                             })}
                                                             {window.innerWidth >=639 ? 
                                                                 <>
-                                                                {sentProductData.length>1 ? 
+                                                                {video?.items.length>1 ? 
                                                                     <>
                                                                         {ref?.current?.scrollLeft>0 ? 
                                                                             <div className="absolute top-1/2 left-0 -translate-y-1/2 z-10">
@@ -372,7 +380,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                     className="h-full w-full object-cover"
                                                     preload="metadata"
                                                 >
-                                                    <source src={video.video} type="video/mp4" />
+                                                    <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_30/${video.source}.mp4`} type="video/mp4" />
                                                 </video>
                                             </div>
                                             )
@@ -394,7 +402,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                         className="h-full w-full object-cover"
                                                         preload="metadata"
                                                     >
-                                                        <source src={video.video} type="video/mp4" />
+                                                        <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_30/${video.source}.mp4`} type="video/mp4" />
                                                     </video>
                                                 </div>
                                                 )
