@@ -61,7 +61,7 @@ function Faq() {
                         <div>
                             <h3 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Frequently Asked Questions</h3>
                             <br/>
-                            <p className='text-center'>We understand that you have a lot of questions regarding our products and all off its characteristics and capabilities, therefore feel free to browse through the questions below so that hopefully one of your questions would be answered immediately. In cases where you can not find what you are looking for, please send as a message through Chat!</p>
+                            <p className='text-center'>We understand that you have a lot of questions regarding our products and all of its characteristics and capabilities, therefore feel free to browse through the questions below so that hopefully one of your questions would be answered immediately. In cases where you can not find what you are looking for, please send as a message through Messenger chat!</p>
                             <br/>
 
                             <div className="border-t-2 grid">

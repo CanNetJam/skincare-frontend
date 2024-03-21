@@ -83,12 +83,27 @@ export default function DeleteVideo({isDelete, setIsDelete, toDelete, setToDelet
                         <svg height="30" width="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill='red' d="m2.095 19.886 9.248-16.5c.133-.237.384-.384.657-.384.272 0 .524.147.656.384l9.248 16.5c.064.115.096.241.096.367 0 .385-.309.749-.752.749h-18.496c-.44 0-.752-.36-.752-.749 0-.126.031-.252.095-.367zm1.935-.384h15.939l-7.97-14.219zm7.972-6.497c-.414 0-.75.336-.75.75v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5c0-.414-.336-.75-.75-.75zm-.002-3c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1z"/></svg>
                         
                     </Dialog.Title>
-                    <div className="mt-2">
+                    <div className="mt-2 grid justify-center">
                         <p className="text-sm text-gray-600 text-center">
-                            You are about to delete the email of <b>{toDelete.title}</b>. 
+                            You are about to delete the video titled <b>{toDelete.title}</b>. 
                         <br/>
+                        <div className='h-56 w-full border'>
+                            <video
+                                className="h-full rounded-md w-full object-contain cursor-pointer"
+                                preload="metadata"
+                                muted
+                                loop
+                                //poster="URL" for video thumbnail
+                                onMouseOver={event => {
+                                    event.target.play()
+                                }}
+                                onMouseOut={event => event.target.pause()}
+                            >
+                                <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_50/${toDelete.source}.mp4`} type="video/mp4" />
+                            </video>
+                        </div>
                         <br/>
-                            This action is irreversible, please proceed with caution. This email will be deleted <b>forever</b> and can not be recovered.
+                            This action is irreversible, please proceed with caution. This video will be deleted <b>forever</b> and can not be recovered.
                         </p>
                     </div>
 

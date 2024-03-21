@@ -25,7 +25,7 @@ export default function UpdateVideos() {
             }
         }
         getProducts()
-    }, [submitted])
+    }, [submitted, isDelete ,isEdit])
     
     return (
         <div>
@@ -51,7 +51,7 @@ export default function UpdateVideos() {
                         <>
                             {availableItems.map((a)=>{
                                 return (
-                                    <div className="max-h-[75vh] bg-gray-100 p-2 flex-shrink-0 shadow-md shadow-gray-300" key={a._id}>
+                                    <div className="max-h-[65vh] bg-gray-100 p-2 flex-shrink-0 shadow-md shadow-gray-300" key={a._id}>
                                         <div className="py-2 flex justify-between">
                                             <button onClick={()=>{
                                                             setIsEdit(true)

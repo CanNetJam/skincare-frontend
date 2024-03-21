@@ -43,6 +43,7 @@ const EmailVerification = lazy(() => import('./Pages/EmailVerification'));
 const AdminOrders = lazy(() => import('./Pages/AdminOrders'));
 const AdminTickets = lazy(() => import('./Pages/AdminTickets'));
 const Tickets = lazy(() => import('./Pages/Tickets'));
+const SalesReport = lazy(() => import('./Pages/SalesReport'));
 
 import Loading from './Components/Loading';
 
@@ -175,6 +176,15 @@ const App = () => {
         return <Navigate  to="/" />
     }
 
+    const SuperAdminRoute = ( children ) => {
+        let type = localStorage.getItem("user-type")
+        if (type==="Super Admin") {
+            return children
+        }
+        return <Navigate  to="/" />
+    }
+
+
     return (
         <HashRouter basename="/">
             <UserContext.Provider value={{ userData, setUserData }}>
@@ -250,6 +260,8 @@ const App = () => {
 
                     <Route path="/all-orders" element={SalesAdminRoute(<Suspense fallback={<Loading />}><AdminOrders /></Suspense>)} />
                     <Route path="/all-tickets" element={SalesAdminRoute(<Suspense fallback={<Loading />}><AdminTickets /></Suspense>)} />
+
+                    <Route path="/sales-report" element={SuperAdminRoute(<Suspense fallback={<Loading />}><SalesReport /></Suspense>)} />
 
                     <Route path="*" element={<NotFound />} />
                 </Routes>

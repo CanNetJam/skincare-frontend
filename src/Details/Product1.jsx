@@ -23,6 +23,7 @@ export default function Product1() {
     const {id} = useParams()
     const [ productData, setProductData ] = useState({})
     const [ quantity, setQuantity ] = useState(1)
+    const ref = useRef(null)
     const [ isOpen, setIsOpen ] = useState(false)
     const [ floatingVideo, setFloatingVideo ] = useState(true)
     const nodeRef = useRef(null)
@@ -200,8 +201,8 @@ export default function Product1() {
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
-            <div className="h-full w-full sm:flex grid grid-cols-3 container max-w-6xl mx-auto gap-0">
-                <div className="bg-gray-50 backdrop-blur-xs bg-opacity-50 min-h-[200vh] h-auto w-full col-span-2 sm:px-20 z-10 px-4 py-16">
+            <div ref={ref} className="h-full w-full sm:flex grid grid-cols-3 container max-w-6xl mx-auto gap-0">
+                <div className="bg-gray-50 backdrop-blur-xs bg-opacity-50 h-auto w-full col-span-2 sm:px-20 z-10 px-4 py-16">
                     <div className="py-8">
                         <h1 className="subHeading relative">{productData.name}
                             {productData?.price!==productData?.disprice ?

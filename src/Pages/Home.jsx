@@ -8,136 +8,14 @@ import VideoPlayer from '../Components/VideoPlayer';
 import axios from "axios";
 import EmailSubscription from '../Modals/EmailSubscription';
 
-import video1 from '../assets/video1.mp4';
-import video2 from '../assets/video2.mp4';
-import video3 from '../assets/video3.mp4';
-import video4 from '../assets/video4.mp4';
-import video5 from '../assets/video5.mp4';
-import video6 from '../assets/video6.mp4';
-import video7 from '../assets/video7.mp4';
-import video8 from '../assets/video8.mp4';
-
 function Home() {
-    // const videos = [
-    //     {
-    //     video: video1,
-    //     item: [
-    //         "6595fb567ddaf28e8fc64ce1",
-    //         "659b6c5ec0db74dba1c1e7b5",
-    //         "659b6f54c0db74dba1c1e7d1",
-    //         "658b7bb1b6b310876eb11c5d"
-    //     ]
-    //     }, 
-    //     {
-    //     video: video2,
-    //     item: [
-    //         "657f9590fcbd5a842ad66f03",
-    //     ]
-    //     }, 
-    //     {
-    //     video: video3,
-    //     item: [
-    //         "659b6c5ec0db74dba1c1e7b5",
-    //     ]
-    //     }, 
-    //     {
-    //     video: video4,
-    //     item: [
-    //         "6595fb567ddaf28e8fc64ce1",
-    //         "659b6c5ec0db74dba1c1e7b5"
-    //     ]
-    //     }, 
-    //     {
-    //     video: video5,
-    //     item: [
-    //         "657f9590fcbd5a842ad66f03",
-    //         "659b6c5ec0db74dba1c1e7b5"
-    //     ]
-    //     }, 
-    //     {
-    //     video: video6,
-    //     item: [
-    //         "659b6c5ec0db74dba1c1e7b5",
-    //     ]
-    //     },
-    //     {
-    //     video: video7,
-    //     item: [
-    //         "6595fb567ddaf28e8fc64ce1",
-    //     ]
-    //     }, 
-    //     {
-    //     video: video8,
-    //     item: [
-    //         "657f9590fcbd5a842ad66f03",
-    //         "659b6c5ec0db74dba1c1e7b5"
-    //     ]
-    //     },  
-    // ]
-    // const prodVideos = [
-    //     {
-    //     video: video1,
-    //     item: [
-    //         "658a91fd5ac2ac596c97c126",
-    //     ]
-    //     }, 
-    //     {
-    //     video: video2,
-    //     item: [
-    //         "658a700a24f42f89038e840e",
-    //         "658a9f93d90d279a936ea474"
-    //     ]
-    //     }, 
-    //     {
-    //     video: video3,
-    //     item: [
-    //         "658b7bb1b6b310876eb11c5d",
-    //     ]
-    //     }, 
-    //     {
-    //     video: video4,
-    //     item: [
-    //         "658b7bb1b6b310876eb11c5d",
-    //     ]
-    //     }, 
-    //     {
-    //     video: video5,
-    //     item: [
-    //         "658a700a24f42f89038e840e",
-    //         "658b690d1e6468d2fe2969fb",
-    //         "658a700a24f42f89038e840e",
-    //         "658a9f93d90d279a936ea474",
-    //         "658a91fd5ac2ac596c97c126",
-    //         "658a8a3619223a68746e19d6"
-    //     ]
-    //     }, 
-    //     {
-    //     video: video6,
-    //     item: [
-    //         "658b7bb1b6b310876eb11c5d",
-    //     ]
-    //     },
-    //     {
-    //     video: video7,
-    //     item: [
-    //         "658b7bb1b6b310876eb11c5d",
-    //     ]
-    //     }, 
-    //     {
-    //     video: video8,
-    //     item: [
-    //         "658a9f93d90d279a936ea474",
-    //         "658a9a3f7afdf3e06d405dec"
-    //     ]
-    //     },  
-    // ]
     const [devidedVideos, setDevidedVideos] = useState([])
     const [ page, setPage ] = useState(0)
     const [ videoPlayer, setVideoPlayer ] = useState(false)
     const [ productData, setProductData ] = useState([])
     const [ isOpen, setIsOpen ] = useState(false)
     const [ fetchedVideos, setFetchedVideos ] = useState([])
-    
+
     useEffect(()=> {
         const showPopup = () => {
         let token = localStorage.getItem("auth-token")
@@ -145,7 +23,6 @@ function Home() {
             localStorage.setItem("auth-token", "")
             token = ""
         }
-
         if (token==="" || token===null || token===undefined) {
             setTimeout(()=>{
                 setIsOpen(true)
@@ -213,10 +90,8 @@ function Home() {
     useEffect(()=> {
         const setSliderArray = async ()=> {
             try {
-                //let collection = import.meta.env.DEV ? videos : prodVideos
                 let collection = fetchedVideos
                 let index = 0
-                //let length = import.meta.env.DEV ? videos.length : prodVideos.length
                 let length = fetchedVideos.length
                 let size = 1
                 setDevidedVideos([])
@@ -239,6 +114,7 @@ function Home() {
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
+
             <NewProducts />
             {fetchedVideos.length>0 ? 
                 <>

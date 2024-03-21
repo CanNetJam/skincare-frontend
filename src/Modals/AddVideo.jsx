@@ -3,10 +3,13 @@ import { Dialog, Transition } from '@headlessui/react';
 import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SingleImagePreview from '../Components/SingleImagePreview';
+import SingleVideoPreview from '../Components/SingleVideoPreview';
 
 export default function AddVideo({isAdd, setIsAdd, submitted, setSubmitted}) {
     const [ video, setVideo ] = useState({
         source: "",
+        thumbnail: "",
         title: "",
         description: "",
         videolink: "",
@@ -15,6 +18,7 @@ export default function AddVideo({isAdd, setIsAdd, submitted, setSubmitted}) {
     const videoField = useRef()
     const [ availableItems, setAvailableItems ] = useState([])
     const [ word, setWord ] = useState("")
+    const photoField = useRef()
 
     useEffect(()=> {
         const getProducts = async () => {
@@ -49,25 +53,37 @@ export default function AddVideo({isAdd, setIsAdd, submitted, setSubmitted}) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {
             const data = new FormData()
-
-            const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-            const image = new FormData()
-            image.append("file", video?.source)
-            image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-            image.append("signature", signatureResponse.data.signature)
-            image.append("timestamp", signatureResponse.data.timestamp)
-
-            const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-            headers: { "Content-Type": "multipart/form-data" }})
+            if (video.source) {
+                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
+                const image = new FormData()
+                image.append("file", video?.source)
+                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
+                image.append("signature", signatureResponse.data.signature)
+                image.append("timestamp", signatureResponse.data.timestamp)
+    
+                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
+                headers: { "Content-Type": "multipart/form-data" }})
+                data.append("source", cloudinaryResponse.data.public_id)
+            }
+            if (video.thumbnail) {
+                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
+                const image = new FormData()
+                image.append("file", video?.thumbnail)
+                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
+                image.append("signature", signatureResponse.data.signature)
+                image.append("timestamp", signatureResponse.data.timestamp)
+    
+                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
+                headers: { "Content-Type": "multipart/form-data" }})
+                data.append("thumbnail", cloudinaryResponse.data.public_id)
+            }
             
             data.append("title", video.title)
             data.append("description", video.description)
             data.append("videolink", video.videolink)
-            data.append("source", cloudinaryResponse.data.public_id)
             data.append("items", JSON.stringify(video.items))
             
-            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/videos/add-video`, data, { headers: { "Content-Type": "application/json" } })
-            console.log(res.data)
+            await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/videos/add-video`, data, { headers: { "Content-Type": "application/json" } })
             setSubmitted(!submitted)
             setIsAdd(false)
         }
@@ -126,6 +142,51 @@ export default function AddVideo({isAdd, setIsAdd, submitted, setSubmitted}) {
         }
     }
 
+    function toastError1Notif() {
+        toast.error('File size too large, please select a file that is lower than 3 mb.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    function toastError2Notif() {
+        toast.error('Please select jpeg, png, and webp/svg picture formats only.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    const handleFileUpload = (e, target) => {
+        let file = e.target.files[0];
+        let fileType = file.type; // image/jpeg
+        let fileSize = file.size; // 3MB
+        if (fileSize > 3 * 1000000) {
+            toastError1Notif()
+            photoField.current.value=""
+            return
+        } else {
+            if (fileType==="image/jpeg" || fileType==="image/png" || fileType==="image/webp" || fileType==="image/svg+xml") {
+                setVideo({...video, thumbnail: file})
+            } else {
+                toastError2Notif()
+                photoField.current.value=""
+                return
+            }
+        }
+    }
+
     function removeItem(props) {
         const list2 = video.items.filter((a)=> a._id!==props._id)
         setVideo({...video, items: list2})
@@ -158,7 +219,7 @@ export default function AddVideo({isAdd, setIsAdd, submitted, setSubmitted}) {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                            <Dialog.Panel className="w-full max-w-6xl transform overflow-hidden rounded-2xl bg-white sm:p-10 p-6 text-left align-middle shadow-xl transition-all">
+                            <Dialog.Panel className="w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white sm:p-10 p-6 text-left align-middle shadow-xl transition-all">
                                 <Dialog.Title as="h3" className="text-lg border-b pb-2 font-semibold leading-6 text-gray-900 grid grid-cols-2 items-center">
                                 Add Video
                                 </Dialog.Title>
@@ -169,9 +230,10 @@ export default function AddVideo({isAdd, setIsAdd, submitted, setSubmitted}) {
                                             <h2 className="text-xl font-semibold leading-7 text-gray-900">Video Information</h2>
                                             <p className="mt-1 text-sm leading-6 text-gray-600">This data will be displayed on the website after submission.</p>
                                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
+                                                
                                                 <div className="sm:col-span-2 sm:row-span-2 h-full w-full">
                                                     <label className="block text-sm font-medium leading-6 text-gray-900">Tiktok Video</label>
-                                                    <div className="relative h-60 w-full border rounded-md overflow-hidden mt-2">
+                                                    <div className="relative h-72 w-full border rounded-md overflow-hidden mt-2">
                                                         <label className="z-10 absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-500 text-white hover:bg-opacity-90">
                                                             <svg
                                                                 className="fill-current"
@@ -197,26 +259,60 @@ export default function AddVideo({isAdd, setIsAdd, submitted, setSubmitted}) {
                                                             <input required ref={videoField} onChange={(e)=>{ handleVideoUpload(e)}} type="file" className="sr-only"/>
                                                         </label>
                                                         {video?.source!=="" ? 
-                                                            <video className="h-full w-full object-contain" src={URL.createObjectURL(video?.source)}></video>
+                                                            <SingleVideoPreview file={[video.source]}/>
+                                                        : null}
+                                                    </div>                                                   
+                                                </div>
+                                                <div className="sm:col-span-2 sm:row-span-2 h-full w-full">
+                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Video Thumbnail</label>
+                                                    <div className="relative h-72 w-full border rounded-md overflow-hidden mt-2">
+                                                        <label className="z-10 absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-500 text-white hover:bg-opacity-90">
+                                                            <svg
+                                                                className="fill-current"
+                                                                width="20"
+                                                                height="20"
+                                                                viewBox="0 0 14 14"
+                                                                fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                <path
+                                                                    fillRule="evenodd"
+                                                                    clipRule="evenodd"
+                                                                    d="M4.76464 1.42638C4.87283 1.2641 5.05496 1.16663 5.25 1.16663H8.75C8.94504 1.16663 9.12717 1.2641 9.23536 1.42638L10.2289 2.91663H12.25C12.7141 2.91663 13.1592 3.101 13.4874 3.42919C13.8156 3.75738 14 4.2025 14 4.66663V11.0833C14 11.5474 13.8156 11.9925 13.4874 12.3207C13.1592 12.6489 12.7141 12.8333 12.25 12.8333H1.75C1.28587 12.8333 0.840752 12.6489 0.512563 12.3207C0.184375 11.9925 0 11.5474 0 11.0833V4.66663C0 4.2025 0.184374 3.75738 0.512563 3.42919C0.840752 3.101 1.28587 2.91663 1.75 2.91663H3.77114L4.76464 1.42638ZM5.56219 2.33329L4.5687 3.82353C4.46051 3.98582 4.27837 4.08329 4.08333 4.08329H1.75C1.59529 4.08329 1.44692 4.14475 1.33752 4.25415C1.22812 4.36354 1.16667 4.51192 1.16667 4.66663V11.0833C1.16667 11.238 1.22812 11.3864 1.33752 11.4958C1.44692 11.6052 1.59529 11.6666 1.75 11.6666H12.25C12.4047 11.6666 12.5531 11.6052 12.6625 11.4958C12.7719 11.3864 12.8333 11.238 12.8333 11.0833V4.66663C12.8333 4.51192 12.7719 4.36354 12.6625 4.25415C12.5531 4.14475 12.4047 4.08329 12.25 4.08329H9.91667C9.72163 4.08329 9.53949 3.98582 9.4313 3.82353L8.43781 2.33329H5.56219Z"
+                                                                    fill=""
+                                                                />
+                                                                <path
+                                                                    fillRule="evenodd"
+                                                                    clipRule="evenodd"
+                                                                    d="M7.00004 5.83329C6.03354 5.83329 5.25004 6.61679 5.25004 7.58329C5.25004 8.54979 6.03354 9.33329 7.00004 9.33329C7.96654 9.33329 8.75004 8.54979 8.75004 7.58329C8.75004 6.61679 7.96654 5.83329 7.00004 5.83329ZM4.08337 7.58329C4.08337 5.97246 5.38921 4.66663 7.00004 4.66663C8.61087 4.66663 9.91671 5.97246 9.91671 7.58329C9.91671 9.19412 8.61087 10.5 7.00004 10.5C5.38921 10.5 4.08337 9.19412 4.08337 7.58329Z"
+                                                                    fill=""
+                                                                />
+                                                            </svg>
+                                                            <input required ref={photoField} onChange={(e)=>{ handleFileUpload(e)}} type="file" className="sr-only"/>
+                                                        </label>
+                                                        {video?.thumbnail!=="" ? 
+                                                            <SingleImagePreview file={[video.thumbnail]}/>
                                                         : null}
                                                     </div>                                                   
                                                 </div>
                                                 <div className="sm:col-span-2">
-                                                    <label htmlFor='title' className="block text-sm font-medium leading-6 text-gray-900">Video title</label>
-                                                    <div className="mt-2">
-                                                        <input onChange={handleChange} value={video.title} type="text" name="title" id="title" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                    <div>
+                                                        <label htmlFor='title' className="block text-sm font-medium leading-6 text-gray-900">Video title</label>
+                                                        <div className="mt-2">
+                                                            <input onChange={handleChange} value={video.title} type="text" name="title" id="title" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="sm:col-span-2">
-                                                    <label htmlFor='videolink' className="block text-sm font-medium leading-6 text-gray-900">Tiktok link</label>
-                                                    <div className="mt-2">
-                                                        <input required onChange={handleChange} value={video.videolink} type="text" name="videolink" id="videolink" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                    <div>
+                                                        <label htmlFor='videolink' className="block text-sm font-medium leading-6 text-gray-900">Tiktok link</label>
+                                                        <div className="mt-2">
+                                                            <input required onChange={handleChange} value={video.videolink} type="text" name="videolink" id="videolink" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="sm:col-span-4">
-                                                    <label htmlFor='description' className="block text-sm font-medium leading-6 text-gray-900">Video Description</label>
-                                                    <div className="mt-2 w-full">
-                                                        <textarea required onChange={handleChange} value={video.description} rows={5} id="description" name="description" type="text" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                    <div>
+                                                        <label htmlFor='description' className="block text-sm font-medium leading-6 text-gray-900">Video Description</label>
+                                                        <div className="mt-2 w-full">
+                                                            <textarea required onChange={handleChange} value={video.description} rows={5} id="description" name="description" type="text" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                        </div>
                                                     </div>
                                                 </div>
 

@@ -16,7 +16,6 @@ export default function PendingtTickets({tickets, page, setPage, pages, pageEntr
     const [ pageButtons, setPageButtons] = useState([])
     const [ displayedPages, setDisplayedPages ] = useState(5)
     const [ zoomType, setZoomType] = useState("")
-    console.log(tickets)
 
     return (
         <div className='h-full sm:w-auto w-screen pb-6 px-4'>

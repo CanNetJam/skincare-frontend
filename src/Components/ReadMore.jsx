@@ -7,7 +7,7 @@ export default function ReadMore(text) {
     let resultString = !expand ? text.text.slice(0, 100) : text.text
 
     return (
-        <p>
+        <p className="text-sm drop-shadow-[0_4px_4px_rgba(255,255,255,1)] text-gray-700">
             {expand==false ? resultString+"...": resultString}
             <button className="text-blue-400 text-sm font-bold cursor-pointer" onClick={()=> {
                 if (expand===false) {
@@ -18,7 +18,7 @@ export default function ReadMore(text) {
                     setExpand(false) 
                     setWord("more")
                 }
-            }}>{`Read ${word}`}</button>
+            }}>{`${word}`}</button>
         </p>
     )
 }

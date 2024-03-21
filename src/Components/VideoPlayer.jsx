@@ -5,6 +5,7 @@ import { UserContext } from "../App";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import ReadMore from './ReadMore';
 
 export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideos, productData}) {
     const sentProductData = useMemo(()=>productData)
@@ -16,9 +17,16 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
     const [progress, setProgress] = useState(0)
     const ref = useRef(null)
     const [ quantity, setQuantity ] = useState(1)
+    const [ viewDetails, setViewDetails] = useState(false)
 
-    const scroll = (scrollOffset) => {
-        ref.current.scrollLeft = ref.current.scrollLeft + scrollOffset
+    const [remainingScroll, setRemainingScroll] = useState(devidedVideos[page][0]?.items?.length*300)
+    const addScroll = (scrollOffset) => {
+        setRemainingScroll(remainingScroll-ref.current.offsetWidth)
+        ref.current.scrollLeft += scrollOffset
+    }
+    const subScroll = (scrollOffset) => {
+        setRemainingScroll(remainingScroll+ref.current.offsetWidth)
+        ref.current.scrollLeft += scrollOffset
     }
     
     useEffect(() => {
@@ -134,10 +142,12 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
         if (stop === true) {
             vidRef.current.pause()
             setShowIcon(true)
+            setViewDetails(true)
         } else {
             vidRef.current.play()
             //vidRef.current.muted = true;
             setShowIcon(true)
+            setViewDetails(false)
             const show = setTimeout(() => {
                 // After 3 seconds set the show value to false
                 setShowIcon(false)
@@ -201,16 +211,16 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                         setPage(page-2)
                                         setShowIcon(false)
                                         setStop(true)
+                                        setViewDetails(false)
                                     }} className="sm:h-[80vh] h-[60vh] w-[300px] flex flex-shrink-0 py-2 absolute top-1/2 right-2/4 -translate-x-1/3 -translate-y-1/2 -z-10 cursor-pointer">
                                         {devidedVideos[page-2].map(function(video) {
                                             return ( 
                                             <div key={video+(page-2)} className="card h-full w-full rounded-md overflow-hidden">
-                                                <video
+                                                <img
                                                     className="h-full w-full object-cover"
-                                                    preload="metadata"
+                                                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${video.thumbnail}.jpg`}
                                                 >
-                                                    <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_30/${video.source}.mp4`} type="video/mp4" />
-                                                </video>
+                                                </img>
                                             </div>
                                             )
                                         })}
@@ -222,16 +232,16 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                             setPage(page-1)
                                             setShowIcon(false)
                                             setStop(true)
+                                            setViewDetails(false)
                                         }} className="sm:h-[90vh] h-[70vh] w-[300px] flex flex-shrink-0 py-2 absolute top-1/2 right-1/2 -translate-y-1/2 z-0 cursor-pointer">
                                             {devidedVideos[page-1].map(function(video) {
                                                 return (
                                                 <div key={video+(page-1)} className="card h-full w-full rounded-md overflow-hidden">
-                                                    <video
+                                                    <img
                                                         className="h-full w-full object-cover"
-                                                        preload="metadata"
+                                                        src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${video.thumbnail}.jpg`}
                                                     >
-                                                        <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_30/${video.source}.mp4`} type="video/mp4" />
-                                                    </video>
+                                                    </img>
                                                 </div>
                                                 )
                                             })}
@@ -255,75 +265,79 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                             onTimeUpdate={(e) => {
                                                 setProgress(((e.target.currentTime / e.target.duration)*100).toFixed())
                                             }}
-                                            src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_75/${video.source}.mp4`}
+                                            src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_100/${video.source}.mp4`}
                                             type="video/mp4"
                                         />
 
-                                        <div className='absolute bottom-4'>
+                                        <div className='absolute bottom-10'>
                                             <div className='h-50 sm:w-[350px] w-screen relative'>
-                                                    {video?.items.length>0 ? 
-                                                        <div ref={ref} id='items' className="px-6 flex w-auto overflow-x-auto no-scrollbar scroll-smooth gap-4">
-                                                            {video?.items.map((a, index)=> {
-                                                                return (
-                                                                    <div key={index} className='col-span 1 h-42 sm:w-[300px] w-full flex-shrink-0 bg-gray-100 rounded-md p-2'>
-                                                                        <div className='grid grid-cols-3 gap-2'>
-                                                                            <div className='col-span-1 h-24 w-24'>
-                                                                                <img className='rounded-md h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a?.displayimage}.jpg`}/>
+                                                {video?.items.length>0 ? 
+                                                    <div ref={ref} id='items' className="px-6 flex w-auto overflow-x-auto no-scrollbar scroll-smooth gap-4">
+                                                        {video?.items.map((a, index)=> {
+                                                            return (
+                                                                <div key={index} className='col-span 1 h-42 sm:w-[300px] w-full flex-shrink-0 bg-gray-100 rounded-md p-2'>
+                                                                    <div className='grid grid-cols-3 gap-2'>
+                                                                        <div className='col-span-1 h-full w-full'>
+                                                                            <img className='rounded-md h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a?.displayimage}.jpg`}/>
+                                                                        </div>
+                                                                        <div className='col-span-2 grid gap-1'>
+                                                                            <Link target='_blank' to={a?.price ? `/details/product/${a?._id}` : `/details/package/${a?._id}`} className='font-semibold hover:underline line-clamp-2'>{a?.name}</Link>
+                                                                            <div className='flex justify-between'>
+                                                                                <p className="tinyText">₱ {a?.price ? a?.price : a?.origprice}.00</p>
+                                                                                <p className="tinyText">{a?.stock>1 ? a.stock+" items left " : ''}</p>
                                                                             </div>
-                                                                            <div className='col-span-2 grid gap-1'>
-                                                                                <Link target='_blank' to={`/details/product/${a?._id}`} className='font-semibold hover:underline line-clamp-2'>{a?.name}</Link>
-                                                                                {console.log(a)}
-                                                                                <div className='h-full w-full grid grid-cols-3 gap-0'>
-                                                                                    <a href={a?.productlinks?.shopee} target="_blank" className="sm:h-12 sm:w-12 h-10 w-10 overflow-hidden rounded-xl sm:p-2 p-0 cursor-pointer">
-                                                                                        <img className='h-full w-full object-contain' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopee_logo.svg/1200px-Shopee_logo.svg.png"></img>
-                                                                                    </a>
-                                                                                    <a href={a?.productlinks?.lazada} target="_blank" className="sm:h-12 sm:w-12 h-10 w-10 overflow-hidden rounded-xl sm:p-1.5 p-0 cursor-pointer">
-                                                                                        <img className='h-full w-full object-contain' src="https://w7.pngwing.com/pngs/331/607/png-transparent-lazada-logo-thumbnail.png"></img>
-                                                                                    </a>
-                                                                                    <a href={a?.productlinks?.tiktok} target='_blank' className="sm:h-12 sm:w-12 h-10 w-10 overflow-hidden rounded-xl sm:p-4 p-0 cursor-pointer">
-                                                                                        <img className='h-full w-full object-contain' src="https://static-00.iconduck.com/assets.00/tiktok-icon-1890x2048-ihin0vop.png"></img>
-                                                                                    </a>
-                                                                                </div>
+                                                                            <div className='h-auto w-full flex items-end'>
+                                                                                <button onClick={()=>handleAddToCart(a)} disabled={a.stock<1 ? true : false} className={`${a.stock<1 ? 'bg-gray-400' : 'before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-white transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden'} relative text-center py-1 h-full w-full sm:px-3 px-1 font-bold rounded-lg `}>{a.stock<1 ? "Out of Stock" : "Add to Cart"}</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                )
-                                                            })}
-                                                            {window.innerWidth >=639 ? 
+                                                                </div>
+                                                            )
+                                                        })}
+                                                        {window.innerWidth >=639 ? 
+                                                            <>
+                                                            {video?.items.length>1 ? 
                                                                 <>
-                                                                {video?.items.length>1 ? 
-                                                                    <>
-                                                                        {ref?.current?.scrollLeft>0 ? 
-                                                                            <div className="absolute top-1/2 left-0 -translate-y-1/2 z-10">
-                                                                                <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center" 
-                                                                                    onClick={()=>scroll(-(ref?.current?.clientWidth))}>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12zm7.58 0l5.988-5.995 1.414 1.416-4.574 4.579 4.574 4.59-1.414 1.416-5.988-6.006z"/></svg>
-                                                                                </button>
-                                                                            </div>
-                                                                        :null}
-                                                                        {ref?.current?.scrollLeft<(ref?.current?.scrollWidth - ref?.current?.clientWidth) ?
-                                                                            <div className="absolute top-1/2 right-0 -translate-y-1/2 z-10">
-                                                                                <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center" 
-                                                                                    onClick={()=>scroll(ref?.current?.clientWidth)}>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.568 18.005l-1.414-1.415 4.574-4.59-4.574-4.579 1.414-1.416 5.988 5.995-5.988 6.005z"/></svg>
-                                                                                </button>
-                                                                            </div>
-                                                                        :null}
-                                                                    </>
-                                                                :null}
+                                                                    {remainingScroll<video?.items?.length*280 ? 
+                                                                        <div className="absolute top-1/2 -left-0 -translate-y-1/2 z-10">
+                                                                            <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center" 
+                                                                                onClick={()=>subScroll(-ref?.current?.offsetWidth+35)}>
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12zm7.58 0l5.988-5.995 1.414 1.416-4.574 4.579 4.574 4.59-1.414 1.416-5.988-6.006z"/></svg>
+                                                                            </button>
+                                                                        </div>
+                                                                    :null}
+                                                                    {remainingScroll>ref?.current?.offsetWidth ?
+                                                                        <div className="absolute top-1/2 -right-0 -translate-y-1/2 z-10">
+                                                                            <button className="sm:h-[35px] sm:w-[35px] h-[40px] w-[40px] rounded-full bg-gray-500 p-0.5 flex justify-center items-center"
+                                                                                onClick={()=>addScroll(ref?.current?.offsetWidth-35)}>
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" className='h-full w-full' viewBox="0 0 24 24"><path fill='white' d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.568 18.005l-1.414-1.415 4.574-4.59-4.574-4.579 1.414-1.416 5.988 5.995-5.988 6.005z"/></svg>
+                                                                            </button>
+                                                                        </div>
+                                                                    :null}
                                                                 </>
                                                             :null}
-                                                        </div>
-                                                    :null}
-
+                                                            </>
+                                                        :null}
+                                                    </div>
+                                                :null}
                                             </div>
                                         </div>
+
+                                        {//Video Description
+                                            <div  className={`${viewDetails===true ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 absolute top-0 w-full pt-10 pb-4 px-4`}>
+                                                <a target='_blank' href={video.videolink} className='text-white font-semibold hover:underline line-clamp-2 underline'>{video.title}</a>
+                                                {video?.description?.length>100 ? 
+                                                    <ReadMore text={video.description}/>
+                                                : 
+                                                    <p className='text-sm drop-shadow-[0_4px_4px_rgba(255,255,255,1)] text-gray-800'>{video.description}</p>
+                                                }
+                                            </div>
+                                        }
+
                                         {//Progress bar
-                                            <>
-                                                <div className="h-[5px] flex w-full absolute bottom-0 z-20">
-                                                    <Progress value={Number(progress)} variant="filled" size="sm" className="bg-white bg-opacity-20"/>
-                                                </div>
-                                            </>
+                                            <div className="h-[5px] flex w-full absolute bottom-0 z-20">
+                                                <Progress value={Number(progress)} variant="filled" size="sm" className="bg-white bg-opacity-20"/>
+                                            </div>
                                         }
                                         {//Mute/Unmute Icon
                                             <>
@@ -342,11 +356,11 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                             <>
                                                 {stop!==true ?
                                                     <>
-                                                    {showIcon===true ?
-                                                    <span onClick={handleVideo} className="h-[50px] w-[50px] rounded-full grid justify-center pl-1 items-center absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl bg-blue-500 cursor-pointer">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" height='32' width='32' viewBox="0 0 24 24"><path fill='white' d="M3 22v-20l18 10-18 10z"/></svg>
-                                                    </span>
-                                                    :null}
+                                                        {showIcon===true ?
+                                                        <span onClick={handleVideo} className="h-[50px] w-[50px] rounded-full grid justify-center pl-1 items-center absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl bg-blue-500 cursor-pointer">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height='32' width='32' viewBox="0 0 24 24"><path fill='white' d="M3 22v-20l18 10-18 10z"/></svg>
+                                                        </span>
+                                                        :null}
                                                     </>
                                                 :
                                                     <>
@@ -372,16 +386,16 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                         setPage(page+1)
                                         setShowIcon(false)
                                         setStop(true)
+                                        setViewDetails(false)
                                     }} className="sm:h-[90vh] h-[70vh] w-[300px] flex flex-shrink-0 py-2 absolute top-1/2 left-1/2 -translate-y-1/2 z-0 cursor-pointer">
                                         {devidedVideos[page+1].map(function(video) {
                                             return ( 
                                             <div key={video+(page+1)} className="card h-full w-full rounded-md overflow-hidden">
-                                                <video
+                                                <img
                                                     className="h-full w-full object-cover"
-                                                    preload="metadata"
+                                                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${video.thumbnail}.jpg`}
                                                 >
-                                                    <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_30/${video.source}.mp4`} type="video/mp4" />
-                                                </video>
+                                                </img>
                                             </div>
                                             )
                                         })}
@@ -394,16 +408,16 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                             setPage(page+2)
                                             setShowIcon(false)
                                             setStop(true)
+                                            setViewDetails(false)
                                         }} className="sm:h-[80vh] h-[60vh] w-[300px] flex flex-shrink-0 py-2 absolute top-1/2 left-2/4 translate-x-1/3 -translate-y-1/2 -z-10 cursor-pointer">
                                             {devidedVideos[page+2].map(function(video) {
                                                 return ( 
                                                 <div key={video+(page+2)} className="card h-full w-full rounded-md overflow-hidden">
-                                                    <video
+                                                    <img
                                                         className="h-full w-full object-cover"
-                                                        preload="metadata"
+                                                        src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${video.thumbnail}.jpg`}
                                                     >
-                                                        <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_30/${video.source}.mp4`} type="video/mp4" />
-                                                    </video>
+                                                    </img>
                                                 </div>
                                                 )
                                             })}

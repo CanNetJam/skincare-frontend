@@ -248,7 +248,7 @@ export default function UserAccountsTable() {
                                             <td onClick={()=>navigate(`/accounts/profile/${a._id}`)} className="px-6 py-4 cursor-pointer">
                                                 {a.verified===true? <span className='font-semibold text-green-500'>Active</span> : <span className='font-semibold text-red-500'>Inactive</span>}
                                             </td>
-                                            <td className="px-6 py-4 flex justify-center items-center gap-2">
+                                            <td className="px-6 py-4 items-center gap-2">
                                                 {a?.type==="Super Admin" ? 
                                                     <>
                                                     {userData.user?.type==="Super Admin" ?
@@ -256,11 +256,11 @@ export default function UserAccountsTable() {
                                                         <button onClick={()=>{
                                                             setIsEdit(true)
                                                             setToEdit(a)
-                                                            }}className='h-full cursor-pointer hover:text-blue-400'>Edit</button>
+                                                            }}className='h-full cursor-pointer text-blue-400 hover:text-blue-500'>Edit</button>
                                                         <button onClick={()=>{
                                                             setIsDelete(true)
                                                             setToDelete(a)
-                                                            }} className='h-full cursor-pointer hover:text-blue-400'>Delete</button>
+                                                            }} className='h-full cursor-pointer text-red-400 hover:text-red-500'>Delete</button>
                                                         </>
                                                     :null}
                                                     </>
@@ -269,11 +269,11 @@ export default function UserAccountsTable() {
                                                     <button onClick={()=>{
                                                         setIsEdit(true)
                                                         setToEdit(a)
-                                                        }}className='h-full cursor-pointer hover:text-blue-400'>Edit</button>
+                                                        }}className='h-full cursor-pointer text-blue-400 hover:text-blue-500'>Edit</button>
                                                     <button onClick={()=>{
                                                         setIsDelete(true)
                                                         setToDelete(a)
-                                                        }} className='h-full cursor-pointer hover:text-blue-400'>Delete</button>
+                                                        }} className='h-full cursor-pointer text-red-400 hover:text-red-500'>Delete</button>
                                                     </>
                                                 }
 
