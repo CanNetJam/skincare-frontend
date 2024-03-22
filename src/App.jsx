@@ -194,7 +194,7 @@ const App = () => {
                 <Helmet>
                     <meta charSet="utf-8" />
                     <title>Klued</title>
-                    <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://skincare-frontend.onrender.com/'}`} />
+                    <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}`} />
                     <meta name="description" content="Combining knowledge and passion to the skin. We are offering quality skincare products available for everyone at a price that can fit most budgets. " />
                 </Helmet>
                 <BrowserRouter>

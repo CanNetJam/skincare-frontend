@@ -44,7 +44,7 @@ function Skin() {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>Understanding Your Skin</title>
-                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://skincare-frontend.onrender.com/'}understanding-your-skin`} />
+                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}understanding-your-skin`} />
                 <meta name="description" content="Taking care of your skin has never been this easy, follow our guidlines to improve your skin complexion." />
             </Helmet>
             {isOpen && (
