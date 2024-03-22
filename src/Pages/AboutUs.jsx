@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import photo1 from '../assets/1.jpg';
 import photo2 from '../assets/2.jpg';
 import photo3 from '../assets/14.jpg';
@@ -38,50 +36,46 @@ function AboutUs() {
 
     return (
         <div>
-
-        <div >
-            <Navbar/>
-        </div>
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
-        <div className='bg-gray-200'>
+            <div className='bg-gray-200'>
 
-            <section className="container mx-auto max-w-6xl overflow-hidden sm:pt-0 mt-16 sm:grid sm:grid-cols-2">
-            <div className="p-8 md:p-12 lg:px-16 lg:py-24">
-                <div
-                className="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right"
-                >
-                <h2 className="text-3xl font-bold text-gray-900 md:text-3xl xl:text-5xl">
-                The brand Klued came from the word clue.
-                
-                </h2>
-                <p className='text-xl'>clue (ˈklü)</p>
-                <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
-                    1. Something that guides through an intricate procedure or maze of difficulties.
-                </p>
-                <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl italic ">
-                    specifically: a piece of evidence that leads one toward the solution of a problem
-                </p>
-                <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
-                    2. Idea and Notion
-                </p>
-                <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
-                    3. To give reliable information
-                </p>
+                <section className="container mx-auto max-w-6xl overflow-hidden sm:pt-0 mt-16 sm:grid sm:grid-cols-2">
+                <div className="p-8 md:p-12 lg:px-16 lg:py-24">
+                    <div
+                    className="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right"
+                    >
+                    <h2 className="text-3xl font-bold text-gray-900 md:text-3xl xl:text-5xl">
+                    The brand Klued came from the word clue.
+                    
+                    </h2>
+                    <p className='text-xl'>clue (ˈklü)</p>
+                    <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
+                        1. Something that guides through an intricate procedure or maze of difficulties.
+                    </p>
+                    <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl italic ">
+                        specifically: a piece of evidence that leads one toward the solution of a problem
+                    </p>
+                    <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
+                        2. Idea and Notion
+                    </p>
+                    <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
+                        3. To give reliable information
+                    </p>
+                    </div>
                 </div>
+
+                <img
+                    alt="Student"
+                    src={photo3}
+                    className="h-56 w-full object-cover sm:h-full"
+                />
+                </section>
+
             </div>
 
-            <img
-                alt="Student"
-                src={photo3}
-                className="h-56 w-full object-cover sm:h-full"
-            />
-            </section>
-
-        </div>
-
-                <div className='container mx-auto max-w-6xl'>
+            <div className='container mx-auto max-w-6xl'>
                 <section className="bg-#6697b3 text-gray-800">
                     <div className="mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:py-16 lg:px-8">
                 
@@ -179,10 +173,6 @@ function AboutUs() {
             </div>
             </div>
         </section>
-        </div>
-
-        <div>
-            <Footer/>
         </div>
         </div>
     )

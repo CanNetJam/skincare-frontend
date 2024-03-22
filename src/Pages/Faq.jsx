@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { AiOutlinePlus, AiOutlineLine } from "react-icons/ai";
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import EmailSubscription from '../Modals/EmailSubscription';
 import BillingAddress from '../QuestionsTopic/BillingAddress';
 
@@ -49,10 +47,7 @@ function Faq() {
     }, [])
 
     return (
-        <div>   
-            <div>
-                <Navbar/>
-            </div>
+        <div>
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
@@ -381,9 +376,6 @@ function Faq() {
                             </div>
                         </div>
                     </div>
-            </div>
-            <div>
-                <Footer/>
             </div>
         </div>
     )

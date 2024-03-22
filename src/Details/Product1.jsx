@@ -275,7 +275,7 @@ export default function Product1() {
                                             <div className='hidden h-full group-hover:justify-center group-hover:items-center group-hover:block group-hover:bg-gray-100 group-hover:backdrop-blur-xs group-hover:bg-opacity-20 absolute inset-0'>
                                                 <p className="w-full font-bold py-1 text-center">{a.name}</p>
                                                 <div className="absolute top-2/3 -translate-y-1/3 left-1/2 -translate-x-1/2 grid sm:gap-1 gap-0.5">
-                                                    <Link target="_blank" to={`/details/product/${a._id}`} state={{productid: a._id}} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent hover:bg-gray-800 text-white bg-black focus:outline-none">Learn More</Link>
+                                                    <Link target="_blank" to={`/products/${a.name.replace(/\s+/g, '-').toLowerCase()}/${a._id}`} state={{productid: a._id, productname: a.name}} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent hover:bg-gray-800 text-white bg-black focus:outline-none">Learn More</Link>
                                                     {a.stock>0 ? 
                                                         <button onClick={()=>handleAddToCart(a)} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent hover:bg-gray-800 text-white bg-black focus:outline-none">Add to Cart</button>
                                                     :

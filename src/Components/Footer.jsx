@@ -55,7 +55,7 @@ export default function Footer() {
             <div className='grid sm:grid sm:grid-cols-3 border-b gap-y-6 border-slate-700 py-10 sm:px-2'>
                 <div className='col-span-1'>
                     <div className='h-[50px] w-[150px]'>
-                    <img className='h-full w-full object-cover' src={img1}/>
+                        <img height={'50px'} width={'150px'} title='tansparent Klued logo' alt='transparent Klued logo' loading='eager' className='h-full w-full object-cover' src={img1}/>
                     </div>
                     <p className='text-slate-400 pl-4'>"Combining knowledge and passion to the skin"</p>
 
@@ -103,7 +103,7 @@ export default function Footer() {
 
             <div className=' grid sm:flex justify-between gap-4 sm:px-6 p-4 border-b border-slate-700'>
                 <div className='max-w-[400px]'>
-                <h1 className='text-white text-lg'>Subscribe to our Newsletter!</h1>
+                <p className='text-white text-lg'>Subscribe to our Newsletter!</p>
                 <label className='text-slate-400'>The latest news, articles, and special discounts, sent to your inbox weekly.</label>
                 </div>
                 <div className='sm:w-2/5 flex justify-center items-center'>
@@ -134,7 +134,7 @@ export default function Footer() {
                     <a href='https://www.instagram.com/klued_/' target='_blank' className='cursor-pointer hover:text-slate-300'><FaInstagram size='28px'/></a>
                 </div>
                 <div className='flex justify-center items-center'>
-                    <h1 className='text-slate-400 text-sm'>© 2024 Klued. All rights reserved.</h1>
+                    <p className='text-slate-400 text-sm'>© 2024 Klued. All rights reserved.</p>
                 </div>
             </div>
         </div>

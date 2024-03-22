@@ -44,7 +44,7 @@ function Navbar(props) {
 
                     <div className="md:flex md:items-center md:gap-12">
                         <a className="block" href="/">
-                            <img className='h-[45px] w-[125px] object-contain' src={photo1}/>
+                            <img title='Klued logo' alt='Klued logo' loading='eager' height={'45px'} width={'125px'} className='h-[45px] w-[125px] object-contain' src={photo1}/>
                         </a>
                     </div>
 
@@ -55,7 +55,7 @@ function Navbar(props) {
                             <li>
                                 <Link
                                 className="flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
-                                to="/product-details"
+                                to="/products"
                                 >
                                 Our Products
                                 </Link>
@@ -64,7 +64,7 @@ function Navbar(props) {
                             <li>
                                 <Link
                                 className="flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
-                                to="/understandingyourskin"
+                                to="/understanding-your-skin"
                                 >
                                 Understanding your skin
                                 </Link>
@@ -73,7 +73,7 @@ function Navbar(props) {
                             <li>
                                 <Link
                                 className="flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
-                                to="/aboutus"
+                                to="/about-us"
                                 >
                                 About Us
                                 </Link>
@@ -149,10 +149,10 @@ function Navbar(props) {
                     {openMenu===true ? 
                     <div className='md:hidden top-16 pt-4 sm:w-64 right-0 min-h-screen h-full sm:border-l-2 bg-white z-50 fixed overflow-y-auto w-full'>
                         <div className='h-64 sm:h-auto w-full sm:w-96 grid gap-0 px-10'>
-                            <Link to="/product-details" className='h-10 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>Our Products</span></Link>
-                            <Link to="/understandingyourskin" className='h-10 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>Understanding Your Skin</span></Link>
-                            <Link to="/aboutus" className='h-10 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>About Us</span></Link>
-                            <Link to="/faqs" className='h-10 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>FAQs</span></Link>
+                            <Link onClick={()=>setopenMenu(false)} to="/products" className='h-10 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>Our Products</span></Link>
+                            <Link onClick={()=>setopenMenu(false)} to="/understanding-your-skin" className='h-10 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>Understanding Your Skin</span></Link>
+                            <Link onClick={()=>setopenMenu(false)} to="/about-us" className='h-10 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>About Us</span></Link>
+                            <Link onClick={()=>setopenMenu(false)} to="/faqs" className='h-10 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>FAQs</span></Link>
                             <label className='mb-6'></label>
                             <label className='border-t-2 mb-6'></label>
                             {userData?.user!==undefined ?
@@ -341,7 +341,7 @@ function Navbar(props) {
                                 </button>
                                 </>
                             :
-                                <Link
+                                <Link onClick={()=>setopenMenu(false)}
                                 className='h-10 sm:h-1 w-full flex items-center justify-around'
                                 to="/login"
                                 >

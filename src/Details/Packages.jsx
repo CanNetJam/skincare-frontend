@@ -135,7 +135,7 @@ export default function Packages() {
                                 {packages.map((pack)=> {
                                     return (
                                         <div key={pack._id}  className="group flex-shrink-0 relative">
-                                            <Link to={`/details/package/${pack._id}`} state={{packageid: pack._id}} className="relative h-32 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
+                                            <Link to={`/packages/${pack.name.replace(/\s+/g, '-').toLowerCase()}/${pack._id}`} state={{packageid: pack._id, packagename: pack.name}} className="relative h-32 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                                 <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
                                                     <img
                                                         src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${pack.displayimage}.jpg`}

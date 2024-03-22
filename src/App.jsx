@@ -1,8 +1,9 @@
 import React, { createContext, useState, useEffect, lazy, Suspense } from 'react';
-import { Route, Routes, Navigate, HashRouter, MemoryRouter, BrowserRouter } from 'react-router-dom';
+import { Route, Routes, Navigate, BrowserRouter } from 'react-router-dom';
 import axios from "axios";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import Home from './Pages/Home';
 import AboutUs from './Pages/AboutUs';
@@ -10,6 +11,8 @@ import NotFound from './NotFound';
 import Login from './Pages/Login';
 import Skin from './Pages/Skin';
 import Faq from './Pages/Faq';
+import Navbar from './Components/TopNav';
+import Footer from './Components/Footer';
 //import ForgotPassword from './Pages/ForgotPassword';
 //import CartDetails from './Pages/CartDetails';
 import ProductDetails from './Pages/ProductDetails';
@@ -186,88 +189,101 @@ const App = () => {
 
 
     return (
-        <BrowserRouter>
-            <UserContext.Provider value={{ userData, setUserData }}>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/aboutus" element={<AboutUs />} />
-                    <Route path="/understandingyourskin" element={<Skin />} />
-                    <Route path="/faqs" element={<Faq />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/terms-of-use" element={<TermsOfUse />} />
-                    <Route path="/refund-policy" element={<RefundPolicy />} />
-                    <Route path="/product-details" element={<ProductDetails />} />
-                    <Route path="/details/product/:id" element={<Product1 />} />
-                    <Route path="/details/package/:id" element={<Package1 />} />
+        <div>
+            <HelmetProvider>
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Klued</title>
+                    <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://skincare-frontend.onrender.com/'}`} />
+                    <meta name="description" content="Combining knowledge and passion to the skin. We are offering quality skincare products available for everyone at a price that can fit most budgets. " />
+                </Helmet>
+                <BrowserRouter>
+                    <UserContext.Provider value={{ userData, setUserData }}>
 
-                    <Route path="/register" element={<Suspense fallback={<Loading />}><Register /></Suspense>} />
-                    <Route path="/cartdetails" element={<Suspense fallback={<Loading />}><CartDetails /></Suspense>} />
-                    <Route path="/forget-password" element={<Suspense fallback={<Loading />}><ForgotPassword /></Suspense>} />
-                    <Route path="/accounts/profile/:id" element={<Suspense fallback={<Loading />}><Profile /></Suspense>} />
+                        <Navbar/>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/about-us" element={<AboutUs />} />
+                            <Route path="/understanding-your-skin" element={<Skin />} />
+                            <Route path="/faqs" element={<Faq />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/terms-of-use" element={<TermsOfUse />} />
+                            <Route path="/refund-policy" element={<RefundPolicy />} />
+                            <Route path="/products" element={<ProductDetails />} />
+                            <Route path="/products/:productname/:id" element={<Product1 />} />
+                            <Route path="/packages/:packagename/:id" element={<Package1 />} />
 
-                    <Route path="/order-details/:id" element={
-                        <Suspense fallback={<Loading />}>
-                            <OrderDetails />
-                        </Suspense>
-                    } />
+                            <Route path="/register" element={<Suspense fallback={<Loading />}><Register /></Suspense>} />
+                            <Route path="/cartdetails" element={<Suspense fallback={<Loading />}><CartDetails /></Suspense>} />
+                            <Route path="/forget-password" element={<Suspense fallback={<Loading />}><ForgotPassword /></Suspense>} />
+                            <Route path="/accounts/profile/:id" element={<Suspense fallback={<Loading />}><Profile /></Suspense>} />
 
-                    <Route path="/ticket-details/:id" element={
-                        <Suspense fallback={<Loading />}>
-                            <TicketDetails />
-                        </Suspense>
-                    } />
+                            <Route path="/order-details/:id" element={
+                                <Suspense fallback={<Loading />}>
+                                    <OrderDetails />
+                                </Suspense>
+                            } />
 
-                    <Route path="/email-verification/:id/:uniqueString" element={
-                        <Suspense fallback={<Loading />}>
-                            <EmailVerification />
-                        </Suspense>
-                    } />
+                            <Route path="/ticket-details/:id" element={
+                                <Suspense fallback={<Loading />}>
+                                    <TicketDetails />
+                                </Suspense>
+                            } />
 
-                    <Route path="/knowledge-base" element={
-                        AuthenticatedStaffRoute(
-                        <Suspense fallback={<Loading />}>
-                            <KnowledgeBase />
-                        </Suspense>
-                        )
-                    } />
-                    <Route path="/internal-policy" element={
-                        AuthenticatedStaffRoute(
-                        <Suspense fallback={<Loading />}>
-                            <Policy />
-                        </Suspense>
-                        )
-                    } />
-                    <Route path="/orders/:id" element={
-                        AuthenticatedCustomerRoute(
-                        <Suspense fallback={<Loading />}>
-                            <Orders />
-                        </Suspense>
-                        )
-                    } />
-                    <Route path="/tickets/:id" element={
-                        AuthenticatedCustomerRoute(
-                        <Suspense fallback={<Loading />}>
-                            <Tickets />
-                        </Suspense>
-                        )
-                    } />
+                            <Route path="/email-verification/:id/:uniqueString" element={
+                                <Suspense fallback={<Loading />}>
+                                    <EmailVerification />
+                                </Suspense>
+                            } />
 
-                    <Route path="/emails" element={GeneralAdminRoute(<Suspense fallback={<Loading />}><Email /></Suspense>)} />
-                    <Route path="/user-accounts" element={GeneralAdminRoute(<Suspense fallback={<Loading />}><UserAccounts /></Suspense>) } />
-                    <Route path="/update-product" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdateProduct /></Suspense>)} />
-                    <Route path="/update-package" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdatePackage /></Suspense>)} />
-                    <Route path="/update-videos" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdateVideos /></Suspense>)} />
+                            <Route path="/knowledge-base" element={
+                                AuthenticatedStaffRoute(
+                                <Suspense fallback={<Loading />}>
+                                    <KnowledgeBase />
+                                </Suspense>
+                                )
+                            } />
+                            <Route path="/internal-policy" element={
+                                AuthenticatedStaffRoute(
+                                <Suspense fallback={<Loading />}>
+                                    <Policy />
+                                </Suspense>
+                                )
+                            } />
+                            <Route path="/orders/:id" element={
+                                AuthenticatedCustomerRoute(
+                                <Suspense fallback={<Loading />}>
+                                    <Orders />
+                                </Suspense>
+                                )
+                            } />
+                            <Route path="/tickets/:id" element={
+                                AuthenticatedCustomerRoute(
+                                <Suspense fallback={<Loading />}>
+                                    <Tickets />
+                                </Suspense>
+                                )
+                            } />
 
-                    <Route path="/all-orders" element={SalesAdminRoute(<Suspense fallback={<Loading />}><AdminOrders /></Suspense>)} />
-                    <Route path="/all-tickets" element={SalesAdminRoute(<Suspense fallback={<Loading />}><AdminTickets /></Suspense>)} />
+                            <Route path="/emails" element={GeneralAdminRoute(<Suspense fallback={<Loading />}><Email /></Suspense>)} />
+                            <Route path="/user-accounts" element={GeneralAdminRoute(<Suspense fallback={<Loading />}><UserAccounts /></Suspense>) } />
+                            <Route path="/update-product" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdateProduct /></Suspense>)} />
+                            <Route path="/update-package" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdatePackage /></Suspense>)} />
+                            <Route path="/update-videos" element={StoreAdminRoute(<Suspense fallback={<Loading />}><UpdateVideos /></Suspense>)} />
 
-                    <Route path="/sales-report" element={SuperAdminRoute(<Suspense fallback={<Loading />}><SalesReport /></Suspense>)} />
+                            <Route path="/all-orders" element={SalesAdminRoute(<Suspense fallback={<Loading />}><AdminOrders /></Suspense>)} />
+                            <Route path="/all-tickets" element={SalesAdminRoute(<Suspense fallback={<Loading />}><AdminTickets /></Suspense>)} />
 
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </UserContext.Provider>
-            <ToastContainer/>
-        </BrowserRouter>
+                            <Route path="/sales-report" element={SuperAdminRoute(<Suspense fallback={<Loading />}><SalesReport /></Suspense>)} />
+
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                        <Footer/>
+                    </UserContext.Provider>
+                    <ToastContainer/>
+                </BrowserRouter>
+            </HelmetProvider>
+        </div>
     )
 }
 

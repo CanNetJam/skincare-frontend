@@ -3,8 +3,6 @@ import axios from "axios";
 import {UserContext} from "../App";
 import { useNavigate, Link } from 'react-router-dom';
 import img2 from '../assets/Compressed-Webp/3-min.webp';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -129,9 +127,7 @@ function Login() {
     }
 
     return (
-        <>
-        <Navbar/>
-        <div >
+        <div>
             <div style={{backgroundImage: `url(${img2})`}} className="bg-cover bg-no-repeat bg-center flex flex-col items-center justify-center px-6 sm:py-16 pt-32 pb-16 mx-auto md:h-screen lg:py-0">
             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -174,8 +170,6 @@ function Login() {
                 </div>
             </div>
         </div>
-        <Footer/>
-        </>
     )
 }
 

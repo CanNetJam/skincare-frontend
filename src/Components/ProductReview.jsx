@@ -43,8 +43,8 @@ export default function ProductReview({id, secondid, relatedproducts, mode}) {
             try {
                 let productlist = []
                 productlist.push(id ? id : secondid)
-                if (relatedproducts.length>0) {
-                    for (let i=0; i<relatedproducts.length; i++) {
+                if (relatedproducts?.length>0) {
+                    for (let i=0; i<relatedproducts?.length; i++) {
                         productlist.push(relatedproducts[i])
                     }
                 }
@@ -179,7 +179,7 @@ export default function ProductReview({id, secondid, relatedproducts, mode}) {
                                 })}
                             </div>
                             
-                            <p className='text-center'><span className='font-semibold'>{reviews.length}</span> total reviews</p>
+                            <p className='text-center'><span className='font-semibold'>{reviews?.length}</span> total reviews</p>
                         </div>
 
                         <div className='sm:h-[45vh] sm:col-span-1 col-span-2 border shadow-sm rounded-md grid gap-4 p-6 bg-white'>
@@ -350,7 +350,7 @@ export default function ProductReview({id, secondid, relatedproducts, mode}) {
                             </div>
                         </div>
                     </div>
-                    {reviews.length>0 ?
+                    {reviews?.length>0 ?
                         <>
                             {reviews.map((a)=> {
                                 return (
@@ -404,7 +404,7 @@ export default function ProductReview({id, secondid, relatedproducts, mode}) {
                                                 <p className='whitespace-nowrap'>{moment(a.createdAt).format('MMM DD, YYYY')} | {moment(a.createdAt).startOf().fromNow()}</p>
                                             </div>
                                             <br/>
-                                            {a.description.length>100 ? 
+                                            {a.description?.length>100 ? 
                                                 <ReadMore text={a.description}/>
                                             : 
                                                 <p>{a.description}</p>

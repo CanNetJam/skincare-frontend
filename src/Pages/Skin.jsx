@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import { PiNumberCircleOneFill, PiNumberCircleTwoFill, PiNumberCircleThreeFill } from "react-icons/pi";
 import icon1 from '../assets/icons8-ok-hand-96.png';
 import icon2 from '../assets/icons8-cure-96.png';
@@ -8,6 +6,7 @@ import icon3 from '../assets/icons8-confident-96.png';
 import icon4 from '../assets/icons8-sprout-96.png';
 import img1 from '../assets/Compressed-Webp/2-min.webp';
 import EmailSubscription from '../Modals/EmailSubscription';
+import { Helmet } from 'react-helmet-async';
 
 function Skin() {
     const [opentab, setOpenTab] = useState("Normal")
@@ -42,18 +41,23 @@ function Skin() {
 
     return (
         <div className='sm:mt-16 mt-8 bg-white relative'>
-            <Navbar/>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Understanding Your Skin</title>
+                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://skincare-frontend.onrender.com/'}understanding-your-skin`} />
+                <meta name="description" content="Taking care of your skin has never been this easy, follow our guidlines to improve your skin complexion." />
+            </Helmet>
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
         <div className='h-full bg-white grid sm:pt-0 mt-16 justify-center py-4'>
-            <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Understanding your skin</h1>
+            <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Understanding Your Skin</h1>
             
             <div className='container mx-auto max-w-6xl grid sm:px-0 sm:grid sm:grid-cols-3'>
                 <div className='sm:col-span-1 grid sm:max-h-[80vh] max-h-[30vh] h-full w-full'>
-                <div className='h-full w-full overflow-hidden'>
-                    <img className='h-full w-full object-cover' src={img1}></img>
-                </div>
+                    <div className='h-full w-full overflow-hidden'>
+                        <img height={'600px'} width={'400px'} title='Klued - 0.1% Retinol + 0.3% Bakuchiol Serum' alt='woman holding Klued - 0.1% Retinol + 0.3% Bakuchiol Serum' loading='eager' className='h-full w-full object-cover' src={img1}></img>
+                    </div>
                 </div>
 
                 <div className='sm:col-span-2 grid h-full w-full sm:p-8 p-4'>
@@ -63,14 +67,14 @@ function Skin() {
                     </p>
                 </div>
 
-                <h1 className='font-bold text-xl text-center my-8'>Layers of Skin</h1>
+                <h2 className='font-bold text-xl text-center my-8'>Layers of Skin</h2>
                 <div>
                     <div className="grid grid-cols-8 gap-4 py-0">
                     <div className="flex justify-end">
                         <PiNumberCircleOneFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
                     </div>
                     <div className="col-span-7 pb-6">
-                        <h1 className="capitalize font-bold text-black text-lg my-0">Epidermis</h1>
+                        <h3 className="capitalize font-bold text-black text-lg my-0">Epidermis</h3>
                         <div className="grid grid-cols-4 items-center">
                         <p className="col-span-4 tinyText inline-block">The word “epidermis” combines the Ancient Greek prefix epi-, which means “outer,” and the Ancient Greek word derma, which means “skin.” So the word translates to “outer skin.”</p>
                         </div>
@@ -84,7 +88,7 @@ function Skin() {
                         <PiNumberCircleTwoFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
                     </div>
                     <div className="col-span-7 pb-6">
-                        <h1 className="capitalize font-bold text-black text-lg my-1">Dermis</h1>
+                        <h3 className="capitalize font-bold text-black text-lg my-1">Dermis</h3>
                         <div className="grid grid-cols-4 items-center">
                         <p className="col-span-4 tinyText inline-block">It houses the sweat glands, hair, hair follicles, muscles, sensory neurons, and blood vessels.</p>
                         </div>
@@ -98,7 +102,7 @@ function Skin() {
                         <PiNumberCircleThreeFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
                     </div>
                     <div className="col-span-7">
-                        <h1 className="capitalize font-bold text-black text-lg my-1">Hypodermis</h1>
+                        <h3 className="capitalize font-bold text-black text-lg my-1">Hypodermis</h3>
                         <div className="grid grid-cols-4 items-center">
                         <p className="col-span-4 tinyText inline-block">It is the deepest layer of skin and contains some skin appendages like the hair follicles, sensory neurons, and blood vessels.</p>
                         </div>
@@ -111,7 +115,7 @@ function Skin() {
 
         <div className='w-full h-auto bg-gray-100 py-10'>
             <div className='min-h-screen h-auto w-full container mx-auto max-w-6xl py-8'>
-            <h1 className='text-black font-bold subHeading py-4 text-center'>Different Skin Types</h1>
+            <h2 className='text-black font-bold subHeading py-4 text-center'>Different Skin Types</h2>
                 <div className='h-[10vh] sticky top-16 bg-white z-30 w-full grid sm:grid-cols-4 grid-cols-2 sm:gap-2 gap-0 border-b border-black'>
                 <section className={`h-full items-center flex justify-center font-bold sm:text-xl text-md text-center ${opentab==="Normal" ? "bg-blue-400 text-white" : null}`}>
                     <span onClick={()=> setOpenTab("Normal")} className='cursor-pointer sm:hover:text-gray-600 sm:hover:text-2xl'>Normal</span>
@@ -132,10 +136,10 @@ function Skin() {
                 <>
                     <div id='normal' className='h-full bg-white rounded-b-lg w-full grid sm:grid-cols-2 sm:px-10'>
                     <div className='sm:h-screen h-[30vh] w-full sm:sticky sm:top-0 items-center sm:py-[10vh] py-2 sm:px-10 px-2'>
-                        <img className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/1435823/pexels-photo-1435823.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                        <img height={'30vh'} width={'30vw'} title='Normal skin' alt='close up of a womans eye' loading='lazy' className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/1435823/pexels-photo-1435823.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
                     </div>
                     <div className='sm:min-h-[100vh] h-auto w-full sm:py-[10vh] py-2 sm:px-10 px-2'>
-                        <h3 className='font-bold sm:text-5xl text-xl'>What is normal skin?</h3>
+                        <h2 className='font-bold sm:text-5xl text-xl'>What is normal skin?</h2>
                         <br/>
                         <p className='smallText text-justify'>‘Normal’ is a term widely used to refer to well-balanced skin. The T-zone (forehead, chin and nose) may be a bit oily, but overall sebum and moisture is balanced and the skin is neither too oily nor too dry.</p>
                         <br/>
@@ -162,10 +166,10 @@ function Skin() {
                 <>
                     <div className='h-full bg-white rounded-b-lg w-full grid sm:grid-cols-2 sm:px-10'>
                     <div className='sm:h-screen h-[30vh] w-full sm:sticky sm:top-0 items-center sm:py-[10vh] py-2 sm:px-10 px-2'>
-                        <img className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/7480278/pexels-photo-7480278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                        <img height={'30vh'} width={'30vw'} title='Dry skin' alt='close up of a womans collar bone and shoulders' loading='lazy' className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/7480278/pexels-photo-7480278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
                     </div>
                     <div className='sm:min-h-[100vh] h-auto w-full sm:py-[10vh] py-2 sm:px-10 px-2'>
-                        <h1 className='font-bold sm:text-5xl text-xl'>Dry skin</h1>
+                        <h2 className='font-bold sm:text-5xl text-xl'>Dry skin</h2>
                         <br/>
                         <p className='smallText text-justify'>
                         Dry skin is caused by a lack of sebum as well as a lack of water in the upper layers of the skin. Be aware of the difference between dry and dehydrated skin to target your specific needs. With dry skin, we want to focus on adding the moisture back in as well repairing the skin barrier which can become compromised meaning moisture is not retained. Skin moisture depends on supply of water in the deeper skin layers and on perspiration.
@@ -190,16 +194,16 @@ function Skin() {
                             </ul>
                         </div>
                         <div>
-                            <img className='h-full w-full object-cover' src='https://images.pexels.com/photos/9165664/pexels-photo-9165664.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                            <img height={'15vh'} width={'15vw'} title='Dry skin cause' alt='woman that is perspiration' loading='lazy' className='h-full w-full object-cover' src='https://images.pexels.com/photos/9165664/pexels-photo-9165664.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
                         </div>
                         </div>
                         <br/>
                     
-                    <h1 className='subHeading my-4 text-center'>2 dry skin types</h1>
+                    <h3 className='subHeading my-4 text-center'>2 dry skin types</h3>
                     <div className='h-auto w-full grid sm:grid-cols-2 gap-2'>
 
                         <div className='h-auto w-full bg-white rounded-xl p-2'>
-                        <img className='object-cover max-h-[200px] w-full rounded-xl mb-4' src='https://images.pexels.com/photos/4046567/pexels-photo-4046567.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                        <img height={'15vh'} width={'15vw'} title='Dry skin example 1' alt='skin cells' loading='lazy' className='object-cover max-h-[200px] w-full rounded-xl mb-4' src='https://images.pexels.com/photos/4046567/pexels-photo-4046567.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
                         <h3 className='text-lg text-blue-500 font-bold'>Dry Skin</h3>
                         <p className='my-2'>Often feels tight, brittle, and rough and look dull. Skin elasticity is also low.</p>
                         <ul className='list-disc mx-4 font-semibold'>
@@ -210,7 +214,7 @@ function Skin() {
                         </div>
 
                         <div className='h-auto w-full bg-white rounded-xl p-2'>
-                        <img className='object-cover max-h-[200px] w-full rounded-xl mb-4' src='https://images.pexels.com/photos/4046564/pexels-photo-4046564.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                        <img height={'15vh'} width={'15vw'} title='Dry skin example 2' alt='very dry skin cells that has some white flakes of dead skin cells' loading='lazy' className='object-cover max-h-[200px] w-full rounded-xl mb-4' src='https://images.pexels.com/photos/4046564/pexels-photo-4046564.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
                         <h3 className='font-bold text-lg text-blue-500'>Very Dry Skin</h3>
                         <p className='my-2'>Atopic dermatitis, or eczema, is a chronic skin disease that mainly affects children</p>
                         <ul className='list-disc mx-4 font-semibold'>
@@ -231,10 +235,10 @@ function Skin() {
                 <>
                     <div className='h-full bg-white rounded-b-lg w-full grid sm:grid-cols-2 sm:px-10'>
                     <div className='sm:h-screen h-[30vh] w-full sm:sticky sm:top-0 items-center sm:py-[10vh] py-2 sm:px-10 px-2'>
-                        <img className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/7479960/pexels-photo-7479960.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                        <img height={'30vh'} width={'30vw'} title='Oily skin' alt='oily eyebrow of a woman' loading='lazy' className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/7479960/pexels-photo-7479960.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
                     </div>
                     <div className='sm:min-h-[100vh] h-auto w-full sm:py-[10vh] py-2 sm:px-10 px-2'>
-                        <h1 className='font-bold sm:text-5xl text-xl'>Oily skin</h1>
+                        <h2 className='font-bold sm:text-5xl text-xl'>Oily skin</h2>
                         <br/>
                         <p className='smallText text-justify'>Often caused by overproduction of sebum, this skin type can have visible excess oil on the skin and blocked pores which can cause increased breakouts, blemishes, and blackheads.</p>
                         <br/>
@@ -296,7 +300,7 @@ function Skin() {
                 <>
                     <div className='h-full bg-white rounded-b-lg w-full grid sm:grid-cols-2 sm:px-10'>
                     <div className='sm:h-screen h-[30vh] w-full sm:sticky sm:top-0 items-center sm:py-[10vh] py-2 sm:px-10 px-2'>
-                        <img className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/609549/pexels-photo-609549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
+                        <img height={'30vh'} width={'30vw'} title='Combination skin' alt='visible skin pores and blemishes' loading='lazy' className='h-full w-full object-cover z-10' src='https://images.pexels.com/photos/609549/pexels-photo-609549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
                     </div>
                     <div className='sm:min-h-[100vh] h-auto w-full sm:py-[10vh] py-2 sm:px-10 px-2'>
                         <h3 className='font-bold sm:text-5xl text-4xl'>Combination Skin</h3>
@@ -332,7 +336,7 @@ function Skin() {
             <div className='group sm:h-[50vh] h-[30vh] [perspective:10000px]'>
                 <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white shadow-lg'>
                 <div className='flex justify-center'>
-                    <img className='h-16 w-16 object-center' src={icon1}></img>
+                    <img height={'64px'} width={'64px'} title='Okay icon' alt='fingers signaling okay' loading='lazy' className='h-16 w-16 object-center' src={icon1}></img>
                 </div>
                 <br/>
                 <p className='sm:text-2xl text-sm text-center'><b>It helps your skin stay in good condition</b></p>
@@ -348,7 +352,7 @@ function Skin() {
             <div className='group sm:h-[50vh] h-[30vh] [perspective:10000px]'>
                 <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white border shadow-lg'>
                 <div className='flex justify-center'>
-                    <img className='h-16 w-16 object-center' src={icon4}></img>
+                    <img height={'64px'} width={'64px'} title='Skin growth' alt='small plant blooming' loading='lazy' className='h-16 w-16 object-center' src={icon4}></img>
                 </div>
                 <br/>
                 <p className='sm:text-2xl text-sm text-center'><b>Your skin will look more youthful</b></p>
@@ -364,7 +368,7 @@ function Skin() {
             <div className='group sm:h-[50vh] h-[30vh] [perspective:10000px]'>
                 <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white border shadow-lg'>
                 <div className='flex justify-center'>
-                    <img className='h-16 w-16 object-center' src={icon2}></img>
+                    <img height={'64px'} width={'64px'} title='Skin medication' alt='medical profession symbol' loading='lazy' className='h-16 w-16 object-center' src={icon2}></img>
                 </div>
                 <br/>
                 <p className='sm:text-2xl text-sm text-center'><b>Prevention is easier than correction</b></p>
@@ -380,7 +384,7 @@ function Skin() {
             <div className='group sm:h-[50vh] h-[30vh] [perspective:10000px]'>
                 <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white border shadow-lg'>
                 <div className='flex justify-center'>
-                    <img className='h-16 w-16 object-center' src={icon3}></img>
+                    <img height={'64px'} width={'64px'} title='Boost confidence' alt='a happy face with sunglasses' loading='lazy' className='h-16 w-16 object-center' src={icon3}></img>
                 </div>
                 <br/>
                 <p className='sm:text-2xl text-sm text-center'><b>Your self-confidence will get a boost</b></p>
@@ -395,10 +399,6 @@ function Skin() {
 
             </div>
         </div>
-
-            <div>
-                <Footer/>
-            </div>
         </div>
     )
 }

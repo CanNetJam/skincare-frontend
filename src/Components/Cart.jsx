@@ -301,7 +301,7 @@ export default function Cart({open, setOpen}) {
                                             <div className="ml-2 flex flex-1 flex-col">
                                                 <div>
                                                     <div className="flex justify-between text-base font-medium text-gray-900">
-                                                    <Link to={product?.type==="single" ? `/details/product/${product.product?._id}` : `/details/package/${product.product?._id}`} className='font-semibold hover:underline'>
+                                                    <Link to={product?.type==="single" ? `/products/${encodeURIComponent(product.product.name.replace(/\s+/g, '-').toLowerCase())}/${product.product._id}` : `/packages/${encodeURIComponent(product.product.name.replace(/\s+/g, '-').toLowerCase())}/${product.product._id}`} className='font-semibold hover:underline'>
                                                         {product.product?.name}
                                                     </Link>
                                                     <p className="ml-4">₱{product.product?.price ? (product.product.price).toFixed(2) : (product.product?.origprice).toFixed(2)}</p>

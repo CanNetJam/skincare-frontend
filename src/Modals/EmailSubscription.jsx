@@ -85,7 +85,7 @@ export default function EmailSubscription({isOpen, setIsOpen}) {
                             >
                             <Dialog.Panel className="h-full w-full sm:max-h-96 max-h-[450px] bg-white max-w-2xl transform overflow-hidden rounded-xl text-left align-middle shadow-xl transition-all grid sm:grid-cols-2">
                                 <div className='h-full sm:max-h-full max-h-48 w-full col-span-1'>
-                                    <img className='h-full w-full object-cover' src={importedImage}/>
+                                    <img height={'192px'} width={'300px'} title='Klued skin care models' alt='Klued skin care models' loading='eager' className='h-full w-full object-cover' src={importedImage}/>
                                 </div>
                                 <div className='col-span-1 sm:p-6 p-3'>
                                     <Dialog.Title as="h3" className="sm:text-4xl text-xl border-b pb-2 font-semibold leading-6 text-gray-900 items-center">

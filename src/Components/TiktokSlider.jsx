@@ -15,7 +15,7 @@ export default function TiktokSlider({videos, videoPlayer, setVideoPlayer, setPa
 
     return (
         <div className="h-full w-full bg-blue-400 overflow-hidden">
-            <h1 className="text-white font-bold text-5xl text-center py-2">Tiktok Videos</h1>
+            <h2 className="text-white font-bold text-5xl text-center py-2">Tiktok Videos</h2>
 
             <div className="h-auto py-6 w-auto container mx-auto max-w-6xl bg-blue-400 relative z-10 grid items-center">
                 <div ref={ref} className="sm:h-[70vh] h-[55vh] w-full flex items-center overflow-x-scroll no-scrollbar scroll-smooth px-2 gap-2">

@@ -3,8 +3,6 @@ import axios from "axios";
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import img2 from '../assets/Compressed-Webp/3-min.webp';
 
 function Register() {
@@ -89,7 +87,6 @@ function Register() {
 
     return (
         <div>
-            <Navbar/>
             <div style={{backgroundImage: `url(${img2})`}} className="bg-cover bg-no-repeat bg-center min-h-screen h-auto w-full mt-16 bg-gray-50 dark:bg-gray-900">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-4">
                     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -178,7 +175,6 @@ function Register() {
                     </div>
                 </div>
             </div>
-            <Footer/>
         </div>
     )
   }

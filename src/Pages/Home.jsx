@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../Components/TopNav';
-import ProductsView from '../Components/ProductsView';
-import Footer from '../Components/Footer';
 import NewProducts from '../Components/NewProducts';
 import TiktokSlider from '../Components/TiktokSlider';
 import VideoPlayer from '../Components/VideoPlayer';
@@ -110,7 +107,6 @@ function Home() {
 
     return (
         <div>
-            <Navbar/>
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
@@ -137,9 +133,6 @@ function Home() {
                     :null}
                 </>
             :null}
-            <div>
-                <Footer/>
-            </div>
         </div>
     )
 }
