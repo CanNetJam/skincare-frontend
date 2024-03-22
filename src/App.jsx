@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, lazy, Suspense } from 'react';
-import { Route, Routes, Navigate, HashRouter } from 'react-router-dom';
+import { Route, Routes, Navigate, HashRouter, MemoryRouter, BrowserRouter } from 'react-router-dom';
 import axios from "axios";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -186,7 +186,7 @@ const App = () => {
 
 
     return (
-        <HashRouter basename="/">
+        <BrowserRouter>
             <UserContext.Provider value={{ userData, setUserData }}>
                 <Routes>
                     <Route path="/" element={<Home />} />
@@ -267,7 +267,7 @@ const App = () => {
                 </Routes>
             </UserContext.Provider>
             <ToastContainer/>
-        </HashRouter>
+        </BrowserRouter>
     )
 }
 
