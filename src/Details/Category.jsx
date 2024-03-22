@@ -158,7 +158,7 @@ export default function Category() {
                         <div key={product._id} className="group flex-shrink-0 relative">
                             <Link to={`/products/${encodeURIComponent(product.name.replace(/\s+/g, '-').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
-                                    <img
+                                    <img title='Klued product' alt={`${product.name}`} loading='eager' height={'100px'} width={'100px'}
                                         src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
                                         className="h-full w-full object-cover"
                                     />
@@ -204,7 +204,7 @@ export default function Category() {
                         <div key={product._id} className="group flex-shrink-0 relative">
                             <Link to={`/products/${encodeURIComponent(encodeURIComponent(product.name.replace(/\s+/g, '-').toLowerCase()))}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
-                                    <img
+                                    <img title='Klued product' alt={`${product.name}`} loading='eager' height={'100px'} width={'100px'}
                                         src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
                                         className="h-full w-full object-cover"
                                     />
@@ -250,7 +250,7 @@ export default function Category() {
                         <div key={product._id} className="group flex-shrink-0 relative">
                             <Link to={`/products/${encodeURIComponent(product.name.replace(/\s+/g, '-').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
-                                    <img
+                                    <img title='Klued product' alt={`${product.name}`} loading='eager' height={'100px'} width={'100px'}
                                         src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
                                         className="h-full w-full object-cover"
                                     />
@@ -296,7 +296,7 @@ export default function Category() {
                         <div key={product._id} className="group flex-shrink-0 relative">
                             <Link to={`/products/${encodeURIComponent(product.name.replace(/\s+/g, '-').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-24 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
-                                    <img
+                                    <img title='Klued product' alt={`${product.name}`} loading='eager' height={'100px'} width={'100px'}
                                         src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
                                         className="h-full w-full object-cover"
                                     />

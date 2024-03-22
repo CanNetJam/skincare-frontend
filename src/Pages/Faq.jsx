@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlinePlus, AiOutlineLine } from "react-icons/ai";
 import EmailSubscription from '../Modals/EmailSubscription';
 import BillingAddress from '../QuestionsTopic/BillingAddress';
+import { Helmet } from 'react-helmet-async';
 
 function Faq() {
     const [billaddquestion, setBillAddQuestion] = useState(false)
@@ -48,13 +49,27 @@ function Faq() {
 
     return (
         <div>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Frequently Asked Questions</title>
+                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}faqs`} />
+                <meta name="description" content="We know that you have a lot of questions regarding our products, therefore feel free to browse through the questions below." />
+                <meta name="theme-color" content="#38bdf8"/>
+
+                <meta property="og:title" content="Frequently Asked Questions"/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:description" content="We know that you have a lot of questions regarding our products, therefore feel free to browse through the questions below."/>
+                <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
+                <meta property="og:url" content="https://kluedskincare.com/faqs"/>
+            </Helmet>
+
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
             <div className="min-h-screen h-auto sm:pt-0 mt-16 container mx-auto max-w-6xl py-2 lg:flex grid">
                     <div className="h-full w-full md:px-8 px-4">
                         <div>
-                            <h3 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Frequently Asked Questions</h3>
+                            <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Frequently Asked Questions</h1>
                             <br/>
                             <p className='text-center'>We understand that you have a lot of questions regarding our products and all of its characteristics and capabilities, therefore feel free to browse through the questions below so that hopefully one of your questions would be answered immediately. In cases where you can not find what you are looking for, please send as a message through Messenger chat!</p>
                             <br/>

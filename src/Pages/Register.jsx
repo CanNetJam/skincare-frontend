@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import img2 from '../assets/Compressed-Webp/3-min.webp';
+import { Helmet } from 'react-helmet-async';
 
 function Register() {
     const [firstname, setFirstName] = useState("")
@@ -87,6 +88,20 @@ function Register() {
 
     return (
         <div>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Register an Account</title>
+                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}register`} />
+                <meta name="description" content="Enjoy lower prices and exclusive offers when you register an account." />
+                <meta name="theme-color" content="#38bdf8"/>
+
+                <meta property="og:title" content="Register an Account"/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:description" content="Enjoy lower prices and exclusive offers when you register an account."/>
+                <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
+                <meta property="og:url" content="https://kluedskincare.com/register"/>
+            </Helmet>
+
             <div style={{backgroundImage: `url(${img2})`}} className="bg-cover bg-no-repeat bg-center min-h-screen h-auto w-full mt-16 bg-gray-50 dark:bg-gray-900">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-4">
                     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">

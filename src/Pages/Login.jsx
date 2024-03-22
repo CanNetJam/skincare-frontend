@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import img2 from '../assets/Compressed-Webp/3-min.webp';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet } from 'react-helmet-async';
 
 function Login() {
     const navigate = useNavigate()
@@ -128,6 +129,20 @@ function Login() {
 
     return (
         <div>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Login to Start Shopping</title>
+                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}login`} />
+                <meta name="description" content="Enjoy lower prices and exclusive offers when you login your account." />
+                <meta name="theme-color" content="#38bdf8"/>
+
+                <meta property="og:title" content="Login to Start Shopping"/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:description" content="Enjoy lower prices and exclusive offers when you login your account."/>
+                <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
+                <meta property="og:url" content="https://kluedskincare.com/login"/>
+            </Helmet>
+
             <div style={{backgroundImage: `url(${img2})`}} className="bg-cover bg-no-repeat bg-center flex flex-col items-center justify-center px-6 sm:py-16 pt-32 pb-16 mx-auto md:h-screen lg:py-0">
             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">

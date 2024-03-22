@@ -88,7 +88,7 @@ export default function EmailSubscription({isOpen, setIsOpen}) {
                                     <img height={'192px'} width={'300px'} title='Klued skin care models' alt='Klued skin care models' loading='eager' className='h-full w-full object-cover' src={importedImage}/>
                                 </div>
                                 <div className='col-span-1 sm:p-6 p-3'>
-                                    <Dialog.Title as="h3" className="sm:text-4xl text-xl border-b pb-2 font-semibold leading-6 text-gray-900 items-center">
+                                    <Dialog.Title as="h2" className="sm:text-4xl text-xl border-b pb-2 font-semibold leading-6 text-gray-900 items-center">
                                         Subscribe Now!
                                     </Dialog.Title>
                                     <p className='sm:py-4 py-1 tinyText text-justify'>

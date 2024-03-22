@@ -3,6 +3,7 @@ import photo1 from '../assets/1.jpg';
 import photo2 from '../assets/2.jpg';
 import photo3 from '../assets/14.jpg';
 import EmailSubscription from '../Modals/EmailSubscription';
+import { Helmet } from 'react-helmet-async';
 
 function AboutUs() {
     const [ isOpen, setIsOpen ] = useState(false)
@@ -36,6 +37,20 @@ function AboutUs() {
 
     return (
         <div>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>About Us</title>
+                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}about-us`} />
+                <meta name="description" content="We were founded on the belief that skincare should not break the bank." />
+                <meta name="theme-color" content="#38bdf8"/>
+
+                <meta property="og:title" content="About Us"/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:description" content="We were founded on the belief that skincare should not break the bank."/>
+                <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
+                <meta property="og:url" content="https://kluedskincare.com/about-us"/>
+            </Helmet>
+
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
@@ -46,10 +61,10 @@ function AboutUs() {
                     <div
                     className="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right"
                     >
-                    <h2 className="text-3xl font-bold text-gray-900 md:text-3xl xl:text-5xl">
+                    <h1 className="text-3xl font-bold text-gray-900 md:text-3xl xl:text-5xl">
                     The brand Klued came from the word clue.
                     
-                    </h2>
+                    </h1>
                     <p className='text-xl'>clue (ˈklü)</p>
                     <p className="hidden text-left text-gray-900 md:mt-4 md:block text-2xl">
                         1. Something that guides through an intricate procedure or maze of difficulties.
@@ -66,8 +81,7 @@ function AboutUs() {
                     </div>
                 </div>
 
-                <img
-                    alt="Student"
+                <img height={'500px'} width={'500px'} title='klued produdcts' loading='eager' alt="a lot of Klued - 0.5% Retinol Serum displayed diagonally"
                     src={photo3}
                     className="h-56 w-full object-cover sm:h-full"
                 />
@@ -133,8 +147,7 @@ function AboutUs() {
             </div>
 
             <div className="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:h-full">
-                <img
-                alt="Party"
+                <img height={'500px'} width={'500px'} title='klued vision' loading='lazy' alt="smiling woman holding Klued - Vit C 15% Serum near her chin"
                 src={photo1}
                 className="absolute inset-0 h-full w-full object-cover"
                 />
@@ -153,8 +166,7 @@ function AboutUs() {
                 <div
                 className="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:order-last lg:h-full"
                 >
-                <img
-                    alt="Party"
+                <img height={'500px'} width={'500px'} title='klued mission' loading='lazy' alt="smiling woman holding Klued - 0.1% Retinol + 0.3% Bakuchiol Serum in front of her face"
                     src={photo2}
                     className="absolute inset-0 h-full w-full object-cover"
                 />

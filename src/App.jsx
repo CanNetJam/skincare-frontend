@@ -195,11 +195,17 @@ const App = () => {
                     <meta charSet="utf-8" />
                     <title>Klued</title>
                     <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}`} />
-                    <meta name="description" content="Combining knowledge and passion to the skin. We are offering quality skincare products available for everyone at a price that can fit most budgets. " />
+                    <meta name="description" content="Combining knowledge and passion to the skin. We are offering quality skincare products available for everyone at a price that can fit most budgets." />
+                    <meta name="theme-color" content="#38bdf8"/>
+
+                    <meta property="og:title" content="Klued"/>
+                    <meta property="og:type" content="website"/>
+                    <meta property="og:description" content="Combining knowledge and passion to the skin. We are offering quality skincare products available for everyone at a price that can fit most budgets."/>
+                    <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
+                    <meta property="og:url" content="https://kluedskincare.com/"/>
                 </Helmet>
                 <BrowserRouter>
                     <UserContext.Provider value={{ userData, setUserData }}>
-
                         <Navbar/>
                         <Routes>
                             <Route path="/" element={<Home />} />
@@ -275,7 +281,6 @@ const App = () => {
                             <Route path="/all-tickets" element={SalesAdminRoute(<Suspense fallback={<Loading />}><AdminTickets /></Suspense>)} />
 
                             <Route path="/sales-report" element={SuperAdminRoute(<Suspense fallback={<Loading />}><SalesReport /></Suspense>)} />
-
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                         <Footer/>

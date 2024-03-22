@@ -46,6 +46,13 @@ function Skin() {
                 <title>Understanding Your Skin</title>
                 <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}understanding-your-skin`} />
                 <meta name="description" content="Taking care of your skin has never been this easy, follow our guidlines to improve your skin complexion." />
+                <meta name="theme-color" content="#38bdf8"/>
+
+                <meta property="og:title" content="Understanding Your Skin"/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:description" content="Taking care of your skin has never been this easy, follow our guidlines to improve your skin complexion."/>
+                <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
+                <meta property="og:url" content="https://kluedskincare.com/understanding-your-skin"/>
             </Helmet>
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
