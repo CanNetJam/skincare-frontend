@@ -159,7 +159,7 @@ export default function ProductReview({id, secondid, relatedproducts, mode}) {
             <div className='container mx-auto max-w-6xl grid gap-8 py-16 px-4'>
                 <section className='grid gap-2 h-auto'>
                     <div>
-                        <h3 className='font-bold text-lg '>Product Rating</h3>
+                        <h2 className='font-bold text-lg '>Product Rating</h2>
                     </div>
                     <div className='grid lg:grid-cols-4 grid-cols-2 gap-6'>
                         <div className='sm:h-[45vh] sm:col-span-1 col-span-2 border shadow-sm rounded-md grid gap-4 p-6 bg-white'>
@@ -231,7 +231,7 @@ export default function ProductReview({id, secondid, relatedproducts, mode}) {
                                             <div className='h-10 w-full flex justify-center'>
                                                 {mostUpvote.userid?.displayimage ? 
                                                     <span className="h-10 w-10 cursor-pointer overflow-hidden rounded-full">
-                                                        <img className='w-full h-full rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${mostUpvote.userid?.displayimage}.jpg`}></img>
+                                                        <img height={'150px'} width={'150px'} title='Users profile picture' alt='face of the reviewer' loading='lazy' className='w-full h-full rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${mostUpvote.userid?.displayimage}.jpg`}></img>
                                                     </span>
                                                     :
                                                     <svg xmlns="http://www.w3.org/2000/svg" className='h-10 w-10' viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z"/></svg>
@@ -360,7 +360,7 @@ export default function ProductReview({id, secondid, relatedproducts, mode}) {
                                                 <div className='h-10 w-10 flex justify-center'>
                                                     {a.userid?.displayimage ? 
                                                         <span className="h-10 w-10 cursor-pointer overflow-hidden rounded-full">
-                                                            <img className='w-full h-full rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.userid?.displayimage}.jpg`}></img>
+                                                            <img height={'150px'} width={'150px'} title='Users profile picture' alt='face of the reviewer' loading='lazy' className='w-full h-full rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.userid?.displayimage}.jpg`}></img>
                                                         </span>
                                                         :
                                                         <svg xmlns="http://www.w3.org/2000/svg" className='h-10 w-10' viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z"/></svg>
@@ -411,7 +411,7 @@ export default function ProductReview({id, secondid, relatedproducts, mode}) {
                                             }
                                             {a?.reviewimage ? 
                                                 <div className="h-44 w-44 overflow-hidden">
-                                                    <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.reviewimage}.jpg`}></img>
+                                                    <img height={'350px'} width={'350px'} title='Product review image' alt='Image submitted by the customer for his/her review.' loading='lazy' className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.reviewimage}.jpg`}></img>
                                                 </div>
                                             :null}
                                             

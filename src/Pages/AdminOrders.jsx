@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import { useParams } from 'react-router';
 import axios from "axios";
 import AdminPendingOrders from '../Components/AdminPendingOrders';
@@ -77,7 +75,6 @@ export default function AdminOrders() {
 
     return (
         <>
-            <Navbar/>
             <div className='pt-16 min-h-screen h-auto grid items-center'>
                 <div className='h-full py-2 w-full container mx-auto'>
                     <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Manage All Orders</h1>
@@ -130,7 +127,6 @@ export default function AdminOrders() {
                     : null}
                 </div>
             </div>
-            <Footer/>
         </>
     )
 }

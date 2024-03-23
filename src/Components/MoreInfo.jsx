@@ -20,7 +20,7 @@ export default function MoreInfo({packageData}) {
                                 Free!
                             </label>
                         </div>
-                        <img className='h-full w-full object-cover' src={img1}/>
+                        <img height={'300px'} width={'300px'} title='Klued Double Oat Moisturizer' alt='Klued Double Oat Moisturizer' loading='eager' className='h-full w-full object-cover' src={img1}/>
                     </div>
                     <div className='max-h-[250px] max-w-[250px] rounded-full overflow-hidden relative'>
                         <div className="absolute left-0 top-0 h-16 w-16">
@@ -28,7 +28,7 @@ export default function MoreInfo({packageData}) {
                                 Free!
                             </label>
                         </div>
-                        <img className='h-full w-full object-cover' src={img2}/>
+                        <img height={'300px'} width={'300px'} title='Klued Pouch' alt='Klued pouch' loading='eager' className='h-full w-full object-cover' src={img2}/>
                     </div>
                 </div>
             </div>

@@ -2,8 +2,6 @@ import React, { useState, useEffect, useCallback, useContext } from 'react'
 import axios from "axios";
 import moment from "moment";
 import { addDays } from 'date-fns';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import { utils, writeFile } from 'xlsx';
 import PageButtons from '../Components/PageButtons';
 import DeleteEmail from '../Modals/DeleteEmail';
@@ -221,7 +219,6 @@ export default function Email() {
 
     return (
         <>
-        <Navbar/>
         {isDelete && (
             <DeleteEmail isDelete={isDelete} setIsDelete={setIsDelete} toDelete={toDelete} setToDelete={setToDelete}/>
         )} 
@@ -449,7 +446,6 @@ export default function Email() {
                 </div>
             </nav>
         </div>
-        <Footer/>
         </>
     )
 }

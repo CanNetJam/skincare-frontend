@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 
 export default function TermsOfUse() {
     useEffect(()=> {
@@ -15,8 +13,6 @@ export default function TermsOfUse() {
 
     return (
         <>
-            <Navbar/>
-        
             <div className='container mx-auto py-10 '>
                 <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-10 text-center'>Klued Skin Care Products Trading Terms of Use</h1>
                 <p className='px-4 text-justify'>
@@ -84,8 +80,6 @@ export default function TermsOfUse() {
                     If you have any questions or concerns about these Terms, please contact us at hello@kluedskincare.com.
                 </p>
             </div>
-
-            <Footer/>
         </>
     )
 }

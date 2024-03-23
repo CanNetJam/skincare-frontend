@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useParams } from 'react-router';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import moment from "moment";
 import { Link } from 'react-router-dom';
 
@@ -73,8 +71,6 @@ export default function TicketDetails() {
 
     return (
         <div>
-            <Navbar/>
-
             <div className="container mx-auto min-h-screen pt-16 py-4 sm:px-0 px-4 grid gap-4">
                 <h3 className='font-bold lg:text-4xl text-3xl lg:py-2 py-1 text-center'>Ticket Details<br/><label className={ticketData.status==="Approved" ? `bg-green-400 text-white rounded-full px-4 text-2xl` : ticketData.status==="Rejected" ? `bg-red-400 text-white rounded-full px-4 text-2xl` : 'bg-blue-400 text-white rounded-full px-4 text-2xl'}>{ticketData.status}</label></h3>
                 <div className="h-auto w-full bg-gray-50 rounded-md p-4">
@@ -201,7 +197,6 @@ export default function TicketDetails() {
                     </div>
                 </div>
             </div>
-            <Footer/>
         </div>
     )
 }

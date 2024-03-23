@@ -4,8 +4,6 @@ import axios from "axios";
 import Routines from "../Components/Routines";
 import Precautions from "../Components/Precautions";
 import DoDonts from "../Components/DoDonts";
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import Usage from '../Components/Usage';
 import OrderNow from '../Components/OrderNow';
 import { UserContext } from "../App";
@@ -16,6 +14,7 @@ import ProductReview from "../Components/ProductReview";
 import FloatingVideo from "../Components/FloatingVideo";
 import Draggable from 'react-draggable';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 export default function Product1() {
     const { userData, setUserData } = useContext(UserContext)
@@ -195,9 +194,19 @@ export default function Product1() {
 
     return (
         <div>
-            <div>
-                <Navbar/>
-            </div>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>{productData.name}</title>
+                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}products/${encodeURIComponent(productData?.name?.replace(/\s+/g, '-').toLowerCase())}/${productData._id}`} />
+                <meta name="description" content={productData?.maindesc?.slice(0, 170)}/>
+                <meta name="theme-color" content="#38bdf8"/>
+
+                <meta property="og:title" content={productData.name}/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:description" content={productData?.maindesc?.slice(0, 170)}/>
+                <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
+                <meta property="og:url" content={`https://kluedskincare.com/products/${encodeURIComponent(productData?.name?.replace(/\s+/g, '-').toLowerCase())}/${productData._id}`}/>
+            </Helmet>
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
@@ -207,7 +216,7 @@ export default function Product1() {
                         <h1 className="subHeading relative">{productData.name}
                             {productData?.price!==productData?.disprice ?
                                 <div className='absolute h-16 w-16 top-0 -right-8 -rotate-[25deg]'>
-                                    <img src='https://www.svgrepo.com/show/227966/sale.svg'/>
+                                    <img height={'50px'} width={'100px'} title='Sale tag' alt='Sale tag positioned diagonally' loading='eager' src='https://www.svgrepo.com/show/227966/sale.svg'/>
                                 </div>
                             :null}
                         </h1>
@@ -225,7 +234,7 @@ export default function Product1() {
                     </div>
                     <div>
                         <div className="grid grid-cols-3 gap-4">
-                            <label htmlFor="quantity-input" className="col-span-1 block text-center text-sm font-medium text-gray-900 dark:text-white"><b>Qantity:</b></label>
+                            <label htmlFor="quantity-input" className="col-span-1 block text-center text-sm font-medium text-gray-900 dark:text-white"><b>Quantity:</b></label>
                             <label className="col-span-2 flex justify-center">
                                 {productData.stock!==0 ? 
                                     <>
@@ -263,14 +272,14 @@ export default function Product1() {
                     <br/>
                     {productData?.relatedproducts?.length>0 ? 
                         <>
-                            <h3 className="font-bold text-xl mb-2">Variations:</h3>
+                            <p className="font-bold text-xl mb-2">Variations:</p>
                             <div className="grid sm:grid-cols-3 grid-cols-2 gap-2 h-auto w-full ">
                                 
                                 {productData.relatedproducts.map((a)=> {
                                     return (
                                         <div key={a._id} className="border group relative text-xs rounded-md overflow-hidden">
                                             <div className="sm:h-32 h-24 w-full flex justify-center">
-                                                <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${a.displayimage}.jpg`}></img> 
+                                                <img height={'250px'} width={'250px'} title='Product variations' alt={`${a.name}`} loading='eager' className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${a.displayimage}.jpg`}></img> 
                                             </div>
                                             <div className='hidden h-full group-hover:justify-center group-hover:items-center group-hover:block group-hover:bg-gray-100 group-hover:backdrop-blur-xs group-hover:bg-opacity-20 absolute inset-0'>
                                                 <p className="w-full font-bold py-1 text-center">{a.name}</p>
@@ -291,17 +300,17 @@ export default function Product1() {
                     :null}
                     <br/>
                     <br/>
-                    <div className="flex justify-center"><h3 className="subHeading">Key Ingredients</h3></div>
+                    <div className="flex justify-center"><h2 className="subHeading">Key Ingredients</h2></div>
                     <br/>
                     {productData.ingredients?.map((a, index)=> {
                         return (
                             <div key={index} className="w-full grid justify-center my-8 rounded-xl p-4">
                                 <div className="flex justify-center">
-                                    <img className='h-[25vh] sm:w-[250px] rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${a.photo}.jpg`}></img>
+                                    <img height={'400px'} width={'400px'} title='Product ingredients' alt={`${a.name}`} loading='lazy' className='h-[25vh] sm:w-[250px] rounded-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${a.photo}.jpg`}></img>
                                 </div>
                                 <br/>
                                 <div className="w-full">
-                                    <h5 className="contentHeading text-blue-400 text-center">{a.name}</h5>
+                                    <h3 className="contentHeading text-blue-400 text-center">{a.name}</h3>
                                     <p className="tinyText sm:text-center text-justify mt-4 first-letter:uppercase">{a.desc}</p>
                                 </div>
                             </div>
@@ -311,7 +320,7 @@ export default function Product1() {
                 </div>
                 <div className='h-screen w-full sticky top-0 col-span-1 items-center sm:overflow-hidden'>
                     {productData?.displayimage ? 
-                        <img className='h-full w-full object-cover z-10 overflow-visible' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_60/${productData.displayimage}.jpg`}></img>
+                        <img height={'100vh'} width={'50vw'} title='Product poster image' alt={productData.name} loading='eager' className='h-full w-full object-cover z-10 overflow-visible' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_60/${productData.displayimage}.jpg`}></img>
                     :null}
                 </div>
             </div>
@@ -337,7 +346,6 @@ export default function Product1() {
             :null}
             <Precautions />
             <ProductReview id={id} secondid={location.state?.productid} relatedproducts={productData?.relatedproducts!==undefined ? productData.relatedproducts : []} mode={"View"}/>
-            <Footer/>
         </div>
     )
 }

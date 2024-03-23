@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import DateRangePickerComp from '../Components/DateRangePickerComp';
 import { addDays } from 'date-fns';
 import axios from "axios";
@@ -155,7 +153,6 @@ export default function SalesReport() {
 
     return (
         <div>
-            <Navbar/>
             <div className='container mx-auto min-h-screen h-auto max-w-6xl mt-16 px-4'>
                 <h3 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Klued Sales Reports</h3>
                 <div className='relative h-10'>
@@ -428,7 +425,6 @@ export default function SalesReport() {
                     </div>
                 </div>
             </div>
-            <Footer/>
         </div>
     )
 }

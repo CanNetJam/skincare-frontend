@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import { Link } from 'react-router-dom';
 import img2 from '../assets/3.jpg';
 import axios from "axios";
@@ -65,7 +63,6 @@ export default function ForgotPassword() {
     
     return (
         <>
-            <Navbar/>
             <div style={{backgroundImage: `url(${img2})`}} className="bg-cover bg-no-repeat bg-center flex flex-col items-center justify-center px-4 sm:py-16 pt-32 pb-16 mx-auto md:h-screen lg:py-0">
                 <div className="flex flex-col items-center justify-center mx-auto md:h-screen lg:py-0">
                     <div className="w-full p-6 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-8">
@@ -100,7 +97,6 @@ export default function ForgotPassword() {
                     </div>
                 </div>
             </div>
-            <Footer/>
         </>
     )
 }

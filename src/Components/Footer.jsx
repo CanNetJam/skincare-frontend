@@ -55,7 +55,7 @@ export default function Footer() {
             <div className='grid sm:grid sm:grid-cols-3 border-b gap-y-6 border-slate-700 py-10 sm:px-2'>
                 <div className='col-span-1'>
                     <div className='h-[50px] w-[150px]'>
-                        <img height={'50px'} width={'150px'} title='tansparent Klued logo' alt='transparent Klued logo' loading='eager' className='h-full w-full object-cover' src={img1}/>
+                        <img height={'50px'} width={'150px'} title='tansparent Klued logo' alt='transparent Klued logo' loading='lazy' className='h-full w-full object-cover' src={img1}/>
                     </div>
                     <p className='text-slate-400 pl-4'>"Combining knowledge and passion to the skin"</p>
 

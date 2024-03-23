@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import EditProduct from "../Modals/EditProduct";
 import AddProduct from "../Modals/AddProduct";
 
@@ -27,8 +25,7 @@ export default function UpdateProduct() {
     }, [submitted, isAdd])
 
     return (
-        <div className="h-screen w-full">
-            <Navbar/> 
+        <div className="min-h-screen h-auto w-full">
             {isEdit===true ?
                 <EditProduct isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit} submitted={submitted} setSubmitted={setSubmitted}/>
             :null}
@@ -110,7 +107,6 @@ export default function UpdateProduct() {
                     </table>
                 </div>
             </div>
-            <Footer/>
         </div>
     )
 }

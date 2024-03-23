@@ -2,8 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../App";
 import axios from "axios";
 import { useLocation, useParams } from 'react-router';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import moment from "moment";
 import Refund from "../Modals/Refund";
 import { Link } from 'react-router-dom';
@@ -44,7 +42,6 @@ export default function OrderDetails() {
 
     return (
         <div>
-            <Navbar/>
             {isEdit && (
                 <Refund isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit}/>
             )} 
@@ -230,7 +227,6 @@ export default function OrderDetails() {
                     :null}
                 </div>
             </div>
-            <Footer/>
         </div>
     )
 }

@@ -7,11 +7,11 @@ import img5 from '../assets/sulfate.jpg';
 
 export default function Approvals() {
     const logos = [
-        { src: img1, alt: 'FDA Approved' },
-        { src: img2, alt: 'Animal Cruelty Free' },
-        { src: img3, alt: 'Fragrance Free' },
-        { src: img4, alt: 'Paraben Free' },
-        { src: img5, alt: 'Sulfate Free' }
+        { src: img1, alt: 'FDA Approved', title: 'FDA Approved' },
+        { src: img2, alt: 'Animal Cruelty Free', title: 'Animal Cruelty Free' },
+        { src: img3, alt: 'Fragrance Free', title: 'Fragrance Free' },
+        { src: img4, alt: 'Paraben Free', title: 'Paraben Free' },
+        { src: img5, alt: 'Sulfate Free', title: 'Sulfate Free' }
     ]
       
     return (
@@ -26,14 +26,14 @@ export default function Approvals() {
                         <ul className="flex items-center justify-center md:justify-start sm:[&_li]:mx-8 [&_li]:mx-4 [&_img]:max-w-none animate-infinite-scroll">
                             {logos.map((logo, index) => (
                             <li className='sm:h-[120px] sm:w-[140px] h-[70px] w-[80px] p-2' key={index}>
-                                <img className="h-full w-full object-fill" src={logo.src} alt={logo.alt} />
+                                <img height={'150px'} width={'150px'} loading='lazy' className="h-full w-full object-fill" src={logo.src} alt={logo.alt} title={logo.title}/>
                             </li>
                             ))}
                         </ul>
                         <ul className="flex items-center justify-center md:justify-start sm:[&_li]:mx-8 [&_li]:mx-4 [&_img]:max-w-none animate-infinite-scroll" aria-hidden="true">
                             {logos.map((logo, index) => (
                             <li className='sm:h-[120px] sm:w-[140px] h-[70px] w-[80px] p-2' key={index}>
-                                <img className="h-full w-full object-fill" src={logo.src} alt={logo.alt} />
+                                <img height={'150px'} width={'150px'} loading='lazy' className="h-full w-full object-fill" src={logo.src} alt={logo.alt} title={logo.title}/>
                             </li>
                             ))}
                         </ul>

@@ -1,6 +1,4 @@
 import React, { useEffect }  from 'react';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 
 export default function RefundPolicy() {
     useEffect(()=> {
@@ -15,8 +13,6 @@ export default function RefundPolicy() {
 
     return (
         <>
-            <Navbar/>
-        
             <div className='container mx-auto py-10'>
                 <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-10 text-center'>Klued Skin Care Products Trading Refund Policy</h1>
                 <p className='px-4 text-justify'>
@@ -84,8 +80,6 @@ export default function RefundPolicy() {
                     Klued Skin Care Products Trading reserves the right to modify or replace this refund policy at any time. Any changes will be posted on our website.
                 </p>
             </div>
-
-            <Footer/>
         </>
     )
 }

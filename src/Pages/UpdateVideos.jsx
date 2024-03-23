@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import EditVideo from "../Modals/EditVideo";
 import AddVideo from "../Modals/AddVideo";
 import DeleteVideo from "../Modals/DeleteVideo";
@@ -29,7 +27,6 @@ export default function UpdateVideos() {
     
     return (
         <div>
-            <Navbar/>
             {isEdit===true ?
                 <EditVideo isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit} submitted={submitted} setSubmitted={setSubmitted}/>
             :null}
@@ -39,7 +36,7 @@ export default function UpdateVideos() {
             {isDelete && (
                 <DeleteVideo isDelete={isDelete} setIsDelete={setIsDelete} toDelete={toDelete} setToDelete={setToDelete}/>
             )} 
-            <div className="container mx-auto my-16 grid">
+            <div className="min-h-screen h-auto w-full container mx-auto my-16 grid">
                 <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>My TikTok Videos</h1>
                 <div className="w-full flex justify-end items-center px-4">
                     <button onClick={()=>setIsAdd(true)} className="px-4 mt-1 w-min whitespace-nowrap bg-blue-500 p-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md">
@@ -79,7 +76,6 @@ export default function UpdateVideos() {
                     :null}
                 </div>
             </div>
-            <Footer/>
         </div>
     )
 }

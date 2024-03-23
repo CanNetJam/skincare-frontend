@@ -3,8 +3,6 @@ import { useLocation, useParams} from 'react-router';
 import axios from 'axios';
 import Approvals from '../Components/Approvals';
 import Hero from '../Components/Hero';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import OrderNow from '../Components/OrderNow';
 import Features from '../Components/Features';
 import MoreInfo from '../Components/MoreInfo';
@@ -12,6 +10,7 @@ import Precautions from '../Components/Precautions';
 import Routines2 from '../Components/Routines2';
 import EmailSubscription from '../Modals/EmailSubscription';
 import ProductReview from '../Components/ProductReview';
+import { Helmet } from 'react-helmet-async';
 
 export default function Package1() {
     const location = useLocation()
@@ -62,7 +61,20 @@ export default function Package1() {
     
     return (
         <div>
-            <Navbar/>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>{packageData.name}</title>
+                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}packages/${encodeURIComponent(packageData?.name?.replace(/\s+/g, '-').toLowerCase())}/${packageData._id}`} />
+                <meta name="description" content={packageData?.maindesc?.slice(0, 170)}/>
+                <meta name="theme-color" content="#38bdf8"/>
+
+                <meta property="og:title" content={packageData.name}/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:description" content={packageData?.maindesc?.slice(0, 170)}/>
+                <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
+                <meta property="og:url" content={`https://kluedskincare.com/products/${encodeURIComponent(packageData?.name?.replace(/\s+/g, '-').toLowerCase())}/${packageData._id}`}/>
+            </Helmet>
+
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
@@ -73,7 +85,6 @@ export default function Package1() {
             <Routines2 packageData={packageData} morning={packageData?.routines?.morning ? packageData.routines.morning : []} night={packageData?.routines?.night ? packageData.routines.night : []}/>
             <Precautions />
             <ProductReview id={id} secondid={location.state?.packageid} mode={"View"}/>
-            <Footer/>
         </div>
     )
 }

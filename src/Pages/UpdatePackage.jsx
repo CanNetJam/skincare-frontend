@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import EditPackage from "../Modals/EditPackage";
 import AddPackage from "../Modals/AddPackage";
 
@@ -28,14 +26,13 @@ export default function UpdatePackage() {
 
     return (
         <div>
-            <Navbar/>
             {isEdit===true ?
                 <EditPackage isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit} submitted={submitted} setSubmitted={setSubmitted}/>
             :null}
             {isAdd===true ?
                 <AddPackage isAdd={isAdd} setIsAdd={setIsAdd}/>
             :null}
-            <div className="container mx-auto my-16 grid">
+            <div className="min-h-screen h-auto w-full container mx-auto my-16 grid">
                 <h1 className="font-bold contentSubHeading text-center py-6">My Packages</h1>
                 <br/>
                 <div className="w-full flex justify-end items-center">
@@ -110,7 +107,6 @@ export default function UpdatePackage() {
                     </table>
                 </div>
             </div>
-            <Footer/>
         </div>
     )
 }

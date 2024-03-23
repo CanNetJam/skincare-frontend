@@ -53,7 +53,7 @@ export default function Routines({routines}) {
                     {opentab==="Wrinkle" &&
                         <>
                             <div className="py-4 sm:px-0 px-4">
-                                <h1 className="subHeading py-2">Wrinkled Skin</h1>
+                                <h2 className="subHeading py-2">Wrinkled Skin</h2>
                                 <p className="smallText text-justify"></p>
                             </div>
                             <div className="sm:flex grid">
@@ -123,7 +123,7 @@ export default function Routines({routines}) {
                     {opentab==="Pigment" && 
                         <>
                             <div className="py-4 sm:px-0 px-4">
-                                <h1 className="subHeading py-2">Skin with Pigmentation</h1>
+                                <h2 className="subHeading py-2">Skin with Pigmentation</h2>
                                 <p className="smallText text-justify"></p>
                             </div>
                             <div className="sm:flex grid">
@@ -192,7 +192,7 @@ export default function Routines({routines}) {
                     {opentab==="Acne" && 
                         <>
                             <div className="py-4 sm:px-0 px-4">
-                                <h1 className="subHeading py-2">Skin with Acne</h1>
+                                <h2 className="subHeading py-2">Skin with Acne</h2>
                                 <p className="smallText text-justify"></p>
                             </div>
                             <div className="sm:flex grid">
@@ -261,7 +261,7 @@ export default function Routines({routines}) {
                     {opentab==="Dry" && 
                         <>
                             <div className="py-4 sm:px-0 px-4">
-                                <h1 className="subHeading py-2">Dry Skin</h1>
+                                <h2 className="subHeading py-2">Dry Skin</h2>
                                 <p className="smallText text-justify">Dry is used to describe a skin type that produces less sebum than normal skin. As a result of the lack of sebum, dry skin lacks the lipids that it needs to retain moisture and build a protective shield against external influences.</p>
                             </div>
                             <div className="sm:flex grid">
@@ -330,7 +330,7 @@ export default function Routines({routines}) {
                     {opentab==="Oily" && 
                         <>
                             <div className="py-4 sm:px-0 px-4">
-                                <h1 className="subHeading py-2">Oily Skin</h1>
+                                <h2 className="subHeading py-2">Oily Skin</h2>
                                 <p className="smallText text-justify">You have shiny skin, enlarged pores, prone to blackheads and breakout but at times your skin feels tight. Often caused by overproduction of sebum, this skin type can have visible excess oil on the skin and blocked pores which can cause increased breakouts, blemishes, and blackheads.</p>
                             </div>
                             <div className="sm:flex grid">

@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react';
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import KBBody from '../KnowledgeBase/KBBody';
 import { UserContext } from "../App";
 
@@ -96,7 +94,6 @@ export default function KnowledgeBase() {
                     <KBBody openMenu={openMenu} setOpenMenu={setOpenMenu} openTab={openTab}/>
                 </div>
             </div>
-            <Footer/>
         </div>
     )
 }

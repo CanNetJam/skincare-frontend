@@ -17,7 +17,7 @@ export default function Precautions2() {
                 </div>
                 <div className='sm:h-[40vh] h-[30vh] px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
-                        <img className='object-contain h-full w-full' src={boxes}/>
+                        <img height={'300px'} width={'300px'} title='Product proper storage' alt='Shelf with items' loading='lazy' className='object-contain h-full w-full' src={boxes}/>
                     </div>
                     <div className='sm:row-span-1 h-full w-full'>
                         <p className='text-gray-900 text-center normalText font-semibold capitalize mb-2'>proper storage</p>
@@ -29,7 +29,7 @@ export default function Precautions2() {
             <div className='col-span-1 grid gap-10 mb-6'>
                 <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
-                        <img className='object-contain h-full w-full' src={irritation}/>
+                        <img height={'300px'} width={'300px'} title='Patch Testing' alt='Skin with products applied to some spots' loading='lazy' className='object-contain h-full w-full' src={irritation}/>
                     </div>
                     <div className='sm:row-span-1 h-full w-full'>
                         <p className='text-gray-900  text-center normalText font-semibold capitalize mb-2'>patch testing</p>
@@ -38,7 +38,7 @@ export default function Precautions2() {
                 </div>
                 <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400  sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
-                        <img className='object-contain h-full w-full' src={pregnant}/>
+                        <img height={'300px'} width={'300px'} title='Not recommended on pregnant woman' alt='Pregnant woman' loading='lazy' className='object-contain h-full w-full' src={pregnant}/>
                     </div>
                     <div className='sm:row-span-1 h-full w-full'>
                         <p className='text-gray-900  text-center normalText font-semibold capitalize mb-2'>pregnant/ breast-feeding</p>
@@ -50,7 +50,7 @@ export default function Precautions2() {
             <div className='col-span-1 grid gap-10 mt-6'>
                 <div className='sm:h-[40vh] h-[30vh] px-10 py-5 rounded-md col-span-1 bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
-                        <img className='object-contain h-full w-full' src={boy}/>
+                        <img height={'300px'} width={'300px'} title='Not for kids' alt='One girl and two boys' loading='lazy' className='object-contain h-full w-full' src={boy}/>
                     </div>
                     <div className='sm:row-span-1 h-full w-full'>
                         <p className='text-gray-900 text-center normalText font-semibold capitalize mb-2'>children under age of 12</p>
@@ -59,7 +59,7 @@ export default function Precautions2() {
                 </div>
                 <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md col-span-1 bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
-                        <img className='object-contain h-full w-full' src={brightness}/>
+                        <img height={'300px'} width={'300px'} title='External use only' alt='2 dimensional view of a skin' loading='lazy' className='object-contain h-full w-full' src={brightness}/>
                     </div>
                     <div className='sm:row-span-1 h-full w-full'>
                         <p className='text-gray-900  text-center normalText font-semibold capitalize mb-2'>external use only</p>

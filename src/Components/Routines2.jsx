@@ -4,7 +4,7 @@ import { FaCheck } from "react-icons/fa";
 export default function Routines2({packageData, morning, night}) {
     return (
         <div className='h-auto w-full sm:p-10 p-4 bg-gray-100'>
-            <h1 className='subHeading mb-10 text-center'>{packageData.name} Routine</h1>
+            <h2 className='subHeading mb-10 text-center'>{packageData.name} Routine</h2>
             <div className='container mx-auto max-w-6xl'>
                 <div className="sm:flex grid ">
                     <div className="w-full bg-yellow-300 sm:rounded-l-lg rounded-t-lg text-black block px-10 pb-8">
