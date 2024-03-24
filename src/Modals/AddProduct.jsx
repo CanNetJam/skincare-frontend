@@ -537,11 +537,11 @@ export default function AddProduct({isAdd, setIsAdd}) {
                                                 </div>
                                                 <div className="sm:col-span-2">
                                                     <label className="block text-sm font-medium leading-6 text-gray-900">Additonal Images</label>
-                                                    <input required multiple ref={CreateProductMoreImageField} onChange={handleFileUpload} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
+                                                    <input multiple ref={CreateProductMoreImageField} onChange={handleFileUpload} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
                                                 </div>
                                                 <div className="sm:col-span-2">
                                                     <label className="block text-sm font-medium leading-6 text-gray-900">Product Video</label>
-                                                    <input required ref={VideosField} onChange={(e)=>handleVideoUpload(e, "product videos")} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
+                                                    <input ref={VideosField} onChange={(e)=>handleVideoUpload(e, "product videos")} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
                                                 </div>
 
                                                 <div className="sm:col-span-3">

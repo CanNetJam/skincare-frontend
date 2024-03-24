@@ -15,7 +15,7 @@ export default function Precautions2() {
                         <label>Please keep these things in mind when using our products...</label>
                     </div>
                 </div>
-                <div className='sm:h-[40vh] h-[30vh] px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
+                <div className='sm:h-[40vh] h-[30vh] border px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
                         <img height={'300px'} width={'300px'} title='Product proper storage' alt='Shelf with items' loading='lazy' className='object-contain h-full w-full' src={boxes}/>
                     </div>
@@ -27,7 +27,7 @@ export default function Precautions2() {
             </div>
 
             <div className='col-span-1 grid gap-10 mb-6'>
-                <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
+                <div className='sm:h-[40vh] h-[30vh] border  px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
                         <img height={'300px'} width={'300px'} title='Patch Testing' alt='Skin with products applied to some spots' loading='lazy' className='object-contain h-full w-full' src={irritation}/>
                     </div>
@@ -36,7 +36,7 @@ export default function Precautions2() {
                         <p className='text-center'> Apply a small amount on your inner arm. Wait at least 24 hours to see for reactions.</p>
                     </div>
                 </div>
-                <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400  sm:shadow-xl shadow-md'>
+                <div className='sm:h-[40vh] h-[30vh] border  px-10 py-5 rounded-md bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400  sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
                         <img height={'300px'} width={'300px'} title='Not recommended on pregnant woman' alt='Pregnant woman' loading='lazy' className='object-contain h-full w-full' src={pregnant}/>
                     </div>
@@ -48,7 +48,7 @@ export default function Precautions2() {
             </div>
 
             <div className='col-span-1 grid gap-10 mt-6'>
-                <div className='sm:h-[40vh] h-[30vh] px-10 py-5 rounded-md col-span-1 bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
+                <div className='sm:h-[40vh] h-[30vh] border px-10 py-5 rounded-md col-span-1 bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
                         <img height={'300px'} width={'300px'} title='Not for kids' alt='One girl and two boys' loading='lazy' className='object-contain h-full w-full' src={boy}/>
                     </div>
@@ -57,7 +57,7 @@ export default function Precautions2() {
                         <p className='text-center'>This product is only recommended for people aged 13 and above.</p>
                     </div>
                 </div>
-                <div className='sm:h-[40vh] h-[30vh]  px-10 py-5 rounded-md col-span-1 bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
+                <div className='sm:h-[40vh] h-[30vh] border  px-10 py-5 rounded-md col-span-1 bg-white w-full grid sm:grid sm:grid-rows-2 justify-center overflow-hidden shadow-gray-400 sm:shadow-xl shadow-md'>
                     <div className='sm:row-span-1 overflow-hidden'>
                         <img height={'300px'} width={'300px'} title='External use only' alt='2 dimensional view of a skin' loading='lazy' className='object-contain h-full w-full' src={brightness}/>
                     </div>
