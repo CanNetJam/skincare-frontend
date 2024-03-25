@@ -185,7 +185,7 @@ export default function EditPackage({isEdit, setIsEdit, toEdit, submitted, setSu
     return (
         <>
             <Transition appear show={isEdit} as={Fragment}>
-                <Dialog as="div" className="relative z-50" onClose={()=>""}>
+                <Dialog as="div" className="relative z-50" onClose={()=>setIsEdit(false)}>
                     <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"

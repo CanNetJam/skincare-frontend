@@ -5,7 +5,7 @@ import { TbNotes } from "react-icons/tb";
 export default function Usage({usage, extra, moreimage}) {
     return (
         <>
-            <div className="min-h-screen h-auto w-full items-center py-8 px-4 bg-blue-300">
+            <div className="h-auto w-full items-center py-8 px-4 bg-blue-300">
                 <div className="container mx-auto h-auto max-w-6xl rounded-lg overflow-hidden bg-white lg:flex sm:grid sm:grid-cols-3 grid">
 
                     <div className="sm:grid flex h-full w-full">
