@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function DeleteProduct({isDelete, setIsDelete, toDelete, setToDelete}) {
 
     function toastErrorNotification() {
-        toast.error('Delete email error!', {
+        toast.error('Delete product error!', {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -20,7 +20,7 @@ export default function DeleteProduct({isDelete, setIsDelete, toDelete, setToDel
     }
   
     function toastSuccessNotification() {
-        toast.success(`Successfully deleted an email.`, {
+        toast.success(`Successfully deleted a product.`, {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: true,
@@ -34,7 +34,7 @@ export default function DeleteProduct({isDelete, setIsDelete, toDelete, setToDel
 
     const handleDelete = async () => {
         try {
-            const res = await axios.delete(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/emails/delete-email/${toDelete._id}`, { headers: { "Content-Type": "application/json" } })
+            const res = await axios.delete(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/product/delete-product/${toDelete._id}`, { headers: { "Content-Type": "application/json" } })
             if (res.data) {
                 toastSuccessNotification()
                 setToDelete("")
@@ -48,7 +48,6 @@ export default function DeleteProduct({isDelete, setIsDelete, toDelete, setToDel
     }
 
     return (
-        <>
         <Transition appear show={isDelete} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={()=>setIsDelete(false)}>
             <Transition.Child
@@ -79,13 +78,13 @@ export default function DeleteProduct({isDelete, setIsDelete, toDelete, setToDel
                         as="h3"
                         className="flex items-center justify-center gap-2 text-lg font-medium leading-6 text-gray-900"
                     >
-                        <label className='font-bold text-lg'>Delete Email</label>
+                        <label className='font-bold text-lg'>Delete Product</label>
                         <svg height="30" width="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill='red' d="m2.095 19.886 9.248-16.5c.133-.237.384-.384.657-.384.272 0 .524.147.656.384l9.248 16.5c.064.115.096.241.096.367 0 .385-.309.749-.752.749h-18.496c-.44 0-.752-.36-.752-.749 0-.126.031-.252.095-.367zm1.935-.384h15.939l-7.97-14.219zm7.972-6.497c-.414 0-.75.336-.75.75v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5c0-.414-.336-.75-.75-.75zm-.002-3c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1z"/></svg>
                         
                     </Dialog.Title>
                     <div className="mt-2">
                         <p className="text-sm text-gray-600 text-center">
-                            You are about to delete the email of <b>{toDelete.email}</b>. 
+                            You are about to delete the details about the product <b>{toDelete.name}</b>. 
                         <br/>
                         <br/>
                             This action is irreversible, please proceed with caution. This email will be deleted <b>forever</b> and can not be recovered.
@@ -108,6 +107,5 @@ export default function DeleteProduct({isDelete, setIsDelete, toDelete, setToDel
             </div>
             </Dialog>
         </Transition>
-        </>
     )
 }

@@ -13,6 +13,16 @@ export default function UpdatePackage() {
     const [ isAdd, setIsAdd ] = useState(false)
 
     useEffect(()=> {
+        const windowOpen = () => {   
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            })
+        }
+        windowOpen()
+    }, [])
+
+    useEffect(()=> {
         const getProducts = async () => {
             try {
                 const packageResult = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/package/get-all-packages`)

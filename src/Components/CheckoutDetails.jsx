@@ -152,7 +152,7 @@ export default function CheckoutDetails({cartData, cartTotal, shippingFee, subTo
     
     return (
         <>
-            <div className="grid">
+            <div className="grid mt-16">
                 <div className="bg-white p-4 rounded-xl">
                     <div className="flex justify-start text-center text-sm text-gray-500">
                         <Link

@@ -83,7 +83,7 @@ export default function Footer() {
                         <label className='font-semibold text-white'>Links</label>
                         </div>
                         <ul className='text-slate-400 sm:text-base text-sm'>
-                        <li><Link to="/product-details" className='hover:text-slate-200'>Our Products</Link></li>
+                        <li><Link to="/products" className='hover:text-slate-200'>Our Products</Link></li>
                         <li><Link to="/understandingyourskin" className='hover:text-slate-200'>Understanding your Skin</Link></li>
                         <li><Link to="/aboutus" className='hover:text-slate-200'>About Us</Link></li>
                         <li><Link to="/faqs" className='hover:text-slate-200'>FAQs</Link></li>

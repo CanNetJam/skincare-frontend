@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useMemo, useContext } from 'react';
+import React, {useState, useEffect, useRef, useContext } from 'react';
 import { Progress } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
 import { UserContext } from "../App";
@@ -8,7 +8,6 @@ import axios from "axios";
 import ReadMore from './ReadMore';
 
 export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideos, productData}) {
-    const sentProductData = useMemo(()=>productData)
     const { userData, setUserData } = useContext(UserContext)
     const vidRef = useRef(null)
     const [ showIcon, setShowIcon ] = useState(false)
@@ -18,8 +17,8 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
     const ref = useRef(null)
     const [ quantity, setQuantity ] = useState(1)
     const [ viewDetails, setViewDetails] = useState(false)
-
     const [remainingScroll, setRemainingScroll] = useState(devidedVideos[page][0]?.items?.length*300)
+    
     const addScroll = (scrollOffset) => {
         setRemainingScroll(remainingScroll-ref.current.offsetWidth)
         ref.current.scrollLeft += scrollOffset
@@ -28,7 +27,14 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
         setRemainingScroll(remainingScroll+ref.current.offsetWidth)
         ref.current.scrollLeft += scrollOffset
     }
-    
+
+    useEffect(() => {
+        const adjustScrollWidth=()=> {
+            setRemainingScroll(devidedVideos[page][0]?.items?.length*300)
+        }
+        adjustScrollWidth()
+    }, [page])
+
     useEffect(() => {
         document.body.style.overflow = "hidden"
         return () => {

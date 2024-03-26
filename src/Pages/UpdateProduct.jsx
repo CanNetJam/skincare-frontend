@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EditProduct from "../Modals/EditProduct";
 import AddProduct from "../Modals/AddProduct";
+import DeleteProduct from "../Modals/DeleteProduct";
 
 export default function UpdateProduct() {
     const [ availableItems, setAvailableItems ] = useState([])
@@ -11,6 +12,16 @@ export default function UpdateProduct() {
     const [ isEdit, setIsEdit ] = useState(false)
     const [ toEdit, setToEdit ] = useState("")
     const [ isAdd, setIsAdd ] = useState(false)
+
+    useEffect(()=> {
+        const windowOpen = () => {   
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            })
+        }
+        windowOpen()
+    }, [])
     
     useEffect(()=> {
         const getProducts = async () => {
@@ -22,7 +33,7 @@ export default function UpdateProduct() {
             }
         }
         getProducts()
-    }, [submitted, isAdd])
+    }, [submitted, isAdd, isDelete])
 
     return (
         <div className="min-h-screen h-auto w-full">
@@ -31,6 +42,9 @@ export default function UpdateProduct() {
             :null}
             {isAdd===true ?
                 <AddProduct isAdd={isAdd} setIsAdd={setIsAdd}/>
+            :null}
+            {isDelete===true ?
+                <DeleteProduct isDelete={isDelete} setIsDelete={setIsDelete} toDelete={toDelete} setToDelete={setToDelete}/>
             :null}
             <div className="container mx-auto my-16 grid">
                 <h1 className="font-bold contentSubHeading text-center py-6">My Products</h1>
@@ -89,12 +103,18 @@ export default function UpdateProduct() {
                                                     <b>{a.stock}</b> items left
                                                 </td>
                                                 <td >
-                                                    <div className="flex justify-center items-center h-full">
+                                                    <div className="flex justify-center items-center h-full gap-2">
                                                         <button onClick={()=>{
                                                             setIsEdit(true)
                                                             setToEdit(a)
                                                             }}className='h-full cursor-pointer text-blue-500 hover:text-blue-400'>
                                                             Edit
+                                                        </button>
+                                                        <button onClick={()=>{
+                                                            setIsDelete(true)
+                                                            setToDelete(a)
+                                                            }}className='h-full cursor-pointer text-red-500 hover:text-red-400'>
+                                                            Delete
                                                         </button>
                                                     </div>
                                                 </td>

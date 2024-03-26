@@ -310,8 +310,8 @@ function CartDetails() {
         <div className='bg-gray-100'>
             <div className="container mx-auto grid lg:grid-cols-2 gap-4 h-auto p-4 sm:p-8">
                 
-                <div className='sm:sticky sm:top-0 sm:min-h-96 sm:h-min sm:order-2 order-1'>
-                    <header className="text-center mb-4">
+                <div className='sm:sticky sm:top-16 sm:min-h-96 sm:h-min sm:order-2 order-1'>
+                    <header className="text-center my-4">
                         <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Order Summary</h1>
                     </header>
                     {collapse===true ? 

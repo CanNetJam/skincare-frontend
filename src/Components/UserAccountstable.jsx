@@ -252,7 +252,20 @@ export default function UserAccountsTable() {
                                                 {a?.type==="Super Admin" ? 
                                                     <>
                                                     {userData.user?.type==="Super Admin" ?
-                                                        <>
+                                                        <div className='flex gap-2 items-center'>
+                                                            <button onClick={()=>{
+                                                                setIsEdit(true)
+                                                                setToEdit(a)
+                                                                }}className='h-full cursor-pointer text-blue-400 hover:text-blue-500'>Edit</button>
+                                                            <button onClick={()=>{
+                                                                setIsDelete(true)
+                                                                setToDelete(a)
+                                                                }} className='h-full cursor-pointer text-red-400 hover:text-red-500'>Delete</button>
+                                                        </div>
+                                                    :null}
+                                                    </>
+                                                :
+                                                    <div className='flex gap-2 items-center'>
                                                         <button onClick={()=>{
                                                             setIsEdit(true)
                                                             setToEdit(a)
@@ -261,20 +274,7 @@ export default function UserAccountsTable() {
                                                             setIsDelete(true)
                                                             setToDelete(a)
                                                             }} className='h-full cursor-pointer text-red-400 hover:text-red-500'>Delete</button>
-                                                        </>
-                                                    :null}
-                                                    </>
-                                                :
-                                                    <>
-                                                    <button onClick={()=>{
-                                                        setIsEdit(true)
-                                                        setToEdit(a)
-                                                        }}className='h-full cursor-pointer text-blue-400 hover:text-blue-500'>Edit</button>
-                                                    <button onClick={()=>{
-                                                        setIsDelete(true)
-                                                        setToDelete(a)
-                                                        }} className='h-full cursor-pointer text-red-400 hover:text-red-500'>Delete</button>
-                                                    </>
+                                                    </div>
                                                 }
 
                                             </td>

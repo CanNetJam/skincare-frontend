@@ -1,7 +1,5 @@
 import { useContext, useState, useRef, useEffect } from 'react';
 import { UserContext } from "../App";
-import Navbar from '../Components/TopNav';
-import Footer from '../Components/Footer';
 import moment from "moment";
 import axios from "axios";
 import { toast } from 'react-toastify';
@@ -159,7 +157,6 @@ const Profile = () => {
 
     return (
         <>
-            <Navbar userData={userData}/>
             <div className="bg-gray-100 w-full mt-16 grid justify-center sm:pb-4">
                 <div className="container w-screen mx-auto pt-4 sm:py-4 sm:min-w-[1000px]">
                     <div className="grid w-full sm:grid-cols-12 gap-4 sm:px-10 px-4">
@@ -372,7 +369,6 @@ const Profile = () => {
                     </>
                 :null}
             </div>
-            <Footer/>
         </>
     )
 }

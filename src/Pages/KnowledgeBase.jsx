@@ -42,7 +42,6 @@ export default function KnowledgeBase() {
 
     return (
         <div>
-            <Navbar/>
             <div className='h-auto pt-16'>
                 <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Klued Knowledge Base</h1>
                 <div className="z-10 sticky top-16 sm:text-lg text-xs font-semibold shadow-lg text-center text-gray-900 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 bg-white">

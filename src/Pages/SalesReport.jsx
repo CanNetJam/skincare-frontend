@@ -36,6 +36,16 @@ export default function SalesReport() {
     })
 
     useEffect(()=> {
+        const windowOpen = () => {   
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            })
+        }
+        windowOpen()
+    }, [])
+
+    useEffect(()=> {
         const getReports = async () => {   
             try {
                 let token = localStorage.getItem("auth-token")

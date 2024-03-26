@@ -352,6 +352,7 @@ export default function Cart({open, setOpen}) {
                                     <button onClick={()=> {
                                         if (userData.token!==undefined) {
                                             navigate('/cartdetails')
+                                            setOpen(false)
                                         }
                                     }} disabled={userData.token!==undefined && cartData.length>0 && ((userData.user?.billingaddress?.region!=="") && (userData.user?.billingaddress?.region!==undefined)) && exceed===false ? false : true} 
                                         className={`${userData.token!==undefined && cartData.length>0 && ((userData.user?.billingaddress?.region!=="") && (userData.user?.billingaddress?.region!==undefined)) && exceed===false ? 'bg-blue-500 hover:bg-blue-700' : 'bg-gray-500'} relative flex items-center justify-center rounded-md border border-transparent px-6 py-3 text-base font-medium text-white shadow-sm`}>
