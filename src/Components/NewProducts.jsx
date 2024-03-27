@@ -14,7 +14,7 @@ export default function NewProducts() {
                         <h1 className="font-bold lg:text-7xl md:text-5xl text-5xl sm:text-left text-center">3 New Products Available</h1>
                         <p className="sm:text-3xl text-lg sm:mt-6 mt-2 text-white font-semibold sm:text-left text-center">Prepare to be transformed!</p>
                         <div className="grid justify-center sm:justify-start sm:flex my-2">
-                            <Link to="/product-details" className="relative text-center text-sm font-semibold py-3 w-auto sm:px-12 px-6 rounded-md before:bg-yellow-200 before:-z-10 bg-slate-900 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden">Learn More</Link>
+                            <Link to="/products" className="relative text-center text-sm font-semibold py-3 w-auto sm:px-12 px-6 rounded-md before:bg-yellow-200 before:-z-10 bg-slate-900 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden">Learn More</Link>
                         </div>
                     </div>
                 </div>

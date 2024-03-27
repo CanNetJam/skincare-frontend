@@ -218,7 +218,7 @@ const DropdownUser = ({forwardUserData}) => {
 
                 {userData.user?.access?.length!==0 && userData.user?.type!=="Customer" ? 
                     <li>
-                        <Link
+                        <Link onClick={()=>setDropdownOpen(false)}
                             to="/knowledge-base"
                             className="flex items-center px-6 py-2 hover:bg-gray-100 gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                         >
@@ -230,7 +230,7 @@ const DropdownUser = ({forwardUserData}) => {
                 
                 {userData.user?.type!=="Customer" ? 
                     <li>
-                        <Link
+                        <Link onClick={()=>setDropdownOpen(false)}
                             to="/internal-policy"
                             className="flex items-center px-6 py-2 hover:bg-gray-100 gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                         >

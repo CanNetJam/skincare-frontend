@@ -4,6 +4,7 @@ import { UserContext } from "../App";
 import photo1 from '../assets/Compressed-Webp/logo-min.webp';
 import Cart from './Cart';
 import DropdownUser from './DropdownUser';
+import axios from "axios";
 
 function Navbar(props) {
     const navigate = useNavigate()
@@ -13,6 +14,31 @@ function Navbar(props) {
     const [shop, setShop] = useState(false)
     const [transactions, setTransactions] = useState(false)
     const [users, setUsers] = useState(false)
+    const [ search, setSearch ] = useState("")
+    const [ availableItems, setAvailableItems ] = useState([])
+    const [ openSearch, setOpenSearch ] = useState(false)
+
+    useEffect(()=> {
+        const getProducts = async () => {
+            try {
+                const products = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/product/get-all-products`)
+                setAvailableItems(products.data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getProducts()
+    }, [])
+    
+    const filteredProducts = 
+    search === '' ? 
+    availableItems
+    : availableItems.filter((product) =>
+        product.name
+            .toLowerCase()
+            .replace(/\s+/g, '')
+            .includes(search?.toLowerCase().replace(/\s+/g, ''))
+    )
 
     useEffect(() => {
         const resetTabs = () => {
@@ -37,74 +63,78 @@ function Navbar(props) {
     }
 
     return (
-        <>
         <header>
-            <div className="h-16 bg-white w-full z-50 fixed inset-0 shadow-md">
-                <div className="h-full container mx-auto sm:px-10 flex justify-between items-center sm:relative sm:grid-rows-2">
+            <div className="h-min bg-white w-full z-50 fixed inset-0 shadow-md block">
+                <div className="h-16 mx-auto sm:px-6 flex justify-between items-center gap-4">
 
-                    <div className="md:flex md:items-center md:gap-12">
-                        <a className="block" href="/">
+                    <div className="flex w-full items-center gap-6">
+                        <a className="block flex-shrink-0" href="/">
                             <img title='Klued logo' alt='Klued logo' loading='eager' height={'45px'} width={'125px'} className='h-[45px] w-[125px] object-contain' src={photo1}/>
                         </a>
+
+                        <div className="relative h-full w-full hidden sm:block">
+                            <div className='relative w-full z-50'>
+                                <label htmlFor="product-search" className="sr-only">Search</label>
+                                <div className="hidden absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 sm:flex items-center ps-3 pointer-events-none z-10">
+                                    <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
+                                </div>
+                                <input onChange={(e)=>setSearch(e.target.value)} value={search} type="text" id="product-search" className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search product..."/>
+                                {search!=="" ?
+                                    <div className="grid gap-2 absolute bg-white h-auto border max-h-[150px] w-full overflow-y-scroll rounded-b-xl no-scrollbar shadow-md">
+                                        {filteredProducts.map((a, index)=> {
+                                            return <Link onClick={()=>setSearch("")} to={`/products/${encodeURIComponent(a.name.replace(/\s+/g, '-').toLowerCase())}/${a._id}`} state={{productid: a._id, productname: a.name}} target='_blank' className="h-auto w-auto flex gap-2 items-center p-2 cursor-pointer hover:bg-gray-100" key={index}>
+                                                <div className='flex h-[40px] w-[40px] items-center justify-center border overflow-hidden rounded-md'>
+                                                    <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.displayimage}.jpg`}></img>
+                                                </div>
+                                                {a.name}
+                                            </Link>
+                                        })}
+                                    </div>
+                                :null}
+                            </div>
+                        </div> 
                     </div>
 
-                    <div className="hidden md:top-0.5  md:flex w-full md:justify-end md:items-center">
+                    <div className="hidden lg:top-0.5 lg:flex w-full lg:justify-end lg:items-center">
                         <nav aria-label="Global">
                             <ul className="flex items-center gap-4 text-sm">
-
-                            <li>
-                                <Link
-                                className="flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
-                                to="/products"
-                                >
-                                Our Products
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link
-                                className="flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
-                                to="/understanding-your-skin"
-                                >
-                                Understanding your skin
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link
-                                className="flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
-                                to="/about-us"
-                                >
-                                About Us
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link
-                                className="flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
-                                to="/faqs"
-                                >
-                                FAQs
-                                </Link>
-                            </li>
-
-                            {userData?.user===undefined ?
                                 <li>
-                                    <button onClick={()=>{
-                                        if(open===false) {
-                                        setOpen(true)
-                                        } else {
-                                        setOpen(false)
-                                        }
-                                    }} className="relative flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M20 7h-4v-3c0-2.209-1.791-4-4-4s-4 1.791-4 4v3h-4l-2 17h20l-2-17zm-11-3c0-1.654 1.346-3 3-3s3 1.346 3 3v3h-6v-3zm-4.751 18l1.529-13h2.222v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h6v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h2.222l1.529 13h-15.502z"/></svg>
-                                        <label className='cursor-pointer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-500 text-sm font-semibold pt-2'>
-                                            {userData?.cartNumber }
-                                        </label>  
-                                    </button>
+                                    <Link
+                                    className="flex whitespace-nowrap justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
+                                    to="/products"
+                                    >
+                                    Our Products
+                                    </Link>
                                 </li>
-                            : 
-                                userData?.user?.type==="Customer" ?
+
+                                <li>
+                                    <Link
+                                    className="flex whitespace-nowrap justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
+                                    to="/understanding-your-skin"
+                                    >
+                                    Understanding your skin
+                                    </Link>
+                                </li>
+
+                                <li>
+                                    <Link
+                                    className="flex whitespace-nowrap justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
+                                    to="/about-us"
+                                    >
+                                    About Us
+                                    </Link>
+                                </li>
+
+                                <li>
+                                    <Link
+                                    className="flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
+                                    to="/faqs"
+                                    >
+                                    FAQs
+                                    </Link>
+                                </li>
+
+                                {userData?.user===undefined ?
                                     <li>
                                         <button onClick={()=>{
                                             if(open===false) {
@@ -120,11 +150,26 @@ function Navbar(props) {
                                         </button>
                                     </li>
                                 : 
-                                null
-                            }
+                                    userData?.user?.type==="Customer" ?
+                                        <li>
+                                            <button onClick={()=>{
+                                                if(open===false) {
+                                                setOpen(true)
+                                                } else {
+                                                setOpen(false)
+                                                }
+                                            }} className="relative flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M20 7h-4v-3c0-2.209-1.791-4-4-4s-4 1.791-4 4v3h-4l-2 17h20l-2-17zm-11-3c0-1.654 1.346-3 3-3s3 1.346 3 3v3h-6v-3zm-4.751 18l1.529-13h2.222v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h6v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h2.222l1.529 13h-15.502z"/></svg>
+                                                <label className='cursor-pointer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-500 text-sm font-semibold pt-2'>
+                                                    {userData?.cartNumber }
+                                                </label>  
+                                            </button>
+                                        </li>
+                                    : 
+                                    null
+                                }
                             
-                            {userData?.user!==undefined ?
-                                <>
+                                {userData?.user!==undefined ?
                                     <li>
                                         <div className="flex items-center">
                                             {/* <!-- User Area --> */}
@@ -132,22 +177,20 @@ function Navbar(props) {
                                             {/* <!-- User Area --> */}
                                         </div>
                                     </li>
-                                </>
-                            :                    
-                                <Link
-                                className="flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
-                                to="/login"
-                                >
-                                Login
-                                </Link>
-                            }
+                                :                    
+                                    <Link
+                                    className="flex justify-center items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
+                                    to="/login"
+                                    >
+                                    Login
+                                    </Link>
+                                }
                             
                             </ul>
                         </nav>
                     </div>
 
-                    {openMenu===true ? 
-                    <div className='md:hidden top-16 pt-4 sm:w-64 right-0 min-h-screen h-full sm:border-l-2 bg-white z-50 fixed overflow-y-auto w-full'>
+                    <div className={`${openMenu===true ? 'transform transition ease-in-out duration-500 sm:duration-700' : 'translate-x-full transform transition ease-in-out duration-500 sm:duration-700' } lg:hidden top-16 pt-4 sm:w-64 right-0 min-h-screen h-full sm:border-l-2 bg-white z-50 fixed overflow-y-auto w-full`}>
                         <div className='h-64 sm:h-auto w-full sm:w-96 grid gap-0 px-10'>
                             <Link onClick={()=>setopenMenu(false)} to="/products" className='h-10 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>Our Products</span></Link>
                             <Link onClick={()=>setopenMenu(false)} to="/understanding-your-skin" className='h-10 w-full flex items-center justify-around'><span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>Understanding Your Skin</span></Link>
@@ -352,9 +395,12 @@ function Navbar(props) {
                             }
                         </div>
                     </div>
-                    :null}
 
-                <div className='md:hidden flex items-center px-2'>
+                <div className='lg:hidden justify-end flex items-center px-2'>
+
+                    <div onClick={()=>setOpenSearch(!openSearch)} className='sm:hidden cursor-pointer px-1 h-full flex items-center'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/></svg>
+                    </div>
 
                     {userData?.user===undefined ?
                         <div onClick={()=>{
@@ -377,7 +423,7 @@ function Navbar(props) {
                                 } else {
                                     setOpen(false)
                                 }
-                            }} className='h-10 sm:h-1 w-full flex items-center justify-around px-2 relative'>
+                            }} className='h-10 sm:h-1 w-min flex items-center justify-around px-2 relative'>
                                 <span className='h-10 sm:w-full w-full flex items-center font-bold text-[16px] cursor-pointer hover:bg-gray-200 rounded-md'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M20 7h-4v-3c0-2.209-1.791-4-4-4s-4 1.791-4 4v3h-4l-2 17h20l-2-17zm-11-3c0-1.654 1.346-3 3-3s3 1.346 3 3v3h-6v-3zm-4.751 18l1.529-13h2.222v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h6v1.5c0 .276.224.5.5.5s.5-.224.5-.5v-1.5h2.222l1.529 13h-15.502z"/></svg>
                                 </span>
@@ -393,15 +439,37 @@ function Navbar(props) {
                         if(openMenu===true) {
                         setopenMenu(false)
                         }
-                    }}className='w-auto h-full px-2 flex justify-end items-center'>
+                    }} className='w-auto h-full px-2 flex justify-end items-center cursor-pointer'>
                         <svg height="34" width="34" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m22 16.75c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z"/></svg>
                     </div>
+                    </div>
+                        <Cart open={open} setOpen={setOpen} />
+                    </div>
+
+                    <div className={`${openSearch===false ? 'transition-height ease-in-out duration-500 sm:duration-700 h-0' : 'transition-height ease-in-out duration-500 sm:duration-700 h-12'} bg-white w-full shadow-md relative sm:hidden block`}>
+                        <div className={`${openSearch===false ? 'transition-height ease-in-out duration-500 sm:duration-700 h-0' : 'transition-height ease-in-out duration-500 sm:duration-700 h-12'} relative w-full`}>
+                            <div className={`${openSearch===false ? 'transition-height ease-in-out duration-500 sm:duration-700 h-0' : 'transition-height ease-in-out duration-500 sm:duration-700 h-12'} sm:hidden absolute inset-y-0 left-0 flex items-center ps-3 pointer-events-none z-10`}>
+                                <svg className="w-[75%] h-[75%] text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
+                            </div>
+                            <label htmlFor="product-search" className="sr-only">Search</label>
+                            <input onChange={(e)=>setSearch(e.target.value)} value={search} disabled={openSearch===false ?true:false} type="text" id="product-search" className={`${openSearch===false ? 'transition-height ease-in-out duration-500 sm:duration-700 h-0' : 'transition-height ease-in-out duration-500 sm:duration-700 h-12'} block w-full text-sm pl-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`} placeholder="Search product..."/>
+                            
+                            {search!=="" && openSearch===true ?
+                                <div className={`grid gap-2 absolute bg-white h-auto border max-h-[150px]  w-full overflow-y-scroll rounded-b-xl no-scrollbar shadow-md`}>
+                                    {filteredProducts.map((a, index)=> {
+                                        return <Link onClick={()=>setSearch("")} to={`/products/${encodeURIComponent(a.name.replace(/\s+/g, '-').toLowerCase())}/${a._id}`} state={{productid: a._id, productname: a.name}} target='_blank' className="h-auto w-auto flex gap-2 items-center p-2 cursor-pointer hover:bg-gray-100" key={index}>
+                                            <div className='flex h-[40px] w-[40px] items-center justify-center border overflow-hidden rounded-md'>
+                                                <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.displayimage}.jpg`}></img>
+                                            </div>
+                                            {a.name}
+                                        </Link>
+                                    })}
+                                </div>
+                            :null}
+                        </div>
+                    </div>
                 </div>
-                    <Cart open={open} setOpen={setOpen} />
-                </div>
-            </div>
         </header>
-        </>
     )
 }
 

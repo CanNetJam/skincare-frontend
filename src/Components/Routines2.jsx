@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaCheck } from "react-icons/fa";
 
 export default function Routines2({packageData, morning, night}) {
     return (
@@ -18,7 +17,9 @@ export default function Routines2({packageData, morning, night}) {
                                     return (
                                         <div key={index} className="grid grid-cols-6 w-full gap-2 p-2 overflow-hidden">
                                             <div className="col-span-1 w-[60px] grid justify-center gap-4">
-                                                <FaCheck color='yellow' className="h-[28px] w-[28px] p-2 text-4xl bg-black rounded-full"/>
+                                                <div className='h-8 w-8 bg-black flex justify-center items-center rounded-full'>
+                                                    <svg width="30" height="30" viewBox="0 0 24 24" fill="yellow" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 13.4142L7.75735 10.5858L6.34314 12L10.5858 16.2427L17.6568 9.1716L16.2426 7.75739L10.5858 13.4142Z"/></svg>
+                                                </div>
                                                 {morning[index+1]!==undefined ? 
                                                     <div className="flex">
                                                         <div className="h-[25px] w-full border-dashed border-r-2 border-gray-600"></div>
@@ -48,7 +49,9 @@ export default function Routines2({packageData, morning, night}) {
                                     return (
                                         <div key={index} className="grid grid-cols-6 w-full gap-2 p-2 overflow-hidden">
                                             <div className="col-span-1 w-[60px] grid justify-center gap-4">
-                                                <FaCheck color='black' className="h-[28px] w-[28px] p-2 text-4xl bg-slate-200 rounded-full"/>
+                                                <div className='h-8 w-8 bg-slate-200 flex justify-center items-center rounded-full'>
+                                                    <svg width="30" height="30" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"><path d="M10.5858 13.4142L7.75735 10.5858L6.34314 12L10.5858 16.2427L17.6568 9.1716L16.2426 7.75739L10.5858 13.4142Z"/></svg>
+                                                </div>
                                                 {night[index+1]!==undefined ? 
                                                     <div className="flex">
                                                         <div className="h-[25px] w-full border-dashed border-r-2 border-gray-600"></div>

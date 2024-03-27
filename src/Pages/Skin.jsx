@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { PiNumberCircleOneFill, PiNumberCircleTwoFill, PiNumberCircleThreeFill } from "react-icons/pi";
 import icon1 from '../assets/icons8-ok-hand-96.png';
 import icon2 from '../assets/icons8-cure-96.png';
 import icon3 from '../assets/icons8-confident-96.png';
@@ -77,8 +76,8 @@ function Skin() {
                 <h2 className='font-bold text-xl text-center my-8'>Layers of Skin</h2>
                 <div>
                     <div className="grid grid-cols-8 gap-4 py-0">
-                    <div className="flex justify-end">
-                        <PiNumberCircleOneFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
+                    <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-end items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M13 20v-16l-5 5" /></svg>
                     </div>
                     <div className="col-span-7 pb-6">
                         <h3 className="capitalize font-bold text-black text-lg my-0">Epidermis</h3>
@@ -91,8 +90,8 @@ function Skin() {
 
                 <div>
                     <div className="grid grid-cols-8 gap-4 py-0">
-                    <div className="flex justify-end">
-                        <PiNumberCircleTwoFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
+                    <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-end items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M8 8a4 4 0 1 1 8 0c0 1.098 -.564 2.025 -1.159 2.815l-6.841 9.185h8"/></svg>
                     </div>
                     <div className="col-span-7 pb-6">
                         <h3 className="capitalize font-bold text-black text-lg my-1">Dermis</h3>
@@ -105,8 +104,8 @@ function Skin() {
 
                 <div>
                     <div className="grid grid-cols-8 gap-4 py-0">
-                    <div className="flex justify-end">
-                        <PiNumberCircleThreeFill className="col-span-1 text-blue-500 h-[45px] w-[45px]"/>
+                    <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-end items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M12 12a4 4 0 1 0 -4 -4" /><path d="M8 16a4 4 0 1 0 4 -4" /></svg>
                     </div>
                     <div className="col-span-7">
                         <h3 className="capitalize font-bold text-black text-lg my-1">Hypodermis</h3>

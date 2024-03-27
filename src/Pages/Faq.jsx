@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { AiOutlinePlus, AiOutlineLine } from "react-icons/ai";
 import EmailSubscription from '../Modals/EmailSubscription';
 import BillingAddress from '../QuestionsTopic/BillingAddress';
 import { Helmet } from 'react-helmet-async';
@@ -89,7 +88,7 @@ function Faq() {
                                         } else {
                                             setBillAddQuestion(false)
                                         }
-                                    }} className='cursor-pointer'>{billaddquestion!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                    }} className='cursor-pointer'>{billaddquestion!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> : <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                                 </div>
                                 {billaddquestion===true ? 
                                     <BillingAddress/>
@@ -111,7 +110,7 @@ function Faq() {
                                         } else {
                                             setQuestion1(false)
                                         }
-                                    }} className='cursor-pointer'>{question1!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                    }} className='cursor-pointer'>{question1!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> : <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                                 </div>
                                 {question1===true ? 
                                     <div className='duration-200 ease-linear sm:translate-y-100'>
@@ -135,7 +134,7 @@ function Faq() {
                                         } else {
                                             setQuestion2(false)
                                         }
-                                    }} className='cursor-pointer'>{question2!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                    }} className='cursor-pointer'>{question2!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> : <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                                 </div>
                                 {question2===true ? 
                                 <p className="pb-5">Store it in a cool, dark, dry place to prevent your serum from oxidizing. Avoid sunlight exposure.</p>
@@ -157,7 +156,7 @@ function Faq() {
                                         } else {
                                             setQuestion3(false)
                                         }
-                                    }} className='cursor-pointer'>{question3!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                    }} className='cursor-pointer'>{question3!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> : <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                                 </div>
                                 {question3===true ? 
                                 <p className="pb-5">Drier-than-usual, and even lightly peeling skin is all part of the process. It takes about three weeks of using retinol for your skin cells to adapt and begin to tolerate it. If the irritation is prolonged or very uncomfortable, use it once a week or switch to a weaker percentage, but it is still best to consult your Dermatologist if no improvement after three weeks.</p>
@@ -179,7 +178,7 @@ function Faq() {
                                         } else {
                                             setQuestion4(false)
                                         }
-                                    }} className='cursor-pointer'>{question4!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                    }} className='cursor-pointer'>{question4!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> : <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                                 </div>
                                 {question4===true ? 
                                 <p className="pb-5">20s - We recommend most people start using retinol in their mid to late-20s, anywhere from 25-30. This is when collagen and elastin production start to slow down, so it's the perfect time to start reaping the preventative-aging benefits retinol has to offer. But always consult your dermatologist for recommendation.</p>
@@ -201,7 +200,7 @@ function Faq() {
                                     } else {
                                         setQuestion5(false)
                                     }
-                                }} className='cursor-pointer'>{question5!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                }} className='cursor-pointer'>{question5!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> : <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                             </div>
                             {question5===true ? 
                                 <p className="pb-5">There's no problem with using both retinol and vitamin C as part of your skincare routine. It is a "power couple" when it comes to aging. If you must use retinol and L-ascorbic acid at the same time, separate them for 30 minutes. Apply your vitamin C first since it has the lower pH of the two. You can also use Vitamin C in your AM and Retinol in your PM routine.</p>
@@ -223,7 +222,7 @@ function Faq() {
                                     } else {
                                         setQuestion6(false)
                                     }
-                                }} className='cursor-pointer'>{question5!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                }} className='cursor-pointer'>{question5!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> : <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                             </div>
                             {question6===true ? 
                                 <p className="pb-5">Don't Use Retinol with Salicylic Acid (leave on). Salicylic acid is a type of BHA. It's a chemical exfoliant that's extremely effective in treating oily and acne-prone skin because of its ability to penetrate deep into pores and remove dead skin cells and other debris.
@@ -257,7 +256,7 @@ function Faq() {
                                     } else {
                                         setQuestion7(false)
                                     }
-                                }} className='cursor-pointer'>{question5!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                }} className='cursor-pointer'>{question5!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> : <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                             </div>
                             {question7===true ? 
                                 <p className="pb-5">Glycolic acid is an AHA. It offers a variety of benefits including a smoother and brighter complexion and the reduction of fine lines and pigmentation. Layering these products together is NOT recommended. When used at the same time they are likely to irritate skin.
@@ -283,7 +282,7 @@ function Faq() {
                                     } else {
                                         setQuestion8(false)
                                     }
-                                }} className='cursor-pointer'>{question5!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                }} className='cursor-pointer'>{question5!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> : <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                             </div>
                             {question8===true ? 
                                 <p className="pb-5">Yes. Retinol and azelaic acid are safe and effective when used together and can be layered.
@@ -307,7 +306,7 @@ function Faq() {
                                     } else {
                                         setQuestion9(false)
                                     }
-                                }} className='cursor-pointer'>{question5!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                }} className='cursor-pointer'>{question5!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> :<svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                             </div>
                             {question9===true ? 
                                 <p className="pb-5">After cleansing, first apply the retinol product. 
@@ -333,7 +332,7 @@ function Faq() {
                                     } else {
                                         setQuestion10(false)
                                     }
-                                }} className='cursor-pointer'>{question5!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                }} className='cursor-pointer'>{question5!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> :<svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                             </div>
                             {question10===true ? 
                                 <p className="pb-5">Lactic acid is an AHA that helps to exfoliate your skin. It's considered the gentlest of all the alpha-hydroxy acids. A naturally occurring substance in the body, it can improve skin's texture, reduce fine lines and wrinkles, and minimize dark spots.
@@ -361,7 +360,7 @@ function Faq() {
                                     } else {
                                         setQuestion11(false)
                                     }
-                                }} className='cursor-pointer'>{question5!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                }} className='cursor-pointer'>{question5!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> :<svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                             </div>
                             {question11===true ? 
                                 <p className="pb-5">GNot really, mainly because retinol and adapalene are very similar ingredients. Both are a form of retinoid that just vary with the strength of potency. With both retinol and adapalene increasing the skin cell turnover your skin will become dry, uncomfortable, tight, red, with areas of flaky patches. It will also become stripped of the vital oil and water levels needed to keep the barrier at its healthiest state leading to it kick starting an over production of sebum (the natural oil found in the skin). This will result in a flare-up in breakouts and an imbalance in the skin making it oilier.</p>
@@ -383,7 +382,7 @@ function Faq() {
                                     } else {
                                         setQuestion12(false)
                                     }
-                                }} className='cursor-pointer'>{question5!==true ? <AiOutlinePlus className='h-[25px] w-[25px]'/> : <AiOutlineLine className='h-[25px] w-[25px]'/>}</label>
+                                }} className='cursor-pointer'>{question5!==true ? <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg> :<svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m21 11.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z" /></svg>}</label>
                             </div>
                             {question12===true ? 
                                 <p className="pb-5">As for benzoyl peroxide and retinol, they cancel each other out. It is not recommended to use benzoyl peroxide and retinoids together as they can literally cancel each other out rendering them less effective. They’re both drying and exfoliating ingredients, so mixing them together can cause excessive peeling, hyperpigmentation, and redness.</p>

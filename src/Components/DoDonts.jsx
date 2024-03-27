@@ -1,5 +1,4 @@
 import React from "react";
-import { PiNumberCircleOneFill, PiNumberCircleTwoFill, PiNumberCircleThreeFill, PiNumberCircleFourFill, PiNumberCircleFiveFill } from "react-icons/pi";
 
 export default function DoDonts({proddo, proddont}) {
     return (
@@ -11,30 +10,40 @@ export default function DoDonts({proddo, proddont}) {
 
                 <div className="h-full w-full sm:max-w-6xl grid sm:container sm:mx-auto sm:grid-cols-2">
 
-                    <div className="sm:rounded-tl-[100px] border-b-2 sm:border-b-0 container mx-auto grid bg-white sm:border-r-2 border-blue-300">
-                        <div className="grid gap-2 p-6">
+                    <div className="sm:rounded-tl-[100px] border-b-2 sm:border-b-0 col-span-1 container mx-auto grid bg-white sm:border-r-2 border-blue-300">
+                        <div className="grid gap-2 p-6 w-full">
                             <h1 className="capitalize font-bold text-gray-700 text-3xl text-center">Do's</h1>
                             
                             {proddo[0]!==undefined ? 
                                 <>
                                     {proddo.map((a, index)=> {
                                         return (
-                                            <div key={index} className="grid grid-cols-5 gap-4 py-2">
+                                            <div key={index} className="grid grid-cols-5 gap-4 py-2 w-full">
                                                 <div className="flex justify-center">
                                                     {index===0 && (
-                                                        <PiNumberCircleOneFill className="text-blue-400 h-[50px] w-[100px]"/>
+                                                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M13 20v-16l-5 5" /></svg>
+                                                        </div>
                                                     )}
                                                     {index===1 && (
-                                                        <PiNumberCircleTwoFill className="text-blue-400 h-[50px] w-[100px]"/>
+                                                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M8 8a4 4 0 1 1 8 0c0 1.098 -.564 2.025 -1.159 2.815l-6.841 9.185h8"/></svg>
+                                                        </div>
                                                     )}
                                                     {index===2 && (
-                                                        <PiNumberCircleThreeFill className="text-blue-400 h-[50px] w-[100px]"/>
+                                                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M12 12a4 4 0 1 0 -4 -4" /><path d="M8 16a4 4 0 1 0 4 -4" /></svg>
+                                                        </div>
                                                     )}
                                                     {index===3 && (
-                                                        <PiNumberCircleFourFill className="text-blue-400 h-[50px] w-[100px]"/>
+                                                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M15 20v-15l-8 11h10" /></svg>
+                                                        </div>
                                                     )}
                                                     {index===4 && (
-                                                        <PiNumberCircleFiveFill className="text-blue-400 h-[50px] w-[100px]"/>
+                                                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M8 20h4a4 4 0 1 0 0 -8h-4v-8h8" /></svg>
+                                                        </div>
                                                     )}
                                                 </div>
                                                 <div className="col-span-4">
@@ -49,30 +58,40 @@ export default function DoDonts({proddo, proddont}) {
                         </div>
                     </div>
 
-                    <div className="sm:rounded-br-[100px] border-t-2 sm:border-t-0 container mx-auto grid bg-white sm:border-l-2 border-blue-300">
-                        <div className="grid gap-2 p-6">
+                    <div className="sm:rounded-br-[100px] border-t-2 sm:border-t-0 col-span-1 container mx-auto grid bg-white sm:border-l-2 border-blue-300">
+                        <div className="grid gap-2 p-6 w-full">
                             <h1 className="capitalize font-bold text-gray-700 text-3xl text-center">Don't</h1>
                             
                             {proddont[0]!==undefined ? 
                                 <>
                                     {proddont?.map((a, index)=> {
                                         return (
-                                            <div key={index} className="grid grid-cols-5 gap-4 py-2">
+                                            <div key={index} className="grid grid-cols-5 gap-4 py-2 w-full">
                                                 <div className="flex justify-center">
                                                     {index===0 && (
-                                                        <PiNumberCircleOneFill className="text-blue-400 h-[50px] w-[100px]"/>
+                                                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M13 20v-16l-5 5" /></svg>
+                                                        </div>
                                                     )}
                                                     {index===1 && (
-                                                        <PiNumberCircleTwoFill className="text-blue-400 h-[50px] w-[100px]"/>
+                                                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M8 8a4 4 0 1 1 8 0c0 1.098 -.564 2.025 -1.159 2.815l-6.841 9.185h8"/></svg>
+                                                        </div>
                                                     )}
                                                     {index===2 && (
-                                                        <PiNumberCircleThreeFill className="text-blue-400 h-[50px] w-[100px]"/>
+                                                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M12 12a4 4 0 1 0 -4 -4" /><path d="M8 16a4 4 0 1 0 4 -4" /></svg>
+                                                        </div>
                                                     )}
                                                     {index===3 && (
-                                                        <PiNumberCircleFourFill className="text-blue-400 h-[50px] w-[100px]"/>
+                                                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M15 20v-15l-8 11h10" /></svg>
+                                                        </div>
                                                     )}
                                                     {index===4 && (
-                                                        <PiNumberCircleFiveFill className="text-blue-400 h-[50px] w-[100px]"/>
+                                                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M8 20h4a4 4 0 1 0 0 -8h-4v-8h8" /></svg>
+                                                        </div>
                                                     )}
                                                 </div>
                                                 <div className="col-span-4">
