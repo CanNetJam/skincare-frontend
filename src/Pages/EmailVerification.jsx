@@ -21,7 +21,7 @@ export default function EmailVerification() {
     }, [])
 
     return (
-        <div className='min-h-screen h-auto w-full bg-blue-400 px-4 flex justify-center items-center'>
+        <div className='min-h-screen h-auto w-full bg-blue-400 px-4 flex justify-center items-center z-50'>
             <div className='border rounded-2xl p-10'>
                 <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Email Verification</h1>
                 <div className='w-full flex justify-center items-center'>
@@ -34,10 +34,15 @@ export default function EmailVerification() {
                 <p className='text-white text-center my-4'>
                     <span className='font-semibold'>{serverMessage}</span>
                     <br/>
-                    Click to continue on kluedskincare.com
+                    {serverMessage==="Successfully verified your Klued Employee Portal Account" ?
+                        <>Click to login your account.</>
+                    :
+                        <>Click to register an account.</>
+                    }
+                   
                 </p>
                 <div className='w-full flex justify-center items-center'>
-                    <Link to={"/login"} className={`${true===true ? 'hover:bg-blue-700 dark:hover:bg-primary-700' : 'bg-gray-400'} w-auto text-white bg-blue-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-primary-600 dark:focus:ring-primary-800`}>Proceed</Link>
+                    <Link to={serverMessage==="Successfully verified your Klued Employee Portal Account" ? "/login" : "/register"} className={`${true===true ? 'hover:bg-blue-700 dark:hover:bg-primary-700' : 'bg-gray-400'} w-auto text-white bg-blue-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-primary-600 dark:focus:ring-primary-800`}>Proceed</Link>
                 </div>
             </div>
         </div>
