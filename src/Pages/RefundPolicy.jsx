@@ -41,7 +41,7 @@ export default function RefundPolicy() {
                     <br/>
                     <b>2. Refund Process</b>
                     <br/>
-                    2.1. To initiate a refund or return, please contact our customer support team at hello@kluedskincare.com or chat our website customer support within the eligible timeframe.
+                    2.1. To initiate a refund or return, please contact our customer support team at support@kluedskincare.com or chat our website customer support within the eligible timeframe.
                     <br/>
                     2.2. Our customer support team will guide you through the return process, which may include providing photographs of the product and packaging.
                     <br/>
@@ -72,7 +72,7 @@ export default function RefundPolicy() {
                     <br/>
                     <b>5. Contact Us</b>
                     <br/>
-                    If you have any questions or concerns about our refund policy or need assistance with a return, please contact our customer support team at [Customer Support Email Address].
+                    If you have any questions or concerns about our refund policy or need assistance with a return, please contact our customer support team at support@kluedskincare.com.
                     <br/>
                     <br/>
                     <b>6. Changes to this Policy</b>

@@ -77,7 +77,7 @@ export default function TermsOfUse() {
                     <br/>
                     <b>11. Contact Information</b>
                     <br/>
-                    If you have any questions or concerns about these Terms, please contact us at hello@kluedskincare.com.
+                    If you have any questions or concerns about these Terms, please contact us at support@kluedskincare.com.
                 </p>
             </div>
         </>
