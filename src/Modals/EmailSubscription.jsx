@@ -83,15 +83,15 @@ export default function EmailSubscription({isOpen, setIsOpen}) {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                             >
-                            <Dialog.Panel className="h-full w-full sm:max-h-96 max-h-[450px] bg-white max-w-2xl transform overflow-hidden rounded-xl text-left align-middle shadow-xl transition-all grid sm:grid-cols-2">
+                            <Dialog.Panel className="h-full w-full sm:max-h-[400px] max-h-[550px] bg-white max-w-2xl transform overflow-hidden rounded-xl text-left align-middle shadow-xl transition-all grid sm:grid-cols-2">
                                 <div className='h-full sm:max-h-full max-h-48 w-full col-span-1'>
                                     <img height={'192px'} width={'300px'} title='Klued skin care models' alt='Klued skin care models' loading='eager' className='h-full w-full object-cover' src={importedImage}/>
                                 </div>
                                 <div className='col-span-1 sm:p-6 p-3'>
-                                    <Dialog.Title as="h2" className="sm:text-4xl text-xl border-b pb-2 font-semibold leading-6 text-gray-900 items-center">
+                                    <Dialog.Title as="h2" className="sm:text-4xl text-2xl border-b pb-2 font-semibold leading-6 text-gray-900 items-center">
                                         Subscribe Now!
                                     </Dialog.Title>
-                                    <p className='sm:py-4 py-1 tinyText text-justify'>
+                                    <p className='py-1 text-gray-500 text-sm text-justify'>
                                         News, discounts and exclusive offers, sent directly to your email. Don't miss out the opportunity and subscribe to Klued's newsletter now!
                                     </p>
                                     <form className="grid grid-cols-4 gap-x-4 gap-y-2 mt-2" onSubmit={submitHandler}>
@@ -105,7 +105,7 @@ export default function EmailSubscription({isOpen, setIsOpen}) {
                                             }} id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required/>
                                             <div> </div>
                                             <label htmlFor="remember" className="text-gray-500 dark:text-gray-300 text-xs">
-                                                I agree to Klued's <Link to={'/terms-of-use'} className='font-semibold cursor-pointer underline'>Terms and Policies</Link>.
+                                                I agree to Klued's <Link to={'/terms-of-use'} className='cursor-pointer hover:underline text-blue-500'>Terms and Policies</Link>.
                                             </label>
                                         </div>
                                         <div className='col-span-4'>
@@ -114,13 +114,21 @@ export default function EmailSubscription({isOpen, setIsOpen}) {
                                         
                                         <div className='col-span-4 grid grid-cols-4 gap-2 justify-center items-center'>
                                             <div className='col-span-2'>
-                                                <button type="submit" className="relative text-center py-2 h-full w-full sm:px-3 px-1 font-bold rounded-lg before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden">Sure!</button>
+                                                <button type="submit" className="relative text-center py-1.5 h-full w-full sm:px-3 px-1 font-bold rounded-lg before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-50 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden">Sure!</button>
                                             </div>
                                             <div className='col-span-2'>
-                                                <button onClick={()=>setIsOpen(false)} type="button" className="text-gray-500 bg-gray-100 hover:bg-gray-200 w-full focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, thanks.</button>
+                                                <button onClick={()=>setIsOpen(false)} type="button" className="text-gray-500 bg-gray-100 hover:bg-gray-200 w-full focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border-gray-200 px-5 py-1.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, thanks.</button>
                                             </div>
                                         </div>
                                     </form>
+                                    <div className='border my-6 relative'>
+                                        <p className='bg-white text-gray-500 px-2 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2'>or</p>
+                                    </div>
+
+                                    <div className='w-full text-center text-sm'>
+                                        Click <Link to="/register" className="text-blue-500 hover:underline hover:text-400 ">here</Link> to create an account and shop now. 
+                                    </div>
+
                                 </div>
                             </Dialog.Panel>
                             </Transition.Child>

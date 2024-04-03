@@ -1,6 +1,6 @@
 import React from 'react';
-import img1 from '../assets/Oat.jpg';
-import img2 from '../assets/Pouch.png';
+import img1 from '../assets/Oat.webp';
+import img2 from '../assets/Pouch.webp';
 
 export default function MoreInfo({packageData}) {
     return (
