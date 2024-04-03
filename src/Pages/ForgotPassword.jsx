@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import img2 from '../assets/3.jpg';
+import img2 from '../assets/Compressed-Webp/3-min.webp';
 import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
