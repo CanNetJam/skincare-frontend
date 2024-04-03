@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import NewProducts from '../Components/NewProducts';
 import TiktokSlider from '../Components/TiktokSlider';
 import VideoPlayer from '../Components/VideoPlayer';
 import HomeHero from '../Components/HomeHero';

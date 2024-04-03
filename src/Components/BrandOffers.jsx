@@ -5,7 +5,7 @@ import img4 from '../assets/Compressed-Webp/BGPaper.png';
 import img5 from '../assets/Compressed-Webp/Savings.webp';
 import img6 from '../assets/Compressed-Webp/Safe.webp';
 import img7 from '../assets/Compressed-Webp/EffectiveLogo.webp';
-import img8 from '../assets/Compressed-Webp/LowCostLogo.webp';
+import img8 from '../assets/Compressed-Webp/LowLogo.webp';
 import img9 from '../assets/Compressed-Webp/SafetyLogo.webp';
 
 export default function BrandOffers() {
