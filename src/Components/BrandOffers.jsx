@@ -54,7 +54,7 @@ export default function BrandOffers() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
 
             <div className='sm:h-screen h-auto max-w-6xl container mx-auto grid sm:gap-6 gap-2 sm:grid-cols-2 w-full px-4 sm:mb-2 mb-8'>
                 <div className="h-full flex sm:p-12 py-8 sm:px-0 w-full items-center">
