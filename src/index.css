@@ -22,7 +22,7 @@
         @apply lg:text-xl text-lg;
     }
     .smallText {
-        @apply lg:text-lg text-base;
+        @apply sm:text-lg text-base;
     }
     .tinyText {
         @apply lg:text-base text-sm;

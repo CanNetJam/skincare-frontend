@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import NewProducts from '../Components/NewProducts';
 import TiktokSlider from '../Components/TiktokSlider';
 import VideoPlayer from '../Components/VideoPlayer';
+import HomeHero from '../Components/HomeHero';
 import axios from "axios";
 import EmailSubscription from '../Modals/EmailSubscription';
+import BrandOffers from '../Components/BrandOffers';
+import FooterCallToAction from '../Components/FooterCallToAction';
 
 function Home() {
     const [devidedVideos, setDevidedVideos] = useState([])
@@ -110,8 +113,8 @@ function Home() {
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
-
-            <NewProducts />
+            <HomeHero />
+            <BrandOffers />
             {fetchedVideos.length>0 ? 
                 <>
                     <TiktokSlider
@@ -133,6 +136,7 @@ function Home() {
                     :null}
                 </>
             :null}
+            <FooterCallToAction />
         </div>
     )
 }

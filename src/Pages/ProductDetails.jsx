@@ -40,12 +40,12 @@ export default function ProductDetails() {
                 <meta charSet="utf-8" />
                 <title>Klued Products</title>
                 <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}products`} />
-                <meta name="description" content="New Klued products and packages available for your every skin care needs."/>
+                <meta name="description" content="Shop now! Our own online store is now open with discounted Klued products and packages available for your every skin care needs."/>
                 <meta name="theme-color" content="#38bdf8"/>
 
                 <meta property="og:title" content="Klued Products"/>
                 <meta property="og:type" content="website"/>
-                <meta property="og:description" content="New Klued products and packages available for your every skin care needs."/>
+                <meta property="og:description" content="Shop now! Our own online store is now open with discounted Klued products and packages available for your every skin care needs."/>
                 <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
                 <meta property="og:url" content="https://kluedskincare.com/products"/>
             </Helmet>

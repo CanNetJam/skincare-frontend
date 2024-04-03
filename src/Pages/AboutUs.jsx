@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import photo1 from '../assets/1.jpg';
-import photo2 from '../assets/2.jpg';
+import photo1 from '../assets/Compressed-Webp/15-min.webp';
+import photo2 from '../assets/Compressed-Webp/2-min.webp';
 import photo3 from '../assets/14.jpg';
 import EmailSubscription from '../Modals/EmailSubscription';
 import { Helmet } from 'react-helmet-async';
@@ -81,7 +81,7 @@ function AboutUs() {
                     </div>
                 </div>
 
-                <img height={'500px'} width={'500px'} title='klued produdcts' loading='eager' alt="a lot of Klued - 0.5% Retinol Serum displayed diagonally"
+                <img height={'500px'} width={'500px'} title='klued products' loading='eager' alt="a lot of Klued - 0.5% Retinol Serum displayed diagonally"
                     src={photo3}
                     className="h-56 w-full object-cover sm:h-full"
                 />

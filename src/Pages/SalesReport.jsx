@@ -199,7 +199,7 @@ export default function SalesReport() {
                                 </>
                             :
                                 <>
-                                    <span className={`${fetchedData?.AllSales*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{fetchedData?.AllSales*100}%</span>
+                                    <span className={`${fetchedData?.AllSales*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{(fetchedData?.AllSales*100)?.toFixed(2)}%</span>
                                     {fetchedData?.AllSales*100 >= 0 ? 
                                         <span className='h-[13px] w-[13px] flex justify-center items-center -rotate-90'>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill={`#4ade80`} d="M16 8v-4l8 8-8 8v-4h-5v-8h5zm-7 0h-2v8h2v-8zm-4.014 0h-1.986v8h1.986v-8zm-3.986 0h-1v8h1v-8z"/></svg>
@@ -228,7 +228,7 @@ export default function SalesReport() {
                         <p className='text-base font-semibold flex justify-center'>
                             {fetchedData?.AllPreviousOrders!==0 ? 
                                 <>
-                                    <span className={`${(fetchedData?.AllOrders-fetchedData?.AllPreviousOrders)/fetchedData?.AllPreviousOrders*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{(fetchedData?.AllOrders-fetchedData?.AllPreviousOrders)/fetchedData?.AllPreviousOrders*100}%</span>
+                                    <span className={`${(fetchedData?.AllOrders-fetchedData?.AllPreviousOrders)/fetchedData?.AllPreviousOrders*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{((fetchedData?.AllOrders-fetchedData?.AllPreviousOrders)/fetchedData?.AllPreviousOrders*100)?.toFixed(2)}%</span>
                                     {(fetchedData?.AllOrders-fetchedData?.AllPreviousOrders)/fetchedData?.AllPreviousOrders*100 >= 0 ? 
                                         <span className='h-[13px] w-[13px] flex justify-center items-center -rotate-90'>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill={`#4ade80`} d="M16 8v-4l8 8-8 8v-4h-5v-8h5zm-7 0h-2v8h2v-8zm-4.014 0h-1.986v8h1.986v-8zm-3.986 0h-1v8h1v-8z"/></svg>
@@ -241,7 +241,7 @@ export default function SalesReport() {
                                 </>
                             :
                                 <>
-                                    <span className={`${fetchedData?.AllOrders*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{fetchedData?.AllOrders*100}%</span>
+                                    <span className={`${fetchedData?.AllOrders*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{(fetchedData?.AllOrders*100)?.toFixed(2)}%</span>
                                     {fetchedData?.AllOrders*100 >= 0 ? 
                                         <span className='h-[13px] w-[13px] flex justify-center items-center -rotate-90'>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill={`#4ade80`} d="M16 8v-4l8 8-8 8v-4h-5v-8h5zm-7 0h-2v8h2v-8zm-4.014 0h-1.986v8h1.986v-8zm-3.986 0h-1v8h1v-8z"/></svg>
@@ -270,7 +270,7 @@ export default function SalesReport() {
                         <p className='text-base font-semibold flex justify-center'>
                             {fetchedData?.AllPreviousCustomers!==0 ? 
                                 <>
-                                    <span className={`${(fetchedData?.AllCustomers-fetchedData?.AllPreviousCustomers)/fetchedData?.AllPreviousCustomers*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{(fetchedData?.AllCustomers-fetchedData?.AllPreviousCustomers)/fetchedData?.AllPreviousCustomers*100}%</span>
+                                    <span className={`${(fetchedData?.AllCustomers-fetchedData?.AllPreviousCustomers)/fetchedData?.AllPreviousCustomers*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{((fetchedData?.AllCustomers-fetchedData?.AllPreviousCustomers)/fetchedData?.AllPreviousCustomers*100)?.toFixed(2)}%</span>
                                     {(fetchedData?.AllCustomers-fetchedData?.AllPreviousCustomers)/fetchedData?.AllPreviousCustomers*100 >= 0 ? 
                                         <span className='h-[13px] w-[13px] flex justify-center items-center -rotate-90'>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill={`#4ade80`} d="M16 8v-4l8 8-8 8v-4h-5v-8h5zm-7 0h-2v8h2v-8zm-4.014 0h-1.986v8h1.986v-8zm-3.986 0h-1v8h1v-8z"/></svg>
@@ -283,7 +283,7 @@ export default function SalesReport() {
                                 </>
                             :
                                 <>
-                                    <span className={`${fetchedData?.AllCustomers*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{fetchedData?.AllCustomers*100}%</span>
+                                    <span className={`${fetchedData?.AllCustomers*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{(fetchedData?.AllCustomers*100)?.toFixed(2)}%</span>
                                     {fetchedData?.AllCustomers*100 >= 0 ? 
                                         <span className='h-[13px] w-[13px] flex justify-center items-center -rotate-90'>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill={`#4ade80`} d="M16 8v-4l8 8-8 8v-4h-5v-8h5zm-7 0h-2v8h2v-8zm-4.014 0h-1.986v8h1.986v-8zm-3.986 0h-1v8h1v-8z"/></svg>
@@ -312,7 +312,7 @@ export default function SalesReport() {
                         <p className='text-base font-semibold flex justify-center'>
                             {fetchedData?.AllPreviousVouchers!==0 ? 
                                 <>
-                                    <span className={`${(fetchedData?.AllVouchers-fetchedData?.AllPreviousVouchers)/fetchedData?.AllPreviousVouchers*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{(fetchedData?.AllVouchers-fetchedData?.AllPreviousVouchers)/fetchedData?.AllPreviousVouchers*100}%</span>
+                                    <span className={`${(fetchedData?.AllVouchers-fetchedData?.AllPreviousVouchers)/fetchedData?.AllPreviousVouchers*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{((fetchedData?.AllVouchers-fetchedData?.AllPreviousVouchers)/fetchedData?.AllPreviousVouchers*100)?.toFixed(2)}%</span>
                                     {(fetchedData?.AllVouchers-fetchedData?.AllPreviousVouchers)/fetchedData?.AllPreviousVouchers*100 >= 0 ? 
                                         <span className='h-[13px] w-[13px] flex justify-center items-center -rotate-90'>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill={`#4ade80`} d="M16 8v-4l8 8-8 8v-4h-5v-8h5zm-7 0h-2v8h2v-8zm-4.014 0h-1.986v8h1.986v-8zm-3.986 0h-1v8h1v-8z"/></svg>
@@ -325,7 +325,7 @@ export default function SalesReport() {
                                 </>
                             :
                                 <>
-                                    <span className={`${fetchedData?.AllVouchers*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{fetchedData?.AllVouchers*100}%</span>
+                                    <span className={`${fetchedData?.AllVouchers*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{(fetchedData?.AllVouchers*100)?.toFixed(2)}%</span>
                                     {fetchedData?.AllVouchers*100 >= 0 ? 
                                         <span className='h-[13px] w-[13px] flex justify-center items-center -rotate-90'>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill={`#4ade80`} d="M16 8v-4l8 8-8 8v-4h-5v-8h5zm-7 0h-2v8h2v-8zm-4.014 0h-1.986v8h1.986v-8zm-3.986 0h-1v8h1v-8z"/></svg>

@@ -76,43 +76,43 @@ function Skin() {
                 <h2 className='font-bold text-xl text-center my-8'>Layers of Skin</h2>
                 <div>
                     <div className="grid grid-cols-8 gap-4 py-0">
-                    <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-end items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M13 20v-16l-5 5" /></svg>
-                    </div>
-                    <div className="col-span-7 pb-6">
-                        <h3 className="capitalize font-bold text-black text-lg my-0">Epidermis</h3>
-                        <div className="grid grid-cols-4 items-center">
-                        <p className="col-span-4 tinyText inline-block">The word “epidermis” combines the Ancient Greek prefix epi-, which means “outer,” and the Ancient Greek word derma, which means “skin.” So the word translates to “outer skin.”</p>
+                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M13 20v-16l-5 5" /></svg>
                         </div>
-                    </div>
+                        <div className="col-span-7 pb-6">
+                            <h3 className="capitalize font-bold text-black text-lg my-0">Epidermis</h3>
+                            <div className="grid grid-cols-4 items-center">
+                            <p className="col-span-4 tinyText inline-block">The word “epidermis” combines the Ancient Greek prefix epi-, which means “outer,” and the Ancient Greek word derma, which means “skin.” So the word translates to “outer skin.”</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div>
                     <div className="grid grid-cols-8 gap-4 py-0">
-                    <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-end items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M8 8a4 4 0 1 1 8 0c0 1.098 -.564 2.025 -1.159 2.815l-6.841 9.185h8"/></svg>
-                    </div>
-                    <div className="col-span-7 pb-6">
-                        <h3 className="capitalize font-bold text-black text-lg my-1">Dermis</h3>
-                        <div className="grid grid-cols-4 items-center">
-                        <p className="col-span-4 tinyText inline-block">It houses the sweat glands, hair, hair follicles, muscles, sensory neurons, and blood vessels.</p>
+                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M8 8a4 4 0 1 1 8 0c0 1.098 -.564 2.025 -1.159 2.815l-6.841 9.185h8"/></svg>
                         </div>
-                    </div>
+                        <div className="col-span-7 pb-6">
+                            <h3 className="capitalize font-bold text-black text-lg my-1">Dermis</h3>
+                            <div className="grid grid-cols-4 items-center">
+                            <p className="col-span-4 tinyText inline-block">It houses the sweat glands, hair, hair follicles, muscles, sensory neurons, and blood vessels.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div>
                     <div className="grid grid-cols-8 gap-4 py-0">
-                    <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-end items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M12 12a4 4 0 1 0 -4 -4" /><path d="M8 16a4 4 0 1 0 4 -4" /></svg>
-                    </div>
-                    <div className="col-span-7">
-                        <h3 className="capitalize font-bold text-black text-lg my-1">Hypodermis</h3>
-                        <div className="grid grid-cols-4 items-center">
-                        <p className="col-span-4 tinyText inline-block">It is the deepest layer of skin and contains some skin appendages like the hair follicles, sensory neurons, and blood vessels.</p>
+                        <div className="h-11 w-11 rounded-full bg-blue-400 flex justify-center items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke="white" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-number-1"><path stroke="none" d="M0 0h24v24H0z"/><path d="M12 12a4 4 0 1 0 -4 -4" /><path d="M8 16a4 4 0 1 0 4 -4" /></svg>
                         </div>
-                    </div>
+                        <div className="col-span-7">
+                            <h3 className="capitalize font-bold text-black text-lg my-1">Hypodermis</h3>
+                            <div className="grid grid-cols-4 items-center">
+                            <p className="col-span-4 tinyText inline-block">It is the deepest layer of skin and contains some skin appendages like the hair follicles, sensory neurons, and blood vessels.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 </div>

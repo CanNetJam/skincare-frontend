@@ -31,7 +31,7 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                 //for(let i=0; i<a.items.length; i++) {
                     let itemsArray = []
                     for (let i=0; i<a.items.length; i++) {
-                        let itemPlusQuantity = a.items[i].item.name+" x"+a.items[i].quantity+` pc${a.items[i].quantity>1 ? 's' : ''}.`
+                        let itemPlusQuantity = a.items[i].item.name+"      x"+a.items[i].quantity+` pc${a.items[i].quantity>1 ? 's' : ''}.`
                         itemsArray.push(itemPlusQuantity)
                     }
 

@@ -149,7 +149,6 @@ export default function Category() {
 
     return (
         <div className="grid justify-center">
-            <Packages />
             <div className="container mx-auto max-w-6xl px-4 py-4 sm:px-0">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">Cleanser</h2>
         
@@ -333,6 +332,8 @@ export default function Category() {
                     ))}
                 </div>
             </div>
+
+            <Packages />
         </div>
     )
 }
