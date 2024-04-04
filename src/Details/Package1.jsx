@@ -3,7 +3,6 @@ import { useLocation, useParams} from 'react-router';
 import axios from 'axios';
 import Approvals from '../Components/Approvals';
 import Hero from '../Components/Hero';
-import OrderNow from '../Components/OrderNow';
 import Features from '../Components/Features';
 import MoreInfo from '../Components/MoreInfo';
 import Precautions from '../Components/Precautions';
@@ -58,6 +57,21 @@ export default function Package1() {
         }
         getProduct()
     }, [])
+
+    const packageDetails = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "description": packageData.maindesc,
+        "name": packageData.name,
+        "image": `https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${packageData.displayimage}.jpg`,
+
+        "offers": {
+            "@type": "Offer",
+            "availability": `${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}packages/${encodeURIComponent(packageData?.name?.replace(/\s+/g, '-').toLowerCase())}/${packageData._id}`,
+            "price": packageData.disprice,
+            "priceCurrency": "PHP"
+        }
+    }
     
     return (
         <div>
@@ -73,6 +87,10 @@ export default function Package1() {
                 <meta property="og:description" content={packageData?.maindesc?.slice(0, 170)}/>
                 <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
                 <meta property="og:url" content={`https://kluedskincare.com/products/${encodeURIComponent(packageData?.name?.replace(/\s+/g, '-').toLowerCase())}/${packageData._id}`}/>
+            
+                <script type="application/ld+json">
+                    {JSON.stringify(packageDetails)}
+                </script>
             </Helmet>
 
             {isOpen && (

@@ -192,6 +192,21 @@ export default function Product1() {
         }
     }
 
+    const productDetails = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "description": productData.maindesc,
+        "name": productData.name,
+        "image": `https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${productData.displayimage}.jpg`,
+
+        "offers": {
+            "@type": "Offer",
+            "availability": `${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}products/${encodeURIComponent(productData?.name?.replace(/\s+/g, '-').toLowerCase())}/${productData._id}`,
+            "price": productData.disprice,
+            "priceCurrency": "PHP"
+        }
+    }
+
     return (
         <div>
             <Helmet>
@@ -206,6 +221,10 @@ export default function Product1() {
                 <meta property="og:description" content={productData?.maindesc?.slice(0, 170)}/>
                 <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
                 <meta property="og:url" content={`https://kluedskincare.com/products/${encodeURIComponent(productData?.name?.replace(/\s+/g, '-').toLowerCase())}/${productData._id}`}/>
+
+                <script type="application/ld+json">
+                    {JSON.stringify(productDetails)}
+                </script>
             </Helmet>
             {isOpen && (
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
