@@ -219,7 +219,7 @@ export default function Product1() {
                 },
                 "shippingDestination": {
                   "@type": "DefinedRegion",
-                  "addressCountry": "PHP"
+                  "addressCountry": "PH"
                 },
                 "deliveryTime": {
                   "@type": "ShippingDeliveryTime",
@@ -239,7 +239,7 @@ export default function Product1() {
             },
             "hasMerchantReturnPolicy": {
                 "@type": "MerchantReturnPolicy",
-                "applicableCountry": "PHP",
+                "applicableCountry": "PH",
                 "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
                 "merchantReturnDays": 60,
                 "returnMethod": "https://schema.org/ReturnByMail",
@@ -249,7 +249,10 @@ export default function Product1() {
         "review": [
             {
                 "@type": "Review",
-                "author": "Juan",
+                "author": {
+                    "@type": "Person",
+                    "name": "Juan Delacruz"
+                },
                 "datePublished": "2024-04-01",
                 "reviewBody": "The product works well with my skin type.",
                 "name": "Satisfied customer",
@@ -262,7 +265,10 @@ export default function Product1() {
             },
             {
                 "@type": "Review",
-                "author": "Pedro",
+                "author": {
+                    "@type": "Person",
+                    "name": "Pedro Santa Maria"
+                },
                 "datePublished": "2024-03-25",
                 "reviewBody": "Does not have any fragrance, just what I need.",
                 "name": "Odorless",
@@ -275,7 +281,10 @@ export default function Product1() {
             },
             {
                 "@type": "Review",
-                "author": "Maria",
+                "author": {
+                    "@type": "Person",
+                    "name": "Maria Evanghelista"
+                },
                 "datePublished": "2024-08-15",
                 "reviewBody": "Tried for the first time and surprisngly felt good.",
                 "name": "Value purchase",
