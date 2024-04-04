@@ -243,7 +243,7 @@ export default function Product1() {
                 "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
                 "merchantReturnDays": 60,
                 "returnMethod": "https://schema.org/ReturnByMail",
-                "returnFees": "https://schema.org/OriginalShippingFees"
+                "returnFees": "http://schema.org/ReturnFeesCustomerResponsibility"
             }
         },
         "review": [
