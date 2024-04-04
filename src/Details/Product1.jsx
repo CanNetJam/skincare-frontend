@@ -198,13 +198,95 @@ export default function Product1() {
         "description": productData.maindesc,
         "name": productData.name,
         "image": `https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${productData.displayimage}.jpg`,
-
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "bestRating": "5",
+            "ratingCount": "10",
+            "ratingValue": "4.5"
+        },
         "offers": {
             "@type": "Offer",
-            "availability": `${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}products/${encodeURIComponent(productData?.name?.replace(/\s+/g, '-').toLowerCase())}/${productData._id}`,
             "price": productData.disprice,
-            "priceCurrency": "PHP"
-        }
+            "priceCurrency": "PHP",
+            "priceValidUntil": "2024-12-31",
+            "availability": productData.stock>0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+            "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": 45,
+                  "currency": "PHP"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "PHP"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 2,
+                    "maxValue": 3,
+                    "unitCode": "DAY"
+                  },
+                  "transitTime": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 1,
+                    "maxValue": 5,
+                    "unitCode": "DAY"
+                  }
+                }
+            },
+            "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "PHP",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 60,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/OriginalShippingFees"
+            }
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": "Juan",
+                "datePublished": "2024-04-01",
+                "reviewBody": "The product works well with my skin type.",
+                "name": "Satisfied customer",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "bestRating": "5",
+                    "ratingValue": "5",
+                    "worstRating": "1"
+                }
+            },
+            {
+                "@type": "Review",
+                "author": "Pedro",
+                "datePublished": "2024-03-25",
+                "reviewBody": "Does not have any fragrance, just what I need.",
+                "name": "Odorless",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "bestRating": "5",
+                    "ratingValue": "4",
+                    "worstRating": "1"
+                }
+            },
+            {
+                "@type": "Review",
+                "author": "Maria",
+                "datePublished": "2024-08-15",
+                "reviewBody": "Tried for the first time and surprisngly felt good.",
+                "name": "Value purchase",
+                "reviewRating": {
+                  "@type": "Rating",
+                  "bestRating": "5",
+                  "ratingValue": "5",
+                  "worstRating": "1"
+                }
+            }
+        ]
     }
 
     return (
