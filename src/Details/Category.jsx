@@ -155,7 +155,7 @@ export default function Category() {
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
                     {cleanseList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
-                            <Link to={`/products/${encodeURIComponent(product.name.replace(/\s+/g, '-').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
+                            <Link to={`/products/${((product?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
                                     <img title='Klued product' alt={`${product.name}`} loading='eager' height={'100px'} width={'100px'}
                                         src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
@@ -201,7 +201,7 @@ export default function Category() {
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
                     {tonerList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
-                            <Link to={`/products/${encodeURIComponent(product.name.replace(/\s+/g, '-').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
+                            <Link to={`/products/${((product?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
                                     <img title='Klued product' alt={`${product.name}`} loading='eager' height={'100px'} width={'100px'}
                                         src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
@@ -247,7 +247,7 @@ export default function Category() {
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
                     {serumList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
-                            <Link to={`/products/${encodeURIComponent(product.name.replace(/\s+/g, '-').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
+                            <Link to={`/products/${((product?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
                                     <img title='Klued product' alt={`${product.name}`} loading='eager' height={'100px'} width={'100px'}
                                         src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}
@@ -293,7 +293,7 @@ export default function Category() {
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
                     {moistList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
-                            <Link to={`/products/${encodeURIComponent(product.name.replace(/\s+/g, '-').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-24 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
+                            <Link to={`/products/${((product?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-24 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
                                     <img title='Klued product' alt={`${product.name}`} loading='eager' height={'100px'} width={'100px'}
                                         src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}

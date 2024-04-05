@@ -169,15 +169,15 @@ export default function Package1() {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>{packageData.name}</title>
-                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}packages/${encodeURIComponent(packageData?.name?.replace(/\s+/g, '-').toLowerCase())}/${packageData._id}`} />
+                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}packages/${(packageData?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase()}/${packageData._id}`} />
                 <meta name="description" content={packageData?.maindesc?.slice(0, 170)}/>
                 <meta name="theme-color" content="#38bdf8"/>
 
                 <meta property="og:title" content={packageData.name}/>
                 <meta property="og:type" content="website"/>
                 <meta property="og:description" content={packageData?.maindesc?.slice(0, 170)}/>
-                <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
-                <meta property="og:url" content={`https://kluedskincare.com/products/${encodeURIComponent(packageData?.name?.replace(/\s+/g, '-').toLowerCase())}/${packageData._id}`}/>
+                <meta property="og:image" content={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${packageData?.displayimage}.jpg`}/>
+                <meta property="og:url" content={`https://kluedskincare.com/products/${(packageData?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase()}/${packageData._id}`}/>
             
                 <script type="application/ld+json">
                     {JSON.stringify(packageDetails)}

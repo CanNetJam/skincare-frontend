@@ -303,15 +303,15 @@ export default function Product1() {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>{productData.name}</title>
-                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}products/${encodeURIComponent(productData?.name?.replace(/\s+/g, '-').toLowerCase())}/${productData._id}`} />
+                <link rel="canonical" href={`${import.meta.env.DEV ? 'http://localhost:5173/' : 'https://kluedskincare.com/'}products/${((productData?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase())}/${productData._id}`} />
                 <meta name="description" content={productData?.maindesc?.slice(0, 170)}/>
                 <meta name="theme-color" content="#38bdf8"/>
 
                 <meta property="og:title" content={productData.name}/>
                 <meta property="og:type" content="website"/>
                 <meta property="og:description" content={productData?.maindesc?.slice(0, 170)}/>
-                <meta property="og:image" content="https://kluedskincare.com/Klued-logo.xml"/>
-                <meta property="og:url" content={`https://kluedskincare.com/products/${encodeURIComponent(productData?.name?.replace(/\s+/g, '-').toLowerCase())}/${productData._id}`}/>
+                <meta property="og:image" content={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${productData.displayimage}.jpg`}/>
+                <meta property="og:url" content={`https://kluedskincare.com/products/${((productData?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase())}/${productData._id}`}/>
 
                 <script type="application/ld+json">
                     {JSON.stringify(productDetails)}
@@ -394,7 +394,7 @@ export default function Product1() {
                                             <div className='hidden h-full group-hover:justify-center group-hover:items-center group-hover:block group-hover:bg-gray-100 group-hover:backdrop-blur-xs group-hover:bg-opacity-20 absolute inset-0'>
                                                 <p className="w-full font-bold py-1 text-center">{a.name}</p>
                                                 <div className="absolute top-2/3 -translate-y-1/3 left-1/2 -translate-x-1/2 grid sm:gap-1 gap-0.5">
-                                                    <Link target="_blank" to={`/products/${encodeURIComponent(a.name.replace(/\s+/g, '-').toLowerCase())}/${a._id}`} state={{productid: a._id, productname: a.name}} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent hover:bg-gray-800 text-white bg-black focus:outline-none">Learn More</Link>
+                                                    <Link target="_blank" to={`/products/${(a?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase()}/${a._id}`} state={{productid: a._id, productname: a.name}} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent hover:bg-gray-800 text-white bg-black focus:outline-none">Learn More</Link>
                                                     {a.stock>0 ? 
                                                         <button onClick={()=>handleAddToCart(a)} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent hover:bg-gray-800 text-white bg-black focus:outline-none">Add to Cart</button>
                                                     :

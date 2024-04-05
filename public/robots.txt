@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: https://kluedskincare.com/packages/undefined/undefined
 
 Sitemap: https://kluedskincare.com/sitemap.xml

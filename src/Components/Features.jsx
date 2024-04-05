@@ -26,7 +26,7 @@ export default function Features({packageData, packageItems}) {
                                                         <label className='smallText text-center font-semibold'>{item.name}</label>
                                                     </div>
                                                     <div className='grid items-center'>
-                                                        <Link to={`/products/${encodeURIComponent(item.name.replace(/\s+/g, '-').toLowerCase())}/${item._id}`} state={{productid: item._id, productname: item.name}} className="relative text-center py-2 h-10 w-full sm:h-10 sm:px-3 font-bold text-[16px] rounded-full before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-100 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden">Learn More</Link>
+                                                        <Link to={`/products/${item?.name?.replace(/\s+/g, '-')?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase()}/${item._id}`} state={{productid: item._id, productname: item.name}} className="relative text-center py-2 h-10 w-full sm:h-10 sm:px-3 font-bold text-[16px] rounded-full before:bg-yellow-200 before:-z-10 bg-blue-400 z-0 text-slate-100 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:duration-300 hover:text-black before:hover:scale-x-100 overflow-hidden">Learn More</Link>
                                                     </div>
                                                 </div>
                                             </div>
