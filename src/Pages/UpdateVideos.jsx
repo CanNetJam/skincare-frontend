@@ -77,7 +77,7 @@ export default function UpdateVideos() {
                                             }}
                                             onMouseOut={event => event.target.pause()}
                                         >
-                                            <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_65/${a.source}.mp4`} type="video/mp4" />
+                                            <source src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a?.source}`} type="video/mp4" />
                                         </video>
                                     </div>
                                 )

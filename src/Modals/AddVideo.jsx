@@ -53,37 +53,19 @@ export default function AddVideo({isAdd, setIsAdd, submitted, setSubmitted}) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {
             const data = new FormData()
+
             if (video.source) {
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-                const image = new FormData()
-                image.append("file", video?.source)
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-    
-                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" }})
-                data.append("source", cloudinaryResponse.data.public_id)
+                data.append("source", video?.source)
             }
             if (video.thumbnail) {
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-                const image = new FormData()
-                image.append("file", video?.thumbnail)
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-    
-                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" }})
-                data.append("thumbnail", cloudinaryResponse.data.public_id)
+                data.append("thumbnail", video?.thumbnail)
             }
-            
             data.append("title", video.title)
             data.append("description", video.description)
             data.append("videolink", video.videolink)
             data.append("items", JSON.stringify(video.items))
             
-            await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/videos/add-video`, data, { headers: { "Content-Type": "application/json" } })
+            await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/videos/add-video`, data, { headers: { "Content-Type": "multipart/form-data" } })
             setSubmitted(!submitted)
             setIsAdd(false)
         }

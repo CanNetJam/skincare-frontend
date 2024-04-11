@@ -47,37 +47,24 @@ export default function EditVideo({isEdit, setIsEdit, toEdit, submitted, setSubm
         const loadingNotif = async function myPromise() {
             const data = new FormData()
 
-            if (typeof video.source!=="string"){
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-                const image = new FormData()
-                image.append("file", video?.source)
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-
-                let cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" }})
-                data.append("source", typeof video.source!=="string" ? cloudinaryResponse.data.public_id : video.source)
+            if (typeof video.source!=="string") {
+                data.append("uploadedSource", video.source)
+            } else {
+                data.append("source", video.source)
             }
-            if (typeof video.thumbnail!=="string"){
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-                const image = new FormData()
-                image.append("file", video?.thumbnail)
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-
-                let cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" }})
-                data.append("thumbnail", typeof video.thumbnail!=="string" ? cloudinaryResponse.data.public_id : video.thumbnail)
+            if (typeof video.thumbnail!=="string") {
+                data.append("uploadedThumbnail", video?.thumbnail)
+            } else {
+                data.append("thumbnail", video.thumbnail)
             }
+
             data.append("_id", toEdit._id)
             data.append("title", video.title)
             data.append("description", video.description)
             data.append("videolink", video.videolink)
             data.append("items", JSON.stringify(video.items))
             
-            await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/videos/update-video`, data, { headers: { "Content-Type": "application/json" } })
+            await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/videos/update-video`, data, { headers: { "Content-Type": "multipart/form-data" } })
             setSubmitted(!submitted)
             setIsEdit(false)
         }
@@ -255,7 +242,7 @@ export default function EditVideo({isEdit, setIsEdit, toEdit, submitted, setSubm
                                                             <>
                                                                 {typeof video?.source==="string" ? 
                                                                     <video
-                                                                        src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_50/${video.source}.mp4`}
+                                                                        src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${video.source}`}
                                                                         className="h-full w-full object-contain"
                                                                     />
                                                                 :
@@ -296,7 +283,7 @@ export default function EditVideo({isEdit, setIsEdit, toEdit, submitted, setSubm
                                                             <>
                                                                 {typeof video?.thumbnail==="string" ? 
                                                                     <img
-                                                                        src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${video.thumbnail}.jpg`}
+                                                                        src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${video.thumbnail}`}
                                                                         className="h-full w-full object-contain"
                                                                     />
                                                                 :

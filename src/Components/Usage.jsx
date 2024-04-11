@@ -18,7 +18,7 @@ export default function Usage({usage, extra, moreimage}) {
                         </div>
                         {moreimage[0]!==undefined ? 
                             <div className="sm:h-[45vh] min-h-[30vh] h-auto sm:w-full w-1/2 flex">
-                                <img height={'400px'} width={'400px'} title='Product usage' alt='Product usage 1' loading='lazy' className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${moreimage[0]}.jpg`}></img>
+                                <img height={'400px'} width={'400px'} title='Product usage' alt='Product usage 1' loading='lazy' className='h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${moreimage[0]}`}></img>
                             </div>
                         :null} 
                     </div>
@@ -35,7 +35,7 @@ export default function Usage({usage, extra, moreimage}) {
                         </div>
                         {moreimage[1]!==undefined ? 
                             <div className="sm:h-[45vh] min-h-[30vh] h-auto sm:w-full w-1/2 flex">
-                                <img height={'400px'} width={'400px'} title='Product usage' alt='Product usage 2' loading='lazy' className='w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${moreimage[1]}.jpg`}></img>
+                                <img height={'400px'} width={'400px'} title='Product usage' alt='Product usage 2' loading='lazy' className='w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${moreimage[1]}`}></img>
                             </div>
                         :null}
                     </div>
@@ -52,7 +52,7 @@ export default function Usage({usage, extra, moreimage}) {
                         </div>
                         {moreimage[2]!==undefined ? 
                             <div className="sm:h-[45vh] min-h-[30vh] h-auto sm:w-full w-1/2 flex">
-                                <img height={'400px'} width={'400px'} title='Product usage' alt='Product usage 3' loading='lazy' className='w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${moreimage[2]}.jpg`}></img>
+                                <img height={'400px'} width={'400px'} title='Product usage' alt='Product usage 3' loading='lazy' className='w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${moreimage[2]}`}></img>
                             </div>
                         :null}
                     </div>

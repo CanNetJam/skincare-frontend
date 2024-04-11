@@ -71,7 +71,7 @@ export default function UpdateIngredient({isOpen, setIsOpen, updateIng, setUpdat
                                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Photo:</label>
                                         <div className='relative'>
                                             {typeof updateIng.data.photo==="string" ? 
-                                                <img className='h-[150px] w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${updateIng.data.photo}.jpg`}></img>
+                                                <img className='h-[150px] w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${updateIng.data.photo}`}></img>
                                             :
                                                 <img className="h-[150px] w-full object-cover" src={URL.createObjectURL(updateIng.data.photo)}></img>
                                             }

@@ -84,7 +84,7 @@ function Navbar(props) {
                                         {filteredProducts.map((a, index)=> {
                                             return <Link onClick={()=>setSearch("")} to={`/products/${(a?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase()}/${a._id}`} state={{productid: a._id, productname: a.name}} target='_blank' className="h-auto w-auto flex gap-2 items-center p-2 cursor-pointer hover:bg-gray-100" key={index}>
                                                 <div className='flex h-[40px] w-[40px] items-center justify-center border overflow-hidden rounded-md'>
-                                                    <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.displayimage}.jpg`}></img>
+                                                    <img className='h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a?.displayimage}`}></img>
                                                 </div>
                                                 {a.name}
                                             </Link>
@@ -463,7 +463,7 @@ function Navbar(props) {
                                     {filteredProducts.map((a, index)=> {
                                         return <Link onClick={()=>setSearch("")} to={`/products/${(a?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase()}/${a._id}`} state={{productid: a._id, productname: a.name}} target='_blank' className="h-auto w-auto flex gap-2 items-center p-2 cursor-pointer hover:bg-gray-100" key={index}>
                                             <div className='flex h-[40px] w-[40px] items-center justify-center border overflow-hidden rounded-md'>
-                                                <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.displayimage}.jpg`}></img>
+                                                <img className='h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a?.displayimage}`}></img>
                                             </div>
                                             {a.name}
                                         </Link>

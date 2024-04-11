@@ -41,47 +41,21 @@ export default function EditPackage({isEdit, setIsEdit, toEdit, submitted, setSu
         const loadingNotif = async function myPromise() {
             try {
                 const data = new FormData()
-                
-                if (packageSet.displayimage!==undefined) {
-                    if (typeof packageSet.displayimage!=="string"){
-                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-                        
-                        const image = new FormData()
-                        image.append("file", packageSet.displayimage)
-                        image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                        image.append("signature", signatureResponse.data.signature)
-                        image.append("timestamp", signatureResponse.data.timestamp)
-
-                        const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                        headers: { "Content-Type": "multipart/form-data" },
-                        // onUploadProgress: function (e) {
-                        //     console.log(e.loaded / e.total)
-                        // }
-                        })
-                        let cloud_image = cloudinaryResponse.data.public_id
-                        data.append("displayimage", cloud_image)
-                    }
+                if (packageSet.displayimage){
+                    data.append("displayimage", packageSet.displayimage)
                 }
-
-                if (packageSet.moreimage[0]!==undefined) {
-                    for (let i =0; i <packageSet.moreimage.length; i++) {
+                if (packageSet.moreimage.length>0) {
+                    let collection = []
+                    for (let i=0; i<packageSet.moreimage.length; i++) {
                         if (typeof packageSet.moreimage[i]!=="string") {
-                            const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-                            const image = new FormData()
-                            image.append("file", packageSet.moreimage[i])
-                            image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                            image.append("signature", signatureResponse.data.signature)
-                            image.append("timestamp", signatureResponse.data.timestamp)
-
-                            const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                            headers: { "Content-Type": "multipart/form-data" }})
-
-                            let cloud_image = cloudinaryResponse.data.public_id
-                            data.append("moreimage[]", cloud_image)
+                            data.append("moreimage", packageSet.moreimage[i])
+                            collection.push("file")
                         } else if (typeof packageSet.moreimage[i]==="string") {
-                            data.append("moreimage[]", packageSet.moreimage[i])
+                            collection.push(packageSet.moreimage[i])
+                            data.append("moreimage", packageSet.moreimage[i])
                         }
                     }
+                    data.append("collection", JSON.stringify(collection))
                 }
 
                 data.append("_id", packageSet._id)
@@ -97,9 +71,8 @@ export default function EditPackage({isEdit, setIsEdit, toEdit, submitted, setSu
                 data.append("lazadalink", packageSet.packagelinks.lazada)
                 data.append("routines", JSON.stringify(packageSet.routines))
 
-                const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/package/update-package`, data, { headers: { "Content-Type": "application/json" } })
+                const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/package/update-package`, data, { headers: { "Content-Type": "multipart/form-data" } })
  
-                
                 setPackageSet({
                     _id: "",
                     name: "",
@@ -253,7 +226,7 @@ export default function EditPackage({isEdit, setIsEdit, toEdit, submitted, setSu
                                                                 } type="file" className="sr-only"/>
                                                             </label>
                                                             {typeof packageSet.displayimage==="string" ? 
-                                                                <img className='h-full w-full object-contain' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${packageSet.displayimage}.jpg`}></img>
+                                                                <img className='h-full w-full object-contain' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${packageSet.displayimage}`}></img>
                                                             :
                                                                 <img className="h-full w-full object-contain" src={URL.createObjectURL(packageSet.displayimage)}></img>
                                                             }
@@ -296,7 +269,7 @@ export default function EditPackage({isEdit, setIsEdit, toEdit, submitted, setSu
                                                                         }} type="file" className="sr-only"/>
                                                                     </label>
                                                                     {typeof a==="string" ? 
-                                                                        <img className='h-full w-full object-contain' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a}.jpg`}></img>
+                                                                        <img className='h-full w-full object-contain' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a}`}></img>
                                                                     :
                                                                         <img className="h-full w-full object-contain" src={URL.createObjectURL(a)}></img>
                                                                     }

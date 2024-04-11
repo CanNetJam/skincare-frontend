@@ -103,9 +103,8 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
         const getProducts = async () => {
             try {
                 const products = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/product/get-all-products`)
-                
-                const haha = products.data.filter((a)=> a._id!==toEdit._id)
-                setAvailableItems(haha)
+                const availableProducts = products.data.filter((a)=> a._id!==toEdit._id)
+                setAvailableItems(availableProducts)
             } catch (err) {
                 console.log(err)
             }
@@ -143,91 +142,40 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
         const loadingNotif = async function myPromise() {
             try {
             const data = new FormData()
-            if (product.displayimage!==undefined) {
-                if (typeof product.displayimage!=="string"){
-                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                    const image = new FormData()
-                    image.append("file", product.displayimage)
-                    image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                    image.append("signature", signatureResponse.data.signature)
-                    image.append("timestamp", signatureResponse.data.timestamp)
-
-                    const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                    headers: { "Content-Type": "multipart/form-data" },
-                    // onUploadProgress: function (e) {
-                    //     console.log(e.loaded / e.total)
-                    // }
-                    })
-                    let cloud_image = cloudinaryResponse.data.public_id
-                    data.append("displayimage", cloud_image)
-                }
+            if (file){
+                data.append("displayimage", file)
             }
-
-            if (product.moreimage[0]!==undefined) {
-                for (let i =0; i <product.moreimage.length; i++) {
+            if (product.moreimage.length>0) {
+                let collection = []
+                for (let i=0; i<product.moreimage.length; i++) {
                     if (typeof product.moreimage[i]!=="string") {
-                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-                        const image = new FormData()
-                        image.append("file", product.moreimage[i])
-                        image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                        image.append("signature", signatureResponse.data.signature)
-                        image.append("timestamp", signatureResponse.data.timestamp)
-
-                        const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                        headers: { "Content-Type": "multipart/form-data" }})
-
-                        let cloud_image = cloudinaryResponse.data.public_id
-                        data.append("moreimage[]", cloud_image)
+                        data.append("moreimage", product.moreimage[i])
+                        collection.push("file")
                     } else if (typeof product.moreimage[i]==="string") {
-                        data.append("moreimage[]", product.moreimage[i])
+                        collection.push(product.moreimage[i])
+                        data.append("moreimage", product.moreimage[i])
                     }
                 }
+                data.append("collection", JSON.stringify(collection))
             }
-
-            if (product.ingredients[0]!==undefined) {
+            if (product.ingredients.length>0) {
+                let ingphotos = []
                 for (let i=0; i<product.ingredients.length; i++) {
                     if (typeof product.ingredients[i].photo!=="string") {
-                        const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                        const image = new FormData()
-                        image.append("file", product.ingredients[i].photo)
-                        image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                        image.append("signature", signatureResponse.data.signature)
-                        image.append("timestamp", signatureResponse.data.timestamp)
-
-                        const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                        headers: { "Content-Type": "multipart/form-data" },
-                        // onUploadProgress: function (e) {
-                        //     console.log(e.loaded / e.total)
-                        // }
-                        })
-                        let cloud_image = cloudinaryResponse.data.public_id
-                        data.append("ingphoto[]", cloud_image)
+                        data.append("ingphoto", product.ingredients[i].photo)
+                        ingphotos.push({...product.ingredients[i], photo: "file"})
                     } else if (typeof product.ingredients[i].photo==="string") {
-                        data.append("ingphoto[]", product.ingredients[i].photo)
+                        data.append("ingphoto", product.ingredients[i].photo)
+                        ingphotos.push(product.ingredients[i])
                     }
                 }
+                data.append("ingphotos", JSON.stringify(ingphotos))
             }
-
             if (videofile.length>0) {
                 for (let i=0; i<videofile.length; i++) {
-                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                    const image = new FormData()
-                    image.append("file", videofile[i])
-                    image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                    image.append("signature", signatureResponse.data.signature)
-                    image.append("timestamp", signatureResponse.data.timestamp)
-
-                    const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                    headers: { "Content-Type": "multipart/form-data" }})
-
-                    let cloud_video = cloudinaryResponse.data.public_id
-                    data.append("prodvid[]", cloud_video)
+                    data.append("prodvid", videofile[i])
                 }
             }
-
             data.append("_id", product._id)
             data.append("name", product.name)
             data.append("maindesc", product.maindesc)
@@ -246,7 +194,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
             data.append("dont", JSON.stringify(product.dont))
             data.append("relatedproducts", JSON.stringify(product.relatedproducts))
 
-            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/product/update-product`, data, { headers: { "Content-Type": "application/json" } })
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/product/update-product`, data, { headers: { "Content-Type": "multipart/form-data" } })
             console.log(res.data)
             
             setProduct({
@@ -420,7 +368,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                                 } type="file" className="sr-only"/>
                                                             </label>
                                                             {typeof product.displayimage==="string" ? 
-                                                                <img className='h-full w-full object-contain' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.displayimage}.jpg`}></img>
+                                                                <img className='h-full w-full object-contain' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${product.displayimage}`}></img>
                                                             :
                                                                 <img className="h-full w-full object-contain" src={URL.createObjectURL(product.displayimage)}></img>
                                                             }
@@ -463,7 +411,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                                             }} type="file" className="sr-only"/>
                                                                         </label>
                                                                         {typeof a==="string" ? 
-                                                                            <img className='h-full w-full object-contain' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a}.jpg`}></img>
+                                                                            <img className='h-full w-full object-contain' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a}`}></img>
                                                                         :
                                                                             <img className="h-full w-full object-contain" src={URL.createObjectURL(a)}></img>
                                                                         }
@@ -529,7 +477,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                                 } type="file" className="sr-only"/>
                                                             </label>
                                                             {typeof product.videos[0]==="string" ? 
-                                                                <video className='h-full w-full object-contain' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_60/${product?.videos[0]}.mp4`}></video>
+                                                                <video className='h-full w-full object-contain' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${product.videos[0]}`}></video>
                                                             :
                                                                 <video className="h-full w-full object-contain" src={URL.createObjectURL(product?.videos[0])}></video>
                                                             }
@@ -646,7 +594,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                                             </div>
                                                                             {typeof a.photo==="string" ? 
                                                                                 <img
-                                                                                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a.photo}.jpg`}
+                                                                                src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.photo}`}
                                                                                     className="h-[150px] w-full object-cover object-center"
                                                                                 />
                                                                             :

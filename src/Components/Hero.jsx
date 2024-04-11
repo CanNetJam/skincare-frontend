@@ -192,7 +192,7 @@ export default function Hero({packageData}) {
                         <div className="relative mt-16 h-80 lg:mt-8">
                             <img height={'600px'} width={'600px'} title={packageData.name} alt={packageData.name} loading='eager'
                             className="absolute left-0 top-0 sm:w-[38rem] w-[28rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
-                            src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${packageData?.displayimage}.jpg`}
+                            src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${packageData?.displayimage}`}
                             />
                         </div>
                     </div>

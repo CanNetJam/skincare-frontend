@@ -68,52 +68,18 @@ export default function AddPackage({isAdd, setIsAdd}) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {
             const data = new FormData()
-            let uploadedProductPhoto
-            if (productImage[0]!==undefined){
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                const image = new FormData()
-                image.append("file", productImage[0])
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-
-                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" },
-                // onUploadProgress: function (e) {
-                //     console.log(e.loaded / e.total)
-                // }
-                })
-                let cloud_image = cloudinaryResponse.data.public_id
-                uploadedProductPhoto = cloud_image
+            if (productImage.length>0){
+                data.append("displayimage", productImage[0])
             }
-
-            if (productMoreImage[0]!==undefined) {
+            if (productMoreImage.length>0) {
                 for (let i=0; i<productMoreImage.length; i++) {
-                    const signatureResponse = await axios.get(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                    const image = new FormData()
-                    image.append("file", productMoreImage[i])
-                    image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                    image.append("signature", signatureResponse.data.signature)
-                    image.append("timestamp", signatureResponse.data.timestamp)
-
-                    const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                    headers: { "Content-Type": "multipart/form-data" },
-                    // onUploadProgress: function (e) {
-                    //     console.log(e.loaded / e.total)
-                    // }
-                    })
-                    let cloud_image = cloudinaryResponse.data.public_id
-                    data.append("moreimage[]", cloud_image)
+                    data.append("moreimage", productMoreImage[i])
                 }
             }
-            
             data.append("name", packageSet.name)
             data.append("maindesc", packageSet.maindesc)
             data.append("moredesc", packageSet.moredesc)
             data.append("stock", packageSet.stock)
-            data.append("displayimage", uploadedProductPhoto)
             data.append("origprice", packageSet.origprice)
             data.append("disprice", packageSet.disprice)
             data.append("items", JSON.stringify(packageSet.items))
@@ -122,7 +88,7 @@ export default function AddPackage({isAdd, setIsAdd}) {
             data.append("lazadalink", packageSet.links.lazada)
             data.append("routines", JSON.stringify(packageSet.routines))
             
-            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/package/create-package`, data, { headers: { "Content-Type": "application/json" } })
+            const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/package/create-package`, data, { headers: { "Content-Type": "multipart/form-data" } })
             console.log(res.data)
 
             setPackageSet({

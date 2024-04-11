@@ -85,7 +85,7 @@ export default function UpdatePackage() {
                                                 </td>
                                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     <div className="h-36 w-28 overflow-hidden rounded-md">
-                                                        <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.displayimage}.jpg`}></img>
+                                                        <img className='h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a?.displayimage}`}></img>
                                                     </div>
                                                 </th>
                                                 <td className="px-6 py-4">
