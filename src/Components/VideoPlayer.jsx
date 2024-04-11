@@ -224,7 +224,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                             <div key={video+(page-2)} className="card h-full w-full rounded-md overflow-hidden">
                                                 <img
                                                     className="h-full w-full object-cover"
-                                                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${video.thumbnail}.jpg`}
+                                                    src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${video.thumbnail}`}
                                                 >
                                                 </img>
                                             </div>
@@ -245,7 +245,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                 <div key={video+(page-1)} className="card h-full w-full rounded-md overflow-hidden">
                                                     <img
                                                         className="h-full w-full object-cover"
-                                                        src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${video.thumbnail}.jpg`}
+                                                        src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${video.thumbnail}`}
                                                     >
                                                     </img>
                                                 </div>
@@ -271,7 +271,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                             onTimeUpdate={(e) => {
                                                 setProgress(((e.target.currentTime / e.target.duration)*100).toFixed())
                                             }}
-                                            src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_100/${video.source}.mp4`}
+                                            src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${video.source}`}
                                             type="video/mp4"
                                         />
 
@@ -284,7 +284,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                                 <div key={index} className='col-span 1 h-42 sm:w-[300px] w-full flex-shrink-0 bg-gray-100 rounded-md p-2'>
                                                                     <div className='grid grid-cols-3 gap-2'>
                                                                         <div className='col-span-1 h-full w-full'>
-                                                                            <img className='rounded-md h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${a?.displayimage}.jpg`}/>
+                                                                            <img className='rounded-md h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.displayimage}`}/>
                                                                         </div>
                                                                         <div className='col-span-2 grid gap-1'>
                                                                             <Link target='_blank' to={a?.price ? `/details/product/${a?._id}` : `/details/package/${a?._id}`} className='font-semibold hover:underline line-clamp-2'>{a?.name}</Link>
@@ -399,7 +399,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                             <div key={video+(page+1)} className="card h-full w-full rounded-md overflow-hidden">
                                                 <img
                                                     className="h-full w-full object-cover"
-                                                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${video.thumbnail}.jpg`}
+                                                    src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${video.thumbnail}`}
                                                 >
                                                 </img>
                                             </div>
@@ -421,8 +421,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                 <div key={video+(page+2)} className="card h-full w-full rounded-md overflow-hidden">
                                                     <img
                                                         className="h-full w-full object-cover"
-                                                        src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${video.thumbnail}.jpg`}
-                                                    >
+                                                        src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${video.thumbnail}`}
                                                     </img>
                                                 </div>
                                                 )
