@@ -422,6 +422,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                     <img
                                                         className="h-full w-full object-cover"
                                                         src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${video.thumbnail}`}
+                                                    >
                                                     </img>
                                                 </div>
                                                 )
