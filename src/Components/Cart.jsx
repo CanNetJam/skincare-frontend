@@ -371,7 +371,7 @@ export default function Cart({open, setOpen}) {
                                                     (userData.user?.billingaddress?.street===undefined && userData.user?.billingaddress?.barangay===undefined && userData.user?.billingaddress?.city===undefined && userData.user?.billingaddress?.province===undefined && userData.user?.billingaddress?.region===undefined && userData.user?.billingaddress?.postal===undefined) ?
                                                         <>
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                                            <label className='text-xs'>Please fill out billing address to continue. Go to <b>My Orders</b>, then head to <b>Delivery Details</b> tab. Click <Link to={`/orders/${userData.user?._id}`} className='cursor-pointer underline'>here</Link> to redirect.</label>
+                                                            <label className='text-xs'>Please fill out billing address to continue. Go to <b>My Orders</b>, then head to <b>Delivery Details</b> tab. Click <Link onClick={() => setOpen(false)} to={`/orders/${userData.user?._id}`} className='cursor-pointer underline'>here</Link> to redirect.</label>
                                                         </>
                                                     : null}
                                                     {exceed===true ? 
@@ -384,7 +384,7 @@ export default function Cart({open, setOpen}) {
                                             :                                                
                                                 <>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                                    <label className='text-xs'>Please login to continue. Click <Link to={`/login`} className='cursor-pointer underline'>here</Link> to redirect.</label>
+                                                    <label className='text-xs'>Please login to continue. Click <Link onClick={() => setOpen(false)} to={`/login`} className='cursor-pointer underline'>here</Link> to redirect.</label>
                                                 </>
                                             }
                                         </>

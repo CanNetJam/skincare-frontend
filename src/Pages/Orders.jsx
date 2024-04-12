@@ -14,6 +14,8 @@ export default function Orders() {
     const [ total, setTotal ] = useState(0)
     const [ isEdit, setIsEdit ] = useState(false)
     const [ isReview, setIsReview ] = useState(false)
+    const [ allOrders, setAllOrders ] = useState([])
+    const [ thereIsReview, setThereIsReview ] = useState(false)
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -46,6 +48,18 @@ export default function Orders() {
                     setOrders(res.data.sortedOrders)
                     setPages(res.data.totalOrders)
                     setTotal(res.data.total)
+                    // for (let i=0; i<res.data.allOrders.length; i++) {
+                    //     console.log(res.data.allOrders[i])
+                    //     for (let n=0; res.data.allOrders[i].items.length; n++) {
+                    //         console.log(res.data.allOrders[i].items[n])
+                    //         if (res.data.allOrders[i].items[n].reviewed===false && res.data.allOrders[i].deliverystatus==="Delivered") {
+                    //             setThereIsReview(true)
+                    //         } else {
+                    //             setThereIsReview(false)
+                    //         }
+                    //     }
+                    // }
+                    setAllOrders(res.data.allOrders)
                 }
             } catch (err) {
                 console.log(err)
@@ -53,13 +67,12 @@ export default function Orders() {
         }
         getOrders()
     }, [tab, page, pageEntries, isEdit, isReview])
-
+    //console.log(allOrders)
     return (
         <>
             <div className='pt-16 min-h-screen h-auto grid items-center'>
                 <div className='h-full py-2 w-full container mx-auto'>
-                <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Manage your Orders</h1>
-
+                    <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>Manage your Orders</h1>
                     <ul className="sm:flex sm:flex-wrap grid grid-cols-3 sm:text-sm text-xs font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
                         <li className="">
                             <button onClick={()=> {
@@ -102,3 +115,9 @@ export default function Orders() {
         </>
     )
 }
+
+/*
+                <div className='h-auto sm:w-96 w-full pt-6 pb-2 bg-slate-800 text-white text-lg flex items-center text-center rounded-lg fixed top-20 sm:right-4'>
+                    <p>An item in your inventory has not been reviewed yet. Hurry and review it now to gain up to ₱10.00 discount.</p>
+                </div>
+*/

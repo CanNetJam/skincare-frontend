@@ -122,7 +122,7 @@ export default function AddProduct({isAdd, setIsAdd}) {
         setFile(file.concat([e.target.files[0]]))
         setIngredient({...ingredient, photo: e.target.files[0]})
     }
-
+    //console.log(featuredProductVideos)
     async function submitHandler(e) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {
@@ -145,12 +145,22 @@ export default function AddProduct({isAdd, setIsAdd}) {
                     data.append("prodvid", productVideos[i])
                 }
             }
-            // if (featuredProductVideos.length>0) {
-            //     for (let i=0; i<featuredProductVideos.length; i++) {
-            //         data.append("prodvid", featuredProductVideos[i])
-            //     }
-            // }
-
+            if (featuredProductVideos.length>0) {
+                let videoCollection = []
+                for (let i=0; i<featuredProductVideos.length; i++) {
+                    if (featuredProductVideos[i]?.video?.type==="video/mp4") {
+                        data.append("featuredvideos", featuredProductVideos[i].video)
+                        videoCollection.push({
+                            description: featuredProductVideos[i].description,
+                            title: featuredProductVideos[i].title,
+                            video: "file"
+                        })
+                    } else if (featuredProductVideos[i]?.video?.type==="youtube" || featuredProductVideos[i]?.video?.type==="tiktok") {
+                        videoCollection.push(featuredProductVideos[i])
+                    }
+                }
+                data.append("videocollection", JSON.stringify(videoCollection))
+            }
             data.append("name", product.name)
             data.append("maindesc", product.maindesc)
             data.append("stock", product.stock)

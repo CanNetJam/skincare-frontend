@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useLocation, useParams } from 'react-router';
 import axios from "axios";
+import ReactPlayer from 'react-player'
 import Routines from "../Components/Routines";
 import Precautions from "../Components/Precautions";
 import DoDonts from "../Components/DoDonts";
@@ -40,12 +41,24 @@ export default function Product1() {
     let  onStart = () => {
       setState({activeDrags: ++state.activeDrags});
     }
-
     let  onStop = () => {
       setState({activeDrags: --state.activeDrags});
     }
-
     const dragHandlers = {onStart: onStart, onStop: onStop};
+
+    useEffect(()=> {
+        function loadScript(src) {
+            return new Promise(function (resolve, reject) {
+                var s;
+                s = document.createElement('script');
+                s.src = 'https://www.tiktok.com/embed.js';
+                s.onload = resolve;
+                s.onerror = reject;
+                document.head.appendChild(s);
+            });
+        }
+        loadScript()
+    }, [productData])
     
     useEffect(()=> {
         const windowOpen = () => {   
@@ -321,8 +334,8 @@ export default function Product1() {
                 <EmailSubscription isOpen={isOpen} setIsOpen={setIsOpen}/>
             )}
             <div ref={ref} className="h-full w-full sm:flex grid grid-cols-3 container max-w-6xl mx-auto gap-0">
-                <div className="bg-gray-50 backdrop-blur-xs bg-opacity-50 h-auto w-full col-span-2 sm:px-20 z-10 px-4 py-16">
-                    <div className="py-8">
+                <div className="bg-gray-50 backdrop-blur-xs bg-opacity-50 h-auto w-full col-span-2 sm:px-20 z-10 px-4 pt-16">
+                    <div className="pt-8">
                         <h1 className="subHeading relative">{productData.name}
                             {productData?.price!==productData?.disprice ?
                                 <div className='absolute h-16 w-16 top-0 -right-8 -rotate-[25deg]'>
@@ -341,6 +354,7 @@ export default function Product1() {
                             }
                         </div>
                         <p className="miniText whitespace-pre-wrap break-normal text-justify">{productData.maindesc}</p>
+                        <br/>
                     </div>
                     <div>
                         <div className="grid grid-cols-3 gap-4">
@@ -393,7 +407,7 @@ export default function Product1() {
                                             <div className='hidden h-full group-hover:justify-center group-hover:items-center group-hover:block group-hover:bg-gray-100 group-hover:backdrop-blur-xs group-hover:bg-opacity-20 absolute inset-0'>
                                                 <p className="w-full font-bold py-1 text-center">{a.name}</p>
                                                 <div className="absolute top-2/3 -translate-y-1/3 left-1/2 -translate-x-1/2 grid sm:gap-1 gap-0.5">
-                                                    <Link target="_blank" to={`/products/${(a?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase()}/${a._id}`} state={{productid: a._id, productname: a.name}} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent hover:bg-gray-800 text-white bg-black focus:outline-none">Learn More</Link>
+                                                    <Link target="_blank" to={`/products/${(a?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase()}/${a._id}`} state={{productid: a._id, productname: a.name}} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent hover:bg-gray-800 text-white bg-black focus:outline-none">Product Details</Link>
                                                     {a.stock>0 ? 
                                                         <button onClick={()=>handleAddToCart(a)} className="flex px-3 sm:py-1 py-0.5 whitespace-nowrap w-full items-center justify-center rounded-md border border-transparent hover:bg-gray-800 text-white bg-black focus:outline-none">Add to Cart</button>
                                                     :
@@ -408,14 +422,13 @@ export default function Product1() {
                         </>
                     :null}
                     <br/>
-                    <br/>
                     <div className="flex justify-center"><h2 className="subHeading">Key Ingredients</h2></div>
                     <br/>
                     {productData.ingredients?.map((a, index)=> {
                         return (
                             <div key={index} className="w-full grid justify-center my-8 rounded-xl p-4">
-                                <div className="flex justify-center">
-                                    <img height={'400px'} width={'400px'} title='Product ingredients' alt={`${a.name}`} loading='eager' className='h-[25vh] sm:w-[250px] rounded-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.photo}`}></img>
+                                <div className="flex justify-center rounded-full bg-white overflow-hidden">
+                                    <img height={'400px'} width={'400px'} title='Product ingredients' alt={`${a.name}`} loading='eager' className='h-[200px] w-[200px] object-contain' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.photo}`}></img>
                                 </div>
                                 <br/>
                                 <div className="w-full">
@@ -425,7 +438,37 @@ export default function Product1() {
                             </div>
                         )   
                     })}
-
+                    <br/>
+                    {productData?.featuredvideos?.length>0 ? 
+                        <div className="grid gap-4 h-auto pb-10">
+                            {productData?.featuredvideos?.map((a, index)=>{
+                                return (
+                                    <div key={index} className="h-min w-full shadow-lg rounded-md overflow-hidden">
+                                        {a?.video?.type==='file' ?
+                                            <div className="w-full flex justify-center border rounded-md bg-gray-50 overflow-hidden">
+                                                <div className="sm:h-[550px] h-96 w-80 my-5 border rounded-md overflow-hidden">
+                                                    <ReactPlayer height={'100%'} width={'100%'} controls={true} url={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.video.urlKey}`}/>
+                                                </div>
+                                            </div>
+                                        : 
+                                            <>
+                                                {a.video.type==='youtube' ?
+                                                    <div className="w-full flex justify-center border rounded-md bg-gray-50 overflow-hidden">
+                                                        <iframe className="h-auto sm:min-h-[500px] min-h-[300px] w-80 my-5 border rounded-md" src={`https://www.youtube.com/embed/${a.video.urlKey}?si=gy0u-2r-FmjvWkok`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                                                    </div>
+                                                :
+                                                    <div className="w-full border rounded-md bg-gray-50 overflow-hidden">
+                                                        <blockquote className="tiktok-embed w-full" cite={`https://www.tiktok.com/${a.video.tiktokSource}`} data-video-id={a.video.urlKey}><section></section> </blockquote> 
+                                                    </div>
+                                                }
+                                            </>
+                                        }
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    :null}
+                    <br/>
                 </div>
                 <div className='h-screen w-full sticky top-0 col-span-1 items-center sm:overflow-hidden'>
                     {productData?.displayimage ? 
@@ -433,9 +476,9 @@ export default function Product1() {
                     :null}
                 </div>
             </div>
-
+            
             {floatingVideo===true ? 
-                <div className="fixed top-0 z-50 pointer-events-none" style={{height: '100vh', width: '100vw', padding: '0'}}>
+                <div className="sm:block hidden fixed top-0 z-40 pointer-events-none" style={{height: '100vh', width: '100vw', padding: '0'}}>
                     <Draggable nodeRef={nodeRef} bounds="parent" position={state.controlledPosition} {...dragHandlers}>
                         <div ref={nodeRef} className="h-min w-min pointer-events-auto">
                             <FloatingVideo floatingVideo={floatingVideo} setFloatingVideo={setFloatingVideo} videos={productData?.videos ? productData?.videos : []}/>
