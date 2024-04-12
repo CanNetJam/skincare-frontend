@@ -77,39 +77,24 @@ const Profile = () => {
         e.preventDefault()
         const loadingNotif = async function myPromise() {
             const data = new FormData()
-            let profileImage = ""
-            if (file!==undefined){
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                const image = new FormData()
-                image.append("file", file)
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-
-                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" }
-                })
-                let cloud_image = cloudinaryResponse.data.public_id
-                data.append("displayimage", cloud_image)
-                profileImage = cloud_image
+            if (file!==null){
+                data.append("displayimage", file)
             }
             let token = localStorage.getItem("auth-token")
             data.append("firstname", draftFirstname)
             data.append("lastname", draftLastname)
             data.append("phone", draftPhone)
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/accounts/update-account/${iD}`, data, 
-            { headers: { "Content-Type": "application/json", "auth-token": token } })
+            { headers: { "Content-Type": "multipart/form-data", "auth-token": token } })
 
             if (res.data) {
                 setUserData({...userData, user: {
-                    ...userData.user, displayimage: profileImage, firstname: draftFirstname, lastname: draftLastname, phone: draftPhone
+                    ...userData.user, displayimage: res.data, firstname: draftFirstname, lastname: draftLastname, phone: draftPhone
                     }
                 })
                 setProfileData({
-                    ...profileData, displayimage: profileImage, firstname: draftFirstname, lastname: draftLastname, phone: draftPhone
+                    ...profileData, displayimage: res.data, firstname: draftFirstname, lastname: draftLastname, phone: draftPhone
                 })
-                profileImage = ""
                 setDraftFirstName("")
                 setDraftLastName("")
                 setDraftPhone("")
@@ -194,7 +179,7 @@ const Profile = () => {
                                                 {file!==undefined ? 
                                                     <img className='w-40 h-40 rounded-full mb-4 shrink-0 object-cover' src={URL.createObjectURL(file)}></img>
                                                 :
-                                                    <img className='w-40 h-40 rounded-full mb-4 shrink-0 object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${profileData?.displayimage}.jpg`}></img>
+                                                    <img className='w-40 h-40 rounded-full mb-4 shrink-0 object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${profileData?.displayimage}`}></img>
                                                 }
                                             </>
                                         :

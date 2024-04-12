@@ -382,7 +382,7 @@ export default function SalesReport() {
                                                 <tr key={a._id} className='border-b'>
                                                     <td className="px-6 py-4 flex gap-2">
                                                         <div className='h-12 w-12 border overflow-hidden rounded-full flex-shrink-0'>
-                                                            <img className='h-full w-full  object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.item.displayimage}.jpg`}></img>
+                                                            <img className='h-full w-full  object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.item.displayimage}`}></img>
                                                         </div>
                                                         <p className='text-justify flex items-center'>{a.item.name}</p>
                                                     </td>
@@ -416,7 +416,7 @@ export default function SalesReport() {
                                                 <div className='col-span-1'>
                                                     {a?.displayimage ? 
                                                         <div className='h-16 w-16 border overflow-hidden rounded-full flex-shrink-0'>
-                                                            <img className='h-full w-full  object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.displayimage}.jpg`}></img>
+                                                            <img className='h-full w-full  object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.displayimage}`}></img>
                                                         </div>
                                                     :
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z"/></svg>

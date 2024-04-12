@@ -115,7 +115,7 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                         setToZoom(a?.waybillimage)
                                                         setZoomType("String")
                                                         setZoomId(a._id)
-                                                    }} className='h-full w-full object-cover cursor-pointer' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.waybillimage}.jpg`}></img>
+                                                    }} className='h-full w-full object-cover cursor-pointer' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a?.waybillimage}`}></img>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
@@ -126,7 +126,7 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                         setToZoom(a?.productimage1)
                                                         setZoomType("String")
                                                         setZoomId(a._id)
-                                                        }} className='h-full w-full object-cover cursor-pointer' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.productimage1}.jpg`}></img>
+                                                        }} className='h-full w-full object-cover cursor-pointer' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a?.productimage1}`}></img>
                                                     </div>
                                                     <div className='h-40 w-40 rounded-md overflow-hidden'>
                                                         <img onClick={()=> {
@@ -134,7 +134,7 @@ export default function AdminPendingTickets({tickets, page, setPage, status, set
                                                         setToZoom(a?.productimage2)
                                                         setZoomType("String")
                                                         setZoomId(a._id)
-                                                        }} className='h-full w-full object-cover cursor-pointer' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a?.productimage2}.jpg`}></img>
+                                                        }} className='h-full w-full object-cover cursor-pointer' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a?.productimage2}`}></img>
                                                     </div>
                                                 </div>
                                             </td>

@@ -178,15 +178,15 @@ export default function EditTicket({isEdit, setIsEdit, toEdit}) {
                                     <div className='grid sm:grid-cols-3 text-sm py-1'>
                                         <div className='col-span-1 h-48 w-48 grid overflow-hidden'>
                                             <label>Waybill:</label>
-                                            <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${toEdit?.waybillimage}.jpg`}></img>
+                                            <img className='h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${toEdit?.waybillimage}`}></img>
                                         </div>
                                         <div className='col-span-1 h-48 w-48 grid overflow-hidden'>
                                             <label>Parcel Image 1:</label>
-                                            <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${toEdit?.productimage1}.jpg`}></img>
+                                            <img className='h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${toEdit?.productimage1}`}></img>
                                         </div>
                                         <div className='col-span-1 h-48 w-48 grid overflow-hidden'>
                                             <label>Parcel Image 2:</label>
-                                            <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${toEdit?.productimage2}.jpg`}></img>
+                                            <img className='h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${toEdit?.productimage2}`}></img>
                                         </div>
                                     </div>
                                 </div>

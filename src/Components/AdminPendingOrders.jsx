@@ -189,7 +189,7 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                                                         return (
                                                             <div key={index} className='grid grid-cols-5 gap-2'>
                                                                 <div className='flex h-[40px] w-[40px] items-center justify-center border overflow-hidden rounded-md'>
-                                                                    <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${b.item.displayimage}.jpg`}></img>
+                                                                    <img className='h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${b.item?.displayimage}`}></img>
                                                                 </div>
                                                                 <label className='col-span-3'>{b.item.name}</label>
                                                                 <label className='col-span-1 px-2 flex '>{b.quantity}pc(s)</label>

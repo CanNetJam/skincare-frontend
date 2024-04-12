@@ -325,7 +325,7 @@ function CartDetails() {
                                 {cartData.map((item, index) => (
                                     <li key={index} className="border-b border-gray-200 py-4 grid grid-cols-3 items-center gap-4">
                                         <div className='col-span-2 flex items-center gap-4'>
-                                        <img className='h-24 w-24 rounded-lg' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${item.product.displayimage}.jpg`}/>
+                                        <img className='h-24 w-24 rounded-lg' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${item.product.displayimage}`}/>
                                         <div>
                                             <h3 className="text-sm font-semibold text-gray-900">{item.product.name}</h3>
                                             <dl className="flex gap-2 text-xs text-gray-600">

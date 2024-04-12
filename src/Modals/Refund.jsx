@@ -21,53 +21,15 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
         const loadingNotif = async function myPromise() {
             setLoading((prevBool) => !prevBool)
             const data = new FormData()
-            if (file1[0]!==undefined) {
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                const image = new FormData()
-                image.append("file", file1[0])
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-
-                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" }
-                })
-                let cloud_image = cloudinaryResponse.data.public_id
-                data.append("waybillimage", cloud_image)
+            if (file1.length>0){
+                data.append("waybillimage", file1[0])
             }
-
-            if (file2[0]!==undefined) {
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                const image = new FormData()
-                image.append("file", file2[0])
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-
-                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" }
-                })
-                let cloud_image = cloudinaryResponse.data.public_id
-                data.append("productimage1", cloud_image)
+            if (file2.length>0){
+                data.append("productimage1", file2[0])
             }
-            if (file3[0]!==undefined) {
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                const image = new FormData()
-                image.append("file", file3[0])
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-
-                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" }
-                })
-                let cloud_image = cloudinaryResponse.data.public_id
-                data.append("productimage2", cloud_image)
+            if (file3.length>0){
+                data.append("productimage2", file3[0])
             }
-
             data.append("orderid", toEdit._id)
             data.append("userid", userData?.user?._id)
             data.append("owner", userData?.user?.firstname+" "+userData?.user?.lastname)
@@ -78,7 +40,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
             data.append("transactionfee", toEdit.transactionfee ? toEdit.transactionfee : 0)
             let token = localStorage.getItem("auth-token")
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/tickets/submit-ticket`, data, 
-            { headers: { "Content-Type": "application/json", "auth-token": token } })
+            { headers: { "Content-Type": "multipart/form-data", "auth-token": token } })
             if (res.data===true) {
                 setLoading(false)
                 setMainReason("")
@@ -303,7 +265,7 @@ export default function Refund({isEdit, setIsEdit, toEdit}) {
                                                     <td className="sm:px-6 py-3 w-auto">
                                                         <div className='flex gap-2'>
                                                             <div className='flex flex-shrink-0 h-[50px] w-[50px] items-center justify-center border overflow-hidden rounded-md'>
-                                                                <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.item.displayimage}.jpg`}></img>
+                                                                <img className='h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.item.displayimage}`}></img>
                                                             </div>
                                                             <div>
                                                                 {a.item.name} {a.quantity} pc(s)<br/>

@@ -84,27 +84,27 @@ export default function DeleteVideo({isDelete, setIsDelete, toDelete, setToDelet
                         
                     </Dialog.Title>
                     <div className="mt-2 grid justify-center">
-                        <p className="text-sm text-gray-600 text-center">
+                        <div className="text-sm text-gray-600 text-center">
                             You are about to delete the video titled <b>{toDelete.title}</b>. 
-                        <br/>
-                        <div className='h-56 w-full border'>
-                            <video
-                                className="h-full rounded-md w-full object-contain cursor-pointer"
-                                preload="metadata"
-                                muted
-                                loop
-                                //poster="URL" for video thumbnail
-                                onMouseOver={event => {
-                                    event.target.play()
-                                }}
-                                onMouseOut={event => event.target.pause()}
-                            >
-                                <source src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/video/upload/f_auto,q_50/${toDelete.source}.mp4`} type="video/mp4" />
-                            </video>
-                        </div>
-                        <br/>
+                            <br/>
+                            <div className='h-56 w-full border'>
+                                <video
+                                    className="h-full rounded-md w-full object-contain cursor-pointer"
+                                    preload="metadata"
+                                    muted
+                                    loop
+                                    //poster="URL" for video thumbnail
+                                    onMouseOver={event => {
+                                        event.target.play()
+                                    }}
+                                    onMouseOut={event => event.target.pause()}
+                                >
+                                    <source src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${toDelete.source}`} type="video/mp4" />
+                                </video>
+                            </div>
+                            <br/>
                             This action is irreversible, please proceed with caution. This video will be deleted <b>forever</b> and can not be recovered.
-                        </p>
+                        </div>
                     </div>
 
                     <div className="pt-2 mt-6 border-t-2 flex justify-center items-center">

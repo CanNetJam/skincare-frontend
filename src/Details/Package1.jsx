@@ -63,7 +63,7 @@ export default function Package1() {
         "@type": "Product",
         "description": packageData.maindesc,
         "name": packageData.name,
-        "image": `https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${packageData.displayimage}.jpg`,
+        "image": `https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${packageData.displayimage}`,
         "aggregateRating": {
             "@type": "AggregateRating",
             "bestRating": "5",
@@ -176,7 +176,7 @@ export default function Package1() {
                 <meta property="og:title" content={packageData.name}/>
                 <meta property="og:type" content="website"/>
                 <meta property="og:description" content={packageData?.maindesc?.slice(0, 170)}/>
-                <meta property="og:image" content={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${packageData?.displayimage}.jpg`}/>
+                <meta property="og:image" content={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${packageData.displayimage}`}/>
                 <meta property="og:url" content={`https://kluedskincare.com/products/${(packageData?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase()}/${packageData._id}`}/>
             
                 <script type="application/ld+json">

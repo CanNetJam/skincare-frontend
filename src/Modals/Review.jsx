@@ -21,20 +21,8 @@ export default function Review({isReview, setIsReview, toReview, itemToReview, s
         const loadingNotif = async function myPromise() {
             setLoading((prevBool) => !prevBool)
             const data = new FormData()
-            if (file1[0]!==undefined) {
-                const signatureResponse = await axios.get(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/get-signature` )
-
-                const image = new FormData()
-                image.append("file", file1[0])
-                image.append("api_key", import.meta.env.VITE_CLOUDAPIKEY)
-                image.append("signature", signatureResponse.data.signature)
-                image.append("timestamp", signatureResponse.data.timestamp)
-
-                const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/auto/upload`, image, {
-                headers: { "Content-Type": "multipart/form-data" }
-                })
-                let cloud_image = cloudinaryResponse.data.public_id
-                data.append("reviewimage", cloud_image)
+            if (file1.length>0){
+                data.append("reviewimage", file1[0])
             }
             data.append("orderid", toReview._id)
             data.append("item", JSON.stringify(toReview.items))
@@ -46,7 +34,7 @@ export default function Review({isReview, setIsReview, toReview, itemToReview, s
             data.append("itemtoreview", JSON.stringify(itemToReview))
             let token = localStorage.getItem("auth-token")
             const res = await axios.post(`${import.meta.env.DEV ? import.meta.env.VITE_DEVCONNECTIONSTRING : import.meta.env.VITE_CONNECTIONSTRING}/reviews/submit-review`, data, 
-            { headers: { "Content-Type": "application/json", "auth-token": token } })
+            { headers: { "Content-Type": "multipart/form-data", "auth-token": token } })
             if (res.data===true) {
                 setRating("")
                 setHoverRating(0)

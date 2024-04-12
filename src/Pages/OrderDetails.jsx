@@ -114,7 +114,7 @@ export default function OrderDetails() {
                                                 </td>
                                                 <td className="px-2 py-3">
                                                     <div className='flex h-[50px] w-[50px] items-center justify-center border overflow-hidden rounded-md'>
-                                                        <img className='h-full w-full object-cover' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_30/${a.item.displayimage}.jpg`}></img>
+                                                        <img className='h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.item.displayimage}`}></img>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-3 text-blue-400 w-auto text-center">{a.item.name}</td>

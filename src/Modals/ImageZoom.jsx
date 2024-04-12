@@ -54,7 +54,7 @@ export default function ImageZoom({isZoom, setIsZoom, toZoom, zoomId, setZoomId,
                                 </Dialog.Title>
                                 <div className='sm:px-6 px-2 py-2 bg-gray-100 '>
                                     {zoomType==="String" ? 
-                                        <img className='h-full w-full object-contain rounded-md overflow-hidden shadow-md shadow-black' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_80/${toZoom}.jpg`}></img>
+                                        <img className='h-full w-full object-contain rounded-md overflow-hidden shadow-md shadow-black' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${toZoom}`}></img>
                                     :
                                         <PdfViewer className='h-full w-full object-contain rounded-md overflow-hidden shadow-md shadow-black' pdfFile={toZoom}/>
                                     }

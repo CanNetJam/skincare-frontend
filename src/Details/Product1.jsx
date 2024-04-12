@@ -197,7 +197,7 @@ export default function Product1() {
         "@type": "Product",
         "description": productData.maindesc,
         "name": productData.name,
-        "image": `https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_40/${productData.displayimage}.jpg`,
+        "image": `https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${productData.displayimage}`,
         "aggregateRating": {
             "@type": "AggregateRating",
             "bestRating": "5",
@@ -310,7 +310,7 @@ export default function Product1() {
                 <meta property="og:title" content={productData.name}/>
                 <meta property="og:type" content="website"/>
                 <meta property="og:description" content={productData?.maindesc?.slice(0, 170)}/>
-                <meta property="og:image" content={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${productData.displayimage}.jpg`}/>
+                <meta property="og:image" content={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${productData.displayimage}`}/>
                 <meta property="og:url" content={`https://kluedskincare.com/products/${((productData?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase())}/${productData._id}`}/>
 
                 <script type="application/ld+json">
@@ -376,7 +376,6 @@ export default function Product1() {
                                     Add to Cart
                                 </button>
                             </div>
-
                         </div>
                     </div>
                     <br/>
@@ -416,7 +415,7 @@ export default function Product1() {
                         return (
                             <div key={index} className="w-full grid justify-center my-8 rounded-xl p-4">
                                 <div className="flex justify-center">
-                                    <img height={'400px'} width={'400px'} title='Product ingredients' alt={`${a.name}`} loading='lazy' className='h-[25vh] sm:w-[250px] rounded-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.photo}`}></img>
+                                    <img height={'400px'} width={'400px'} title='Product ingredients' alt={`${a.name}`} loading='eager' className='h-[25vh] sm:w-[250px] rounded-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.photo}`}></img>
                                 </div>
                                 <br/>
                                 <div className="w-full">

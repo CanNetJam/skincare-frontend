@@ -295,7 +295,7 @@ export default function Cart({open, setOpen}) {
                                         {cartData.map((product, index) => (
                                         <li key={index} className="flex py-6">
                                             <div className="sm:h-24 h-16 sm:w-24 w-16 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                <img title='Klued products on your cart' alt='Klued products on your cart' loading='eager' height={'75px'} width={'75px'} className='h-full w-full object-cover object-center' src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDNAME}/image/upload/f_auto,q_50/${product.product?.displayimage}.jpg`}/>
+                                                <img title='Klued products on your cart' alt='Klued products on your cart' loading='eager' height={'75px'} width={'75px'} className='h-full w-full object-cover object-center' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${product.product?.displayimage}`}/>
                                             </div>
 
                                             <div className="ml-2 flex flex-1 flex-col">
