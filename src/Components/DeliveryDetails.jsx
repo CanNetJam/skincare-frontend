@@ -105,11 +105,11 @@ export default function DeliveryDetails() {
     useEffect(()=> {
         const getLocations = async () => {
             if (selectedProvince!==undefined) {
-                const res1 = await axios.get(`https://psgc.gitlab.io/api/provinces/${selectedProvince?.code}/cities/`)
-                setCities(res1.data)
+                const res = await axios.get(`https://psgc.gitlab.io/api/provinces/${selectedProvince?.code}/cities-municipalities/ `)
+                setCities(res.data)
             } else if (selectedRegion!==undefined && (draftProvince==="" || selectedProvince===undefined)) {
-                const res1 = await axios.get(`https://psgc.gitlab.io/api/regions/${selectedRegion?.code}/cities.json`)
-                setCities(res1.data)
+                const res = await axios.get(`https://psgc.gitlab.io/api/regions/${selectedRegion?.code}/cities-municipalities/`)
+                setCities(res.data)
             }
         }
         getLocations()
@@ -130,8 +130,13 @@ export default function DeliveryDetails() {
     useEffect(()=> {
         const getLocations = async () => {
             if (selectedCity!==undefined) {
-                const res1 = await axios.get(`https://psgc.gitlab.io/api/cities/${selectedCity?.code}/barangays/`)
-                setBarangay(res1.data)
+                if (selectedCity?.isCity===true) {
+                    const res1 = await axios.get(`https://psgc.gitlab.io/api/cities/${selectedCity?.code}/barangays/`)
+                    setBarangay(res1.data)
+                } else if (selectedCity?.isMunicipality===true) {
+                    const res1 = await axios.get(`https://psgc.gitlab.io/api/municipalities/${selectedCity?.code}/barangays`)
+                    setBarangay(res1.data)
+                }
             } else {
                 if (selectedProvince!==undefined) {
                     const res1 = await axios.get(`https://psgc.gitlab.io/api/provinces/${selectedProvince?.code}/barangays/`)
