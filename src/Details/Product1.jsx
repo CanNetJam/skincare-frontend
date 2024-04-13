@@ -472,7 +472,7 @@ export default function Product1() {
                 </div>
                 <div className='h-screen w-full sticky top-0 col-span-1 items-center sm:overflow-hidden'>
                     {productData?.displayimage ? 
-                        <img height={'100vh'} width={'50vw'} title='Product poster image' alt={productData.name} loading='eager' className='h-full w-full object-cover z-10 overflow-visible' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${productData.displayimage}`}></img>
+                        <img height={'100vh'} width={'50vw'} title='Product poster image' alt={productData.name} loading='eager' className='h-full w-full object-cover z-10 sm:overflow-hidden overflow-visible' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${productData.displayimage}`}></img>
                     :null}
                 </div>
             </div>

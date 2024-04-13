@@ -63,6 +63,9 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
         description: ""
     })
     const [ addFeatured, setAddFeatured ] = useState(false)
+    const [ addIngredient, setAddIngredient ] = useState(false)
+    const [ addDoDont, setAddDoDont ] = useState(false)
+    const [ addRoutine, setAddRoutine ] = useState(false)
 
     useEffect(()=> {
         function loadScript(src) {
@@ -161,7 +164,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
         }
         windowOpen()
     }, [submitted])
-    
+
     async function submitHandler(e) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {
@@ -453,7 +456,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
 
                                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                 <div className="sm:col-span-1 h-[190px] w-full">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Display image</label>
+                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Display image</label>
                                                     {product?.displayimage ? 
                                                         <div className="relative h-56 w-full border overflow-hidden">
                                                             <label className="absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-500 text-white hover:bg-opacity-90">
@@ -493,7 +496,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                     :null}
                                                 </div>
                                                 <div className="sm:col-span-3">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Additional image</label>
+                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Additional image</label>
                                                     {product?.moreimage[0]!==undefined ? 
                                                         <div className="w-full grid grid-cols-3 gap-2 items-center">
                                                             {product.moreimage.map((a, index)=> {
@@ -565,7 +568,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                     }
                                                 </div>
                                                 <div className="sm:col-span-2 h-[190px] w-full">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Tiktok Video</label>
+                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Tiktok Video</label>
                                                     {product?.videos.length>0 ? 
                                                         <div className="relative h-56 w-full border overflow-hidden">
                                                             <label className="z-10 absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-500 text-white hover:bg-opacity-90">
@@ -631,19 +634,19 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                 </div>
 
                                                 <div className="sm:col-span-2">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Product Name</label>
+                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Product Name</label>
                                                     <div className="mt-2">
                                                         <input onChange={handleChange} value={product.name} type="text" name="name" id="product-name" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
                                                 <div className="sm:col-span-1">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Price</label>
+                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Price</label>
                                                     <div className="mt-2">
                                                         <input required onChange={handleChange} value={product.disprice} placeholder={0} type="text" name="disprice" id="disprice" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
                                                 <div className="sm:col-span-1">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Discounted Price</label>
+                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Discounted Price</label>
                                                     <div className="mt-2 relative ">
                                                         <input onChange={handleChange} value={product.price} placeholder={0} type="text" name="price" id="price" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                         <button onClick={()=>{
@@ -656,13 +659,13 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                     </div>
                                                 </div>
                                                 <div className="sm:col-span-1">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Stock</label>
+                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Stock</label>
                                                     <div className="mt-2">
                                                         <input onChange={(e)=>setProduct({...product, stock: e.target.value})} value={product.stock} placeholder={'0'} type="text" name="stock" id="stock" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
                                                 <div className="sm:col-span-1">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Category</label>
+                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Category</label>
                                                     <select required onChange={handleChange} name="category" value={product.category} className="block w-full mt-2 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                                         <option value="" disabled>Select category</option>
                                                         <option>Cleanser</option>
@@ -672,23 +675,23 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                         <option>Sunscreen</option>
                                                     </select>
                                                 </div>
-                                                <div className="sm:col-span-6">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Product Description</label>
+
+                                                <div className="sm:col-span-2">
+                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Product Description</label>
                                                     <div className="mt-2 w-full">
                                                         <textarea onChange={handleChange} value={product.maindesc} rows={5} id="maindesc" name="maindesc" type="text" required className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
-
-                                                <div className="sm:col-span-3">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">How to Use</label>
+                                                <div className="sm:col-span-2">
+                                                    <label className="block text-sm font-bold leading-6 text-gray-800">How to Use</label>
                                                     <div className="mt-2">
-                                                        <textarea onChange={handleChange} rows={3} value={product.usage} type="text" name="usage" id="product-usage" required className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                        <textarea onChange={handleChange} rows={5} value={product.usage} type="text" name="usage" id="product-usage" required className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
-                                                <div className="sm:col-span-3">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Specific Precautions</label>
+                                                <div className="sm:col-span-2">
+                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Specific Precautions</label>
                                                     <div className="mt-2">
-                                                        <textarea onChange={handleChange} rows={3} value={product.extra} type="text" name="extra" id="product-extra" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                        <textarea onChange={handleChange} rows={5} value={product.extra} type="text" name="extra" id="product-extra" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
 
@@ -734,267 +737,287 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                     : <span>No ingredients listed</span>}
                                                 </div>
 
-                                                <div className="sm:col-span-6 sm:grid-cols-2 sm:grid sm:gap-4 border border-black rounded-lg p-8">
-                                                    <div className="sm:col-span-1">
-                                                        <div className="sm:grid sm:grid-cols-6 sm:gap-2 items-center">
-                                                            <div className="sm:col-span-5 h-full items-center grid">
-                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Do's </label>
-                                                                <br/>
-                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Title</label>
-                                                                <div className="mt-2 w-full">
-                                                                    <input onChange={e => setDos({...dos, title: e.target.value})} value={dos.title} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                                                </div>
-                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Description</label>
-                                                                <div className="mt-2 w-full">
-                                                                    <textarea rows={3} onChange={e => setDos({...dos, desc: e.target.value})} value={dos.desc} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                                                </div>
-                                                            </div>
-                                                            <div className="sm:col-span-1 h-full items-end grid">
-                                                                <label className="text-white">Filler</label>
-                                                                <div className="mt-2 w-full">
-                                                                    <button onClick={()=> {
-                                                                        setProduct({...product, do: product.do.concat([dos])})
-                                                                        setDos({
-                                                                            title: "",
-                                                                            desc: ""
-                                                                        })
-                                                                    }} type="button" disabled={dos.title!=="" && dos.desc!=="" ? false : true} className={`rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${dos.title!=="" && dos.desc!==""? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <br/>
-                                                        <div className="sm:col-span-6">
-                                                            <label className="block text-sm font-medium leading-6 text-gray-900">Do's List</label>
-                                                            <div>
-                                                                {product?.do[0]!==undefined ? 
-                                                                    <div className="grid gap-2 pr-4 my-2">
-                                                                        {product.do.map((a, index)=> {
-                                                                            return (
-                                                                                <div className="h-auto w-auto inline-block p-2 rounded-lg bg-blue-400 relative" key={index}>
-                                                                                    <label onClick={()=>removeDo(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
-                                                                                    <label className="font-semibold">{a?.title}</label>
-                                                                                    <br/>
-                                                                                    <label>{a?.desc}</label>
-                                                                                </div>
-                                                                            )
-                                                                        })}
-                                                                    </div>
-                                                                :
-                                                                <div className="my-2">
-                                                                    <label className="font-bold">No product specific do's added yet.</label>
-                                                                </div>
-                                                                }
-                                                            </div>
-                                                        </div>
+                                                <div className='col-span-6 border border-black rounded-lg grid'>
+                                                    <div className='sm:col-span-6 sm:grid-cols-2 w-full flex justify-between p-2 border-b'>
+                                                        <button onClick={()=>setAddDoDont(true)} type="button" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit Do's and Don'ts</button>
+                                                        {addDoDont===true ? 
+                                                            <button onClick={()=>[setAddDoDont(false)]} className='border rounded-md px-6 py-2'>Cancel</button>
+                                                        :null}
                                                     </div>
+                                                    {addDoDont===true ? 
+                                                        <div className="sm:col-span-6 sm:grid-cols-2 sm:grid sm:gap-4 p-8">
+                                                            <div className="sm:col-span-1">
+                                                                <div className="sm:grid sm:grid-cols-6 sm:gap-2 items-center">
+                                                                    <div className="sm:col-span-5 h-full items-center grid">
+                                                                        <label className="block text-sm font-bold leading-6 text-gray-800">Do's </label>
+                                                                        <br/>
+                                                                        <label className="block text-sm font-bold leading-6 text-gray-800">Title</label>
+                                                                        <div className="mt-2 w-full">
+                                                                            <input onChange={e => setDos({...dos, title: e.target.value})} value={dos.title} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                        </div>
+                                                                        <label className="block text-sm font-bold leading-6 text-gray-800">Description</label>
+                                                                        <div className="mt-2 w-full">
+                                                                            <textarea rows={3} onChange={e => setDos({...dos, desc: e.target.value})} value={dos.desc} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="sm:col-span-1 h-full items-end grid">
+                                                                        <label className="text-white">Filler</label>
+                                                                        <div className="mt-2 w-full">
+                                                                            <button onClick={()=> {
+                                                                                setProduct({...product, do: product.do.concat([dos])})
+                                                                                setDos({
+                                                                                    title: "",
+                                                                                    desc: ""
+                                                                                })
+                                                                            }} type="button" disabled={dos.title!=="" && dos.desc!=="" ? false : true} className={`rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${dos.title!=="" && dos.desc!==""? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <br/>
+                                                                <div className="sm:col-span-6">
+                                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Do's List</label>
+                                                                    <div>
+                                                                        {product?.do[0]!==undefined ? 
+                                                                            <div className="grid gap-2 pr-4 my-2">
+                                                                                {product.do.map((a, index)=> {
+                                                                                    return (
+                                                                                        <div className="h-auto w-auto inline-block p-2 rounded-lg bg-blue-400 relative" key={index}>
+                                                                                            <label onClick={()=>removeDo(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
+                                                                                            <label className="font-semibold">{a?.title}</label>
+                                                                                            <br/>
+                                                                                            <label>{a?.desc}</label>
+                                                                                        </div>
+                                                                                    )
+                                                                                })}
+                                                                            </div>
+                                                                        :
+                                                                        <div className="my-2">
+                                                                            <label className="font-bold">No product specific do's added yet.</label>
+                                                                        </div>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                                                    <div className="sm:col-span-1">
-                                                        <div className="sm:grid sm:grid-cols-6 sm:gap-2 items-center">
-                                                            <div className="sm:col-span-5 h-full items-center grid">
-                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Dont's</label>
-                                                                <br/>
-                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Title</label>
-                                                                <div className="mt-2 w-full">
-                                                                    <input onChange={e => setDonts({...donts, title: e.target.value})} value={donts.title} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                                                </div>
-                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Description</label>
-                                                                <div className="mt-2 w-full">
-                                                                    <textarea rows={3} onChange={e => setDonts({...donts, desc: e.target.value})} value={donts.desc} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                                                </div>
-                                                            </div>
-                                                            <div className="sm:col-span-1 h-full items-end grid">
-                                                                <label className="text-white">Filler</label>
-                                                                <div className="mt-2 w-full">
-                                                                    <button onClick={()=> {
-                                                                        setProduct({...product, dont: product.dont.concat([donts])})
-                                                                        setDonts({
-                                                                            title: "",
-                                                                            desc: ""
-                                                                        })
-                                                                    }} type="button" disabled={donts.title!=="" && donts.desc!=="" ? false : true} className={`rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${donts.title!=="" && donts.desc!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <br/>
-                                                        <div className="sm:col-span-6">
-                                                            <label className="block text-sm font-medium leading-6 text-gray-900">Dont's List</label>
-                                                            <div className="block">
-                                                                {product?.dont[0]!==undefined ? 
-                                                                    <div className="grid gap-2 pr-4 my-2">
-                                                                        {product.dont.map((a, index)=> {
-                                                                            return (
-                                                                                <div className="h-auto w-auto inline-block p-2 rounded-lg bg-blue-400 relative" key={index}>
-                                                                                    <label onClick={()=>removeDont(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
-                                                                                    <label className="font-semibold">{a?.title}</label>
-                                                                                    <br/>
-                                                                                    <label>{a?.desc}</label>
-                                                                                </div>
-                                                                            )
-                                                                        })}
+                                                            <div className="sm:col-span-1">
+                                                                <div className="sm:grid sm:grid-cols-6 sm:gap-2 items-center">
+                                                                    <div className="sm:col-span-5 h-full items-center grid">
+                                                                        <label className="block text-sm font-bold leading-6 text-gray-800">Dont's</label>
+                                                                        <br/>
+                                                                        <label className="block text-sm font-bold leading-6 text-gray-800">Title</label>
+                                                                        <div className="mt-2 w-full">
+                                                                            <input onChange={e => setDonts({...donts, title: e.target.value})} value={donts.title} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                        </div>
+                                                                        <label className="block text-sm font-bold leading-6 text-gray-800">Description</label>
+                                                                        <div className="mt-2 w-full">
+                                                                            <textarea rows={3} onChange={e => setDonts({...donts, desc: e.target.value})} value={donts.desc} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                        </div>
                                                                     </div>
-                                                                :
-                                                                <div className="my-2">
-                                                                    <label className="font-bold">No product specific dont's added yet.</label>
+                                                                    <div className="sm:col-span-1 h-full items-end grid">
+                                                                        <label className="text-white">Filler</label>
+                                                                        <div className="mt-2 w-full">
+                                                                            <button onClick={()=> {
+                                                                                setProduct({...product, dont: product.dont.concat([donts])})
+                                                                                setDonts({
+                                                                                    title: "",
+                                                                                    desc: ""
+                                                                                })
+                                                                            }} type="button" disabled={donts.title!=="" && donts.desc!=="" ? false : true} className={`rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${donts.title!=="" && donts.desc!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add</button>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                }
+                                                                <br/>
+                                                                <div className="sm:col-span-6">
+                                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Dont's List</label>
+                                                                    <div className="block">
+                                                                        {product?.dont[0]!==undefined ? 
+                                                                            <div className="grid gap-2 pr-4 my-2">
+                                                                                {product.dont.map((a, index)=> {
+                                                                                    return (
+                                                                                        <div className="h-auto w-auto inline-block p-2 rounded-lg bg-blue-400 relative" key={index}>
+                                                                                            <label onClick={()=>removeDont(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
+                                                                                            <label className="font-semibold">{a?.title}</label>
+                                                                                            <br/>
+                                                                                            <label>{a?.desc}</label>
+                                                                                        </div>
+                                                                                    )
+                                                                                })}
+                                                                            </div>
+                                                                        :
+                                                                        <div className="my-2">
+                                                                            <label className="font-bold">No product specific dont's added yet.</label>
+                                                                        </div>
+                                                                        }
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    :null}
                                                 </div>
 
-                                                <div className="sm:grid sm:col-span-6 sm:grid-cols-2 sm:gap-8 border border-black rounded-lg p-8">
-                                                    <div className="col-span-2 w-full grid grid-cols-6">
-                                                        <div className="col-span-4 flex items-center">
-                                                            <label className="block font-medium leading-6 text-gray-900 text-base">Product Routine</label>
-                                                        </div>
+                                                <div className='sm:col-span-6 border border-black rounded-lg grid'>
+                                                    <div className='sm:col-span-6 w-full flex justify-between p-2 border-b'>
+                                                        <button onClick={()=>setAddRoutine(true)} type="button" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit Routines</button>
+                                                        {addRoutine===true ? 
+                                                            <button onClick={()=>[setAddRoutine(false)]} className='border rounded-md px-6 py-2'>Cancel</button>
+                                                        :null}
                                                     </div>
-                                                    <div className="col-span-2">
-                                                        {product.routines[0]!==undefined ? 
-                                                            <div className="grid grid-cols-5 items-center gap-2">
-                                                                {product.routines.map((a, index)=> {
-                                                                    return (
-                                                                        <div key={index} className="bg-blue-400 rounded-lg flex items-center p-2 relative">
-                                                                            <label onClick={()=>removeRoutine(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
-                                                                            <div onClick={()=>{
-                                                                                setRoutine(product.routines[index])
-                                                                                setMorrout((prev)=> {
-                                                                                    return {...prev, skintype: product.routines[index].skintype, steps: product.routines[index].morning}
-                                                                                })
-                                                                                setNigrout((prev)=> {
-                                                                                    return {...prev, skintype: product.routines[index].skintype, steps: product.routines[index].night}
-                                                                                })
-                                                                                setTempRoutine(index)
-                                                                            }} className="cursor-pointer p-2">
-                                                                                <svg height="25" width="25" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m19 20.25c0-.402-.356-.75-.75-.75-2.561 0-11.939 0-14.5 0-.394 0-.75.348-.75.75s.356.75.75.75h14.5c.394 0 .75-.348.75-.75zm-7.403-3.398 9.124-9.125c.171-.171.279-.423.279-.684 0-.229-.083-.466-.28-.662l-3.115-3.104c-.185-.185-.429-.277-.672-.277s-.486.092-.672.277l-9.143 9.103c-.569 1.763-1.555 4.823-1.626 5.081-.02.075-.029.15-.029.224 0 .461.349.848.765.848.511 0 .991-.189 5.369-1.681zm-3.27-3.342 2.137 2.137-3.168 1.046zm.955-1.166 7.651-7.616 2.335 2.327-7.637 7.638z"/></svg>
-                                                                            </div>
-                                                                            <label>{a.skintype} Skin </label>
-                                                                        </div>
-                                                                    )
-                                                                })}
-                                                            </div>
-                                                        :<span></span>}
-                                                    </div>
-                                                    <div className="col-span-1 w-full">
-                                                        <label className="block font-medium leading-6 text-gray-900 text-base">Morning Routine</label>
-                                                        <div className="sm:col-span-6 gap-x-6 gap-y-8 sm:grid sm:grid-cols-6 w-full p-2">
-                                                            <div className="sm:col-span-4">
-                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Product to Use</label>
-                                                                <div className="mt-2 w-full">
-                                                                    <input onChange={e => setMorstep(e.target.value)} value={morstep} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                    {addRoutine===true ? 
+                                                        <div className="sm:grid sm:col-span-6 sm:grid-cols-2 sm:gap-8 p-8">
+                                                            <div className="col-span-2 w-full grid grid-cols-6">
+                                                                <div className="col-span-4 flex items-center">
+                                                                    <label className="block font-medium leading-6 text-gray-900 text-base">Product Routine</label>
                                                                 </div>
                                                             </div>
-                                                            <div className="sm:col-span-2">
-                                                                <label className="block text-sm font-medium leading-6 text-white">Placeholder</label>
-                                                                <div className="mt-2 w-full">
-                                                                    <button onClick={()=> {
-                                                                        setRoutine({...routine, morning: routine.morning.concat([morstep])})
-                                                                        setMorrout({...morrout, steps: morrout.steps.concat([morstep])})
-                                                                        setMorstep("")
-                                                                    }} type="button" disabled={morstep!=="" ? false : true} className={`rounded-md bg-indigo-600 p-[6px] text-sm font-semibold text-white shadow-sm ${morstep!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
-                                                                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div className="sm:col-span-6 border-t-2">
-                                                                <label className="block text-base font-medium py-4 leading-6 text-gray-900">Morning Routine List {morrout.skintype ? `(${morrout.skintype} skin)` : null}</label>
-                                                                <div>
-                                                                    {morrout?.steps[0]!==undefined ? 
-                                                                        <div className="grid grid-cols-6 gap-2">
-                                                                            <div className="grid gap-2 col-span-6">
-                                                                                {morrout.steps.map((a, index)=> {
-                                                                                    return (
-                                                                                        <div className="max-w-[col-span-4] p-2 rounded-lg bg-blue-400 relative" key={index}>
-                                                                                            <label onClick={()=>removeMorstep(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
-                                                                                            <label>Step{index+1}: {a}</label>
-                                                                                        </div>
-                                                                                    )
-                                                                                })}
-                                                                            </div>
-                                                                        </div>
-                                                                    :
-                                                                        <div className="my-2">
-                                                                            <label className="font-bold">No routine selected yet.</label>
-                                                                        </div>
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-span-1 w-full">
-                                                        <label className="block font-medium leading-6 text-gray-900 text-base">Night Routine</label>
-                                                        <div className="sm:col-span-6 gap-x-6 gap-y-8 sm:grid sm:grid-cols-6 w-full p-2">
-                                                            <div className="sm:col-span-4">
-                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Product to Use</label>
-                                                                <div className="mt-2 w-full">
-                                                                    <input onChange={e => setNigstep(e.target.value)} value={nigstep} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                                                </div>
-                                                            </div>
-                                                            <div className="sm:col-span-2">
-                                                                <label className="block text-sm font-medium leading-6 text-white">Placeholder</label>
-                                                                <div className="mt-2 w-full">
-                                                                    <button onClick={()=> {
-                                                                        setRoutine({...routine, night: routine.night.concat([nigstep])})
-                                                                        setNigrout({...nigrout, steps: nigrout.steps.concat([nigstep])})
-                                                                        setNigstep("")
-                                                                    }} type="button" disabled={nigstep!=="" ? false : true} className={`rounded-md bg-indigo-600 p-[6px] text-sm font-semibold text-white shadow-sm ${nigstep!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
-                                                                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div className="sm:col-span-6 border-t-2 ">
-                                                                <label className="block text-base font-medium py-4 leading-6 text-gray-900">Night Routine List {nigrout.skintype ? `(${nigrout.skintype} skin)` : null}</label>
-                                                                <div>
-                                                                    {nigrout?.steps[0]!==undefined ? 
-                                                                        <div className="grid grid-cols-6 gap-2">
-                                                                            <div className="grid gap-2 col-span-6">
-                                                                                {nigrout.steps.map((a, index)=> {
-                                                                                    return (
-                                                                                        <div className="max-w-[col-span-4] p-2 rounded-lg bg-blue-400 relative" key={index}>
-                                                                                            <label onClick={()=>removeNigstep(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
-                                                                                            <label>Step{index+1}: {a}</label>
-                                                                                        </div>
-                                                                                    )
-                                                                                })}
-                                                                            </div>
-                                                                        </div>
-                                                                    :
-                                                                    <div className="my-2">
-                                                                        <label className="font-bold">No product(s) added yet.</label>
+                                                            <div className="col-span-2">
+                                                                {product.routines[0]!==undefined ? 
+                                                                    <div className="grid grid-cols-5 items-center gap-2">
+                                                                        {product.routines.map((a, index)=> {
+                                                                            return (
+                                                                                <div key={index} className="bg-blue-400 rounded-lg flex items-center p-2 relative">
+                                                                                    <label onClick={()=>removeRoutine(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
+                                                                                    <div onClick={()=>{
+                                                                                        setRoutine(product.routines[index])
+                                                                                        setMorrout((prev)=> {
+                                                                                            return {...prev, skintype: product.routines[index].skintype, steps: product.routines[index].morning}
+                                                                                        })
+                                                                                        setNigrout((prev)=> {
+                                                                                            return {...prev, skintype: product.routines[index].skintype, steps: product.routines[index].night}
+                                                                                        })
+                                                                                        setTempRoutine(index)
+                                                                                    }} className="cursor-pointer p-2">
+                                                                                        <svg height="25" width="25" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m19 20.25c0-.402-.356-.75-.75-.75-2.561 0-11.939 0-14.5 0-.394 0-.75.348-.75.75s.356.75.75.75h14.5c.394 0 .75-.348.75-.75zm-7.403-3.398 9.124-9.125c.171-.171.279-.423.279-.684 0-.229-.083-.466-.28-.662l-3.115-3.104c-.185-.185-.429-.277-.672-.277s-.486.092-.672.277l-9.143 9.103c-.569 1.763-1.555 4.823-1.626 5.081-.02.075-.029.15-.029.224 0 .461.349.848.765.848.511 0 .991-.189 5.369-1.681zm-3.27-3.342 2.137 2.137-3.168 1.046zm.955-1.166 7.651-7.616 2.335 2.327-7.637 7.638z"/></svg>
+                                                                                    </div>
+                                                                                    <label>{a.skintype} Skin </label>
+                                                                                </div>
+                                                                            )
+                                                                        })}
                                                                     </div>
-                                                                    }
+                                                                :<span></span>}
+                                                            </div>
+                                                            <div className="col-span-1 w-full">
+                                                                <label className="block font-medium leading-6 text-gray-900 text-base">Morning Routine</label>
+                                                                <div className="sm:col-span-6 gap-x-6 gap-y-8 sm:grid sm:grid-cols-6 w-full p-2">
+                                                                    <div className="sm:col-span-4">
+                                                                        <label className="block text-sm font-bold leading-6 text-gray-800">Product to Use</label>
+                                                                        <div className="mt-2 w-full">
+                                                                            <input onChange={e => setMorstep(e.target.value)} value={morstep} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="sm:col-span-2">
+                                                                        <label className="block text-sm font-medium leading-6 text-white">Placeholder</label>
+                                                                        <div className="mt-2 w-full">
+                                                                            <button onClick={()=> {
+                                                                                setRoutine({...routine, morning: routine.morning.concat([morstep])})
+                                                                                setMorrout({...morrout, steps: morrout.steps.concat([morstep])})
+                                                                                setMorstep("")
+                                                                            }} type="button" disabled={morstep!=="" ? false : true} className={`rounded-md bg-indigo-600 p-[6px] text-sm font-semibold text-white shadow-sm ${morstep!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
+                                                                                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="sm:col-span-6 border-t-2">
+                                                                        <label className="block text-base font-medium py-4 leading-6 text-gray-900">Morning Routine List {morrout.skintype ? `(${morrout.skintype} skin)` : null}</label>
+                                                                        <div>
+                                                                            {morrout?.steps[0]!==undefined ? 
+                                                                                <div className="grid grid-cols-6 gap-2">
+                                                                                    <div className="grid gap-2 col-span-6">
+                                                                                        {morrout.steps.map((a, index)=> {
+                                                                                            return (
+                                                                                                <div className="max-w-[col-span-4] p-2 rounded-lg bg-blue-400 relative" key={index}>
+                                                                                                    <label onClick={()=>removeMorstep(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
+                                                                                                    <label>Step{index+1}: {a}</label>
+                                                                                                </div>
+                                                                                            )
+                                                                                        })}
+                                                                                    </div>
+                                                                                </div>
+                                                                            :
+                                                                                <div className="my-2">
+                                                                                    <label className="font-bold">No routine selected yet.</label>
+                                                                                </div>
+                                                                            }
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
+                                                            <div className="col-span-1 w-full">
+                                                                <label className="block font-medium leading-6 text-gray-900 text-base">Night Routine</label>
+                                                                <div className="sm:col-span-6 gap-x-6 gap-y-8 sm:grid sm:grid-cols-6 w-full p-2">
+                                                                    <div className="sm:col-span-4">
+                                                                        <label className="block text-sm font-bold leading-6 text-gray-800">Product to Use</label>
+                                                                        <div className="mt-2 w-full">
+                                                                            <input onChange={e => setNigstep(e.target.value)} value={nigstep} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="sm:col-span-2">
+                                                                        <label className="block text-sm font-medium leading-6 text-white">Placeholder</label>
+                                                                        <div className="mt-2 w-full">
+                                                                            <button onClick={()=> {
+                                                                                setRoutine({...routine, night: routine.night.concat([nigstep])})
+                                                                                setNigrout({...nigrout, steps: nigrout.steps.concat([nigstep])})
+                                                                                setNigstep("")
+                                                                            }} type="button" disabled={nigstep!=="" ? false : true} className={`rounded-md bg-indigo-600 p-[6px] text-sm font-semibold text-white shadow-sm ${nigstep!=="" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
+                                                                                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="m11 11h-7.25c-.414 0-.75.336-.75.75s.336.75.75.75h7.25v7.25c0 .414.336.75.75.75s.75-.336.75-.75v-7.25h7.25c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-7.25v-7.25c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"/></svg>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="sm:col-span-6 border-t-2 ">
+                                                                        <label className="block text-base font-medium py-4 leading-6 text-gray-900">Night Routine List {nigrout.skintype ? `(${nigrout.skintype} skin)` : null}</label>
+                                                                        <div>
+                                                                            {nigrout?.steps[0]!==undefined ? 
+                                                                                <div className="grid grid-cols-6 gap-2">
+                                                                                    <div className="grid gap-2 col-span-6">
+                                                                                        {nigrout.steps.map((a, index)=> {
+                                                                                            return (
+                                                                                                <div className="max-w-[col-span-4] p-2 rounded-lg bg-blue-400 relative" key={index}>
+                                                                                                    <label onClick={()=>removeNigstep(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
+                                                                                                    <label>Step{index+1}: {a}</label>
+                                                                                                </div>
+                                                                                            )
+                                                                                        })}
+                                                                                    </div>
+                                                                                </div>
+                                                                            :
+                                                                            <div className="my-2">
+                                                                                <label className="font-bold">No product(s) added yet.</label>
+                                                                            </div>
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                                                    <div className="col-span-2 flex justify-center items-end">
-                                                            <button onClick={()=>{
-                                                                    let tempList = product.routines
-                                                                    tempList[tempRoutine] = routine
-                                                                    setProduct({...product, routines: tempList })
-                                                            
-                                                                    setRoutine({
-                                                                        skintype: "",
-                                                                        morning: [],
-                                                                        night: []
-                                                                    })
-                                                                    setMorrout({
-                                                                        skintype: "",
-                                                                        steps: []
-                                                                    })
-                                                                    setNigrout({
-                                                                        skintype: "",
-                                                                        steps: []
-                                                                    })
-                                                        }} disabled={morrout.steps[0]===undefined || nigrout.steps[0]===undefined || morrout.skintype==="" ? true : false} type="button" className={`rounded-md max-w-[col-span-1] bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${morrout.steps[0]===undefined || nigrout.steps[0]===undefined || morrout.skintype==="" ? null : 'hover:bg-indigo-500'} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Update Routine</button>
-                                                    </div>
+                                                            <div className="col-span-2 flex justify-center items-end">
+                                                                    <button onClick={()=>{
+                                                                            let tempList = product.routines
+                                                                            tempList[tempRoutine] = routine
+                                                                            setProduct({...product, routines: tempList })
+                                                                    
+                                                                            setRoutine({
+                                                                                skintype: "",
+                                                                                morning: [],
+                                                                                night: []
+                                                                            })
+                                                                            setMorrout({
+                                                                                skintype: "",
+                                                                                steps: []
+                                                                            })
+                                                                            setNigrout({
+                                                                                skintype: "",
+                                                                                steps: []
+                                                                            })
+                                                                }} disabled={morrout.steps[0]===undefined || nigrout.steps[0]===undefined || morrout.skintype==="" ? true : false} type="button" className={`rounded-md max-w-[col-span-1] bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${morrout.steps[0]===undefined || nigrout.steps[0]===undefined || morrout.skintype==="" ? null : 'hover:bg-indigo-500'} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Update Routine</button>
+                                                            </div>
+                                                        </div>
+                                                    :null}
                                                 </div>
 
                                                 <div className='sm:col-span-6 border border-black rounded-lg grid'>
                                                     <div className='sm:col-span-6 w-full flex justify-between p-2 border-b'>
                                                         <button onClick={()=>setAddFeatured(true)} type="button" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit Featured Videos</button>
                                                         {addFeatured===true ? 
-                                                            <button onClick={()=>[setAddFeatured(false), setProduct({...product, featuredvideos: []})]} className='border rounded-md px-6 py-2'>Cancel</button>
+                                                            <button onClick={()=>[setAddFeatured(false)]} className='border rounded-md px-6 py-2'>Cancel</button>
                                                         :null}
                                                     </div>
                                                     {addFeatured===true ? 
@@ -1019,16 +1042,16 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                                         <p className='bg-white text-gray-900 px-2 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2'>or</p>
                                                                     </div>
                                                                     
-                                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Video File</label>
+                                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Video File</label>
                                                                     <input ref={FeaturedVideosField} onChange={(e)=>handleVideoUpload2(e, "featured videos")} type="file" className="mt-2 border rounded-lg block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
 
                                                                 </div>
                                                                 <div className='col-span-1'>
-                                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Video Title</label>
+                                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Video Title</label>
                                                                     <div className="mt-2 w-full">
                                                                         <input onChange={e => setFeaturedVideo({...featuredVideo, title: e.target.value})} value={featuredVideo.title} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                     </div>
-                                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Video Description</label>
+                                                                    <label className="block text-sm font-bold leading-6 text-gray-800">Video Description</label>
                                                                     <div className="mt-2 w-full">
                                                                         <textarea onChange={e => setFeaturedVideo({...featuredVideo, description: e.target.value})} value={featuredVideo.description} rows={3} type="text" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                     </div>
@@ -1088,7 +1111,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
 
                                                 <div className="sm:col-span-6 sm:grid-cols-6 sm:grid sm:gap-4 border border-black rounded-lg p-8">
                                                     <div className="sm:col-span-3">
-                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Variations </label>
+                                                        <label className="block text-sm font-bold leading-6 text-gray-800">Variations </label>
                                                         <div className="mt-2 relative">
                                                             <input onChange={e=>{
                                                                 setWord(e.target.value)
@@ -1107,7 +1130,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                         </div>
                                                     </div>
                                                     <div className="sm:col-span-3">
-                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Products List</label>
+                                                        <label className="block text-sm font-bold leading-6 text-gray-800">Products List</label>
                                                         {product.relatedproducts[0]!==undefined ?
                                                             <div className="mt-2 grid gap-2">
                                                                 {product.relatedproducts.map((a, index)=> {
@@ -1125,9 +1148,9 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="h-min whitespace-nowrap bg-white px-6 py-2 rounded-lg shadow-slate-700 mt-6 flex items-center justify-center gap-x-6">
-                                        <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update Product</button>
-                                        <button onClick={()=>setIsEdit(false)} type="button" className="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                                    <div className="h-min whitespace-nowrap bg-white px-6 py-2 rounded-lg shadow-slate-700 mt-6 flex items-center justify-center gap-x-2">
+                                        <button type="submit" className="rounded-md bg-blue-600 px-10 py-2 text-lg font-semibold text-white hover:bg-blue-500 shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update Product</button>
+                                        <button onClick={()=>setIsEdit(false)} type="button" className="text-lg font-semibold leading-6 text-gray-900 border py-2 px-4 rounded-md shadow-md">Cancel</button>
                                     </div>
                                 </form>
                                 <br/>

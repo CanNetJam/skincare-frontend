@@ -14,8 +14,8 @@ export default function Orders() {
     const [ total, setTotal ] = useState(0)
     const [ isEdit, setIsEdit ] = useState(false)
     const [ isReview, setIsReview ] = useState(false)
-    const [ allOrders, setAllOrders ] = useState([])
-    const [ thereIsReview, setThereIsReview ] = useState(false)
+    const [ toReview, setToReview ] = useState(false)
+    const [ openReminder, setOpenReminder ] = useState(true)
 
     useEffect(()=> {
         const windowOpen = () => {   
@@ -35,6 +35,15 @@ export default function Orders() {
     }, [pageEntries])
 
     useEffect(()=> {
+        const openReminder = () => {   
+            setTimeout(()=> {
+                setOpenReminder(true)
+            }, 60000)
+        }
+        openReminder()
+    }, [orders, openReminder===false])
+
+    useEffect(()=> {
         const getOrders = async () => {   
             try {
                 let token = localStorage.getItem("auth-token")
@@ -48,18 +57,7 @@ export default function Orders() {
                     setOrders(res.data.sortedOrders)
                     setPages(res.data.totalOrders)
                     setTotal(res.data.total)
-                    // for (let i=0; i<res.data.allOrders.length; i++) {
-                    //     console.log(res.data.allOrders[i])
-                    //     for (let n=0; res.data.allOrders[i].items.length; n++) {
-                    //         console.log(res.data.allOrders[i].items[n])
-                    //         if (res.data.allOrders[i].items[n].reviewed===false && res.data.allOrders[i].deliverystatus==="Delivered") {
-                    //             setThereIsReview(true)
-                    //         } else {
-                    //             setThereIsReview(false)
-                    //         }
-                    //     }
-                    // }
-                    setAllOrders(res.data.allOrders)
+                    setToReview(res.data.toReview)
                 }
             } catch (err) {
                 console.log(err)
@@ -67,7 +65,7 @@ export default function Orders() {
         }
         getOrders()
     }, [tab, page, pageEntries, isEdit, isReview])
-    //console.log(allOrders)
+
     return (
         <>
             <div className='pt-16 min-h-screen h-auto grid items-center'>
@@ -111,13 +109,11 @@ export default function Orders() {
                         <DeliveryDetails/>
                     : null}
                 </div>
+                    <div className={`${toReview===true && openReminder===true ? 'scale-100' : 'scale-0' } transition-transform duration-500 ease-in-out h-auto sm:w-96 w-full py-4 px-2 bg-slate-800 text-white text-base grid items-center text-center rounded-lg fixed top-20 sm:right-4`}>
+                        <svg onClick={()=>setOpenReminder(false)} className='absolute top-2 right-2 h-6 w-6 cursor-pointer fill-current text-gray-300 hover:text-white' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
+                        <p>An item in your inventory has not been reviewed yet. Hurry now and review it to gain up to ₱10.00 discount.</p>
+                    </div>
             </div>
         </>
     )
 }
-
-/*
-                <div className='h-auto sm:w-96 w-full pt-6 pb-2 bg-slate-800 text-white text-lg flex items-center text-center rounded-lg fixed top-20 sm:right-4'>
-                    <p>An item in your inventory has not been reviewed yet. Hurry and review it now to gain up to ₱10.00 discount.</p>
-                </div>
-*/
