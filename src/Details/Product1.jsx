@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useLocation, useParams } from 'react-router';
 import axios from "axios";
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player';
 import Routines from "../Components/Routines";
 import Precautions from "../Components/Precautions";
 import DoDonts from "../Components/DoDonts";

@@ -122,7 +122,7 @@ export default function AddProduct({isAdd, setIsAdd}) {
         setFile(file.concat([e.target.files[0]]))
         setIngredient({...ingredient, photo: e.target.files[0]})
     }
-    //console.log(featuredProductVideos)
+
     async function submitHandler(e) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {

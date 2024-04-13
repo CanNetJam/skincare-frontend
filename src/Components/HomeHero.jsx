@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function HomeHero() {
     return (
-        <div style={{'--image-url': `url(${img1})`}} className='sm:min-h-screen h-auto w-full bg-[image:var(--image-url)] bg-cover bg-center bg-no-repeat'>
+        <div style={{'--image-url': `url(${img1})`}} className='sm:min-h-screen h-auto w-full bg-[image:var(--image-url)] bg-cover bg-center bg-no-repeat relative'>
             <div className='container mx-auto h-auto w-full max-w-6xl grid justify-center mt-16'>
                 <div className='w-full grid justify-center pt-8 px-8'>
                     <h1 className='font-bold lg:text-7xl text-5xl text-center'>SAVE UP TO 43% OFF!!!</h1>
@@ -18,7 +18,7 @@ export default function HomeHero() {
                     <img height={'400px'} width={'600px'} loading='eager' title='Klued products' alt='Klued products' className='h-full w-full object-contain mx-auto' src={img3}/>
                 </div>
             </div>
-            <div className='h-full w-full bg-slate-900 flex justify-center items-center py-4'>
+            <div className='h-14 w-full bg-slate-900 flex justify-center items-center py-4 absolute bottom-0'>
                 <p className='w-full text-center font-semibold sm:text-2xl text-xs text-blue-400'>Register an account to instantly recieve a free 15% off voucher</p>
             </div>
         </div>

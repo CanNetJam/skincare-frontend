@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UpdateIngredient from './UpdateIngredient';
 import ProductReview from "../Components/ProductReview";
+import ReactPlayer from 'react-player';
+import SingleVideoPreview from "../Components/SingleVideoPreview";
 
 export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSubmitted}) {
     const [ product, setProduct ] = useState(toEdit)
@@ -52,6 +54,29 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
 
     const [ availableItems, setAvailableItems ] = useState([])
     const [ word, setWord ] = useState("")
+
+    const FeaturedVideosField = useRef()
+    const FeaturedUrl = useRef()
+    const [ featuredVideo, setFeaturedVideo ] = useState({
+        video: "",
+        title: "",
+        description: ""
+    })
+    const [ addFeatured, setAddFeatured ] = useState(false)
+
+    useEffect(()=> {
+        function loadScript(src) {
+            return new Promise(function (resolve, reject) {
+                var s;
+                s = document.createElement('script');
+                s.src = 'https://www.tiktok.com/embed.js';
+                s.onload = resolve;
+                s.onerror = reject;
+                document.head.appendChild(s);
+            });
+        }
+        loadScript()
+    }, [product, addFeatured])
 
     function toastError1Notif() {
         toast.error('File size too large, please select a file that is lower than 15 mb.', {
@@ -136,7 +161,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
         }
         windowOpen()
     }, [submitted])
-
+    
     async function submitHandler(e) {
         e.preventDefault()
         const loadingNotif = async function myPromise() {
@@ -176,6 +201,25 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                     data.append("prodvid", videofile[i])
                 }
             }
+            if (product?.featuredvideos.length>0) {
+                let videoCollection = []
+                for (let i=0; i<product?.featuredvideos.length; i++) {
+                    if (product?.featuredvideos[i]?.video?.type==="video/mp4") {
+                        data.append("featuredvideos", product?.featuredvideos[i].video)
+                        videoCollection.push({
+                            description: product?.featuredvideos[i].description,
+                            title: product?.featuredvideos[i].title,
+                            video: "file"
+                        })
+                    } else if (product?.featuredvideos[i]?.video?.type==="youtube" || product?.featuredvideos[i]?.video?.type==="tiktok") {
+                        videoCollection.push(product?.featuredvideos[i])
+                    } else if (product?.featuredvideos[i]?.video?.type==="file") {
+                        videoCollection.push(product?.featuredvideos[i])
+                    }
+                }
+                data.append("videocollection", JSON.stringify(videoCollection))
+            }
+
             data.append("_id", product._id)
             data.append("name", product.name)
             data.append("maindesc", product.maindesc)
@@ -195,51 +239,6 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
             data.append("relatedproducts", JSON.stringify(product.relatedproducts))
 
             const res = await axios.post(`${import.meta.env.DEV ? 'http://localhost:8000' : import.meta.env.VITE_CONNECTIONSTRING}/product/update-product`, data, { headers: { "Content-Type": "multipart/form-data" } })
-            console.log(res.data)
-            
-            setProduct({
-                name: "",
-                maindesc: "",
-                stock: "",
-                price: "",
-                disprice: "",
-                category: "",
-                productlinks: {
-                    shopee: "",
-                    tiktok: "",
-                    lazada: "",
-                },
-                ingredients: [],
-                do: [],
-                dont: [],
-                morroutine: [],
-                nigroutine: [],
-                routines: [], 
-                usage: "",
-                extra: "",
-                moreimage: []
-            })
-            setDos("")
-            setDonts("")
-            setMorrout({
-                skintype: "",
-                steps: []
-            })
-            setMorstep("")
-            setNigrout({
-                skintype: "",
-                steps: []
-            })
-            setRoutine({
-                skintype: "",
-                morning: [],
-                night: []
-            })
-            setNigstep("")
-            setFile([])
-            if (CreatePhotoField.current.value!==null) {
-                CreatePhotoField.current.value = null
-            }
             setSubmitted(!submitted)
             setIsEdit(false)
             setPercentage(false)
@@ -292,6 +291,124 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
         let list = product.routines
         list.splice(props, 1)
         setProduct({...product, routines: list})
+    }
+
+    function removeFeatured(props) {
+        let list = product?.featuredvideos
+        list.splice(props, 1)
+        setProduct({...product, featuredvideos: list})
+    }
+
+    function toastError1Notif() {
+        toast.error('File size too large, please select a file that is lower than 15 mb.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    function toastError2Notif() {
+        toast.error('Please select mp4 video formats only.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    const handleVideoUpload2 = (e, destination) => {
+        let file = e.target.files[0];
+        let fileType = file.type; 
+        let fileSize = file.size; 
+        if (fileSize > 15 * 1000000) {
+            toastError1Notif()
+            if (destination==="product videos"){
+                VideosField.current.value=""
+            } else if (destination==="featured videos"){
+                FeaturedVideosField.current.value=""
+            }
+            return
+        } else {
+            if (fileType==="video/mp4") {
+                if (destination==="product videos"){
+                    setProductVideos([file])
+                } else if (destination==="featured videos"){
+                    setFeaturedVideo({...featuredVideo, video: file})
+                    FeaturedUrl.current.value = ""
+                }
+            } else {
+                toastError2Notif()
+                if (destination==="product videos"){
+                    VideosField.current.value=""
+                } else if (destination==="featured videos"){
+                    FeaturedVideosField.current.value=""
+                }
+                return
+            }
+        }
+    }
+
+    function invalidUrlNotif() {
+        toast.error('Url is not a Youtube or TikTok link.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
+
+    function validUrl(url) {
+        if (url!=="") {
+            var condition1 = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|(?:shorts\/)|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
+            //var condition1 = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+            var condition2 = /^.*https:\/\/(?:m|www|vm)?\.?tiktok\.com\/((?:.*\b(?:(?:usr|v|embed|user|video)\/|\?shareId=|\&item_id=)(\d+))|\w+)/
+
+            let condition = null
+            let result = {}
+            function haha () {
+                for (let i=1; i<4; i++){
+                    if (i===1) {
+                        condition = url.match(condition1)
+                        if (condition!==null){
+                            return result = {
+                                urlKey: condition[1],
+                                type: 'youtube'
+                            }
+                        }
+                    } else if (i===2) {
+                        condition = url.match(condition2)
+                        if (condition!==null){
+                            return result = {
+                                urlKey: condition[2],
+                                tiktokSource: condition[1],
+                                type: 'tiktok'
+                            }
+                        }
+                    } 
+                }
+            }
+            haha()
+            if (condition===null){
+                invalidUrlNotif()
+            } else {
+                setFeaturedVideo({...featuredVideo, video: result})
+                FeaturedVideosField.current.value=""
+            }
+            return
+        }
     }
 
     return (
@@ -872,6 +989,103 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                         }} disabled={morrout.steps[0]===undefined || nigrout.steps[0]===undefined || morrout.skintype==="" ? true : false} type="button" className={`rounded-md max-w-[col-span-1] bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${morrout.steps[0]===undefined || nigrout.steps[0]===undefined || morrout.skintype==="" ? null : 'hover:bg-indigo-500'} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Update Routine</button>
                                                     </div>
                                                 </div>
+
+                                                <div className='sm:col-span-6 border border-black rounded-lg grid'>
+                                                    <div className='sm:col-span-6 w-full flex justify-between p-2 border-b'>
+                                                        <button onClick={()=>setAddFeatured(true)} type="button" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit Featured Videos</button>
+                                                        {addFeatured===true ? 
+                                                            <button onClick={()=>[setAddFeatured(false), setProduct({...product, featuredvideos: []})]} className='border rounded-md px-6 py-2'>Cancel</button>
+                                                        :null}
+                                                    </div>
+                                                    {addFeatured===true ? 
+                                                        <div className="sm:col-span-6 sm:grid sm:gap-4 p-8">
+                                                            <div className="grid grid-cols-2 gap-4">
+                                                                <div className='col-span-1'>
+                                                                    <label className="flex items-center gap-4 text-sm font-medium leading-6 text-gray-900">Video Link
+                                                                        <div className='flex gap-2'>
+                                                                            <div className='h-4'>
+                                                                                <img className='h-full w-full object-contain' src='data:image/png;base64,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'/>
+                                                                            </div>
+                                                                            <div className='h-4'>
+                                                                                <img className='h-full w-full object-contain' src='https://www.svgrepo.com/show/327400/logo-tiktok.svg'/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </label>
+                                                                    <div className="mt-2 w-full">
+                                                                        <input ref={FeaturedUrl} onChange={(e)=>validUrl(e.target.value)} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                    </div>
+
+                                                                    <div className='border my-4 relative'>
+                                                                        <p className='bg-white text-gray-900 px-2 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2'>or</p>
+                                                                    </div>
+                                                                    
+                                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Video File</label>
+                                                                    <input ref={FeaturedVideosField} onChange={(e)=>handleVideoUpload2(e, "featured videos")} type="file" className="mt-2 border rounded-lg block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
+
+                                                                </div>
+                                                                <div className='col-span-1'>
+                                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Video Title</label>
+                                                                    <div className="mt-2 w-full">
+                                                                        <input onChange={e => setFeaturedVideo({...featuredVideo, title: e.target.value})} value={featuredVideo.title} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                    </div>
+                                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Video Description</label>
+                                                                    <div className="mt-2 w-full">
+                                                                        <textarea onChange={e => setFeaturedVideo({...featuredVideo, description: e.target.value})} value={featuredVideo.description} rows={3} type="text" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="col-span-2 mt-2 w-full flex justify-center">
+                                                                    <button onClick={()=> {
+                                                                        setProduct({...product, featuredvideos: product.featuredvideos.concat(featuredVideo)})
+                                                                        setFeaturedVideo({ video: "", title: "", description: ""})
+                                                                        FeaturedVideosField.current.value = ""
+                                                                        FeaturedUrl.current.value = ""
+                                                                    }} type="button" disabled={featuredVideo.title!== "" && featuredVideo.description!== "" && featuredVideo.video!== "" ? false : true}  className={`rounded-md w-auto whitespace-nowrap px-8 bg-indigo-600 py-2 text-sm font-semibold text-white shadow-sm ${featuredVideo.title!== "" && featuredVideo.description!== "" && featuredVideo.video!== "" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add to List</button>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className='border border-black'></div>
+
+                                                            <div className="h-auto min-h-[400px] w-full border">
+                                                                {product?.featuredvideos?.length>0 ?
+                                                                    <div className='flex gap-2 overflow-x-auto'>
+                                                                        {product?.featuredvideos?.map((a, index)=> {
+                                                                            return (
+                                                                                <div key={index} className='flex-shrink-0 pt-10 bg-gray-100 relative'>
+                                                                                    <label onClick={()=>removeFeatured(index)} className="absolute right-0 top-0 pr-4 cursor-pointer font-bold text-xl hover:text-gray-600">x</label>
+                                                                                    {a?.video?.type==='video/mp4' ?
+                                                                                        <div className='h-full w-72'>
+                                                                                            <SingleVideoPreview file={[a.video]}/>
+                                                                                        </div>
+                                                                                    : 
+                                                                                        <>
+                                                                                            {a?.video?.type==='file' ?
+                                                                                                <div className="sm:h-[550px] h-96 w-80 my-5 border rounded-md overflow-hidden">
+                                                                                                    <ReactPlayer height={'100%'} width={'100%'} controls={true} url={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.video.urlKey}`}/>
+                                                                                                </div>
+                                                                                            : 
+                                                                                                <>
+                                                                                                    {a.video.type==='youtube' ?
+                                                                                                        <iframe width="100%" height="350" src={`https://www.youtube.com/embed/${a.video.urlKey}?si=gy0u-2r-FmjvWkok`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                                                                                                    :
+                                                                                                        <>
+                                                                                                            <blockquote className="tiktok-embed" cite={`https://www.tiktok.com/${a.video.tiktokSource}`} data-video-id={a.video.urlKey}><section></section> </blockquote> 
+                                                                                                        </>
+                                                                                                    }
+                                                                                                </>
+                                                                                            }
+                                                                                        </>
+                                                                                    }
+                                                                                </div>
+                                                                            )
+                                                                        })}
+                                                                    </div>
+                                                                :<div className='h-full w-full justify-center flex items-center '><p>No videos uploaded yet.</p></div>}
+                                                            </div>
+                                                        </div>
+                                                    :null}
+                                                </div>
+
                                                 <div className="sm:col-span-6 sm:grid-cols-6 sm:grid sm:gap-4 border border-black rounded-lg p-8">
                                                     <div className="sm:col-span-3">
                                                         <label className="block text-sm font-medium leading-6 text-gray-900">Variations </label>
