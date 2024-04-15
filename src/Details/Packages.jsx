@@ -126,12 +126,12 @@ export default function Packages() {
 
     return (
         <>
-            <div className="container mx-auto max-w-6xl px-4 sm:px-0 relative">
+            <div className="container mx-auto sm:max-w-2xl md:max-w-4xl lg:max-w-6xl px-3">
                 <div className="mx-auto max-w-2xl py-4 sm:py-24 lg:max-w-none lg:py-8">
                     <h2 className="text-2xl font-bold text-gray-900">Package Sets</h2>
                     <div>
                         {packages[0]!==undefined ? 
-                            <div className="mt-6 w-auto sm:grid sm:grid-cols-5 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 space-y-0">
+                            <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                                 {packages.map((pack)=> {
                                     return (
                                         <div key={pack._id}  className="group flex-shrink-0 relative">

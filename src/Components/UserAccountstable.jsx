@@ -19,7 +19,7 @@ export default function UserAccountsTable() {
     const [ toEdit, setToEdit ] = useState("")
     const [ menu, setMenu ] = useState(false)
     const [ accounts, setAccounts] = useState([])
-    const [ range, setRange ] = useState("Last year")
+    const [ range, setRange ] = useState("All time")
     const [dateRange, setDateRange] = useState({
         startDate: addDays(new Date(), -365),
         endDate: new Date()
@@ -168,6 +168,16 @@ export default function UserAccountsTable() {
                                                 setMenu(false)
                                             }} defaultChecked={range==="Last year" ? true : false} id="filter-radio-example-5" type="radio" value="Last year" name="filter-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
                                             <label htmlFor="filter-radio-example-5" className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last year</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <input onChange={e=> {
+                                                setRange(e.target.value)
+                                                setDateRange({...dateRange, startDate: addDays(new Date(), -3650)})
+                                                setMenu(false)
+                                            }} defaultChecked={range==="All time" ? true : false} id="filter-radio-example-5" type="radio" value="All time" name="filter-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                                            <label htmlFor="filter-radio-example-5" className="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">All time</label>
                                         </div>
                                     </li>
                                 </ul>

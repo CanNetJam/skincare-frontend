@@ -20,6 +20,7 @@ import DigitalMarketing3 from './DigitalMarketing3';
 import OrderIncome from './OrderIncome';
 import BoxWrap from './BoxWrap';
 import AuditPosting from './AuditPosting';
+import ProductRelease from './ProductRelease';
 
 export default function KBBody({openMenu, setOpenMenu, openTab}) {
     const [ openLink, setOpenLink ] = useState("Default")
@@ -56,6 +57,9 @@ export default function KBBody({openMenu, setOpenMenu, openTab}) {
             )}
             {openLink==="Box Wrap" && (
                 <BoxWrap />
+            )}
+            {openLink==="Preparing Product Release" && (
+                <ProductRelease />
             )}
 
             {openLink==="Customer Support" && (

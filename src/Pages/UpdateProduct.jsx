@@ -47,7 +47,7 @@ export default function UpdateProduct() {
                 <DeleteProduct isDelete={isDelete} setIsDelete={setIsDelete} toDelete={toDelete} setToDelete={setToDelete}/>
             :null}
             <div className="container mx-auto my-16 grid">
-                <h1 className="font-bold contentSubHeading text-center py-6">My Products</h1>
+                <h1 className='font-bold lg:text-4xl text-3xl lg:py-6 py-4 text-center'>My Products</h1>
                 <br/>
                 <div className="w-full flex justify-end items-center">
                     <button onClick={()=>setIsAdd(true)} className="px-4 mt-1 w-full bg-blue-500 p-2 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md">

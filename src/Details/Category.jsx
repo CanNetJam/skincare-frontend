@@ -149,10 +149,10 @@ export default function Category() {
 
     return (
         <div className="grid justify-center">
-            <div className="container mx-auto max-w-6xl px-4 py-4 sm:px-0">
+            <div className="container mx-auto sm:max-w-2xl md:max-w-4xl lg:max-w-6xl px-3">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">Cleanser</h2>
         
-                <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
+                <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {cleanseList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
                             <Link to={`/products/${((product?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
@@ -195,10 +195,10 @@ export default function Category() {
                 </div>
             </div>
 
-            <div className="container mx-auto max-w-6xl px-4 py-4 sm:px-0">
+            <div className="container mx-auto sm:max-w-2xl md:max-w-4xl lg:max-w-6xl px-3">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">Toner</h2>
         
-                <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
+                <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {tonerList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
                             <Link to={`/products/${((product?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
@@ -241,10 +241,10 @@ export default function Category() {
                 </div>
             </div>
 
-            <div className="container mx-auto max-w-6xl px-4 py-4 sm:px-0">
+            <div className="container mx-auto sm:max-w-2xl md:max-w-4xl lg:max-w-6xl px-3">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">Serum</h2>
         
-                <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
+                <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {serumList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
                             <Link to={`/products/${((product?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
@@ -287,10 +287,10 @@ export default function Category() {
                 </div>
             </div>
 
-            <div className="container mx-auto max-w-6xl px-4 py-4 sm:px-0">
+            <div className="container mx-auto sm:max-w-2xl md:max-w-4xl lg:max-w-6xl px-3">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">Moisturizer</h2>
         
-                <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-10 sm:grid-cols-5 xl:gap-x-8">
+                <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {moistList.map((product) => (
                         <div key={product._id} className="group flex-shrink-0 relative">
                             <Link to={`/products/${((product?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-24 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">

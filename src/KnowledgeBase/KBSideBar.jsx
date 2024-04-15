@@ -23,6 +23,7 @@ export default function KBSideBar({openMenu, setOpenMenu, openTab, openLink, set
                                 <li onClick={()=> setOpenLink("Product Quality")} className={openLink==="Product Quality" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Product Quality</li>
                                 <li onClick={()=> setOpenLink("Product Inventory")} className={openLink==="Product Inventory" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Product Inventory</li>
                                 <li onClick={()=> setOpenLink("Box Wrap")} className={openLink==="box Wrap" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Box Wrap</li>
+                                <li onClick={()=> setOpenLink("Preparing Product Release")} className={openLink==="Preparing Product Release" ? 'text-white' : `cursor-pointer hover:text-gray-200 my-2`}>Preparing Product Release</li>
                             </ul>
                         </section>
                     : null}
