@@ -31,7 +31,7 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                 //for(let i=0; i<a.items.length; i++) {
                     let itemsArray = []
                     for (let i=0; i<a.items.length; i++) {
-                        let itemPlusQuantity = a.items[i].item.name+"      x"+a.items[i].quantity+` pc${a.items[i].quantity>1 ? 's' : ''}.`
+                        let itemPlusQuantity = a.items[i].item.name+"      x"+a.items[i].quantity+` pc${a.items[i].quantity>1 ? 's' : ''}`
                         itemsArray.push(itemPlusQuantity)
                     }
 
@@ -52,13 +52,13 @@ export default function AdminPendingOrders({orders, page, setPage, pages, pageEn
                         // street: a.billingaddress.street,
                         '*Phone_number': a.phone,
                         Phone_number2: null,
-                        COD: a.paymentoption==="COD" ? a.amountpaid : 0,
+                        COD: a.paymentoption==="COD" ? Math.round(a.amountpaid) : 0,
                         Item_type: null,
                         '*Weight_kg': 0.5,
                         '*Length': 1,
                         '*Width': 1,
-                        '*Height': 1,
-                        Remark: itemsArray.toString(),
+                        '*Height': 1, 
+                        Remark: itemsArray.join('\n'),
                         // owner: a.owner.substring(0, 4) + '*'.repeat(a.owner.length-4),
                     }
                     setConvertedOrders(prev=>prev.concat([obj]))

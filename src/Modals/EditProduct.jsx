@@ -9,6 +9,7 @@ import ReactPlayer from 'react-player';
 import SingleVideoPreview from "../Components/SingleVideoPreview";
 
 export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSubmitted}) {
+    console.log(toEdit)
     const [ product, setProduct ] = useState(toEdit)
     const [ tempRoutine, setTempRoutine ] = useState("")
 
@@ -185,7 +186,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                     }
                 }
                 data.append("collection", JSON.stringify(collection))
-            }
+            } 
             if (product.ingredients.length>0) {
                 let ingphotos = []
                 for (let i=0; i<product.ingredients.length; i++) {
@@ -199,10 +200,12 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                 }
                 data.append("ingphotos", JSON.stringify(ingphotos))
             }
-            if (videofile.length>0) {
-                for (let i=0; i<videofile.length; i++) {
-                    data.append("prodvid", videofile[i])
+            if (product.videos.length>0) {
+                for (let i=0; i<product.videos.length; i++) {
+                    data.append("prodvid", product.videos[i])
                 }
+            } else {
+                data.append("prodvid", JSON.stringify([]))
             }
             if (product?.featuredvideos.length>0) {
                 let videoCollection = []
@@ -414,6 +417,18 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
         }
     }
 
+    function removeMoreImage(props) {
+        let list = product?.moreimage
+        list.splice(props, 1)
+        setProduct({...product, moreimage: list})
+    }
+
+    function removeVideos(props) {
+        let list = product?.videos
+        list.splice(props, 1)
+        setProduct({...product, videos: list})
+    }
+
     return (
         <>
             <Transition appear show={isEdit} as={Fragment}>
@@ -502,7 +517,8 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                             {product.moreimage.map((a, index)=> {
                                                                 return (
                                                                     <div className="col-span-1 h-56 w-full border relative" key={index}>
-                                                                        <label className="absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-500 text-white hover:bg-opacity-90">
+                                                                        <svg onClick={()=>removeMoreImage(index)} className='absolute top-2 right-2 h-8 w-8 cursor-pointer fill-current text-blue-500 hover:text-blue-400' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
+                                                                        <label className="absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-500 text-white hover:bg-opacity-90">                                                                            
                                                                             <svg
                                                                             className="fill-current"
                                                                             width="20"
@@ -571,6 +587,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                     <label className="block text-sm font-bold leading-6 text-gray-800">Tiktok Video</label>
                                                     {product?.videos.length>0 ? 
                                                         <div className="relative h-56 w-full border overflow-hidden">
+                                                            <svg onClick={()=>removeVideos(0)} className='z-10 absolute top-2 right-2 h-8 w-8 cursor-pointer fill-current text-blue-500 hover:text-blue-400' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
                                                             <label className="z-10 absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-500 text-white hover:bg-opacity-90">
                                                                 <svg
                                                                 className="fill-current"
@@ -597,7 +614,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                                 } type="file" className="sr-only"/>
                                                             </label>
                                                             {typeof product.videos[0]==="string" ? 
-                                                                <video className='h-full w-full object-contain' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${product.videos[0]}`}></video>
+                                                                <video className='h-full w-full object-contain' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${product.videos[0]}`}></video> 
                                                             :
                                                                 <video className="h-full w-full object-contain" src={URL.createObjectURL(product?.videos[0])}></video>
                                                             }
