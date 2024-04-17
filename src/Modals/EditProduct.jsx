@@ -9,7 +9,6 @@ import ReactPlayer from 'react-player';
 import SingleVideoPreview from "../Components/SingleVideoPreview";
 
 export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSubmitted}) {
-    console.log(toEdit)
     const [ product, setProduct ] = useState(toEdit)
     const [ tempRoutine, setTempRoutine ] = useState("")
 
@@ -67,6 +66,15 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
     const [ addIngredient, setAddIngredient ] = useState(false)
     const [ addDoDont, setAddDoDont ] = useState(false)
     const [ addRoutine, setAddRoutine ] = useState(false)
+    const [ ingredient, setIngredient ] = useState({
+        name: "",
+        desc: "",
+        photo: ""
+    })
+    const fileChange = (e) => {
+        setFile(file.concat([e.target.files[0]]))
+        setIngredient({...ingredient, photo: e.target.files[0]})
+    }
 
     useEffect(()=> {
         function loadScript(src) {
@@ -712,49 +720,83 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                                                     </div>
                                                 </div>
 
-                                                <div className="border border-black rounded-lg col-span-6 sm:grid sm:grid-cols-6 sm:gap-4 p-8">
-                                                    <h1>Product Ingredients:</h1>
-                                                    {product.ingredients[0]!==undefined ? 
-                                                        <div className="col-span-6 grid grid-cols-4 gap-2">
-                                                            {product.ingredients.map((a, index)=> {
-                                                                return (
-                                                                    <div key={index} className="h-auto col-span-1 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
-                                                                        <div className="relative">
-                                                                            <div onClick={()=> {
-                                                                                setIsOpen(true)
-                                                                                setUpdateIng({
-                                                                                    index: index,
-                                                                                    data: a
-                                                                                })
-                                                                            }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer p-2 bg-blue-400 hover:bg-blue-500 rounded-lg">
-                                                                                <svg height="40" width="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m19 20.25c0-.402-.356-.75-.75-.75-2.561 0-11.939 0-14.5 0-.394 0-.75.348-.75.75s.356.75.75.75h14.5c.394 0 .75-.348.75-.75zm-7.403-3.398 9.124-9.125c.171-.171.279-.423.279-.684 0-.229-.083-.466-.28-.662l-3.115-3.104c-.185-.185-.429-.277-.672-.277s-.486.092-.672.277l-9.143 9.103c-.569 1.763-1.555 4.823-1.626 5.081-.02.075-.029.15-.029.224 0 .461.349.848.765.848.511 0 .991-.189 5.369-1.681zm-3.27-3.342 2.137 2.137-3.168 1.046zm.955-1.166 7.651-7.616 2.335 2.327-7.637 7.638z"/></svg>
-                                                                            </div>
-                                                                            {typeof a.photo==="string" ? 
-                                                                                <img
-                                                                                src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.photo}`}
-                                                                                    className="h-[150px] w-full object-cover object-center"
-                                                                                />
-                                                                            :
-                                                                                <img className="h-[150px] w-full object-cover object-center" src={URL.createObjectURL(a.photo)}></img>
-                                                                            }
-                                                                        </div>
-                                                                        <div className="mt-4 grid px-4">
-                                                                                <h3 className="text-sm text-gray-700">
-                                                                                    <div>
-                                                                                        {a.name}
-                                                                                    </div>
-                                                                                </h3>
-                                                                            <p className="mt-1 text-sm text-gray-500 line-clamp-2">{a.desc}</p>
-                                                                        </div>
+                                                <div className='sm:col-span-6 border border-black rounded-lg grid'>
+                                                    <div className='sm:col-span-6 w-full flex justify-between p-2 border-b'>
+                                                        <button onClick={()=>setAddIngredient(true)} type="button" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit Ingredients</button>
+                                                        {addIngredient===true ? 
+                                                            <button onClick={()=>[setAddIngredient(false)]} className='border rounded-md px-6 py-2'>Cancel</button>
+                                                        :null}
+                                                    </div>
+                                                    {addIngredient===true ? 
+                                                        <div className="col-span-6 sm:grid sm:grid-cols-6 sm:gap-4 p-8">
+                                                            <div className="sm:col-span-3">
+                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Ingredient name</label>
+                                                                <div className="mt-2 w-full">
+                                                                    <input onChange={e => setIngredient({...ingredient, name: e.target.value})} value={ingredient.name} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                </div>
+                                                                <label className="block text-sm font-medium leading-6 text-white">Ingredient name</label>
+                                                                    <input ref={CreatePhotoField} onChange={fileChange} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
+                                                                <br/>
+                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                                                <div className="mt-2 w-full">
+                                                                    <textarea onChange={e => setIngredient({...ingredient, desc: e.target.value})} value={ingredient.desc} rows={5} type="text" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                </div>
 
-                                                                    </div>
-                                                                )
-                                                            })}
+                                                                <div className="mt-2 w-full">
+                                                                    <button onClick={()=> {
+                                                                        setProduct({...product, ingredients: product.ingredients.concat(ingredient)})
+                                                                        setIngredient({name: "", desc: "", photo: ""})
+                                                                        CreatePhotoField.current.value = ""
+                                                                    }} type="button" disabled={ingredient.photo!== "" && ingredient.name!== "" && ingredient.desc!== "" ? false : true}  className={`rounded-md w-full bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ${ingredient.photo!== "" && ingredient.name!== "" && ingredient.desc!== "" ? 'hover:bg-indigo-500' : null} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>Add to List</button>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div className="sm:col-span-3">
+                                                                <h1 className='font-bold'>Product Ingredients:</h1>
+                                                                    {product.ingredients[0]!==undefined ? 
+                                                                        <div className="grid grid-cols-2 gap-2 bg-white">
+                                                                            {product.ingredients.map((a, index)=> {
+                                                                                return (
+                                                                                    <div key={index} className="h-auto aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                                                                                        <div className="relative">
+                                                                                            <div onClick={()=> {
+                                                                                                setIsOpen(true)
+                                                                                                setUpdateIng({
+                                                                                                    index: index,
+                                                                                                    data: a
+                                                                                                })
+                                                                                            }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer p-2 bg-blue-400 hover:bg-blue-500 rounded-lg">
+                                                                                                <svg height="40" width="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m19 20.25c0-.402-.356-.75-.75-.75-2.561 0-11.939 0-14.5 0-.394 0-.75.348-.75.75s.356.75.75.75h14.5c.394 0 .75-.348.75-.75zm-7.403-3.398 9.124-9.125c.171-.171.279-.423.279-.684 0-.229-.083-.466-.28-.662l-3.115-3.104c-.185-.185-.429-.277-.672-.277s-.486.092-.672.277l-9.143 9.103c-.569 1.763-1.555 4.823-1.626 5.081-.02.075-.029.15-.029.224 0 .461.349.848.765.848.511 0 .991-.189 5.369-1.681zm-3.27-3.342 2.137 2.137-3.168 1.046zm.955-1.166 7.651-7.616 2.335 2.327-7.637 7.638z"/></svg>
+                                                                                            </div>
+                                                                                            {typeof a.photo==="string" ? 
+                                                                                                <img
+                                                                                                src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.photo}`}
+                                                                                                    className="h-[200px] w-full object-cover object-center"
+                                                                                                />
+                                                                                            :
+                                                                                                <img className="h-[200px] w-full object-cover object-center" src={URL.createObjectURL(a.photo)}></img>
+                                                                                            }
+                                                                                        </div>
+                                                                                        <div className="mt-4 grid px-4">
+                                                                                                <h3 className="text-sm text-gray-700">
+                                                                                                    <div>
+                                                                                                        {a.name}
+                                                                                                    </div>
+                                                                                                </h3>
+                                                                                            <p className="mt-1 text-sm text-gray-500 line-clamp-2">{a.desc}</p>
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                )
+                                                                            })}
+                                                                        </div>
+                                                                    : <div className='bg-white'>No ingredients listed.</div>}
+                                                            </div>
                                                         </div>
-                                                    : <span>No ingredients listed</span>}
+                                                    :null}
                                                 </div>
 
-                                                <div className='col-span-6 border border-black rounded-lg grid'>
+                                                <div className='sm:col-span-6 border border-black rounded-lg grid'>
                                                     <div className='sm:col-span-6 sm:grid-cols-2 w-full flex justify-between p-2 border-b'>
                                                         <button onClick={()=>setAddDoDont(true)} type="button" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit Do's and Don'ts</button>
                                                         {addDoDont===true ? 
