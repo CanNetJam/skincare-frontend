@@ -216,7 +216,7 @@ export default function DeliveryDetails() {
     return (
         <div className='h-auto w-full px-4'>
             <div className='container mx-auto max-w-6xl grid sm:grid-cols-2 gap-6 py-6'>
-                <div className='h-full w-full col-span-1 rounded-lg bg-gray-100 sm:p-10 p-4'>
+                <div className='h-full w-full col-span-1 rounded-lg bg-gray-100 sm:p-10 p-4 shadow-md'>
                     <div className='flex justify-between items-center'>
                         <h1 className='font-bold sm:text-2xl my-2 text-blue-500'>
                             Billing Address
@@ -320,7 +320,7 @@ export default function DeliveryDetails() {
                             </div>
 
                             <div className="px-4 py-4 sm:grid sm:gap-4 sm:px-6 w-full grid justify-center">
-                                <button type='submit' className="flex cursor-pointer items-center justify-center gap-2 rounded bg-blue-500 py-1 px-2 text-sm font-medium text-white hover:bg-opacity-80 sm:px-4">Update</button>
+                                <button type='submit' className="flex cursor-pointer items-center justify-center gap-2 rounded bg-blue-500 py-3 px-10 sm:text-base text-sm font-bold text-white hover:bg-opacity-80">Update</button>
                             </div>
                         </div>
                     </form>

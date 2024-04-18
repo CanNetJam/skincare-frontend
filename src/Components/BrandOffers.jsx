@@ -11,7 +11,7 @@ import img9 from '../assets/Compressed-Webp/SafetyLogo.webp';
 export default function BrandOffers() {
     return (
         <div className='h-auto w-full grid sm:gap-6'>
-            <div className='sm:h-screen h-auto max-w-6xl w-full container mx-auto grid sm:gap-6 gap-2 sm:grid-cols-2 px-4'>
+            <div className='md:h-screen h-auto max-w-6xl w-full container mx-auto grid md:gap-6 gap-2 md:grid-cols-2 px-4'>
                 <div className="h-full flex sm:p-12 py-8 sm:px-0 w-full items-center">
                     <div className="h-full w-full flex justify-center items-center">
                         <div className='w-full max-w-md'>
@@ -33,8 +33,8 @@ export default function BrandOffers() {
                 </div>
             </div>
 
-            <div style={{'--image-url': `url(${img4})`}} className='bg-[image:var(--image-url)] bg-no-repeat bg-cover sm:min-h-[120vh] h-auto w-full grid justify-center items-center py-20 px-4'>
-                <div className='h-full w-full container mx-auto sm:grid flex flex-col-reverse max-w-6xl sm:gap-6 gap-2 sm:grid-cols-2'>
+            <div style={{'--image-url': `url(${img4})`}} className='bg-[image:var(--image-url)] bg-no-repeat bg-cover md:min-h-[120vh] h-auto w-full grid justify-center items-center py-20 px-4'>
+                <div className='h-full w-full container mx-auto md:grid flex flex-col-reverse max-w-6xl md:gap-6 gap-2 md:grid-cols-2'>
                     <div className='h-full w-full flex justify-center items-center'>
                         <div className='sm:h-[450px] sm:w-[450px] h-[250px] w-full rounded-lg overflow-hidden'>
                             <img height={'450px'} width={'450px'} loading='lazy' title='Klued products low cost' alt='Graphic art with a male having a lot of savings' className='h-full w-full object-contain object-center' src={img5}/>
@@ -56,7 +56,7 @@ export default function BrandOffers() {
                 </div>
             </div> 
 
-            <div className='sm:h-screen h-auto max-w-6xl container mx-auto grid sm:gap-6 gap-2 sm:grid-cols-2 w-full px-4 sm:mb-2 mb-8'>
+            <div className='md:h-screen h-auto max-w-6xl container mx-auto grid sm:gap-6 gap-2 md:grid-cols-2 w-full px-4 md:mb-2 mb-8'>
                 <div className="h-full flex sm:p-12 py-8 sm:px-0 w-full items-center">
                     <div className="h-full w-full flex justify-center items-center">
                         <div className='w-full max-w-md'>

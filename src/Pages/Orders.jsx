@@ -109,9 +109,9 @@ export default function Orders() {
                         <DeliveryDetails/>
                     : null}
                 </div>
-                    <div className={`${toReview===true && openReminder===true ? 'scale-100' : 'scale-0' } transition-transform duration-500 ease-in-out h-auto sm:w-96 w-full py-4 px-2 bg-slate-800 text-white text-base grid items-center text-center rounded-lg fixed top-20 sm:right-4`}>
-                        <svg onClick={()=>setOpenReminder(false)} className='absolute top-2 right-2 h-6 w-6 cursor-pointer fill-current text-gray-300 hover:text-white' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
-                        <p>An item in your inventory has not been reviewed yet. Hurry now and review it to gain up to ₱10.00 discount.</p>
+                    <div className={`${toReview===true && openReminder===true ? 'scale-100' : 'scale-0' } transition-transform duration-500 ease-in-out h-auto sm:w-96 w-[96%] sm:mx-0 mx-2 py-4 px-2 bg-slate-800 text-white text-base grid items-center text-center rounded-lg fixed top-20 sm:right-4`}>
+                        <svg onClick={()=>setOpenReminder(false)} className='absolute top-2 right-2 sm:h-6 sm:w-6 h-4 w-4 cursor-pointer fill-current text-gray-300 hover:text-white' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
+                        <p className='sm:text-base text-sm'>An item in your inventory has not been reviewed yet. Hurry now and review it to gain up to ₱10.00 discount voucher.</p>
                     </div>
             </div>
         </>

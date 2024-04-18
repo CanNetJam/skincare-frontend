@@ -32,7 +32,7 @@ export default function BillingAddress() {
                 <p className='text-center italic'>If you are editing your billing address for the first time, <b>No data.</b> will be displayed on this page.</p>
                 <br/>
 
-                <p><b>Step 3:</b> Click on the pen icon to begin. <br/>a.) Enter your shipping details on each textbox. <br/>b.) To speed up the process, click on the suggested texts below. <br/>c.) After filling out the form, click on the <b>Update</b> button.</p>
+                <p><b>Step 3:</b> <br/> a.) Click on the pen icon to begin. <br/>b.) Select your region, province, city, and barangay on the drop down menu. Select <b>Not applicable.</b> if there is no option listed below. <br/>c.) After filling out the form, click on the <b>Update</b> button.</p>
                 <div className='grid gap-2'>
                     <div className='w-full flex justify-center items-center border'>
                         <label><b>a.</b>) </label>
@@ -53,7 +53,7 @@ export default function BillingAddress() {
                 <div className='flex justify-center items-center border'>
                     <img src={img8}></img>
                 </div>
-                <p className='text-center'>Your billing address should look like this now.</p>
+                <p className='text-center'>Your billing address should look like this now. You are good to go and you can start checking out now!</p>
                 <div className='flex justify-center items-center border'>
                     <img src={img1}></img>
                 </div>
@@ -75,7 +75,7 @@ export default function BillingAddress() {
                 <p className='text-center italic'>If you are editing your billing address for the first time, <b>No data.</b> will be displayed on this page.</p>
                 <br/>
 
-                <p><b>Step 3:</b> Click on the pen icon to begin. Enter your shipping details on each textbox. To speed up the process, click on the suggested texts below. After filling out the form, click on the <b>Update</b> button.</p>
+                <p><b>Step 3:</b> Click on the pen icon to begin. Select your region, province, city, and barangay on the drop down menu. Select <b>Not applicable.</b> if there is no option listed below. After filling out the form, click on the <b>Update</b> button.</p>
                 <div className='grid gap-2'>
                     <div className='w-full flex justify-center items-center'>
                         <img className='border' src={img11}></img>
@@ -83,7 +83,7 @@ export default function BillingAddress() {
                 </div>
                 <br/>
 
-                <p className='text-center'><b>Finished!</b> A notification will appear notifying you that your billing address is now updated. Your billing address should look like this now.</p>
+                <p className='text-center'><b>Finished!</b> A notification will appear notifying you that your billing address is now updated. Your billing address should look like this now. You are good to go and you can start checking out now!</p>
                 <div className='flex justify-center items-center'>
                     <img className='border' src={img12}></img>
                 </div>

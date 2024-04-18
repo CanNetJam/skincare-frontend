@@ -126,7 +126,7 @@ export default function Packages() {
 
     return (
         <>
-            <div className="container mx-auto sm:max-w-2xl md:max-w-4xl lg:max-w-6xl px-3">
+            <div className="container mx-auto sm:max-w-2xl md:max-w-4xl lg:max-w-6xl px-4">
                 <div className="mx-auto max-w-2xl py-4 sm:py-24 lg:max-w-none lg:py-8">
                     <h2 className="text-2xl font-bold text-gray-900">Package Sets</h2>
                     <div>
@@ -134,41 +134,47 @@ export default function Packages() {
                             <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                                 {packages.map((pack)=> {
                                     return (
-                                        <div key={pack._id}  className="group flex-shrink-0 relative">
-                                            <Link to={`/packages/${(pack?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase()}/${pack._id}`} state={{packageid: pack._id, packagename: pack.name}} className="relative h-32 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
-                                                <div className="sm:h-56 h-40 w-full overflow-hidden rounded-md">
+                                        <div key={pack._id} className="group flex-shrink-0 relative border shadow-md rounded-lg">
+                                            <Link to={`/packages/${(pack?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase()}/${pack._id}`} state={{packageid: pack._id, packagename: pack.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
+                                                <div className="sm:h-56 h-40 w-full overflow-hidden rounded-t-lg">
                                                     <img title='Klued package' alt={`${pack.name}`} loading='eager' height={'100px'} width={'100px'}
                                                         src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${pack.displayimage}`}
                                                         className="h-full w-full object-cover"
                                                     />
                                                 </div>
+                                                <div className='min-h-[50px] px-2'>
+                                                    <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-2">{pack.name}</h3>
+                                                </div>
                                             </Link>
                                             {pack.origprice!==pack.disprice ? 
-                                                <div className='bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-0 px-4 rounded-l-lg right-0 group-hover:opacity-90'>{100-(Math.floor((pack.origprice/pack.disprice)*100))}% Off!</div>
-                                            :null}
-                                            <div className='min-h-[80px]'>
-                                                <p className="my-2 text-base font-semibold text-gray-900 line-clamp-3">{pack.name}</p>
-                                            </div>
-                                            <div className='sm:flex sm:justify-between items-end grid gap-2'>
+                                                <div className='group-hover:opacity-90 bg-blue-500 text-white font-bold sm:text-3xl text-xl absolute top-2 px-4 rounded-l-lg -right-2'>{100-(Math.round((pack.origprice/pack.disprice)*100))}% Off!</div>
+                                            : null}
+                                            <div className='sm:flex sm:justify-between items-end grid gap-1 px-2'>
                                                 {pack.origprice!==pack.disprice ? 
-                                                    <div className='grid'>
-                                                        <p className='text-gray-900 text-lg font-bold'>₱{(pack?.origprice).toFixed(2)}</p>
-                                                        <div className='text-gray-800 text-sm flex items-center justify-center relative max-w-[55px]'>₱{(pack?.disprice).toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
+                                                    <div className='sm:grid flex justify-between items-center'>
+                                                        <p className='text-gray-900 sm:text-lg text-base font-bold'>₱{(pack.origprice).toFixed(2)}</p>
+                                                        <div className='text-gray-800 sm:text-sm text-xs flex items-center justify-center relative'>₱{(pack?.disprice).toFixed(2)} <div className='absolute w-full border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[15deg]'></div></div>
                                                     </div>
                                                 :
-                                                    <p className='text-gray-900 font-bold'>₱{(pack?.origprice).toFixed(2)}</p>
+                                                    <p className='text-gray-900 font-bold'>₱{(pack.origprice).toFixed(2)}</p>
                                                 }
-                                                <p className='text-gray-700'>
+                                                <p className='text-gray-700 flex justify-between text-sm sm:grid text-end'>
+                                                    {pack?.sold ?
+                                                        <div><b>{pack.sold>1000 ? pack.sold/1000+"K " : pack.sold}</b> sold</div>
+                                                    : null} 
                                                     {pack.stock!==0 ? 
-                                                        <>
-                                                            <b>{pack.stock}</b> <span className='text-xs'>items left</span>
-                                                        </>
-                                                        : 
-                                                        <b>Out of stock.</b>
-                                                    }
+                                                        <div className="flex gap-1 justify-end items-baseline sm:text-base text-sm">
+                                                            <b className="sm:text-base text-sm">{pack.stock}</b> <span className='text-xs'>items left</span>
+                                                        </div>
+                                                    : 
+                                                    <>
+                                                        <b className="sm:text-base text-sm">Out of stock.</b>
+                                                    </>}
                                                 </p>
                                             </div>
-                                            <button onClick={()=>handleAddToCart(pack)} disabled={pack.stock<1 ? true : false} className={`${pack.stock<1 ? null : 'hover:bg-black'} my-2 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-8 py-2 text-sm font-medium text-white focus:outline-none`}>Add to Cart</button>
+                                            <div className="w-full px-2">
+                                                <button onClick={()=>handleAddToCart(pack)} disabled={pack.stock<1 ? true : false} className={`${pack.stock<1 ? null : 'hover:bg-black'} my-2 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-6 py-2 text-sm font-medium text-white focus:outline-none`}>Add to Cart</button>
+                                            </div>
                                         </div>
                                     )
                                 })}
@@ -180,32 +186,3 @@ export default function Packages() {
         </>
     )
 }
-
-/*
-                                                <div className='grid grid-cols-2'>
-                                                    <div>
-                                                        <label htmlFor="quantity-input" className="block text-sm font-medium text-gray-900 dark:text-white">Price:</label>
-                                                        <p className='font-semibold text-gray-700'>₱ {pack.origprice}.00</p>
-                                                    </div>
-                                                    <div className="">
-                                                        <label htmlFor="quantity-input" className="block text-sm font-medium text-gray-900 dark:text-white">Quantity:</label>
-                                                        <div className="relative flex items-center max-w-[8rem]">
-                                                            <button type="button" id="decrement-button" data-input-counter-decrement="quantity-input" className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-2 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
-                                                                <svg className="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                                                    <path stroke="currentColor" d="M1 1h16"/>
-                                                                </svg>
-                                                            </button>
-                                                            <input type="text" id="quantity-input" data-input-counter aria-describedby="helper-text-explanation" className="bg-gray-50 border-x-0 border-gray-300 h-8 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="99" required/>
-                                                            <button type="button" id="increment-button" data-input-counter-increment="quantity-input" className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-2 h-8 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
-                                                                <svg className="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                                                    <path stroke="currentColor" d="M9 1v16M1 9h16"/>
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div className='hidden group-hover:block group-hover:bg-gray-100 group-hover:backdrop-blur-xs group-hover:bg-opacity-20 absolute inset-0 py-10 px-4'>
-                                                    <button className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-8 py-3 text-base font-medium text-white hover:bg-black focus:outline-none">Learn More</button>
-                                                    <button className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-8 py-3 text-base font-medium text-white hover:bg-black focus:outline-none">Add to Cart</button>
-                                                </div>*/

@@ -121,8 +121,8 @@ export default function Settings({profileData}) {
                             <label htmlFor="old-password" className="flex justify-between mb-2 text-sm font-medium text-gray-900 dark:text-white">Old Password                         
                                 {correctPass===false ?
                                     <div className="flex gap-1 items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                        <label className="font-semibold text-blue-500">Incorrect Password!</label>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                        <label className="font-semibold sm:text-base text-xs text-blue-500">Incorrect Password!</label>
                                     </div> 
                                 :null}
                             </label>
@@ -138,23 +138,23 @@ export default function Settings({profileData}) {
                         {isVerified===true ?
                             <>
                                 <div>
-                                    <label htmlFor="password" className="flex justify-between mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password
+                                    <label htmlFor="password" className="sm:flex sm:justify-between grid mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password
                                         {samePassword===true ? 
-                                            <div className="flex gap-1 items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                                <label className="font-semibold text-blue-500">Your new password can not be the same with your old password!</label>
+                                            <div className="flex sm:gap-1 gap-3 items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="sm:h-4 sm:w-4 h-5 w-5" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                                <label className="font-semibold sm:text-base text-xs text-blue-500">Your new password can not be the same with your old password!</label>
                                             </div>
                                         : null}
                                         {newPassword.length<6 && newPassword.length>0 ? 
-                                            <div className="flex gap-1 items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                                <label className="font-semibold text-blue-500">Password should not be less than 6 characters!</label>
+                                            <div className="flex sm:gap-1 gap-3 items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="sm:h-4 sm:w-4 h-5 w-5" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                                <label className="font-semibold sm:text-base text-xs text-blue-500">Password should not be less than 6 characters!</label>
                                             </div>
                                         : null}
                                         {newPassword.length>16 && newPassword.length>0 ? 
-                                            <div className="flex gap-1 items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                                <label className="font-semibold text-blue-500">Password should not exceed 16 characters!</label>
+                                            <div className="flex sm:gap-1 gap-3 items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="sm:h-4 sm:w-4 h-5 w-5" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                                <label className="font-semibold sm:text-base text-xs text-blue-500">Password should not exceed 16 characters!</label>
                                             </div>
                                         : null}
                                     </label>
@@ -169,11 +169,11 @@ export default function Settings({profileData}) {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="confirm-password" className="flex justify-between mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password
+                                    <label htmlFor="confirm-password" className="sm:flex sm:justify-between grid mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password
                                         {isConfirmed===false ? 
-                                            <div className="flex gap-1 items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
-                                                <label className="text-blue-500 font-semibold">New password does not match!</label>
+                                            <div className="flex sm:gap-1 gap-3 items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="sm:h-4 sm:w-4 h-5 w-5" viewBox="0 0 24 24"><path fill='red' d="M12 1l-12 22h24l-12-22zm-1 8h2v7h-2v-7zm1 11.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                                                <label className="text-blue-500 sm:text-base text-xs font-semibold">New password does not match!</label>
                                             </div>
                                         : null}
                                     </label>

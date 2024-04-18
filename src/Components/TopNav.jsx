@@ -80,7 +80,7 @@ function Navbar(props) {
                                 </div>
                                 <input onChange={(e)=>setSearch(e.target.value)} value={search} type="text" id="product-search" className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search product..."/>
                                 {search!=="" ?
-                                    <div className="grid gap-2 absolute bg-white h-auto max-h-[250px] border w-full overflow-y-scroll rounded-b-xl no-scrollbar shadow-md">
+                                    <div className="grid gap-2 absolute bg-white h-auto max-h-[225px] border w-full overflow-y-scroll rounded-b-xl no-scrollbar shadow-md">
                                         {filteredProducts.map((a, index)=> {
                                             return <Link onClick={()=>setSearch("")} to={`/products/${(a?.name?.replace(/\s+/g, '-'))?.replace(/[^a-zA-Z0-9--]/g, '')?.toLowerCase()}/${a._id}`} state={{productid: a._id, productname: a.name}} target='_blank' className="h-auto w-auto flex gap-2 items-center p-2 cursor-pointer hover:bg-gray-100" key={index}>
                                                 <div className='flex h-[40px] w-[40px] items-center justify-center border overflow-hidden rounded-md'>
@@ -454,7 +454,7 @@ function Navbar(props) {
                             <label htmlFor="product-search" className="sr-only">Search</label>
                             <input onChange={(e)=>setSearch(e.target.value)} value={search} disabled={openSearch===false ?true:false} type="text" id="product-search" className={`${openSearch===false ? 'transition-height ease-in-out duration-500 sm:duration-700 h-0' : 'transition-height ease-in-out duration-500 sm:duration-700 h-11 border border-gray-300 mx-1'} block w-[98%] text-sm pl-10 text-gray-900 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`} placeholder="Search product..."/>
                             
-                            <button onClick={()=>setOpenSearch(false)} className={`${openSearch===false ? 'transition-height ease-in-out duration-500 sm:duration-700 h-0' : 'transition-height ease-in-out duration-500 sm:duration-700 h-12'} cursor-pointer sm:hidden absolute inset-y-0 right-0 flex items-center ps-3 z-10`}>
+                            <button onClick={()=>[setOpenSearch(false), setSearch("")]} className={`${openSearch===false ? 'transition-height ease-in-out duration-500 sm:duration-700 h-0' : 'transition-height ease-in-out duration-500 sm:duration-700 h-12'} cursor-pointer sm:hidden absolute inset-y-0 right-0 flex items-center ps-3 z-10`}>
                                 <svg className="w-[75%] h-[75%]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill='#6b7280' d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
                             </button>
 

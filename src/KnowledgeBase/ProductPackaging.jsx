@@ -45,19 +45,25 @@ export default function ProductPackaging() {
                         <h1 className='font-bold contentSubHeading my-4'>Line 2</h1>
                         <div className='col-span-1'>
                             <ol className='ml-4 list-decimal sm:text-xl text-base'>
+                                <li className='my-2'>Separate Single and Multi Waybills.</li>
                                 <li className='my-2'>Check the contents of the waybill.</li>
+                                <li className='my-2'>Check the packing list. </li>
                                 <li className='my-2'>Search for the Order ID on Shopee using the Klued cell phone.</li>
                                 <li className='my-2'>Check if the products on the Order Details and waybill are correct. <br/><i>See the image below for comparison:</i></li>
                             </ol>
                         </div>
-                        <div className='col-span-1 grid gap-4 '>
-                            <img draggable={false} className='col-span-1' src={img1}/>
-                            <img draggable={false} className='col-span-1' src={img2}/>
+                        <div className='col-span-1 sm:flex grid gap-4 '>
+                            <div className="h-auto w-auto sm:max-h-[75vh] max-h-[60vh] sm:max-w-[350px] border shadow-lg rounded-lg overflow-hidden">
+                                <img className='h-full-w-full object-contain object-center' draggable={false} src={img1}/>
+                            </div>
+                            <div className="h-auto w-auto sm:max-h-[75vh] max-h-[60vh] sm:max-w-[300px] border shadow-lg rounded-lg overflow-hidden">
+                                <img className='h-full-w-full object-cover ' draggable={false} src={img2}/>
+                            </div>
                         </div>
                         <br/>
 
                         <div className='col-span-1'>
-                            <ol start='4' className='ml-4 list-decimal sm:text-xl text-base'>
+                            <ol start='6' className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'><b>Gather the item/s</b> written on the waybill together.</li>
                                 <li className='my-2'><b>Assure the quality and quantity</b> of the products.</li>
                                 <li className='my-2'>Write the <b>initials of the Line 2</b> production staff on the waybill.</li>
@@ -77,8 +83,8 @@ export default function ProductPackaging() {
                                 <li className='my-2'>Proceed by endorsing to <b>Line 3</b>.</li>
                             </ol>
                         </div>
-                        <div className='col-span-1'>
-                            <img draggable={false} className='' src={img3}/>
+                        <div className="h-auto w-auto sm:max-h-[75vh] max-h-[50vh] sm:max-w-[700px] border shadow-lg rounded-lg overflow-hidden">
+                            <img className='h-full-w-full object-contain object-center' draggable={false} src={img3}/>
                         </div>
                     </div>
 
@@ -87,6 +93,7 @@ export default function ProductPackaging() {
                         <div className='col-span-1'>
                             <ol className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'><b>Check the contents</b> of the waybill.</li>
+                                <li className='my-2'>Bring the items/written on the waybill together</li>
                                 <li className='my-2'><b>Check the packing list</b> to see if the item/s are correct.</li>
                                 <li className='my-2'><b>Assure the quality and quantity</b> of the products.</li>
                                 <li className='my-2'><b>Encircle the quantity of the product/s</b> written on the waybill if they are correct.</li>
@@ -121,8 +128,21 @@ export default function ProductPackaging() {
                                 </li>
                             </ol>
                         </div>
-                        <div className='col-span-1'>
-                            <img draggable={false} className='' src={img4}/>
+                        <div className="h-auto w-auto sm:max-h-[75vh] max-h-[50vh] sm:max-w-[400px] border shadow-lg rounded-lg overflow-hidden">
+                            <img className='h-full-w-full object-contain object-center' draggable={false} src={img4}/>
+                        </div>
+                    </div>
+                    <br/>
+                    <div className='h-auto w-full sm:p-10 py-4 px-2 rounded-2xl border-4 border-dashed border-red-400'>
+                        <p className='text-3xl font-bold'>Important!</p>
+                        <br/>
+                        <div>
+                            <p className='sm:text-xl text-base'>The listed exemptions below are only allowed during our Sales or Events, we will do it only on Ex. Pay Day Sale, Double Digit Sales(11-11, 12-12 etc.) and also Beauty Fair.</p>
+                            <ol className='ml-4 list-decimal sm:text-xl text-base'>
+                                <li className='my-6'>Taking photos of the waybill and product only in Camera. </li>
+                                <li className='my-6'>No sending template message of Hi luv!</li>
+                                <li className='my-6'>No sending pictures in Shoppe app. </li>
+                            </ol>
                         </div>
                     </div>
                 </section>
@@ -133,7 +153,9 @@ export default function ProductPackaging() {
                         <h1 className='font-bold contentSubHeading my-4'>Line 2</h1>
                         <div className='col-span-1'>
                             <ol className='ml-4 list-decimal sm:text-xl text-base'>
+                                <li className='my-2'>Separate Single and Multi Waybills.</li>
                                 <li className='my-2'>Check the contents of the waybill.</li>
+                                <li className='my-2'>Check the packing list. </li>
                                 <li className='my-2'>Check the packing list.</li>
                                 <li className='my-2'>Bring the item/s written on the waybill together.</li>
                                 <li className='my-2'>Assure the quality and quantity of the products.</li>
@@ -149,7 +171,8 @@ export default function ProductPackaging() {
                         <div className='col-span-1'>
                             <ol className='ml-4 list-decimal sm:text-xl text-base'>
                                 <li className='my-2'>Check the waybill.</li>
-                                <li className='my-2'>Check the packing list to see if the item/s are correct.</li>
+                                <li className='my-2'>Bring the items/written on the waybill together</li>
+                                <li className='my-2'>Check the packing list to see if the item/s are correct. </li>
                                 <li className='my-2'>Assure the quality and quantity of the products.</li>
                                 <li className='my-2'>Encircle the quantity of the product/s if they are correct.</li>
                                 <li className='my-2'>Write the initial of assigned staff on Line 3 under the initial of Line 2.</li>
@@ -184,8 +207,8 @@ export default function ProductPackaging() {
                                 This is how the final look package should have before handover to the courier. The initials of the Line 2, 3, and 4 are properly arranged vertically on the left side below the packing list on the waybill. The quantity and products are also properly marked as checked and encircled indicating that the order was correctly dispatched.</li>
                             </ol>
                         </div>
-                        <div className='col-span-1'>
-                            <img draggable={false} className='' src={img5}/>
+                        <div className="h-auto w-auto sm:max-h-[75vh] max-h-[50vh] sm:max-w-[600px] border shadow-lg rounded-lg overflow-hidden">
+                            <img className='h-full-w-full object-contain object-center' draggable={false} src={img5}/>
                         </div>
                     </div>
                 </section>
@@ -196,14 +219,16 @@ export default function ProductPackaging() {
                         <h1 className='font-bold contentSubHeading my-4'>Line 2</h1>
                         <div className='col-span-1'>
                             <ol className='ml-4 list-decimal sm:text-xl text-base'>
+                                <li className='my-2'>Separate Single and Multi Waybills.</li>
                                 <li className='my-2'>Check the contents of the waybill.</li>
+                                <li className='my-2'>Bring the item/s written on the waybill together.</li>
                                 <li className='my-2'>If the quantity written on the waybill is more than 3, search for the Order ID on Lazada using the Klued mobile phone.</li>
                                 <li className='my-2'>Check the Order Details to see the complete order form.</li>
                                 <li className='my-2'>Write the Code and quantity of the missing products not written on the waybill. <br/><b>Example: The product code and quantity are written below the packing list</b></li>
                             </ol>
                         </div>
-                        <div className='col-span-1 grid gap-4 '>
-                            <img draggable={false} className='col-span-1' src={img6}/>
+                        <div className="h-auto w-auto sm:max-h-[75vh] max-h-[50vh] sm:max-w-[350px] border shadow-lg rounded-lg overflow-hidden">
+                            <img className='h-full-w-full object-contain object-center' draggable={false} src={img6}/>
                         </div>
                         <div className='col-span-1'>
                             <ol start='5' className='ml-4 list-decimal sm:text-xl text-base'>
@@ -254,8 +279,8 @@ export default function ProductPackaging() {
                                 </li>
                             </ol>
                         </div>
-                        <div className='col-span-1'>
-                            <img draggable={false} className='' src={img7}/>
+                        <div className="h-auto w-auto sm:max-h-[75vh] max-h-[50vh] sm:max-w-[350px] border shadow-lg rounded-lg overflow-hidden">
+                            <img className='h-full-w-full object-contain object-center' draggable={false} src={img7}/>
                         </div>
                     </div>
                 </section>
