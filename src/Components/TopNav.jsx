@@ -218,7 +218,7 @@ function Navbar(props) {
                                         </button>
                                         {shop===true ? 
                                             <div className='px-4 py-2'>
-                                                <Link
+                                                <Link onClick={()=>setopenMenu(false)}
                                                     to="/update-videos"
                                                     className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                                                 >
@@ -226,7 +226,7 @@ function Navbar(props) {
                                                     My Videos
                                                 </Link>
 
-                                                <Link
+                                                <Link onClick={()=>setopenMenu(false)}
                                                     to="/update-product"
                                                     className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                                                 >
@@ -234,7 +234,7 @@ function Navbar(props) {
                                                     My Products
                                                 </Link>
                                                 
-                                                <Link
+                                                <Link onClick={()=>setopenMenu(false)}
                                                     to="/update-package"
                                                     className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                                                 >
@@ -257,7 +257,7 @@ function Navbar(props) {
                                         </button> 
                                         {transactions===true ? 
                                             <div className='px-4 py-2'>
-                                                <Link
+                                                <Link onClick={()=>setopenMenu(false)}
                                                     to="/all-orders"
                                                     className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                                                 >
@@ -265,7 +265,7 @@ function Navbar(props) {
                                                     Manage Orders
                                                 </Link>
 
-                                                <Link
+                                                <Link onClick={()=>setopenMenu(false)}
                                                     to="/all-tickets"
                                                     className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                                                 >
@@ -288,7 +288,7 @@ function Navbar(props) {
                                         </button> 
                                         {users===true ? 
                                             <div className='px-4 py-2'>
-                                                <Link
+                                                <Link onClick={()=>setopenMenu(false)}
                                                     to="/user-accounts"
                                                     className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                                                 >
@@ -296,7 +296,7 @@ function Navbar(props) {
                                                     User Accounts
                                                 </Link>
                                                 
-                                                <Link
+                                                <Link onClick={()=>setopenMenu(false)}
                                                     to="/emails"
                                                     className="h-10 flex gap-2 items-center text-gray-900 font-bold text-[16px] cursor-pointer hover:text-gray-700"
                                                 >
@@ -434,10 +434,10 @@ function Navbar(props) {
 
                     <div onClick={()=>{
                         if(openMenu===false) {
-                        setopenMenu(true)
+                            setopenMenu(true)
                         }
                         if(openMenu===true) {
-                        setopenMenu(false)
+                            setopenMenu(false)
                         }
                     }} className='w-auto h-full px-2 flex justify-end items-center cursor-pointer'>
                         <svg height="34" width="34" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m22 16.75c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z"/></svg>

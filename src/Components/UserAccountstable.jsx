@@ -84,21 +84,24 @@ export default function UserAccountsTable() {
             {isEdit && (
                 <EditAccount isEdit={isEdit} setIsEdit={setIsEdit} toEdit={toEdit} dateRange={dateRange} setDateRange={setDateRange}/>
             )}  
-            <div className="grid w-full sm:grid-cols-2 gap-2 sm:flex sm:justify-between sm:space-y-0 items-center justify-between p-2 sm:px-0">
-                <div className="relative grid justify-center items-center h-full">
-                    <div className="absolute inset-y-0 left-4 sm:left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="white" d="M8.602 3.7c-1.154 1.937-.635 5.227 1.424 9.025.93 1.712.697 3.02.338 3.815-.982 2.178-3.675 2.799-6.525 3.456-1.964.454-1.839.87-1.839 4.004h-1.995l-.005-1.241c0-2.52.199-3.975 3.178-4.663 3.365-.777 6.688-1.473 5.09-4.418-4.733-8.729-1.35-13.678 3.732-13.678 3.321 0 5.97 2.117 5.97 6.167 0 3.555-1.949 6.833-2.383 7.833h-2.115c.392-1.536 2.499-4.366 2.499-7.842 0-5.153-5.867-4.985-7.369-2.458zm15.398 15.8c0 2.485-2.017 4.5-4.5 4.5s-4.5-2.015-4.5-4.5 2.017-4.5 4.5-4.5 4.5 2.015 4.5 4.5zm-2-.5h-2v-2h-1v2h-2v1h2v2h1v-2h2v-1z"/></svg>
-                    </div>
-                    <button onClick={()=>setIsOpen(true)} className="mt-1 w-full bg-blue-500 p-2 text-sm font-bold uppercase tracking-wide pl-8 text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-auto sm:shrink-0 rounded-md">Add Account</button>
-                </div> 
-                <div className='flex gap-2'>
+            <div className="grid w-full sm:grid-cols-2 gap-2 sm:flex sm:justify-between sm:space-y-0 items-center justify-between sm:px-0 mb-6">
+                <div className="flex justify-between gap-2 items-center">
+                    <button onClick={()=>setIsOpen(true)} className="relative w-auto bg-blue-500 sm:py-2 py-2.5 sm:pr-4 pr-2 whitespace-nowrap sm:text-sm text-xs font-bold uppercase tracking-wide pl-8 text-white transition-none hover:bg-blue-600 sm:mt-0 sm:w-min sm:shrink-0 rounded-md">
+                        <div className="absolute inset-y-0 left-0 sm:left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="white" d="M8.602 3.7c-1.154 1.937-.635 5.227 1.424 9.025.93 1.712.697 3.02.338 3.815-.982 2.178-3.675 2.799-6.525 3.456-1.964.454-1.839.87-1.839 4.004h-1.995l-.005-1.241c0-2.52.199-3.975 3.178-4.663 3.365-.777 6.688-1.473 5.09-4.418-4.733-8.729-1.35-13.678 3.732-13.678 3.321 0 5.97 2.117 5.97 6.167 0 3.555-1.949 6.833-2.383 7.833h-2.115c.392-1.536 2.499-4.366 2.499-7.842 0-5.153-5.867-4.985-7.369-2.458zm15.398 15.8c0 2.485-2.017 4.5-4.5 4.5s-4.5-2.015-4.5-4.5 2.017-4.5 4.5-4.5 4.5 2.015 4.5 4.5zm-2-.5h-2v-2h-1v2h-2v1h2v2h1v-2h2v-1z"/></svg>
+                        </div>
+                        Add Account
+                    </button>
+
                     <div className="relative h-full">
                         <label htmlFor="table-search" className="sr-only">Search</label>
                         <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
                         </div>
-                        <input onChange={(e)=>setSearch(e.target.value)} type="text" id="table-search" className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search name, email or number..."/>
-                    </div> 
+                        <input onChange={(e)=>setSearch(e.target.value)} type="text" id="table-search" className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg sm:w-80 w-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search name, email or number..."/>
+                    </div>  
+                </div> 
+                <div className='flex justify-between gap-2'>
                     <div className='group'>
                         <div className="relative bg-blue-400 text-white text-sm font-bold whitespace-nowrap py-2 px-4 min-w-[150px] flex justify-center items-center rounded-md">
                             {userType!== "" ? 

@@ -90,7 +90,7 @@ export default function Vouchers({openVouchers, setOpenVouchers}) {
                             leaveTo="opacity-0 scale-95"
                             >
                             <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                <Dialog.Title as="h3" className="sm:flex justify-between grid text-lg border-b pb-2 font-semibold leading-6 text-gray-900 items-center">
+                                <Dialog.Title as="h3" className="flex justify-between text-lg border-b pb-2 font-semibold leading-6 text-gray-900 items-center">
                                     Voucher List
                                     <button onClick={()=>setOpenVouchers(false)} type="button" className="border px-3 py-2 rounded-md text-sm font-semibold leading-6 hover:text-gray-700 text-gray-900">Close</button>
                                 </Dialog.Title>
@@ -104,7 +104,7 @@ export default function Vouchers({openVouchers, setOpenVouchers}) {
                                         <input onChange={(e)=>setSearch(e.target.value)} type="text" id="voucher-search" className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search voucher..."/>
                                     </div> 
                                     <br/>
-                                    <div className='grid grid-cols-2 gap-2 overflow-y-auto h-96 border border-slate-400 rounded-md p-4'>
+                                    <div className='grid sm:grid-cols-2 gap-2 overflow-y-auto h-96 border border-slate-400 rounded-md p-4'>
                                         {vouchers.length>0 ?
                                             <>
                                                 {vouchers.map((a)=> {

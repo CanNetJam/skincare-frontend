@@ -209,7 +209,7 @@ export default function Product1() {
         "@context": "https://schema.org",
         "@type": "Product",
         "description": productData.maindesc,
-        "name": productData.name,
+        "name": productData?.name,
         "image": `https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${productData.displayimage}`,
         "aggregateRating": {
             "@type": "AggregateRating",
