@@ -331,13 +331,13 @@ function Skin() {
             </div>
         </div>
         <div className='min-h-screen h-auto w-full bg-white sm:p-6 p-0'>
-            <div className='container mx-auto max-w-6xl px-0'>
-            <div className='lg:h-[50vh] h-[30vh] w-full sm:rounded-[20px] px-10 overflow-hidden items-center bg-cover bg-fixed bg-[url(https://images.pexels.com/photos/3785806/pexels-photo-3785806.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)]'>
-                <p className='font-bold h-full flex justify-center items-center text-blue-400 lg:text-5xl text-4xl text-center drop-shadow-[0_5px_5px_rgba(0,0,0,1)]'>Why is good skin care important?</p>
-            </div>
+            <div className='container mx-auto max-w-6xl px-0 '>
+                <div className='lg:h-[50vh] h-[30vh] w-full sm:rounded-[20px] px-10 overflow-hidden items-center bg-cover bg-fixed bg-[url(https://images.pexels.com/photos/3785806/pexels-photo-3785806.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)]'>
+                    <p className='font-bold h-full flex justify-center items-center text-blue-400 lg:text-5xl text-4xl text-center drop-shadow-[0_5px_5px_rgba(0,0,0,1)]'>Why is good skin care important?</p>
+                </div>
             </div>
 
-            <div className='grid-cols-2 grid gap-2 container mx-auto sm:w-[75%] w-full sm:grid-cols-4 p-4 -mt-[50px] sm:-mt-[80px]'>
+            <div className='grid-cols-2 grid gap-2 container max-w-6xl mx-auto sm:w-[75%] w-full sm:grid-cols-4 p-4 -mt-[50px] sm:-mt-[80px]'>
             
             <div className='group sm:h-[50vh] h-[30vh] [perspective:10000px]'>
                 <div className='transiton-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] h-full p-8 rounded-xl bg-white shadow-lg'>

@@ -302,7 +302,7 @@ export default function Category() {
                 </div>
             </div>
             <br/>
-            <div className="container mx-auto sm:max-w-2xl md:max-w-4xl lg:max-w-6xl px-4">9
+            <div className="container mx-auto sm:max-w-2xl md:max-w-4xl lg:max-w-6xl px-4">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">Moisturizer</h2>
         
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
