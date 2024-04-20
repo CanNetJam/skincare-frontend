@@ -180,7 +180,7 @@ export default function Category() {
                                 }
                                 <p className='text-gray-700 grid items-end'>
                                     {product?.sold ?
-                                        <div className="h-full text-sm flex justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
+                                        <div className="h-full text-sm flex gap-1 justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
                                     : <div></div>} 
                                     {product.stock!==0 ? 
                                         <div className="flex gap-1 items-base justify-end sm:text-base text-sm">
@@ -231,7 +231,7 @@ export default function Category() {
                                 }
                                 <p className='text-gray-700 grid items-end'>
                                     {product?.sold ?
-                                        <div className="h-full text-sm flex justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
+                                        <div className="h-full text-sm flex gap-1 justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
                                     : <div></div>} 
                                     {product.stock!==0 ? 
                                         <div className="flex gap-1 items-base justify-end sm:text-base text-sm">
@@ -282,7 +282,7 @@ export default function Category() {
                                 }
                                 <p className='text-gray-700 grid items-end'>
                                     {product?.sold ?
-                                        <div className="h-full text-sm flex justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
+                                        <div className="h-full text-sm flex gap-1 justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
                                     : <div></div>} 
                                     {product.stock!==0 ? 
                                         <div className="flex gap-1 items-base justify-end sm:text-base text-sm">
@@ -333,7 +333,7 @@ export default function Category() {
                                 }
                                 <p className='text-gray-700 grid items-end'>
                                     {product?.sold ?
-                                        <div className="h-full text-sm flex justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
+                                        <div className="h-full text-sm flex gap-1 justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
                                     : <div></div>} 
                                     {product.stock!==0 ? 
                                         <div className="flex gap-1 items-base justify-end sm:text-base text-sm">
