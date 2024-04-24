@@ -306,12 +306,14 @@ export default function SalesReport() {
                             </div>
                             <div className='col-span-2 grid'>
                                 <p className='font-bold text-3xl flex items-end'>{fetchedData?.AllVouchers}</p>
-                                <p className='text-base text-gray-600'>Total Vouchers</p>
+                                <p className='text-base text-gray-600'>Vouchers Used</p>
                             </div>
                         </div>
                         <p className='text-base font-semibold flex justify-center'>
                             {fetchedData?.AllPreviousVouchers!==0 ? 
                                 <>
+                                    {console.log(fetchedData?.AllVouchers)}
+                                    {console.log(fetchedData?.AllPreviousVouchers)}
                                     <span className={`${(fetchedData?.AllVouchers-fetchedData?.AllPreviousVouchers)/fetchedData?.AllPreviousVouchers*100 >= 0 ? 'text-green-400' : 'text-red-400'}`}>{((fetchedData?.AllVouchers-fetchedData?.AllPreviousVouchers)/fetchedData?.AllPreviousVouchers*100)?.toFixed(2)}%</span>
                                     {(fetchedData?.AllVouchers-fetchedData?.AllPreviousVouchers)/fetchedData?.AllPreviousVouchers*100 >= 0 ? 
                                         <span className='h-[13px] w-[13px] flex justify-center items-center -rotate-90'>

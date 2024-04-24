@@ -158,7 +158,7 @@ export default function Packages() {
                                                 :
                                                     <p className='text-gray-900 sm:text-lg text-base font-bold'>₱{(pack.origprice).toFixed(2)}</p>
                                                 }
-                                                <p className='text-gray-700 grid items-end'>
+                                                <div className='text-gray-700 grid items-end'>
                                                     {pack?.sold ?
                                                         <div className="h-full text-sm flex justify-end items-center"><b>{pack.sold>1000 ? pack.sold/1000+"K " : pack.sold+" "}</b> sold</div>
                                                     : <div></div>} 
@@ -170,7 +170,7 @@ export default function Packages() {
                                                     <>
                                                         <b className="sm:text-sm text-xs flex items-end">Out of stock.</b>
                                                     </>}
-                                                </p>
+                                                </div>
                                             </div>
                                             <div className="w-full sm:px-2 px-1">
                                                 <button onClick={()=>handleAddToCart(pack)} disabled={pack.stock<1 ? true : false} className={`${pack.stock<1 ? null : 'hover:bg-black'} my-2 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-6 py-2 text-sm font-medium text-white focus:outline-none`}>Add to Cart</button>
