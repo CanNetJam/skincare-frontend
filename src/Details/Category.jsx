@@ -110,7 +110,7 @@ export default function Category() {
 
                 function duplicateCheck() {
                     currentCart.map((a, index )=> {
-                        if (a.product._id === pack._id){
+                        if (a?.product?._id || a?.pack?._id === pack._id){
                             currentCart[index] = {
                                 type:  pack.price ? "single": "package",
                                 product: {
@@ -173,12 +173,12 @@ export default function Category() {
                                 {product.price!==product.disprice ? 
                                     <div className='grid'>
                                         <div className='text-gray-900 sm:text-lg text-base font-bold'>₱{(product.price).toFixed(2)}</div>
-                                        <div className='text-gray-800 text-sm flex'><p className="relative">₱{(product?.disprice).toFixed(2)} <div className='absolute w-[90%] border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[6deg]'></div></p></div>
+                                        <div className='text-gray-800 text-sm flex'><div className="relative">₱{(product?.disprice).toFixed(2)} <div className='absolute w-[90%] border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[6deg]'></div></div></div>
                                     </div>
                                 :
                                     <p className='text-gray-900 sm:text-lg text-base font-bold'>₱{(product.price).toFixed(2)}</p>
                                 }
-                                <p className='text-gray-700 grid items-end'>
+                                <div className='text-gray-700 grid items-end'>
                                     {product?.sold ?
                                         <div className="h-full text-sm flex gap-1 justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
                                     : <div></div>} 
@@ -190,7 +190,7 @@ export default function Category() {
                                     <>
                                         <b className="sm:text-sm text-xs flex items-end">Out of stock.</b>
                                     </>}
-                                </p>
+                                </div>
                             </div>
                             <div className="w-full sm:px-2 px-1">
                                 <button onClick={()=>handleAddToCart(product)} disabled={product.stock<1 ? true : false} className={`${product.stock<1 ? null : 'hover:bg-black'} my-2 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-6 py-2 text-sm font-medium text-white focus:outline-none`}>Add to Cart</button>
@@ -224,12 +224,12 @@ export default function Category() {
                                 {product.price!==product.disprice ? 
                                     <div className='grid'>
                                         <div className='text-gray-900 sm:text-lg text-base font-bold'>₱{(product.price).toFixed(2)}</div>
-                                        <div className='text-gray-800 text-sm flex'><p className="relative">₱{(product?.disprice).toFixed(2)} <div className='absolute w-[90%] border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[6deg]'></div></p></div>
+                                        <div className='text-gray-800 text-sm flex'><div className="relative">₱{(product?.disprice).toFixed(2)} <div className='absolute w-[90%] border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[6deg]'></div></div></div>
                                     </div>
                                 :
                                     <p className='text-gray-900 sm:text-lg text-base font-bold'>₱{(product.price).toFixed(2)}</p>
                                 }
-                                <p className='text-gray-700 grid items-end'>
+                                <div className='text-gray-700 grid items-end'>
                                     {product?.sold ?
                                         <div className="h-full text-sm flex gap-1 justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
                                     : <div></div>} 
@@ -241,7 +241,7 @@ export default function Category() {
                                     <>
                                         <b className="sm:text-sm text-xs flex items-end">Out of stock.</b>
                                     </>}
-                                </p>
+                                </div>
                             </div>
                             <div className="w-full sm:px-2 px-1">
                                 <button onClick={()=>handleAddToCart(product)} disabled={product.stock<1 ? true : false} className={`${product.stock<1 ? null : 'hover:bg-black'} my-2 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-6 py-2 text-sm font-medium text-white focus:outline-none`}>Add to Cart</button>
@@ -275,12 +275,12 @@ export default function Category() {
                                 {product.price!==product.disprice ? 
                                     <div className='grid'>
                                         <div className='text-gray-900 sm:text-lg text-base font-bold'>₱{(product.price).toFixed(2)}</div>
-                                        <div className='text-gray-800 text-sm flex'><p className="relative">₱{(product?.disprice).toFixed(2)} <div className='absolute w-[90%] border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[6deg]'></div></p></div>
+                                        <div className='text-gray-800 text-sm flex'><div className="relative">₱{(product?.disprice).toFixed(2)} <div className='absolute w-[90%] border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[6deg]'></div></div></div>
                                     </div>
                                 :
                                     <p className='text-gray-900 sm:text-lg text-base font-bold'>₱{(product.price).toFixed(2)}</p>
                                 }
-                                <p className='text-gray-700 grid items-end'>
+                                <div className='text-gray-700 grid items-end'>
                                     {product?.sold ?
                                         <div className="h-full text-sm flex gap-1 justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
                                     : <div></div>} 
@@ -292,7 +292,7 @@ export default function Category() {
                                     <>
                                         <b className="sm:text-sm text-xs flex items-end">Out of stock.</b>
                                     </>}
-                                </p>
+                                </div>
                             </div>
                             <div className="w-full sm:px-2 px-1">
                                 <button onClick={()=>handleAddToCart(product)} disabled={product.stock<1 ? true : false} className={`${product.stock<1 ? null : 'hover:bg-black'} my-2 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-6 py-2 text-sm font-medium text-white focus:outline-none`}>Add to Cart</button>
@@ -314,7 +314,7 @@ export default function Category() {
                                         src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${product.displayimage}`}
                                         className="h-full w-full object-cover"
                                     />
-                                </div>
+                                </div>67
                                 <div className='min-h-[50px] sm:px-2 px-1'>
                                     <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-2">{product.name}</h3>
                                 </div>
@@ -326,12 +326,12 @@ export default function Category() {
                                 {product.price!==product.disprice ? 
                                     <div className='grid'>
                                         <div className='text-gray-900 sm:text-lg text-base font-bold'>₱{(product.price).toFixed(2)}</div>
-                                        <div className='text-gray-800 text-sm flex'><p className="relative">₱{(product?.disprice).toFixed(2)} <div className='absolute w-[90%] border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[6deg]'></div></p></div>
+                                        <div className='text-gray-800 text-sm flex'><div className="relative">₱{(product?.disprice).toFixed(2)} <div className='absolute w-[90%] border border-blue-600 top-1/2 -translate-x-1/2 left-1/2 rotate-[6deg]'></div></div></div>
                                     </div>
                                 :
                                     <p className='text-gray-900 sm:text-lg text-base font-bold'>₱{(product.price).toFixed(2)}</p>
                                 }
-                                <p className='text-gray-700 grid items-end'>
+                                <div className='text-gray-700 grid items-end'>
                                     {product?.sold ?
                                         <div className="h-full text-sm flex gap-1 justify-end items-center"><b>{product.sold>1000 ? product.sold/1000+"K " : product.sold+" "}</b> sold</div>
                                     : <div></div>} 
@@ -343,7 +343,7 @@ export default function Category() {
                                     <>
                                         <b className="sm:text-sm text-xs flex items-end">Out of stock.</b>
                                     </>}
-                                </p>
+                                </div>
                             </div>
                             <div className="w-full sm:px-2 px-1">
                                 <button onClick={()=>handleAddToCart(product)} disabled={product.stock<1 ? true : false} className={`${product.stock<1 ? null : 'hover:bg-black'} my-2 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-6 py-2 text-sm font-medium text-white focus:outline-none`}>Add to Cart</button>

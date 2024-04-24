@@ -166,7 +166,7 @@ export default function Product1() {
 
                 function duplicateCheck() {
                     currentCart.map((a, index )=> {
-                        if (a.product._id === pack._id){
+                        if (a?.product?._id || a?.pack?._id === pack._id){
                             currentCart[index] = {
                                 type: "single",
                                 product: {
