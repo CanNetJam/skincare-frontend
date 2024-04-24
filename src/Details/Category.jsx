@@ -314,7 +314,7 @@ export default function Category() {
                                         src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${product.displayimage}`}
                                         className="h-full w-full object-cover"
                                     />
-                                </div>67
+                                </div>
                                 <div className='min-h-[50px] sm:px-2 px-1'>
                                     <h3 className="my-2 text-base font-semibold text-gray-900 line-clamp-2">{product.name}</h3>
                                 </div>
