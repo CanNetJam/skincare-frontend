@@ -96,7 +96,7 @@ export default function Category() {
                     toastErrorNotification()
                 }
             }
-
+            
             if ( cart === null) {
                 localStorage.setItem("items", JSON.stringify([obj]))
                 setUserData({...userData, cartNumber: userData.cartNumber+1})
@@ -110,7 +110,7 @@ export default function Category() {
 
                 function duplicateCheck() {
                     currentCart.map((a, index )=> {
-                        if (a?.product?._id || a?.pack?._id === pack._id){
+                        if (a?.product?._id === pack._id){
                             currentCart[index] = {
                                 type:  pack.price ? "single": "package",
                                 product: {
@@ -133,6 +133,7 @@ export default function Category() {
                     })
                 }
                 duplicateCheck()
+                console.log(dupe)
                 if (dupe===false) {
                     currentCart.push(obj)
                     setUserData({...userData, cartNumber: userData.cartNumber+1})
@@ -206,7 +207,7 @@ export default function Category() {
                 <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {tonerList.map((product) => (
                         <div key={product._id} className="h-min group flex-shrink-0 relative border shadow-md rounded-lg">
-                            <Link to={`/products/${((product?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
+                            <Link to={`/products/${((product?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9-r]/g, '').toLowerCase())}/${product._id}`} state={{productid: product._id, productname: product.name}} className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-90 sm:h-56">
                                 <div className="sm:h-56 h-40 w-full overflow-hidden rounded-t-lg">
                                     <img title='Klued product' alt={`${product.name}`} loading='eager' height={'100px'} width={'100px'}
                                         src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${product.displayimage}`}
