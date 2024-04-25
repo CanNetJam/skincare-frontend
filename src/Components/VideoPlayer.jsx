@@ -287,7 +287,7 @@ export default function VideoPlayer({setVideoPlayer, setPage, page, devidedVideo
                                                                             <img className='rounded-md h-full w-full object-cover' src={`https://klued-uploads.s3.ap-southeast-1.amazonaws.com/${a.displayimage}`}/>
                                                                         </div>
                                                                         <div className='col-span-2 grid gap-1'>
-                                                                            <Link target='_blank' to={a?.price ? `/details/product/${a?._id}` : `/details/package/${a?._id}`} className='font-semibold hover:underline line-clamp-2'>{a?.name}</Link>
+                                                                            <Link target='_blank' to={`/products/${((a?.name?.replace(/\s+/g, '-')).replace(/[^a-zA-Z0-9--]/g, '').toLowerCase())}/${a._id}`} className='font-semibold hover:underline line-clamp-2'>{a?.name}</Link>
                                                                             <div className='flex justify-between'>
                                                                                 <p className="tinyText">₱ {a?.price ? a?.price : a?.origprice}.00</p>
                                                                                 <p className="tinyText">{a?.stock>1 ? a.stock+" items left " : ''}</p>

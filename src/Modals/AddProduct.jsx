@@ -422,31 +422,31 @@ export default function AddProduct({isAdd, setIsAdd}) {
 
                                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                 <div className="sm:col-span-2">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Product Name</label>
+                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Product Name<span className='text-xl text-red-500'>*</span></label>
                                                     <div className="mt-2">
                                                         <input onChange={handleChange} value={product.name} type="text" name="name" id="product-name" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
                                                 <div className="sm:col-span-1">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Price</label>
+                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Price<span className='text-xl text-red-500'>*</span></label>
                                                     <div className="mt-2">
                                                         <input onChange={handleChange} value={product.disprice} placeholder={0} type="number" name="disprice" id="disprice" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
                                                 <div className="sm:col-span-1">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Discounted Price</label>
+                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Discounted Price<span className='text-xl text-red-500'>*</span></label>
                                                     <div className="mt-2">
                                                         <input onChange={handleChange} value={product.price} placeholder={0} type="number" name="price" id="price" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
                                                 <div className="sm:col-span-1">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Stock</label>
+                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Stock<span className='text-xl text-red-500'>*</span></label>
                                                     <div className="mt-2">
                                                         <input onChange={handleChange} value={product.stock} placeholder={0} type="number" name="stock" id="stock" required className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
                                                 <div className="sm:col-span-1">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Category</label>
+                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Category<span className='text-xl text-red-500'>*</span></label>
                                                     <select required onChange={handleChange} name="category" value={product.category} className="block w-full mt-2 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                                         <option value="" disabled>Select category</option>
                                                         <option>Cleanser</option>
@@ -458,7 +458,7 @@ export default function AddProduct({isAdd, setIsAdd}) {
                                                 </div>
 
                                                 <div className="sm:col-span-2">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Product Image</label>
+                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Product Image<span className='text-xl text-red-500'>*</span></label>
                                                     <input required ref={CreateProductImageField} onChange={e => setProductImage(productImage.concat([e.target.files[0]]))} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
                                                 </div>
                                                 <div className="sm:col-span-2">
@@ -471,14 +471,14 @@ export default function AddProduct({isAdd, setIsAdd}) {
                                                 </div>
 
                                                 <div className="sm:col-span-3">
-                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Product Description</label>
+                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Product Description<span className='text-xl text-red-500'>*</span></label>
                                                     <div className="mt-2 w-full">
                                                         <textarea onChange={handleChange} value={product.maindesc} rows={5} id="maindesc" name="maindesc" type="text" required className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                     </div>
                                                 </div>
                                                 <div className="sm:col-span-3 grid grid-cols-2 gap-6">
                                                     <div>
-                                                        <label className="block text-sm font-medium leading-6 text-gray-900">How to Use</label>
+                                                        <label className="block text-sm font-medium leading-6 text-gray-900">How to Use<span className='text-xl text-red-500'>*</span></label>
                                                         <div className="mt-2">
                                                             <textarea onChange={handleChange} rows={5} value={product.usage} type="text" name="usage" id="product-usage" required className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                         </div>
@@ -502,14 +502,14 @@ export default function AddProduct({isAdd, setIsAdd}) {
                                                     {addIngredient===true ? 
                                                         <div className="sm:grid sm:grid-cols-6 sm:gap-4 p-8">
                                                             <div className="sm:col-span-3">
-                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Ingredient name</label>
+                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Ingredient name<span className='text-xl text-red-500'>*</span></label>
                                                                 <div className="mt-2 w-full">
                                                                     <input onChange={e => setIngredient({...ingredient, name: e.target.value})} value={ingredient.name} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                 </div>
-                                                                <label className="block text-sm font-medium leading-6 text-white">Ingredient name</label>
+                                                                <label className="block text-sm font-medium leading-6 text-white">Ingredient image</label>
                                                                     <input ref={CreatePhotoField} onChange={fileChange} type="file" className="mt-2 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:disabled:opacity-50 file:disabled:pointer-events-nonedark:file:bg-blue-500 dark:hover:file:bg-blue-400"/>
                                                                 <br/>
-                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                                                <label className="block text-sm font-medium leading-6 text-gray-900">Description<span className='text-xl text-red-500'>*</span></label>
                                                                 <div className="mt-2 w-full">
                                                                     <textarea onChange={e => setIngredient({...ingredient, desc: e.target.value})} value={ingredient.desc} rows={5} type="text" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                 </div>
@@ -549,11 +549,11 @@ export default function AddProduct({isAdd, setIsAdd}) {
                                                                     <div className="sm:col-span-5 h-full items-center grid">
                                                                         <label className="block text-sm font-medium leading-6 text-gray-900">Do's </label>
                                                                         <br/>
-                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Title</label>
+                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Title<span className='text-xl text-red-500'>*</span></label>
                                                                         <div className="mt-2 w-full">
                                                                             <input onChange={e => setDos({...dos, title: e.target.value})} value={dos.title} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                         </div>
-                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Description<span className='text-xl text-red-500'>*</span></label>
                                                                         <div className="mt-2 w-full">
                                                                             <textarea rows={3} onChange={e => setDos({...dos, desc: e.target.value})} value={dos.desc} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                         </div>
@@ -602,11 +602,11 @@ export default function AddProduct({isAdd, setIsAdd}) {
                                                                     <div className="sm:col-span-5 h-full items-center grid">
                                                                         <label className="block text-sm font-medium leading-6 text-gray-900">Dont's</label>
                                                                         <br/>
-                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Title</label>
+                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Title<span className='text-xl text-red-500'>*</span></label>
                                                                         <div className="mt-2 w-full">
                                                                             <input onChange={e => setDonts({...donts, title: e.target.value})} value={donts.title} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                         </div>
-                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Description<span className='text-xl text-red-500'>*</span></label>
                                                                         <div className="mt-2 w-full">
                                                                             <textarea rows={3} onChange={e => setDonts({...donts, desc: e.target.value})} value={donts.desc} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                         </div>
@@ -667,7 +667,7 @@ export default function AddProduct({isAdd, setIsAdd}) {
                                                                     <label className="block font-medium leading-6 text-gray-900 text-base">Product Routine</label>
                                                                 </div>
                                                                 <div className="col-span-1 flex justify-end items-center">
-                                                                    <label className="block text-sm font-medium leading-6 text-gray-900 text-right px-4">Skin Type:</label>
+                                                                    <label className="block text-sm font-medium leading-6 text-gray-900 text-right px-4">Skin Type:<span className='text-xl text-red-500'>*</span></label>
                                                                 </div>
                                                                 <div className="col-span-1">
                                                                     <div className="mt-2 w-full">
@@ -700,7 +700,7 @@ export default function AddProduct({isAdd, setIsAdd}) {
                                                                 <label className="block font-medium leading-6 text-gray-900 text-base">Morning Routine</label>
                                                                 <div className="sm:col-span-6 gap-x-6 gap-y-8 sm:grid sm:grid-cols-6 w-full p-2">
                                                                     <div className="sm:col-span-4">
-                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Product to Use</label>
+                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Product to Use<span className='text-xl text-red-500'>*</span></label>
                                                                         <div className="mt-2 w-full">
                                                                             <input onChange={e => setMorstep(e.target.value)} value={morstep} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                         </div>
@@ -744,7 +744,7 @@ export default function AddProduct({isAdd, setIsAdd}) {
                                                                 <label className="block font-medium leading-6 text-gray-900 text-base">Night Routine</label>
                                                                 <div className="sm:col-span-6 gap-x-6 gap-y-8 sm:grid sm:grid-cols-6 w-full p-2">
                                                                     <div className="sm:col-span-4">
-                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Product to Use</label>
+                                                                        <label className="block text-sm font-medium leading-6 text-gray-900">Product to Use<span className='text-xl text-red-500'>*</span></label>
                                                                         <div className="mt-2 w-full">
                                                                             <input onChange={e => setNigstep(e.target.value)} value={nigstep} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                         </div>
@@ -843,11 +843,11 @@ export default function AddProduct({isAdd, setIsAdd}) {
 
                                                                 </div>
                                                                 <div className='col-span-1'>
-                                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Video Title</label>
+                                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Video Title<span className='text-xl text-red-500'>*</span></label>
                                                                     <div className="mt-2 w-full">
                                                                         <input onChange={e => setFeaturedVideo({...featuredVideo, title: e.target.value})} value={featuredVideo.title} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                     </div>
-                                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Video Description</label>
+                                                                    <label className="block text-sm font-medium leading-6 text-gray-900">Video Description<span className='text-xl text-red-500'>*</span></label>
                                                                     <div className="mt-2 w-full">
                                                                         <textarea onChange={e => setFeaturedVideo({...featuredVideo, description: e.target.value})} value={featuredVideo.description} rows={3} type="text" className="resize-none block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                                                     </div>
