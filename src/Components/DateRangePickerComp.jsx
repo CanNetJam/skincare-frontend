@@ -55,9 +55,10 @@ function DateRangePickerComp(props) {
                     onClick={ () => setOpen(open => !open) }
                 />
 
-                <div className='absolute top-12 left-1/2 -translate-x-1/2 bg-red-500 z-20 rounded-md shadow-lg border' ref={refOne}>
+                <div ref={refOne}>
                     {open && 
                         <DateRangePicker
+                            className='absolute top-12 left-1/2 -translate-x-1/2 z-20 rounded-md shadow-lg border'
                             onChange={item => setRange([item.selection])}
                             editableDateInputs={true}
                             moveRangeOnFirstSelection={false}

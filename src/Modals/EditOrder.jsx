@@ -124,7 +124,7 @@ export default function EditOrder({isEdit, setIsEdit, toEdit}) {
                                     :null}
 
                                     <div className='col-span-4 flex gap-2 justify-center border-t items-center py-2'>
-                                        <button type="submit" disabled={(status==="Cancel Order" && reason==="") || status==="Seller Processing" ? true : false} className={`${(status==="Cancel Order" && reason==="") || status==="Seller Processing" ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'} w-auto text-white  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>
+                                        <button type="submit" disabled={(status==="Cancel Order" && reason==="") || status==="Seller Processing" ? true : false} className={`${(status==="Cancel Order" && reason==="") || status==="Seller Processing" ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'} w-auto flex gap-2 text-white  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}>
                                             {loading===true ? 
                                                 <div role="status">
                                                     <svg aria-hidden="true" className="w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
