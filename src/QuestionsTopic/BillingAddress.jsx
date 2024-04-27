@@ -13,7 +13,7 @@ import img12 from '../assets/FAQ/A12.png';
 
 export default function BillingAddress() {
     return (
-        <div className='container mx-auto max-w-4xl'>
+        <div className='h-full container mx-auto max-w-4xl'>
             <p className='text-justify'>In order to proceed on checking out the items on your cart, you have to provide your billing address first. This address will be used as a reference as to where the parcel will be delivered. Please provide only true, consise and readable addresses only.</p>
             <br/>
             <section className='py-4 px-6 border rounded-md'>
