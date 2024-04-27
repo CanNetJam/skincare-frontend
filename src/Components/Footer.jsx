@@ -100,8 +100,8 @@ export default function Footer() {
 
             <div className='grid md:flex justify-between gap-4 md:px-6 sm:px-2 py-2 border-b border-slate-700'>
                 <div className='max-w-[400px]'>
-                <p className='text-white text-lg'>Subscribe to our Newsletter!</p>
-                <label className='text-slate-400 sm:text-base text-sm'>The latest news, articles, and special discounts, sent to your inbox weekly.</label>
+                    <p className='text-white text-lg'>Subscribe to our Newsletter!</p>
+                    <label className=' text-slate-400 text-sm'>The latest news, articles, and special discounts, sent to your inbox weekly.</label>
                 </div>
                 <div className='md:w-2/5 flex justify-center items-center'>
                     <form onSubmit={submitHandler} className="w-full py-2">
