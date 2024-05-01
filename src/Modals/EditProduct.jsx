@@ -11,7 +11,6 @@ import SingleVideoPreview from "../Components/SingleVideoPreview";
 export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSubmitted}) {
     const [ product, setProduct ] = useState(toEdit)
     const [ tempRoutine, setTempRoutine ] = useState("")
-
     const [ dos, setDos ] = useState({
         title: "",
         desc: ""
@@ -213,7 +212,7 @@ export default function EditProduct({isEdit, setIsEdit, toEdit, submitted, setSu
                     data.append("prodvid", product.videos[i])
                 }
             } else {
-                data.append("prodvid", JSON.stringify([]))
+                data.append("prodvid", 'empty')
             }
             if (product?.featuredvideos.length>0) {
                 let videoCollection = []
