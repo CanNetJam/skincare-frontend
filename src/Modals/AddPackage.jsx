@@ -56,6 +56,26 @@ export default function AddPackage({isAdd, setIsAdd}) {
                 .replace(/\s+/g, '')
                 .includes(word?.toLowerCase().replace(/\s+/g, ''))
         )
+    
+    const filteredMorProducts = 
+    morstep === '' ? 
+    availableItems
+    : availableItems.filter((product) =>
+        product.name
+            .toLowerCase()
+            .replace(/\s+/g, '')
+            .includes(morstep?.toLowerCase().replace(/\s+/g, ''))
+    )
+
+    const filteredNigProducts = 
+    nigstep === '' ? 
+    availableItems
+    : availableItems.filter((product) =>
+        product.name
+            .toLowerCase()
+            .replace(/\s+/g, '')
+            .includes(nigstep?.toLowerCase().replace(/\s+/g, ''))
+    )
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -329,8 +349,20 @@ export default function AddPackage({isAdd, setIsAdd}) {
                                                         <div className="sm:col-span-6 gap-x-6 gap-y-8 sm:grid sm:grid-cols-6 w-full p-2">
                                                             <div className="sm:col-span-4">
                                                                 <label className="block text-sm font-medium leading-6 text-gray-900">Product to Use:<span className='text-xl text-red-500'>*</span></label>
-                                                                <div className="mt-2 w-full">
+                                                                <div className="mt-2 w-full relative">
                                                                     <input onChange={e => setMorstep(e.target.value)} value={morstep} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                    {morstep!=="" ?
+                                                                        <div className="z-10 grid gap-2 absolute bg-white h-auto max-h-[225px] border w-full overflow-y-scroll rounded-b-xl no-scrollbar shadow-md">
+                                                                            {filteredMorProducts.map((a, index)=> {
+                                                                                return <label onClick={()=>{
+                                                                                    setPackageSet({...packageSet, routines: {
+                                                                                        ...packageSet.routines, morning: packageSet.routines.morning.concat([a.name])
+                                                                                    }})
+                                                                                    setMorstep("")
+                                                                                }} className="h-auto w-auto p-2 cursor-pointer hover:bg-gray-200 text-sm" key={index}>{a.name}</label>
+                                                                            })}
+                                                                        </div>
+                                                                    :null}
                                                                 </div>
                                                             </div>
                                                             <div className="sm:col-span-2">
@@ -374,8 +406,20 @@ export default function AddPackage({isAdd, setIsAdd}) {
                                                         <div className="sm:col-span-6 gap-x-6 gap-y-8 sm:grid sm:grid-cols-6 w-full p-2">
                                                             <div className="sm:col-span-4">
                                                                 <label className="block text-sm font-medium leading-6 text-gray-900">Product to Use:<span className='text-xl text-red-500'>*</span></label>
-                                                                <div className="mt-2 w-full">
+                                                                <div className="mt-2 w-full relative">
                                                                     <input onChange={e => setNigstep(e.target.value)} value={nigstep} type="text" className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+                                                                    {nigstep!=="" ?
+                                                                        <div className="z-10 grid gap-2 absolute bg-white h-auto max-h-[225px] border w-full overflow-y-scroll rounded-b-xl no-scrollbar shadow-md">
+                                                                            {filteredNigProducts.map((a, index)=> {
+                                                                                return <label onClick={()=>{
+                                                                                    setPackageSet({...packageSet, routines: {
+                                                                                        ...packageSet.routines, night: packageSet.routines.night.concat([a.name])
+                                                                                    }})
+                                                                                    setNigstep("")
+                                                                                }} className="h-auto w-auto p-2 cursor-pointer hover:bg-gray-200 text-sm" key={index}>{a.name}</label>
+                                                                            })}
+                                                                        </div>
+                                                                    :null}
                                                                 </div>
                                                             </div>
                                                             <div className="sm:col-span-2">

@@ -155,53 +155,56 @@ export default function Example({isOpen, setIsOpen, dateRange, setDateRange}) {
                                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name:<span className='text-xl text-red-500'>*</span></label>
                                         <input required onChange={e => setLastName(e.target.value)} value={lastname} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Dela Cruz, Garcia..." />
                                     </div>
-                                    <div className='sm:col-span-2 col-span-4'>
-                                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department:</label>
-                                        <select onChange={e=>setDepartment(e.target.value)} name="department" value={department} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
-                                            <option value="" disabled>Select Department</option>
-                                            <option>Mountain Movers</option>
-                                            <option>Customer Excellence</option>
-                                            <option>Creative Tigers</option>
-                                            <option>Others</option>
-                                        </select>
-                                    </div>
-                                    <div className='sm:col-span-2 col-span-4'>
-                                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job:</label>
-                                        <input onChange={e => setJob(e.target.value)} value={job} type="text" name="job" id="job" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: Team Leader, Packer "/>
-                                    </div>
                                     {type!=="Customer" && (
-                                        <div className='col-span-4'>
-                                            <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Knowledge Base Access</h3>
-                                            <ul onChange={e => handleCheckbox(e.target.value)} value={access} className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                                <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                                                    <div className="flex items-center ps-3">
-                                                        <input id="Mountain-Movers-list" type="checkbox" value="Mountain Movers" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
-                                                        <label htmlFor="Mountain-Movers-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mountain Movers</label>
-                                                    </div>
-                                                </li>
-                                                <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                                                    <div className="flex items-center ps-3">
-                                                        <input id="Customer-Excellence-list" type="checkbox" value="Customer Excellence" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
-                                                        <label htmlFor="Customer-Excellence-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Customer Excellence</label>
-                                                    </div>
-                                                </li>
-                                                <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                                                    <div className="flex items-center ps-3">
-                                                        <input id="Mountain-Excellence-list" type="checkbox" value="Mountain Excellence" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
-                                                        <label htmlFor="Mountain-Excellence-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mountain/<br/>Excellence</label>
-                                                    </div>
-                                                </li>
-                                                <li className="w-full dark:border-gray-600">
-                                                    <div className="flex items-center ps-3">
-                                                        <input id="Creative-Tigers-list" type="checkbox" value="Creative Tigers" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
-                                                        <label htmlFor="Creative-Tigers-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Creative Tigers</label>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <>
+                                            <div className='sm:col-span-2 col-span-4'>
+                                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department:</label>
+                                                <select onChange={e=>setDepartment(e.target.value)} name="department" value={department} className="block w-auto mt-2 rounded-md border-0 p-1.5 shadow-sm sm:max-w-xs sm:text-sm text-sm sm:leading-6 font-medium text-gray-900 dark:text-white cursor-pointer">
+                                                    <option value="" disabled>Select Department</option>
+                                                    <option>Mountain Movers</option>
+                                                    <option>Customer Excellence</option>
+                                                    <option>Creative Tigers</option>
+                                                    <option>Others</option>
+                                                </select>
+                                            </div>
+                                            <div className='sm:col-span-2 col-span-4'>
+                                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job:</label>
+                                                <input onChange={e => setJob(e.target.value)} value={job} type="text" name="job" id="job" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ex: Team Leader, Packer "/>
+                                            </div>
+                                        
+                                            <div className='col-span-4'>
+                                                <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Knowledge Base Access</h3>
+                                                <ul onChange={e => handleCheckbox(e.target.value)} value={access} className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                                    <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                                        <div className="flex items-center ps-3">
+                                                            <input id="Mountain-Movers-list" type="checkbox" value="Mountain Movers" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                            <label htmlFor="Mountain-Movers-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mountain Movers</label>
+                                                        </div>
+                                                    </li>
+                                                    <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                                        <div className="flex items-center ps-3">
+                                                            <input id="Customer-Excellence-list" type="checkbox" value="Customer Excellence" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                            <label htmlFor="Customer-Excellence-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Customer Excellence</label>
+                                                        </div>
+                                                    </li>
+                                                    <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                                        <div className="flex items-center ps-3">
+                                                            <input id="Mountain-Excellence-list" type="checkbox" value="Mountain Excellence" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                            <label htmlFor="Mountain-Excellence-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mountain/<br/>Excellence</label>
+                                                        </div>
+                                                    </li>
+                                                    <li className="w-full dark:border-gray-600">
+                                                        <div className="flex items-center ps-3">
+                                                            <input id="Creative-Tigers-list" type="checkbox" value="Creative Tigers" name="acess" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                                            <label htmlFor="Creative-Tigers-list" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Creative Tigers</label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </>
                                     )}
                                     <div className='sm:col-span-2 col-span-4'>
-                                        <label htmlFor="number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact number:</label>
+                                        <label htmlFor="number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact number:<span className='text-xl text-red-500 opacity-0'>*</span></label>
                                         <input onChange={e => setNumber(e.target.value)} value={number} type="text" name="number" id="number" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="09029374987" />
                                     </div>
                                     <div className='sm:col-span-2 col-span-4'>
