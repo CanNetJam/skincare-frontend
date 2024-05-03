@@ -1,18 +1,17 @@
 import React from "react";
 
 const ImagePreview = React.memo((props) => {
-
     function removeIngredient(index) {
-        let list = props.prodIngredients
+        let list = props.product.ingredients
         list.splice(index, 1)
-        props.setProdIngredients(list)
+        props.setProduct({...props.product, ingredients: list})
     }
     
     return (
         <>
-            {props?.prodIngredients[0]!==undefined ? 
+            {props?.product?.ingredients[0]!==undefined ? 
                 <div className="grid grid-cols-6 gap-2 my-2">
-                    {props?.prodIngredients.map((a, index)=> {
+                    {props?.product?.ingredients.map((a, index)=> {
                         return (
                             <div className="h-auto w-auto col-span-6 justify-center p-3 rounded-lg bg-blue-400 relative gap-2 grid grid-cols-3" key={index}>
                                 <label onClick={()=>removeIngredient(index)}  className="absolute right-0 top-0 pr-4 cursor-pointer font-bold hover:text-gray-600">x</label>
